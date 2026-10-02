@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Next.js
+frontend/.next/
+frontend/out/
+frontend/.vercel/
+
+# Environment variables (never commit secrets)
+.env
+.env.local
+.env.*.local
+**/.env
+!**/.env.example
+
+# Foundry
+contracts/cache/
+contracts/out/
+contracts/broadcast/*/31337/
+contracts/lib/
+
+# Editors / OS
+.DS_Store
+*.log
+.vscode/
+.idea/

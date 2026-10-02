@@ -1,0 +1,21 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+# Pin and review at implementation time — check for a newer stable (non-nightly) release.
+solc_version = "0.8.26"
+optimizer = true
+optimizer_runs = 200
+
+[rpc_endpoints]
+# Priority network for development and testing.
+sepolia = "${SEPOLIA_RPC_URL}"
+# Secondary target: validate portability of the same contracts on Polkadot Hub (EVM-compatible via pallet-revive/PolkaVM).
+polkadot_hub_testnet = "${POLKADOT_HUB_TESTNET_RPC_URL}"
+# Mainnet endpoints intentionally omitted — add once the mainnet chain decision is made.
+# See docs/PROJECT_STATUS.md and docs/architecture/blockchain.md.
+
+[etherscan]
+sepolia = { key = "${ETHERSCAN_API_KEY}" }
