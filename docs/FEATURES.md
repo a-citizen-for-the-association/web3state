@@ -20,6 +20,10 @@
 | Citizenship / residency (住民・国民): Resident-Link NFT | 🟢 Spec drafted | [`state-design/citizenship/`](state-design/citizenship/) | — | Municipality-issued, soulbound, nationality-neutral residency-link NFT. See [ADR 0003](decisions/0003-resident-link-identity-model.md) and [discussion log](state-design/citizenship/discussion-log.md). |
 | Taxation: payment (納税) | 🟢 Spec drafted | [`state-design/taxation/`](state-design/taxation/) | — | Payment rail only, no dedicated contract needed. See [ADR 0004](decisions/0004-taxation-payment-rail.md) and [discussion log](state-design/taxation/discussion-log.md). |
 | Corporations (法人) | 🟢 Spec drafted | [`state-design/corporations/`](state-design/corporations/) | — | Authority-issued, soulbound, on-chain corporate registration NFT(s); officer names public, addresses never on-chain. See [ADR 0005](decisions/0005-corporate-registration-model.md) and [discussion log](state-design/corporations/discussion-log.md). |
+| Credentials (公的証明) — general pattern | 🟢 Spec drafted (pattern only) | [`state-design/credentials/`](state-design/credentials/) | — | Cross-cutting rules: pure-possession NFTs (no on-chain fields), per-type trust-anchor reuse, per-type granularity judgment calls. Concrete instances tracked individually below. |
+| ↳ Passport / Nationality credential | 🟡 Discussing | [`state-design/credentials/passport/`](state-design/credentials/passport/) | — | First concrete instance; clears the citizenship-design backlog item and is a prerequisite for voting. See [discussion log](state-design/credentials/passport/discussion-log.md). |
+| ↳ Diploma, license, employee ID, health-insurance, vaccination credentials | 🔴 Not started | — | — | To be designed one at a time after passport, applying the same general pattern. |
+| Voting | 🔴 Not started | — | — | Deliberately sequenced after credentials — depends on the nationality credential and needs its own ballot-secrecy/coercion-resistance design. |
 | Legislative process | 🔴 Not started | — | — | |
 | Executive / administration | 🔴 Not started | — | — | |
 | Judiciary / dispute resolution | 🔴 Not started | — | — | |

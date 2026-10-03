@@ -4,6 +4,18 @@
 
 **Last updated:** 2026-10-03
 
+## ⏸ Paused — resume point
+
+Work is paused mid-discussion on the **passport/nationality credential** (first concrete instance of the [credentials](state-design/credentials/) pattern — see [`docs/state-design/credentials/passport/discussion-log.md`](state-design/credentials/passport/discussion-log.md), Round 1).
+
+**When the user says "再開して" (resume), re-present these 5 open issues verbatim and continue the discussion from there — do not start a new topic first:**
+
+1. Split "nationality" (persistent, 法務省-issued) and "passport" (renewable travel document, 外務省-issued, requires holding a valid nationality credential) into two separate credentials, since they have different lifecycles — confirm or prefer one combined credential.
+2. Allow **self-initiated burn** for the nationality credential specifically (mirroring the real right of 国籍離脱 under 国籍法 Art. 13), as a deliberate, justified exception to citizenship's "authority-only, no self-burn" rule — confirm, or require authority confirmation even for self-initiated renunciation.
+3. (Already resolved, not actually open) Trust-anchor for both 法務省 and 外務省 reuses the existing `.go.jp` mechanism — no new design needed.
+4. Passport renewal is modeled as **burn-and-reissue** (not an on-chain expiry field), consistent with the credentials-wide decision to put zero fields on any credential NFT — confirm this is acceptable.
+5. Should minting a Passport NFT require an **on-chain check** that the applicant already holds a valid Nationality NFT (reusing the `everIssued`/`balanceOf` cross-contract pattern), or is relying on 外務省's existing **off-chain** verification (戸籍 documents) sufficient, with no on-chain dependency between the two contracts? — confirm a preference, or state either is fine to decide at implementation time.
+
 ## Current phase
 
 **Phase 1 (continued) — Designing state functions; implementation deliberately deferred.** Repository scaffold is in place (Phase 0 complete). Three state functions are fully resolved and specified: citizenship/residency (resident-link NFT, [ADR 0003](decisions/0003-resident-link-identity-model.md)), taxation/payment rail ([ADR 0004](decisions/0004-taxation-payment-rail.md)), and corporations/registration ([ADR 0005](decisions/0005-corporate-registration-model.md)). See [`docs/FEATURES.md`](FEATURES.md) for the full, up-to-date progress table, and [`docs/BACKLOG.md`](BACKLOG.md) for items deferred out of those designs.
@@ -43,6 +55,18 @@
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
 **最終更新日:** 2026-10-03
+
+## ⏸ 中断中 — 再開ポイント
+
+**パスポート・国籍クレデンシャル**([公的証明](state-design/credentials/)パターンの最初の具体例 — [`docs/state-design/credentials/passport/discussion-log.md`](state-design/credentials/passport/discussion-log.md) のRound 1参照)の議論の途中で作業を中断しています。
+
+**ユーザーが「再開して」と言ったら、以下の5つの論点をそのまま再提示し、そこから議論を続けること。先に別の話題を始めないこと:**
+
+1. 「国籍」(永続的、法務省発行)と「パスポート」(更新可能な渡航文書、外務省発行、取得には有効な国籍クレデンシャルの保有が必要)を、ライフサイクルが異なるため2つの別のクレデンシャルに分ける — この分割でよいか、それとも1つに統合したいか確認。
+2. 国籍クレデンシャルに限り、**本人による自主バーン**を認める(国籍法13条の国籍離脱という実在の権利を反映)。国民・住民設計の「発行主体のみ、自主バーンなし」というルールへの、正当な例外として — この方針でよいか、それとも自主的な離脱でも発行主体の確認を必要とするか確認。
+3. (実質的に解決済み、未解決ではない)法務省・外務省とも、既存の`.go.jp`の仕組みをそのまま流用でき、新しい設計は不要。
+4. パスポートの更新は、(全ての証明NFTにフィールドを一切持たせないという横断的な決定を踏まえ)オンチェーンの有効期限フィールドではなく**burnして再発行する**形でモデル化する — これでよいか確認。
+5. パスポートNFTの発行時、申請者が既に有効な国籍NFTを保有していることを**オンチェーンで確認する**(国民・住民・納税のeverIssued/balanceOfパターンを再利用)べきか、それとも外務省の既存の**オフチェーンの確認**(戸籍書類)で十分で、2つのコントラクト間にオンチェーンの依存関係を持たせないべきか — お好みを確認、またはどちらでもよく実装時に決めてよいと伝える。
 
 ## 現在のフェーズ
 
