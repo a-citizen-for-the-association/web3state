@@ -2,7 +2,7 @@
 
 This directory will hold the mapping from real-world nation-state functions — law, public administration, political decision-making — to their on-chain/off-chain implementation design.
 
-**Status: empty. Nothing has been scoped yet.** This is intentional — concrete feature design is meant to happen through discussion (see [`docs/PROJECT_STATUS.md`](../PROJECT_STATUS.md) → Next steps), not be pre-decided by the initial scaffold.
+**Status: in progress.** See [`docs/FEATURES.md`](../FEATURES.md) for the up-to-date status of every function. First function under discussion: [`citizenship/`](citizenship/) (国民・住民).
 
 ## Suggested convention (to confirm once the first function is scoped)
 
@@ -28,7 +28,7 @@ Do not create these files speculatively — add one only when a function is actu
 
 このディレクトリには、現実の国家機能(法律・行政・政治的意思決定)を、オンチェーン/オフチェーンの実装設計へマッピングした内容を格納します。
 
-**ステータス: 空。まだ何もスコープされていません。** これは意図的なものです。具体的な機能設計は、初期の足場固めで先回りして決めるのではなく、議論を通じて行う想定です([`docs/PROJECT_STATUS.md`](../PROJECT_STATUS.md) の次のステップ参照)。
+**ステータス: 進行中。** 各機能の最新ステータスは [`docs/FEATURES.md`](../FEATURES.md) を参照してください。現在議論中の最初の機能: [`citizenship/`](citizenship/)(国民・住民)。
 
 ## 想定する規約(最初の機能がスコープされた時点で確定)
 

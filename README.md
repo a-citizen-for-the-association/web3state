@@ -25,6 +25,7 @@ web3state/
 ├── frontend/           # Next.js application (App Router)
 └── docs/
     ├── PROJECT_STATUS.md     # Where the project stands right now
+    ├── FEATURES.md            # At-a-glance progress: every planned function and how far it's gotten
     ├── decisions/             # Architecture Decision Records (ADRs) — why past choices were made
     ├── architecture/          # System design: overview, blockchain, frontend
     ├── state-design/          # Mapping real-world state functions to on-chain/off-chain design
@@ -35,6 +36,7 @@ web3state/
 ## Where to Start
 
 - **New to the project?** Read [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md) first — it describes the current phase and open questions.
+- **Want to see implementation progress at a glance?** See [`docs/FEATURES.md`](docs/FEATURES.md).
 - **Want the history of why things are the way they are?** See [`docs/decisions/`](docs/decisions/).
 - **Working on contracts?** See [`contracts/README.md`](contracts/README.md).
 - **Working on the frontend?** See [`frontend/README.md`](frontend/README.md).
@@ -75,6 +77,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 ## まず読むもの
 
 - **初めてこのプロジェクトに参加する方**: まず [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md) を読んでください。現在のフェーズと未解決の論点がまとまっています。
+- **実装の進捗を一覧で見たい方**: [`docs/FEATURES.md`](docs/FEATURES.md) を参照してください。
 - **過去の経緯(なぜその決定に至ったか)を知りたい方**: [`docs/decisions/`](docs/decisions/) を参照してください。
 - **コントラクト開発に関わる方**: [`contracts/README.md`](contracts/README.md)
 - **フロントエンド開発に関わる方**: [`frontend/README.md`](frontend/README.md)

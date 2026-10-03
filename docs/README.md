@@ -10,6 +10,8 @@ This project is expected to grow large (a nation-state's institutional functions
 | Path | Purpose |
 |---|---|
 | [`PROJECT_STATUS.md`](PROJECT_STATUS.md) | Living document: current phase, what's decided, open questions, next steps. Updated often. |
+| [`FEATURES.md`](FEATURES.md) | At-a-glance progress table: every planned state function and how far it's gotten (discussing → spec → implemented → tested → mainnet). |
+| [`BACKLOG.md`](BACKLOG.md) | Cross-feature list of deferred items ("not now, but don't forget") raised during any state-design discussion. |
 | [`decisions/`](decisions/) | Architecture Decision Records (ADRs). Immutable once accepted — superseded by new ADRs, never edited in place. |
 | [`architecture/`](architecture/) | System design: how contracts, frontend, and chains fit together. |
 | [`state-design/`](state-design/) | Mapping real-world state functions (law, administration, governance) to on-chain/off-chain design. |
@@ -38,6 +40,8 @@ These three serve different, non-overlapping purposes — don't merge them:
 | パス | 目的 |
 |---|---|
 | [`PROJECT_STATUS.md`](PROJECT_STATUS.md) | 生きたドキュメント。現在のフェーズ、決定済み事項、未解決の論点、次のステップ。頻繁に更新される。 |
+| [`FEATURES.md`](FEATURES.md) | 一覧性のある進捗表。各国家機能が今どこまで進んでいるか(議論中 → 設計確定 → 実装済み → テスト済み → メインネット)。 |
+| [`BACKLOG.md`](BACKLOG.md) | どこかの機能の議論で先送りされた「今はやらないが忘れてはいけない」項目を横断的にまとめたリスト。 |
 | [`decisions/`](decisions/) | ADR(Architecture Decision Record)。一度確定したら書き換えず、変更する場合は新しいADRで上書き(supersede)する。 |
 | [`architecture/`](architecture/) | システム設計: コントラクト・フロントエンド・対象チェーンの関係。 |
 | [`state-design/`](state-design/) | 現実の国家機能(法律・行政・統治)をオンチェーン/オフチェーン設計へマッピングする。 |

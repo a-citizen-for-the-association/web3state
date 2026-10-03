@@ -15,6 +15,8 @@ This directory records significant, hard-to-reverse decisions, in the order they
 |---|---|---|
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
 | [0002](0002-initial-stack-and-structure.md) | Initial stack and repository structure | Accepted |
+| [0003](0003-resident-link-identity-model.md) | Resident-link identity model for citizenship/residency | Accepted |
+| [0004](0004-taxation-payment-rail.md) | Taxation payment rail: direct, resident-initiated payments only, no dedicated contract | Accepted |
 
 ---
 
