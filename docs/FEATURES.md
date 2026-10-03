@@ -19,6 +19,7 @@
 |---|---|---|---|---|
 | Citizenship / residency (住民・国民): Resident-Link NFT | 🟢 Spec drafted | [`state-design/citizenship/`](state-design/citizenship/) | — | Municipality-issued, soulbound, nationality-neutral residency-link NFT. See [ADR 0003](decisions/0003-resident-link-identity-model.md) and [discussion log](state-design/citizenship/discussion-log.md). |
 | Taxation: payment (納税) | 🟢 Spec drafted | [`state-design/taxation/`](state-design/taxation/) | — | Payment rail only, no dedicated contract needed. See [ADR 0004](decisions/0004-taxation-payment-rail.md) and [discussion log](state-design/taxation/discussion-log.md). |
+| Corporations (法人) | 🟢 Spec drafted | [`state-design/corporations/`](state-design/corporations/) | — | Authority-issued, soulbound, on-chain corporate registration NFT(s); officer names public, addresses never on-chain. See [ADR 0005](decisions/0005-corporate-registration-model.md) and [discussion log](state-design/corporations/discussion-log.md). |
 | Legislative process | 🔴 Not started | — | — | |
 | Executive / administration | 🔴 Not started | — | — | |
 | Judiciary / dispute resolution | 🔴 Not started | — | — | |
