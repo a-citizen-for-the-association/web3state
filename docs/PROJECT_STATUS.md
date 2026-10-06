@@ -4,6 +4,12 @@
 
 **Last updated:** 2026-10-06
 
+## ⏸ Paused — resume point
+
+Work is paused right after finishing the [license](state-design/credentials/license/) credential (ADR 0008), before starting the next one.
+
+**When the user says "再開して" (resume): ask which remaining credential type to design next — 社員証 (employee ID), 健康保険証 (health-insurance), or 接種証明 (vaccination) — and briefly remind them of the patterns validated so far** (possession-only NFTs with zero on-chain fields; trust-anchor and granularity decided per type; passport = pure government document with no dependency on `ResidentLink`; diploma/license = issuer reuses an existing registration — corporate for diploma, government for license — and requires holding `ResidentLink` at mint time). Don't just pick one — the user hadn't yet answered this when the pause was requested. Then proceed with that credential the same way as before: raise issues, discuss, record in a discussion log, write an ADR + spec.
+
 ## Current phase
 
 **Phase 1 (continued) — Designing state functions; implementation deliberately deferred.** Repository scaffold is in place (Phase 0 complete). Six state functions are fully resolved and specified: citizenship/residency (resident-link NFT, [ADR 0003](decisions/0003-resident-link-identity-model.md)), taxation/payment rail ([ADR 0004](decisions/0004-taxation-payment-rail.md)), corporations/registration ([ADR 0005](decisions/0005-corporate-registration-model.md)), the passport credential ([ADR 0006](decisions/0006-passport-credential.md)), the diploma credential ([ADR 0007](decisions/0007-diploma-credential.md)), and the license credential ([ADR 0008](decisions/0008-license-credential.md)) — the first three concrete instances of the broader "credentials" pattern. See [`docs/FEATURES.md`](FEATURES.md) for the full, up-to-date progress table, and [`docs/BACKLOG.md`](BACKLOG.md) for items deferred out of those designs.
@@ -48,6 +54,12 @@
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
 **最終更新日:** 2026-10-06
+
+## ⏸ 中断中 — 再開ポイント
+
+[免許証](state-design/credentials/license/)クレデンシャル(ADR 0008)が完了した直後、次の証明に着手する前の状態で作業を中断しています。
+
+**ユーザーが「再開して」と言ったら、残りのどの証明(社員証、健康保険証、接種証明)から進めるかを尋ね、これまで検証したパターンを簡潔に振り返ること**(保持のみを証明しオンチェーンのフィールドを一切持たないNFT、信頼の起点・粒度は証明ごとの判断、パスポート＝`ResidentLink`への依存なしの純粋な政府発行文書、卒業証明・免許証＝発行主体が既存の登録(卒業証明は法人登録、免許証は政府の登録)を流用し、mint時に`ResidentLink`の保有を要件とする)。中断を依頼された時点でユーザーはまだこの質問に答えていないため、勝手にどれか1つを選ばないこと。その後は、これまでと同じ進め方(論点の提起→議論→議論ログへの記録→ADR＋設計書の作成)でその証明の設計を続ける。
 
 ## 現在のフェーズ
 
