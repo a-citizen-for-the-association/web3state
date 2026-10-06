@@ -23,9 +23,11 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/corporations/`: completed design spec for the corporate registration feature (法人) — authority-issued, soulbound, on-chain registration NFT(s); officer/representative names public on-chain, addresses never on-chain; corporation's own address is a multisig contract signed with officers' personal keys. Full reasoning in `discussion-log.md`.
 - `docs/decisions/0005-corporate-registration-model.md`: ADR for the corporate registration model.
 - `docs/state-design/credentials/`: opened the general "credentials" feature (diplomas, passports, licenses, employee IDs, health-insurance and vaccination certificates, etc.) — cross-cutting rules agreed: NFTs prove possession only (no on-chain fields), trust-anchor and sub-type granularity decided per credential type. Full reasoning in `discussion-log.md`.
-- `docs/state-design/credentials/passport/`: opened the first concrete credential instance (passport/nationality) — discussion in progress (5 issues raised, paused awaiting user response; see `docs/PROJECT_STATUS.md` for the resume point).
+- `docs/state-design/credentials/passport/`: completed design spec for the passport credential — a pure travel-document NFT issued by 外務省; no on-chain nationality credential was built (nationality verified entirely off-chain, same pattern as `ResidentLink`'s identity check). Full reasoning in `discussion-log.md`.
+- `docs/decisions/0006-passport-credential.md`: ADR for the passport credential decisions.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
 - `docs/FEATURES.md`: removed the stale "Municipality registry" row (decided against in ADR 0003; tracked in `docs/BACKLOG.md` instead).
-- `docs/PROJECT_STATUS.md`: added an explicit "paused / resume point" section pointing at the in-progress passport credential discussion.
+- `docs/BACKLOG.md`: closed the original "nationality/passport credential" row (passport now designed); added a new row for whether nationality/residence-status should ever be managed on-chain, deferred to a future "foreign residents" topic.
+- `docs/PROJECT_STATUS.md`: removed the "paused / resume point" section (resolved) and updated to reflect the passport credential's completion.

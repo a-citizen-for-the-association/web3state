@@ -18,6 +18,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0003](0003-resident-link-identity-model.md) | Resident-link identity model for citizenship/residency | Accepted |
 | [0004](0004-taxation-payment-rail.md) | Taxation payment rail: direct, resident-initiated payments only, no dedicated contract | Accepted |
 | [0005](0005-corporate-registration-model.md) | Corporate registration model: authority-issued, on-chain, officer-name-only NFT | Accepted |
+| [0006](0006-passport-credential.md) | Passport credential: pure travel document, nationality verified off-chain | Accepted |
 
 ---
 

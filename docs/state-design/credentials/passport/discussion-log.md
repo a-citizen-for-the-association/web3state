@@ -28,9 +28,35 @@ Since the NFT carries no fields, there's no on-chain "valid until" date. Proposa
 
 Given issue 1's split, minting a Passport NFT could either (a) require an on-chain check that the applicant's address already holds a valid Nationality NFT (reusing the `everIssued`/`balanceOf`-style cross-contract check pattern from citizenship/taxation), or (b) simply trust 外務省's existing off-chain verification process (checking 戸籍 documents), with no on-chain dependency between the two contracts. Either is internally consistent with prior designs (taxation's deduplication check used (a)'s pattern; citizenship's own mint process uses (b)'s pattern for identity verification generally). Confirm a preference, or state it doesn't matter and either is fine to decide at implementation time.
 
-### Status
+---
 
-Awaiting the user's responses to issues 1–5 before writing the spec.
+## Round 2 — 2026-10-06 (User + Claude) — All issues resolved via scope correction
+
+### User
+
+Confirms wanting to split nationality and passport, and mentions wanting nationality handling to also cover "the residential card we first considered." Claude initially misread this as a request to design a new, parallel on-chain credential for foreign residents' residence status (在留カード) alongside nationality — asked for confirmation.
+
+### User (clarification)
+
+Corrects the misunderstanding: what was designed first was `ResidentLink` (citizenship), which defines residents generically. The national/foreign-resident distinction is understood to already exist in the *existing off-chain administrative data* municipalities manage (analogous to 住基ネット) — the same off-chain information a municipality already has access to when verifying identity before minting `ResidentLink`. The user wants to rely on that existing off-chain management rather than building a new on-chain credential for it. **Intent: passport should be designed purely as a travel document, nothing more.**
+
+### Claude
+
+Acknowledged the correction and re-derived the consequences for each original issue:
+
+- **Issue 1 (split nationality/passport):** revised — no separate on-chain "Nationality" credential is built at all. Only **Passport** is designed. 外務省 verifies nationality entirely off-chain, using existing real-world administrative processes/data (戸籍 etc.) — the same pattern as how a municipality verifies identity off-chain before minting `ResidentLink`. No on-chain nationality sub-credential to depend on.
+- **Issue 2 (self-initiated burn for 国籍離脱):** moot — since nationality has no on-chain representation in this design, there's nothing to self-burn. Passport itself, being a controlled travel document (not a personal-rights status), reverts to the citizenship default: **authority-only mint/burn, no self-burn** (mirrors how a physical passport is surrendered to the authority, not unilaterally destroyed by the holder).
+- **Issue 3 (trust-anchor):** unchanged — `.go.jp` for 外務省.
+- **Issue 4 (renewal = burn-and-reissue):** unchanged, applies as originally proposed.
+- **Issue 5 (on-chain nationality check at passport mint time):** moot for the same reason as Issue 2 — there's no on-chain Nationality credential to check. Verification is purely off-chain.
+
+### User (final confirmation)
+
+Confirms this understanding. Asks that **whether to manage nationality (or a residence-status equivalent for foreign residents) on-chain** be revisited separately, as part of a future "foreign residents" design topic — not now. Requests this be added to the backlog.
+
+### Resolution
+
+**All issues resolved.** Scope for this credential: **Passport only** — a pure travel-document credential, issued by 外務省, authority-only mint/burn (no self-burn), renewal modeled as burn-and-reissue, nationality verified entirely off-chain (no on-chain dependency on any nationality credential, because none is built). Added to [`docs/BACKLOG.md`](../../../BACKLOG.md): whether to manage nationality/residence-status on-chain, deferred to a future foreign-residents design topic.
 
 ---
 
@@ -64,6 +90,32 @@ NFTが何のフィールドも持たない以上、オンチェーンに「有�
 
 論点1の分割を前提にすると、パスポートNFTの発行は、(a)申請者のアドレスが既に有効な国籍NFTを保有していることをオンチェーンで確認する(国民・住民・納税のeverIssued/balanceOfパターンを再利用)か、(b)外務省の既存のオフチェーン確認プロセス(戸籍書類の確認)をそのまま信頼し、2つのコントラクト間にオンチェーンの依存関係を持たせないか、のどちらかになります。どちらも過去の設計と内部的に矛盾しません(納税の重複防止チェックは(a)のパターン、国民・住民自体のmintプロセスの本人確認は一般的に(b)のパターンを使っています)。どちらがお好みか、あるいはどちらでもよく実装時に決めればよいか教えてください。
 
-### ステータス
+---
 
-Issue 1〜5についてユーザーの回答待ち。設計書の作成はその後。
+## Round 2 — 2026-10-06(ユーザー + Claude)— スコープ修正により全論点解決
+
+### ユーザー
+
+国籍とパスポートを分離したいことを確認し、国籍の扱いには「最初に検討したresidential card」も含めたい、と言及。Claudeはこれを、外国人住民の在留資格を示す、国籍とは別の新しいオンチェーンクレデンシャルを並行して設計してほしい、という要望だと誤解し、確認を求めた。
+
+### ユーザー(訂正)
+
+誤解を訂正: 最初に設計したのは`ResidentLink`(国民・住民)であり、これは住民全般を定義するもの。国民か在留外国人かという区分は、市区町村が管理する既存のオフチェーンの行政データ(住基ネットのようなもの)に既に含まれていると理解している — これは`ResidentLink`発行前に市区町村が本人確認に使うのと同じオフチェーンの情報。新たにオンチェーンのクレデンシャルを作るのではなく、この既存のオフチェーン管理を前提にしたい。**意図: パスポートはあくまで「旅券」としてのみ設計したい。**
+
+### Claude
+
+訂正を了承し、各論点への帰結を整理し直した:
+
+- **論点1(国籍とパスポートの分離)**: 修正 — 別のオンチェーン「国籍」クレデンシャルは一切作らない。設計するのは**パスポートのみ**。外務省は、既存の現実の行政プロセス・データ(戸籍等)を使って国籍を完全にオフチェーンで確認する — 市区町村が`ResidentLink`発行前にオフチェーンで本人確認するのと同じパターン。依存すべきオンチェーンの国籍サブクレデンシャルは存在しない。
+- **論点2(国籍離脱の自主バーン)**: 消滅 — この設計には国籍のオンチェーン表現がないため、自主バーンする対象がそもそも存在しない。パスポート自体は、個人の権利としての地位ではなく統制された公文書(渡航文書)なので、国民・住民設計のデフォルト通り**発行主体のみがmint/burnでき、自主バーンはなし**(物理的なパスポートも本人が一方的に破棄するのではなく返納するのと同じ)。
+- **論点3(信頼の起点)**: 変更なし — 外務省には`.go.jp`。
+- **論点4(更新=burn+再発行)**: 変更なし、当初の提案通り適用。
+- **論点5(パスポート発行時の国籍のオンチェーン確認)**: 論点2と同じ理由で消滅 — 確認すべきオンチェーンの国籍クレデンシャルが存在しない。確認は完全にオフチェーンで行う。
+
+### ユーザー(最終確認)
+
+この理解を確認。**国籍(または外国人向けの在留資格相当)をオンチェーンで管理するかどうか**は、別途将来の「外国人」検討項目の一部として再検討したい、今ではない、と依頼。バックログへの追加を要請。
+
+### 解決
+
+**全論点解決。** このクレデンシャルのスコープ: **パスポートのみ** — 外務省が発行する、純粋な渡航文書クレデンシャル。発行主体のみがmint/burnでき(自主バーンなし)、更新はburn+再発行でモデル化し、国籍は完全にオフチェーンで確認する(依存すべきオンチェーンの国籍クレデンシャルは作らないため)。[`docs/BACKLOG.md`](../../../BACKLOG.md)に、国籍/在留資格をオンチェーンで管理するかどうかを、将来の外国人関連の設計項目として追加した。
