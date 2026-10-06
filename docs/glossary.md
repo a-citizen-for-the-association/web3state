@@ -10,6 +10,7 @@ Shared vocabulary between real-world state concepts and their technical counterp
 | Corporation (法人) | A juridical person under 会社法 etc. — not a sole proprietor | Authority-issued, soulbound, on-chain registration NFT (a corporation may hold several, one per authority) | See [`docs/state-design/corporations/`](state-design/corporations/), [ADR 0005](decisions/0005-corporate-registration-model.md) |
 | Passport (パスポート) | A travel document issued by 外務省 to Japanese nationals | Soulbound, possession-only NFT; nationality verified off-chain at mint time, no on-chain fields | See [`docs/state-design/credentials/passport/`](state-design/credentials/passport/), [ADR 0006](decisions/0006-passport-credential.md) |
 | Diploma (卒業証明) | A degree/graduation certificate issued by a school | Soulbound, possession-only NFT issued from the school's existing corporate-registration address; requires holding `ResidentLink` at mint time (any nationality) | See [`docs/state-design/credentials/diploma/`](state-design/credentials/diploma/), [ADR 0007](decisions/0007-diploma-credential.md) |
+| License (免許証) | A driver's license issued by a prefectural 公安委員会 | Soulbound, possession-only NFT (single contract per prefecture, no per-vehicle-class split); suspension and revocation both represented as burn; requires `ResidentLink` at mint time | See [`docs/state-design/credentials/license/`](state-design/credentials/license/), [ADR 0008](decisions/0008-license-credential.md) |
 | Constitution | The foundational rules a state operates under | *TBD — likely maps to immutable/hard-to-upgrade contract logic and project governance* | — |
 
 *(This table is intentionally sparse — it grows as real design work in `docs/state-design/` happens.)*
@@ -28,6 +29,7 @@ Shared vocabulary between real-world state concepts and their technical counterp
 | 法人(Corporation) | 会社法等に基づく法人格を持つ主体 — 個人事業主は含まない | 発行主体ごとの、譲渡不可・オンチェーンの登録NFT(法人は主体ごとに複数保有可) | [`docs/state-design/corporations/`](state-design/corporations/)、[ADR 0005](decisions/0005-corporate-registration-model.md) 参照 |
 | パスポート(Passport) | 外務省が日本国民に発行する渡航文書 | 譲渡不可、保持のみを証明するNFT。mint時に国籍をオフチェーンで確認、オンチェーンのフィールドはなし | [`docs/state-design/credentials/passport/`](state-design/credentials/passport/)、[ADR 0006](decisions/0006-passport-credential.md) 参照 |
 | 卒業証明(Diploma) | 学校が発行する学位・卒業証明 | 学校の既存の法人登録アドレスから発行する、譲渡不可・保持のみを証明するNFT。mint時に`ResidentLink`の保有を要件とする(国籍を問わない) | [`docs/state-design/credentials/diploma/`](state-design/credentials/diploma/)、[ADR 0007](decisions/0007-diploma-credential.md) 参照 |
+| 免許証(License) | 都道府県の公安委員会が発行する運転免許証 | 譲渡不可・保持のみを証明するNFT(都道府県ごとに1コントラクト、車両区分での分割なし)。停止・取消はいずれもburnとして表現。mint時に`ResidentLink`を要件とする | [`docs/state-design/credentials/license/`](state-design/credentials/license/)、[ADR 0008](decisions/0008-license-credential.md) 参照 |
 | 憲法(Constitution) | 国家が従う根本規則 | *未定 — おそらく不変/アップグレードしにくいコントラクトロジックとプロジェクトガバナンスに対応* | — |
 
 *(このテーブルは意図的に空に近い状態にしてあります。`docs/state-design/` での実際の設計作業が進むにつれて増えていきます。)*

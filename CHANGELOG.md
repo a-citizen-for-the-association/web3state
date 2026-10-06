@@ -27,6 +27,8 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/decisions/0006-passport-credential.md`: ADR for the passport credential decisions.
 - `docs/state-design/credentials/diploma/`: completed design spec for the diploma/graduation-certificate credential — issued from a school's existing corporate-registration address (schools treated as a specially-regulated corporation category, no new `.ac.jp`/`.ed.jp` mechanism); requires the recipient to hold a `ResidentLink` NFT at mint time (one-time, on-chain, nationality-neutral check); simplest lifecycle so far (mint-once, rare-burn only). Full reasoning in `discussion-log.md`.
 - `docs/decisions/0007-diploma-credential.md`: ADR for the diploma credential decisions.
+- `docs/state-design/credentials/license/`: completed design spec for the driver's-license credential — a single contract per prefecture (no per-vehicle-class split, unlike diploma); suspension and revocation both represented identically on-chain as burn, with the real-world distinction kept off-chain; requires the recipient to hold a `ResidentLink` NFT at mint time, same pattern as diploma. Full reasoning in `discussion-log.md`.
+- `docs/decisions/0008-license-credential.md`: ADR for the license credential decisions.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
