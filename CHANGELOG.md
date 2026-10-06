@@ -25,6 +25,8 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/credentials/`: opened the general "credentials" feature (diplomas, passports, licenses, employee IDs, health-insurance and vaccination certificates, etc.) — cross-cutting rules agreed: NFTs prove possession only (no on-chain fields), trust-anchor and sub-type granularity decided per credential type. Full reasoning in `discussion-log.md`.
 - `docs/state-design/credentials/passport/`: completed design spec for the passport credential — a pure travel-document NFT issued by 外務省; no on-chain nationality credential was built (nationality verified entirely off-chain, same pattern as `ResidentLink`'s identity check). Full reasoning in `discussion-log.md`.
 - `docs/decisions/0006-passport-credential.md`: ADR for the passport credential decisions.
+- `docs/state-design/credentials/diploma/`: completed design spec for the diploma/graduation-certificate credential — issued from a school's existing corporate-registration address (schools treated as a specially-regulated corporation category, no new `.ac.jp`/`.ed.jp` mechanism); requires the recipient to hold a `ResidentLink` NFT at mint time (one-time, on-chain, nationality-neutral check); simplest lifecycle so far (mint-once, rare-burn only). Full reasoning in `discussion-log.md`.
+- `docs/decisions/0007-diploma-credential.md`: ADR for the diploma credential decisions.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
