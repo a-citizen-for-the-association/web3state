@@ -21,6 +21,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0006](0006-passport-credential.md) | Passport credential: pure travel document, nationality verified off-chain | Accepted |
 | [0007](0007-diploma-credential.md) | Diploma credential: reuses corporate registration, requires ResidentLink | Accepted |
 | [0008](0008-license-credential.md) | License credential: single possession-only contract, suspension and revocation both burn | Accepted |
+| [0009](0009-health-insurance-credential.md) | Health insurance credential: continuous status, multi-issuer-type trust reuse | Accepted |
 
 ---
 

@@ -29,10 +29,12 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/decisions/0007-diploma-credential.md`: ADR for the diploma credential decisions.
 - `docs/state-design/credentials/license/`: completed design spec for the driver's-license credential — a single contract per prefecture (no per-vehicle-class split, unlike diploma); suspension and revocation both represented identically on-chain as burn, with the real-world distinction kept off-chain; requires the recipient to hold a `ResidentLink` NFT at mint time, same pattern as diploma. Full reasoning in `discussion-log.md`.
 - `docs/decisions/0008-license-credential.md`: ADR for the license credential decisions.
+- `docs/state-design/credentials/health-insurance/`: completed design spec for the public health-insurance credential — one contract per insurer; every insurer type (municipality, prefectural 広域連合, 協会けんぽ, 組合健保, 共済組合) maps onto an already-established trust mechanism; continuous (non-expiring) lifecycle unlike passport/license; requires `ResidentLink` at mint; no special handling for dependents. Full reasoning in `discussion-log.md`.
+- `docs/decisions/0009-health-insurance-credential.md`: ADR for the health-insurance credential decisions.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
 - `docs/FEATURES.md`: removed the stale "Municipality registry" row (decided against in ADR 0003; tracked in `docs/BACKLOG.md` instead).
 - `docs/BACKLOG.md`: closed the original "nationality/passport credential" row (passport now designed); added a new row for whether nationality/residence-status should ever be managed on-chain, deferred to a future "foreign residents" topic.
 - `docs/PROJECT_STATUS.md`: removed the "paused / resume point" section (resolved) and updated to reflect the passport credential's completion.
-- `docs/PROJECT_STATUS.md`: added a new "paused / resume point" section — work paused after the license credential, before the user has chosen which remaining credential (employee ID, health-insurance, vaccination) to design next.
+- `docs/PROJECT_STATUS.md`: added, then removed (resolved), a "paused / resume point" section covering the gap between the license and health-insurance credentials.
