@@ -25,6 +25,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0010](0010-employee-id-credential.md) | Employee ID credential: corporate-registration reuse, no ResidentLink dependency | Accepted |
 | [0011](0011-vaccination-credential.md) | Vaccination credential: stateful coupon, three-party authorization | Accepted |
 | [0012](0012-onchain-scope-philosophy.md) | On-chain scope philosophy: what to push on-chain, what to deliberately exclude | Accepted |
+| [0013](0013-voting-model.md) | Voting model: threshold-decrypted homomorphic tallying, ResidentLink-based participation, generic election primitive | Accepted |
 
 ---
 

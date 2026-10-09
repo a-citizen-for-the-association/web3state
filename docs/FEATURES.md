@@ -27,7 +27,7 @@
 | **Identity & Rights** | ↳ Health insurance (健康保険証) | 🟢 Spec drafted | [`.../health-insurance/`](state-design/credentials/health-insurance/) | One contract per insurer; continuous status, not renewed. [ADR 0009](decisions/0009-health-insurance-credential.md). |
 | **Identity & Rights** | ↳ Employee ID (社員証) | 🟢 Spec drafted | [`.../employee-id/`](state-design/credentials/employee-id/) | Issued by any registered corporation; no `ResidentLink` dependency. [ADR 0010](decisions/0010-employee-id-credential.md). |
 | **Identity & Rights** | ↳ Vaccination (接種証明) | 🟢 Spec drafted | [`.../vaccination/`](state-design/credentials/vaccination/) | Stateful coupon; hospitals mark vaccinated via a role gated on corporate registration. [ADR 0011](decisions/0011-vaccination-credential.md). |
-| **Governance Core** | Voting | 🔴 Not started | — | Next up. Needs ballot-secrecy/coercion-resistance design; nationality verification still unresolved (see `docs/BACKLOG.md`). |
+| **Governance Core** | Voting | 🟢 Spec drafted | [`state-design/voting/`](state-design/voting/) | One generic election primitive (one-hot encrypted ballots + homomorphic summation + threshold decryption + pluggable seat allocation) covers referendums, single-seat plurality, multi-seat SNTV, and party-list PR; ranked-choice/STV and write-ins excluded. Voting from the resident's existing `ResidentLink` address. [ADR 0013](decisions/0013-voting-model.md). |
 | **Governance Core** | Legislative process | 🔴 Not started | — | |
 | **Governance Core** | Executive / administration | 🔴 Not started | — | |
 | **Governance Core** | Judiciary / dispute resolution | 🔴 Not started | — | |
