@@ -31,6 +31,8 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/decisions/0008-license-credential.md`: ADR for the license credential decisions.
 - `docs/state-design/credentials/health-insurance/`: completed design spec for the public health-insurance credential — one contract per insurer; every insurer type (municipality, prefectural 広域連合, 協会けんぽ, 組合健保, 共済組合) maps onto an already-established trust mechanism; continuous (non-expiring) lifecycle unlike passport/license; requires `ResidentLink` at mint; no special handling for dependents. Full reasoning in `discussion-log.md`.
 - `docs/decisions/0009-health-insurance-credential.md`: ADR for the health-insurance credential decisions.
+- `docs/state-design/credentials/employee-id/`: completed design spec for the employee ID credential — issued from any registered corporation's existing corporate-registration address (sole proprietors cannot issue it); one contract per company; continuous lifecycle like health insurance; no `ResidentLink` precondition (the first since passport, since employment isn't inherently tied to Japanese residency). Full reasoning in `discussion-log.md`.
+- `docs/decisions/0010-employee-id-credential.md`: ADR for the employee ID credential decisions.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
