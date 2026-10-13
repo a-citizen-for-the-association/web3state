@@ -1,7 +1,7 @@
 # 0003. Resident-link identity model for citizenship/residency
 
 **Date:** 2026-10-03
-**Status:** Accepted
+**Status:** Accepted. The "no on-chain registry in v1" point is revisited by [ADR 0015](0015-political-donations-model.md) (`OfficialContractRegistry`).
 
 ## Context
 

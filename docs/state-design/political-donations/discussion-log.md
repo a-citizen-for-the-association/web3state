@@ -114,6 +114,22 @@ Awaiting the user's decision on Issue 7.
 
 ---
 
+## Round 5 — 2026-10-13 (user + Claude)
+
+### Issue 7 — Resolved: option (i)
+
+The user chose **(i): an on-chain allowlist** of genuine `ResidentLink` and corporate-registration contracts, checked by the fund contract at donation time, maintained by 総務省. This also closes the backlog item "On-chain municipality registry contract": its revisit trigger (a concrete on-chain consumer needing automated contract-to-contract verification) is now met.
+
+### One adjustment made while writing the spec (flagged for review)
+
+Issue 4b said unaccounted funds can be "returned or forfeited". If the controller could send unaccounted funds to an arbitrary address as a "refund", a direct transfer followed by a "refund" would be an untraceable laundering route through the fund. The spec therefore allows unaccounted funds to go **only to the treasury**. A genuine sender who sent funds by mistake claims a refund from the treasury off-chain.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0015](../../decisions/0015-political-donations-model.md).
+
+---
+
 # 議論ログ: 政治献金(日本語)
 
 この機能の設計に関するやり取りを順番に記録します。形式は [`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md) に従います。
@@ -227,3 +243,19 @@ BACKLOGの「オンチェーンの市区町村レジストリ」は、まさに�
 ### ステータス
 
 論点7についてユーザーの判断待ち。
+
+---
+
+## Round 5 — 2026-10-13(ユーザー + Claude)
+
+### 論点7 — 解決: 選択肢(i)
+
+ユーザーは**(i): 本物の`ResidentLink`と法人登記コントラクトのオンチェーン許可リスト**を選択した。資金コントラクトが献金の時点でこれを確認し、総務省が管理する。これによりBACKLOGの「オンチェーンの市区町村レジストリ」も解消される。再検討の条件(オンチェーンの利用者がコントラクト間の自動検証を具体的に必要とすること)を満たしたためである。
+
+### 仕様作成時に加えた調整(レビュー対象)
+
+論点4bでは、出所不明の資金は「返金または没収」としていた。しかし管理者が出所不明の資金を「返金」として任意のアドレスへ送れると、直接送金してから「返金」させることで、資金コントラクトを経由した追跡不能な資金洗浄の経路になる。そのため仕様では、出所不明の資金の行き先を**国庫のみ**とした。誤って送金した本来の送金者は、オフチェーンで国庫に返金を請求する。
+
+### ステータス
+
+すべての論点が解決。仕様を作成した([`README.md`](README.md))。ADR: [0015](../../decisions/0015-political-donations-model.md)。

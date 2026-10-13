@@ -21,7 +21,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Governance Core | Judiciary / dispute resolution | 🔴 Not started |
 | Public Finance & Taxation | [Taxation: payment](docs/state-design/taxation/) | 🟢 Spec drafted |
 | Public Finance & Taxation | Treasury / public finance (budget, spending) | 🔴 Not started |
-| Political Transparency | [Political donations](docs/state-design/political-donations/) | 🟡 Discussing |
+| Political Transparency | [Political donations](docs/state-design/political-donations/) | 🟢 Spec drafted |
 | Political Transparency | VIP / politician asset disclosure | 🔴 Not started |
 | Political Transparency | Public procurement / bidding | 🔴 Not started |
 | Political Transparency | Subsidies / grants disbursement | 🔴 Not started |
@@ -111,7 +111,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 統治の中核 | 司法・紛争解決 | 🔴 未着手 |
 | 財政・税 | [納税](docs/state-design/taxation/) | 🟢 設計確定 |
 | 財政・税 | 財務(予算・歳出) | 🔴 未着手 |
-| 政治の透明性 | [政治献金](docs/state-design/political-donations/) | 🟡 議論中 |
+| 政治の透明性 | [政治献金](docs/state-design/political-donations/) | 🟢 設計確定 |
 | 政治の透明性 | 要人(政治家等)の資産公開 | 🔴 未着手 |
 | 政治の透明性 | 公共調達・入札 | 🔴 未着手 |
 | 政治の透明性 | 補助金・交付金の交付 | 🔴 未着手 |
