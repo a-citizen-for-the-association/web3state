@@ -33,7 +33,7 @@
 | **Governance Core** | Judiciary / dispute resolution | 🔴 Not started | — | |
 | **Public Finance & Taxation** | Taxation: payment (納税) | 🟢 Spec drafted | [`state-design/taxation/`](state-design/taxation/) | Payment rail only, no dedicated contract. [ADR 0004](decisions/0004-taxation-payment-rail.md). |
 | **Public Finance & Taxation** | Treasury / public finance (歳出・予算) | 🔴 Not started | — | Public money deserves maximal auditability. |
-| **Political Transparency** | Political donations (政治献金) | 🔴 Not started | — | Makes covert political funding harder to hide. Scope also includes legislators' public roll-call vote records (議員の記名採決記録), joined with donation data. [ADR 0014](decisions/0014-legislative-process-scope.md). |
+| **Political Transparency** | Political donations (政治献金) | 🟡 Discussing | [`state-design/political-donations/`](state-design/political-donations/) | Makes covert political funding harder to hide. Scope also includes legislators' public roll-call vote records (議員の記名採決記録), joined with donation data. [ADR 0014](decisions/0014-legislative-process-scope.md). |
 | **Political Transparency** | VIP / politician asset disclosure (要人の資産公開) | 🔴 Not started | — | Continuous, verifiable wealth disclosure for accountability; pairs with stablecoin-income visibility. |
 | **Political Transparency** | Public procurement / bidding (公共調達・入札) | 🔴 Not started | — | Reduces bid-rigging (談合). |
 | **Political Transparency** | Subsidies / grants disbursement (補助金・交付金) | 🔴 Not started | — | Traceable disbursement reduces subsidy fraud. |
