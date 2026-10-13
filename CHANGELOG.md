@@ -37,6 +37,8 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/decisions/0011-vaccination-credential.md`: ADR for the vaccination credential decisions.
 - `docs/decisions/0012-onchain-scope-philosophy.md`: ADR recording the project's broader on-chain scope philosophy — ~20 new candidate systems across 8 categories (political transparency, social welfare, public-interest finance, property/vital records, corporate/market transparency, judicial infrastructure, commerce/markets, governance core), everyday commerce in-scope for tax transparency, wealth-focused financial services carved out to provider-handled compliance, and high-frequency trading / personal wealth-accumulation investment explicitly excluded (not silently omitted).
 - Root `README.md`: added a prominent "System Roadmap" table (English + Japanese) embedding a condensed copy of `docs/FEATURES.md` directly in the README, per the user's request for maximum visibility — not merely linked.
+- `docs/state-design/legislative/` and `docs/decisions/0014-legislative-process-scope.md`: scoped the legislative process out (🚫), carving out direct-demand petition signatures as their own item; adopted the reusable on-chain value test.
+- `docs/state-design/political-donations/` and `docs/decisions/0015-political-donations-model.md`: completed design spec for political donations — receiving-side `PoliticalFund` contracts, traceable donors without on-chain names, and a 総務省-operated `OfficialContractRegistry`.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
@@ -52,3 +54,8 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/decisions/0013-voting-model.md`: ADR for the voting design decisions.
 - `docs/glossary.md`: added "Voting / Election" and "Threshold decryption" entries.
 - `docs/BACKLOG.md`: added two voting-related deferred items — selecting the concrete audited cryptographic library/implementation and commissioning its security audit, and reducing the operational cost of per-voter eligibility grants at national-election scale.
+- `docs/FEATURES.md`, root `README.md`: legislative process moved to 🚫 Excluded; new 🔴 row for direct-demand petition signatures; political donations set to 🟢 Spec drafted.
+- `docs/decisions/0003`, `0014`: status lines annotated (registry point revisited / roll-call bullet superseded by ADR 0015).
+- `docs/BACKLOG.md`: closed the on-chain municipality registry item (now `OfficialContractRegistry`); added disposition of a political organization's funds on dissolution.
+- `docs/glossary.md`: added on-chain value test, political fund, and official contract registry.
+- `docs/PROJECT_STATUS.md`: updated for ADR 0014/0015 and added a "paused / resume point" section before choosing the next system.

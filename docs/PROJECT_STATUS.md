@@ -4,6 +4,12 @@
 
 **Last updated:** 2026-10-13
 
+## ⏸ Paused — resume point
+
+Work is paused right after finishing [political donations](state-design/political-donations/) (ADR 0015), before choosing the next system. The user asked for time to think about the next direction.
+
+**When the user says "再開して" (resume): show the remaining 🔴 candidates from `docs/FEATURES.md` again in a compact, category-grouped list, then ask which to design next.** Don't pick one yourself. Claude's last recommendation, for reference only: (1) donations + social-purpose crowdfunding (policy priority; can reuse the `PoliticalFund` pattern almost directly), (2) treasury/budget spending (foundation for procurement, subsidies, pensions), (3) VIP asset disclosure (pairs with political donations). Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)) first, then proceed as before: raise issues → discuss → discussion log → ADR + spec.
+
 ## Current phase
 
 **Phase 1 (continued) — Designing state functions; implementation deliberately deferred.** Repository scaffold is in place (Phase 0 complete). Eleven state functions are fully resolved and specified: citizenship/residency (resident-link NFT, [ADR 0003](decisions/0003-resident-link-identity-model.md)), taxation/payment rail ([ADR 0004](decisions/0004-taxation-payment-rail.md)), corporations/registration ([ADR 0005](decisions/0005-corporate-registration-model.md)), the passport credential ([ADR 0006](decisions/0006-passport-credential.md)), the diploma credential ([ADR 0007](decisions/0007-diploma-credential.md)), the license credential ([ADR 0008](decisions/0008-license-credential.md)), the health-insurance credential ([ADR 0009](decisions/0009-health-insurance-credential.md)), the employee ID credential ([ADR 0010](decisions/0010-employee-id-credential.md)), the vaccination credential ([ADR 0011](decisions/0011-vaccination-credential.md)) — **completing the originally-listed set of six concrete "credentials" instances** — and voting ([ADR 0013](decisions/0013-voting-model.md)), the first function requiring genuinely new cryptographic machinery rather than the soulbound-NFT pattern — and political donations ([ADR 0015](decisions/0015-political-donations-model.md)), the first to force the *receiving* side through contract logic. The legislative process was screened out ([ADR 0014](decisions/0014-legislative-process-scope.md)). See [`docs/FEATURES.md`](FEATURES.md) for the full, up-to-date progress table, and [`docs/BACKLOG.md`](BACKLOG.md) for items deferred out of those designs.
@@ -57,6 +63,12 @@
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
 **最終更新日:** 2026-10-13
+
+## ⏸ 中断中 — 再開ポイント
+
+[政治献金](state-design/political-donations/)(ADR 0015)を確定した直後、次のシステムを選ぶ前の状態で作業を中断しています。ユーザーは次の展開を考える時間を求めた。
+
+**ユーザーが「再開して」と言ったら、`docs/FEATURES.md`の残りの🔴候補をカテゴリ別の簡潔な一覧で再提示し、次にどれを設計するかを尋ねること。** 自分で選ばないこと。参考までに、Claudeの直近のおすすめは (1) 寄付+社会目的のクラウドファンディング(方針上の優先事項で、`PoliticalFund`の仕組みをほぼそのまま流用できる)、(2) 財務・歳出(公共調達・補助金・年金の土台)、(3) 要人の資産公開(政治献金と対になる)。選ばれた項目は、まずオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))でふるいにかけ、その後はこれまでと同じ進め方(論点の提起→議論→議論ログ→ADR＋仕様)で進める。
 
 ## 現在のフェーズ
 
