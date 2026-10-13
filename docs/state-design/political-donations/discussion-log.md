@@ -94,6 +94,26 @@ Awaiting the user's choice on the name-disclosure mechanism; then the spec and A
 
 ---
 
+## Round 4 — 2026-10-13 (user + Claude)
+
+### Name disclosure: option (c)
+
+The user chose **(c): no donor names on-chain**. What matters is traceability, not publishing names. A political organization can only receive from an address that holds a `ResidentLink` or is a registered corporation, so large donations are easy to check: the donor address is always a verified identity that an investigator can resolve through the municipality (or is a corporation whose officers are already public). This replaces the Issue 3 sub-proposal of name disclosure above a threshold.
+
+### New issue raised by Claude: 7. Is the declared `ResidentLink` / corporate registration contract genuine?
+
+Earlier designs (e.g. diploma) check `balanceOf` against a `ResidentLink` contract **the applicant declares**, and the issuer confirms off-chain that the declared contract is official (`.lg.jp` attestation). `donate()` has no human issuer in the loop. Someone could deploy a fake "ResidentLink" contract, mint themself a token, and donate untraceably, which defeats the user's core point above. The same holds for corporate registration contracts.
+
+The backlog item "On-chain municipality registry contract" was deferred with exactly this trigger: *"Only revisit if a concrete on-chain consumer needs automated contract-to-contract verification."* The donation fund contract is that consumer.
+
+Options: (i) an on-chain allowlist of genuine `ResidentLink` and corporate-registration contracts, which `donate()` checks; (ii) accept any declared contract and catch fakes by after-the-fact audit against the off-chain attestations.
+
+### Status
+
+Awaiting the user's decision on Issue 7.
+
+---
+
 # 議論ログ: 政治献金(日本語)
 
 この機能の設計に関するやり取りを順番に記録します。形式は [`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md) に従います。
@@ -187,3 +207,23 @@ Awaiting the user's choice on the name-disclosure mechanism; then the spec and A
 ### ステータス
 
 氏名公開の仕組みについてユーザーの選択待ち。その後、仕様とADRを作成する。
+
+---
+
+## Round 4 — 2026-10-13(ユーザー + Claude)
+
+### 氏名公開: 選択肢(c)
+
+ユーザーは**(c): オンチェーンに献金者の氏名を載せない**を選択した。重要なのは氏名の公開ではなく追跡できることである。政治団体は`ResidentLink`の保有者か登記済み法人のアドレスからしか受け取れないので、巨額献金は簡単にチェックできる。献金者のアドレスは常に本人確認済みのもので、捜査機関は市区町村を通じて人物を特定できる(法人なら役員はすでに公開されている)。これは論点3の「一定額を超えたら氏名公開」という部分を置き換える。
+
+### Claudeが提起した新しい論点: 7. 申告された`ResidentLink`/法人登記コントラクトは本物か?
+
+これまでの設計(卒業証書など)は、**申請者が申告した**`ResidentLink`コントラクトに対して`balanceOf`を確認し、そのコントラクトが公式のものかどうかは発行者がオフチェーンで確認していた(`.lg.jp`による証明)。`donate()`には人間の発行者が介在しない。誰かが偽の「ResidentLink」コントラクトをデプロイし、自分にトークンを発行すれば、追跡できない献金ができてしまう。これは上記のユーザーの要点を崩す。法人登記コントラクトについても同じである。
+
+BACKLOGの「オンチェーンの市区町村レジストリ」は、まさにこの条件で先送りされていた。*「オンチェーンの利用者がコントラクト間の自動検証を具体的に必要とした場合にのみ再検討する」*。献金の資金コントラクトがその利用者にあたる。
+
+選択肢: (i) 本物の`ResidentLink`と法人登記コントラクトのオンチェーン許可リストを作り、`donate()`がそれを確認する。(ii) 申告されたコントラクトをそのまま受け入れ、偽物はオフチェーンの証明と照合する事後監査で見つける。
+
+### ステータス
+
+論点7についてユーザーの判断待ち。
