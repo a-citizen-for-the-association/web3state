@@ -63,6 +63,37 @@ Awaiting the user's decisions on 4a–4d and on Issue 6's recording method.
 
 ---
 
+## Round 3 — 2026-10-13 (user + Claude)
+
+### User's decisions
+
+- **4a. Caps spanning recipients: no shared ledger.** Every donation is already recorded on-chain, so cross-recipient totals can be checked by aggregating that data after the fact. Each fund contract enforces only its own per-recipient cap; total caps are an **after-the-fact audit** item.
+- **4b. Direct transfers: accepted.** Spending is limited to `accountedBalance`. Unaccounted funds can only be returned or forfeited to the treasury.
+- **4c. Foreign-donation ban: after-the-fact audit**, not enforced in the contract. No standing "eligible to donate" credential is created, and the deferred nationality credential stays deferred.
+- **4d. Year derived from `block.timestamp`: accepted** as the second justified on-chain date exception.
+- **Issue 6. Legislators' roll-call records: not on-chain.** The user judged that this can be handled off-chain (consistent with value-test Q3: it is fixable by institutional rule alone). This reverses the roll-call part of [ADR 0014](../../decisions/0014-legislative-process-scope.md). It will be recorded as a partial supersession in this feature's ADR.
+
+### Resulting enforcement split
+
+| Rule | Where it is enforced |
+|---|---|
+| Donor is identifiable (`ResidentLink` holder or registered corporation) | In the contract |
+| Corporations may donate to parties only | In the contract |
+| Per-recipient annual cap | In the contract |
+| Spending limited to accounted funds | In the contract |
+| Total annual cap across recipients | After-the-fact audit of on-chain data |
+| Foreign individuals / foreign-controlled corporations banned | After-the-fact audit |
+
+### Remaining question raised by Claude
+
+Issue 3 agreed that individual donors' names are disclosed above a threshold, but no mechanism was fixed: `ResidentLink` carries no name. Options: (a) the donor declares their name in `donate()` once their annual total to that recipient crosses the threshold, and the contract rejects the donation without it (false declarations are an audit offense); (b) the political organization reports names off-chain, keyed by transaction hash; (c) no on-chain names at all; investigators request the address → person mapping from the municipality.
+
+### Status
+
+Awaiting the user's choice on the name-disclosure mechanism; then the spec and ADR can be written.
+
+---
+
 # 議論ログ: 政治献金(日本語)
 
 この機能の設計に関するやり取りを順番に記録します。形式は [`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md) に従います。
@@ -125,3 +156,34 @@ Awaiting the user's decisions on 4a–4d and on Issue 6's recording method.
 ### ステータス
 
 4a〜4dと、論点6の記録方法についてのユーザーの判断待ち。
+
+---
+
+## Round 3 — 2026-10-13(ユーザー + Claude)
+
+### ユーザーの決定
+
+- **4a. 受取先をまたぐ上限: 共有台帳は置かない。** すべての献金はすでにオンチェーンに記録されているので、受取先をまたぐ合計は事後に集計すれば確認できる。各資金コントラクトは自団体への上限だけを強制し、合計上限は**事後監査**の対象とする。
+- **4b. 直接送金: 了承。** 支出は`accountedBalance`の範囲内に限る。出所不明の資金は返金か国庫への没収しかできない。
+- **4c. 外国人献金の禁止: 事後監査**とし、コントラクトでは強制しない。継続的な「献金資格」の証明は作らず、保留中の国籍証明も引き続き保留とする。
+- **4d. `block.timestamp`から年を求める: 了承。** 2つ目の正当化されたオンチェーン日付の例外とする。
+- **論点6. 議員の記名採決記録: オンチェーン化しない。** ユーザーは、これはオフチェーンでも対応可能と判断した(価値テストの問3「制度のルールだけでも直せる」と整合する)。これは[ADR 0014](../../decisions/0014-legislative-process-scope.md)の記名採決の部分を覆すもので、この機能のADRで部分的な上書きとして記録する。
+
+### 強制の分担
+
+| ルール | 強制する場所 |
+|---|---|
+| 献金者が特定可能(`ResidentLink`保有者または登記済み法人) | コントラクト内 |
+| 法人は政党にのみ献金可 | コントラクト内 |
+| 受取先ごとの年間上限 | コントラクト内 |
+| 支出は記録済み資金の範囲内 | コントラクト内 |
+| 受取先をまたぐ年間合計上限 | オンチェーンデータの事後監査 |
+| 外国人・外資支配法人の献金禁止 | 事後監査 |
+
+### Claudeが提起した残りの論点
+
+論点3で「個人献金者は一定額を超えたら氏名を公開する」と合意したが、その仕組みは決めていない。`ResidentLink`は氏名を持たない。選択肢: (a) その受取先への年間合計が基準を超える時点で、献金者が`donate()`で氏名を申告し、申告がなければコントラクトが献金を拒否する(虚偽申告は監査で処罰)、(b) 政治団体がトランザクションハッシュと紐づけてオフチェーンで氏名を報告する、(c) オンチェーンには氏名を一切載せず、捜査機関が市区町村にアドレスと人物の対応を照会する。
+
+### ステータス
+
+氏名公開の仕組みについてユーザーの選択待ち。その後、仕様とADRを作成する。
