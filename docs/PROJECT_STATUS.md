@@ -2,7 +2,7 @@
 
 > Living document. Update this whenever the project moves phase, a major question is resolved, or a new major question opens. Keep it short — detail belongs in ADRs or architecture docs, this is a snapshot.
 
-**Last updated:** 2026-10-10
+**Last updated:** 2026-10-13
 
 ## Current phase
 
@@ -31,11 +31,12 @@
 - A condensed copy of `docs/FEATURES.md` is now embedded directly in the root `README.md` for visibility (not just linked) — keep both in sync when a status changes.
 - Standing guidance: current-law feasibility (e.g., "does a municipality have legal authority to do X") is not raised as a discussion point in this project — it's an explicit thought experiment, not aimed at real-world legal adoption.
 - Voting: fully specified (2026-10-10, [ADR 0013](decisions/0013-voting-model.md)). Vote content is protected by a Helios-style scheme (homomorphic encryption + zero-knowledge proof of correct tally + threshold decryption across multiple trustees — no individual ballot is ever decrypted); vote participation uses the resident's existing `ResidentLink` address rather than a fresh per-election address, to avoid creating a new off-chain identity↔disposable-address mapping at the municipality. One generic election primitive (closed option list + one-hot encrypted ballots + homomorphic summation + pluggable seat-allocation method) covers referendums, single-seat plurality, multi-seat SNTV, and party-list proportional representation; ranked-choice/STV and write-in candidates are explicitly excluded. See [discussion log](state-design/voting/discussion-log.md) and [spec](state-design/voting/README.md).
+- Legislative process: scoped out (2026-10-13, [ADR 0014](decisions/0014-legislative-process-scope.md)). Its core is already public and scrutinized, and its problems are institutional, so it is 🚫 Deliberately excluded. Two pieces are carved out: **direct-demand petition signatures** (own 🔴 item; residents sign from their `ResidentLink` address, making forgery like the 2020 Aichi recall case structurally impossible) and **legislators' roll-call vote records** (folded into political donations). The ADR also adopts a reusable **on-chain value test** for screening remaining candidates sub-part by sub-part. See [discussion log](state-design/legislative/discussion-log.md) and [spec](state-design/legislative/README.md).
 
 ## Open questions
 
 - Which mainnet chain to launch on (Ethereum mainnet vs. Polkadot Hub mainnet) — deferred until testing phase provides more signal.
-- Within the newly-expanded roadmap (see `docs/FEATURES.md`), which system to design next — many 🔴 candidates now exist (political donations, treasury, pension, donations/crowdfunding, real estate registry, etc.), not yet prioritized relative to each other.
+- Within the newly-expanded roadmap (see `docs/FEATURES.md`), which system to design next — many 🔴 candidates now exist (political donations, treasury, pension, donations/crowdfunding, real estate registry, etc.), not yet prioritized relative to each other. Political donations is being taken up next (2026-10-13); remaining candidates should be screened with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)).
 - The concrete design for "wealth-focused financial services: provider-handled tax compliance" (ADR 0012 records the policy direction only, not a contract design) — deferred until that category is taken up.
 - Whether any *additional* credential types beyond the original six (passport, diploma, license, health insurance, employee ID, vaccination) are wanted — not currently planned, but the pattern is now well-validated if more come up.
 - Governance model for the project itself (who can propose/approve changes to the "constitution" of the contracts).
@@ -44,7 +45,7 @@
 
 ## Next steps
 
-1. Pick the next system to design from the newly-expanded roadmap in `docs/FEATURES.md` (voting is now complete).
+1. Design political donations (政治献金), including legislators' public roll-call vote records ([ADR 0014](decisions/0014-legislative-process-scope.md)). After that, pick the next system from `docs/FEATURES.md`, screening it with the on-chain value test first.
 2. Once the initially-planned state functions are specified, review them together for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -54,7 +55,7 @@
 
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
-**最終更新日:** 2026-10-10
+**最終更新日:** 2026-10-13
 
 ## 現在のフェーズ
 
@@ -83,11 +84,12 @@
 - `docs/FEATURES.md`の凝縮版をルートの`README.md`に直接埋め込んだ(リンクだけでなく) — ステータスが変わったら両方を更新する。
 - 恒常的な方針: 「市区町村にそれを行う法的権限があるか」のような現行法上の実現可能性は、このプロジェクトでは議論の対象としない — これは実社会への法制度化を目指すものではない、明示的な思考実験であるため。
 - 投票: 設計確定(2026-10-10、[ADR 0013](decisions/0013-voting-model.md))。投票内容はHeliosスタイルの仕組み(準同型暗号+正しい集計のゼロ知識証明+複数の信頼主体に分散した閾値復号、個々の投票は誰によっても復号されない)で保護。投票参加は、選挙ごとの使い捨てアドレスではなく、住民が既に持つ`ResidentLink`アドレスを使用し、市区町村に新しい「身元↔使い捨てアドレス」のオフチェーン紐付けを作らないようにする。固定の選択肢集合+ワンホット暗号化された投票+準同型合計+差し替え可能な議席配分ルールという1つの汎用的な原理で、住民投票、単記投票による単一議席選挙、単記非移譲式の複数議席選挙、比例代表をカバーする。移譲式投票(STV)と自書式候補者は明示的に対象外。詳細は[議論ログ](state-design/voting/discussion-log.md)と[設計書](state-design/voting/README.md)を参照。
+- 立法プロセス: スコープ外と決定(2026-10-13、[ADR 0014](decisions/0014-legislative-process-scope.md))。本体はすでに公開・監視されており、問題は制度面にあるため 🚫 意図的に対象外 とした。2つの部分を切り出す。**直接請求の署名**(独立した🔴項目。住民が自分の`ResidentLink`アドレスから署名し、2020年の愛知県知事リコールのような偽造を構造的に不可能にする)と、**議員の記名採決記録**(政治献金に含める)。あわせて、残りの候補を部分ごとにふるいにかける再利用可能な**オンチェーン価値テスト**を採用した。詳細は[議論ログ](state-design/legislative/discussion-log.md)と[仕様](state-design/legislative/README.md)を参照。
 
 ## 未解決の論点
 
 - メインネットでどのチェーンを採用するか(Ethereum mainnet vs. Polkadot Hub mainnet) — テスト段階でより多くの知見を得てから決定。
-- 新たに拡大したロードマップ(`docs/FEATURES.md`参照)の中で、次にどのシステムを設計するか — 多くの🔴候補(政治献金、財務、年金、寄付/クラウドファンディング、不動産登記等)が出そろったが、互いの優先順位はまだ決めていない。
+- 新たに拡大したロードマップ(`docs/FEATURES.md`参照)の中で、次にどのシステムを設計するか — 多くの🔴候補(政治献金、財務、年金、寄付/クラウドファンディング、不動産登記等)が出そろったが、互いの優先順位はまだ決めていない。次は政治献金に着手する(2026-10-13)。残りの候補はオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))でふるいにかける。
 - 「富裕層向け金融サービス: 提供者による納税処理」の具体的な設計(ADR 0012は方針のみを記録し、コントラクト設計は含まない) — そのカテゴリに着手する時点まで保留。
 - 当初の6つ(パスポート、卒業証明、免許証、健康保険証、社員証、接種証明)を超える追加の公的証明が必要かどうか — 現時点では予定なし。ただしパターンは十分検証済みなので、今後出てきても対応可能。
 - プロジェクト自体のガバナンスモデル(コントラクトの「憲法」部分の変更を誰が提案・承認できるか)。
@@ -96,6 +98,6 @@
 
 ## 次のステップ
 
-1. `docs/FEATURES.md`で新たに拡大したロードマップから次に設計するものを選ぶ(投票は設計確定済み)。
+1. 政治献金を設計する(議員の公開記名採決記録を含む、[ADR 0014](decisions/0014-legislative-process-scope.md))。その後、`docs/FEATURES.md`から次の機能を選び、まずオンチェーン価値テストでふるいにかける。
 2. 当初想定している国家機能の設計が出揃った段階で、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。

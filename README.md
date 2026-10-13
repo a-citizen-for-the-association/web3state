@@ -16,7 +16,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Identity & Rights | [Corporations](docs/state-design/corporations/) | 🟢 Spec drafted |
 | Identity & Rights | [Credentials](docs/state-design/credentials/): passport, diploma, license, health insurance, employee ID, vaccination | 🟢 Spec drafted (all six) |
 | Governance Core | [Voting](docs/state-design/voting/) | 🟢 Spec drafted |
-| Governance Core | Legislative process | 🔴 Not started |
+| Governance Core | Direct-demand petition signatures | 🔴 Not started |
 | Governance Core | Executive / administration | 🔴 Not started |
 | Governance Core | Judiciary / dispute resolution | 🔴 Not started |
 | Public Finance & Taxation | [Taxation: payment](docs/state-design/taxation/) | 🟢 Spec drafted |
@@ -41,6 +41,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Commerce & Markets | Wealth-focused financial services | 🔴 Not started (provider-handled tax compliance, not full on-chain transparency) |
 | Deliberately excluded | High-frequency trading | 🚫 Excluded |
 | Deliberately excluded | Personal wealth-accumulation investment | 🚫 Excluded |
+| Deliberately excluded | [Legislative process](docs/state-design/legislative/) | 🚫 Excluded |
 
 ## Tech Stack
 
@@ -105,7 +106,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | アイデンティティ・権利 | [法人](docs/state-design/corporations/) | 🟢 設計確定 |
 | アイデンティティ・権利 | [公的証明](docs/state-design/credentials/): パスポート、卒業証明、免許証、健康保険証、社員証、接種証明 | 🟢 設計確定(6つ全て) |
 | 統治の中核 | [投票](docs/state-design/voting/) | 🟢 設計確定 |
-| 統治の中核 | 立法プロセス | 🔴 未着手 |
+| 統治の中核 | 直接請求の署名 | 🔴 未着手 |
 | 統治の中核 | 行政 | 🔴 未着手 |
 | 統治の中核 | 司法・紛争解決 | 🔴 未着手 |
 | 財政・税 | [納税](docs/state-design/taxation/) | 🟢 設計確定 |
@@ -130,6 +131,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 商取引・市場 | 富裕層向け金融サービス | 🔴 未着手(提供者が納税処理の責任を持ち、完全なオンチェーン透明化は行わない) |
 | 意図的に対象外 | 高頻度取引(HFT) | 🚫 対象外 |
 | 意図的に対象外 | 個人の資産形成目的の投資 | 🚫 対象外 |
+| 意図的に対象外 | [立法プロセス](docs/state-design/legislative/) | 🚫 対象外 |
 
 ## 技術スタック
 

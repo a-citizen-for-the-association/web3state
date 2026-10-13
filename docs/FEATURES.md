@@ -28,12 +28,12 @@
 | **Identity & Rights** | ↳ Employee ID (社員証) | 🟢 Spec drafted | [`.../employee-id/`](state-design/credentials/employee-id/) | Issued by any registered corporation; no `ResidentLink` dependency. [ADR 0010](decisions/0010-employee-id-credential.md). |
 | **Identity & Rights** | ↳ Vaccination (接種証明) | 🟢 Spec drafted | [`.../vaccination/`](state-design/credentials/vaccination/) | Stateful coupon; hospitals mark vaccinated via a role gated on corporate registration. [ADR 0011](decisions/0011-vaccination-credential.md). |
 | **Governance Core** | Voting | 🟢 Spec drafted | [`state-design/voting/`](state-design/voting/) | One generic election primitive (one-hot encrypted ballots + homomorphic summation + threshold decryption + pluggable seat allocation) covers referendums, single-seat plurality, multi-seat SNTV, and party-list PR; ranked-choice/STV and write-ins excluded. Voting from the resident's existing `ResidentLink` address. [ADR 0013](decisions/0013-voting-model.md). |
-| **Governance Core** | Legislative process | 🔴 Not started | — | |
+| **Governance Core** | Direct-demand petition signatures (直接請求の署名) | 🔴 Not started | [`state-design/legislative/`](state-design/legislative/) | Carved out of the excluded legislative process. Residents sign from their own `ResidentLink` address (public, non-secret; sibling of voting), making forgery like the 2020 Aichi recall case structurally impossible. [ADR 0014](decisions/0014-legislative-process-scope.md). |
 | **Governance Core** | Executive / administration | 🔴 Not started | — | |
 | **Governance Core** | Judiciary / dispute resolution | 🔴 Not started | — | |
 | **Public Finance & Taxation** | Taxation: payment (納税) | 🟢 Spec drafted | [`state-design/taxation/`](state-design/taxation/) | Payment rail only, no dedicated contract. [ADR 0004](decisions/0004-taxation-payment-rail.md). |
 | **Public Finance & Taxation** | Treasury / public finance (歳出・予算) | 🔴 Not started | — | Public money deserves maximal auditability. |
-| **Political Transparency** | Political donations (政治献金) | 🔴 Not started | — | Makes covert political funding harder to hide. |
+| **Political Transparency** | Political donations (政治献金) | 🔴 Not started | — | Makes covert political funding harder to hide. Scope also includes legislators' public roll-call vote records (議員の記名採決記録), joined with donation data. [ADR 0014](decisions/0014-legislative-process-scope.md). |
 | **Political Transparency** | VIP / politician asset disclosure (要人の資産公開) | 🔴 Not started | — | Continuous, verifiable wealth disclosure for accountability; pairs with stablecoin-income visibility. |
 | **Political Transparency** | Public procurement / bidding (公共調達・入札) | 🔴 Not started | — | Reduces bid-rigging (談合). |
 | **Political Transparency** | Subsidies / grants disbursement (補助金・交付金) | 🔴 Not started | — | Traceable disbursement reduces subsidy fraud. |
@@ -53,6 +53,7 @@
 | **Commerce & Markets** | Wealth-focused financial services (富裕層向け金融サービス) | 🔴 Not started | — | Provider (not the chain) bears tax-compliance responsibility — not pushed to full on-chain transparency. [ADR 0012](decisions/0012-onchain-scope-philosophy.md). |
 | **Deliberately excluded** | High-frequency trading | 🚫 Excluded | — | Weak social character; no reason for the state to build this infrastructure. [ADR 0012](decisions/0012-onchain-scope-philosophy.md). |
 | **Deliberately excluded** | Personal wealth-accumulation investment vehicles | 🚫 Excluded | — | Same reasoning, unless independently justified (e.g. VIP asset disclosure). [ADR 0012](decisions/0012-onchain-scope-philosophy.md). |
+| **Deliberately excluded** | Legislative process (proposal, deliberation, promulgation, amendment) | 🚫 Excluded | [`state-design/legislative/`](state-design/legislative/) | Already public and heavily scrutinized (gazette, minutes, e-Gov); its problems are institutional, not record-integrity. Petition signatures and roll-call records carved out. [ADR 0014](decisions/0014-legislative-process-scope.md). |
 
 Already tracked separately in [`docs/BACKLOG.md`](BACKLOG.md), not duplicated here: private insurance/loan tokenization, whether nationality/residence-status should ever be on-chain, the audited multisig standard for corporations, beneficial-ownership transparency for layered corporate structures.
 
