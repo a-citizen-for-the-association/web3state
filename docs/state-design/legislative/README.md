@@ -33,6 +33,8 @@ A sub-part is a candidate if question 1 is "yes" **and** at least one of questio
 
 ## Open items for the direct-demand signature design (not resolved now)
 
+> **Resolved** in [`docs/state-design/direct-demand/`](../direct-demand/) and [ADR 0016](../../decisions/0016-direct-demand-petition-model.md): explicit per-petition eligible list; signatures public; period and threshold enforced on-chain; count certification only, no automatic trigger.
+
 Recorded so they are not lost; to be discussed when that item is taken up:
 
 - Signer eligibility: same as voting eligibility (election-board grant + `ResidentLink` check, [ADR 0013](../../decisions/0013-voting-model.md)), or a lighter check?
@@ -76,6 +78,8 @@ Recorded so they are not lost; to be discussed when that item is taken up:
 | 議員の記名採決 | **はい**(議員ごとの記録がない) | 一部 | 一部(制度のルールでも直せる) | **はい**(起立採決) | **はい**(献金) | 残す → 政治献金に含める |
 
 ## 直接請求の署名の設計における未決事項(今は決めない)
+
+> [`docs/state-design/direct-demand/`](../direct-demand/)と[ADR 0016](../../decisions/0016-direct-demand-petition-model.md)で**解決済み**: 請求ごとの明示的な有資格一覧、署名は公開、期間と必要数はオンチェーンで強制、署名数の証明のみで自動起動はしない。
 
 失われないよう記録しておき、その項目に着手するときに議論する。
 

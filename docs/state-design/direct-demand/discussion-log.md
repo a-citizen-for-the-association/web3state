@@ -93,6 +93,25 @@ Awaiting the user's response to F1–F5.
 
 ---
 
+## Round 3 — 2026-10-17 (user + Claude)
+
+### User's decisions
+
+- **F1: (a).** A list per petition. Each listed address publicly signals "Japanese national, 18+", the same signal voting's `grantVotingRight` already publishes per election. No standing voter-roll contract is created.
+- **F2–F5: accepted** as proposed.
+
+### Adjustments made while writing the spec (flagged for review)
+
+- **Listing requires a genuine `ResidentLink`.** `addEligible` checks the address holds a token from a contract allowlisted in `OfficialContractRegistry` ([ADR 0015](../../decisions/0015-political-donations-model.md)), the same check as voting's `grantVotingRight`. The board still decides eligibility; this only stops it from listing an address with no verified identity behind it, which would be an untraceable fake signer.
+- **Paused time extends the end automatically.** Current law suspends collection during elections without shortening the window. The contract computes the effective end as `collectionEnd + total paused time`. The board can pause and resume, but cannot set the end date directly (consistent with F4).
+- **Everything freezes at the effective end.** After it, no signing and no list edits, so the final count is fixed and is the certified number.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0016](../../decisions/0016-direct-demand-petition-model.md).
+
+---
+
 # 議論ログ: 直接請求の署名(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。この項目を生んだスコープの選別は[`docs/state-design/legislative/`](../legislative/)と[ADR 0014](../../decisions/0014-legislative-process-scope.md)にある。
@@ -185,3 +204,22 @@ Awaiting the user's response to F1–F5.
 ### ステータス
 
 F1〜F5へのユーザーの回答待ち。
+
+---
+
+## Round 3 — 2026-10-17(ユーザー + Claude)
+
+### ユーザーの決定
+
+- **F1: (a)。** 請求ごとに一覧を持つ。一覧に載ったアドレスは「18歳以上の日本国籍者」であることを公に示す。これは投票の`grantVotingRight`が選挙ごとにすでに公開しているのと同じ情報である。常設の選挙人名簿コントラクトは作らない。
+- **F2〜F5: 提案どおり了承。**
+
+### 仕様作成時に加えた調整(レビュー対象)
+
+- **一覧に載せるには本物の`ResidentLink`が必要。** `addEligible`は、そのアドレスが`OfficialContractRegistry`([ADR 0015](../../decisions/0015-political-donations-model.md))の許可リストにあるコントラクトのトークンを持つことを確認する。投票の`grantVotingRight`と同じ確認である。資格の判断は引き続き選管が行う。この確認は、本人確認の裏付けがないアドレス(追跡できない偽の署名者になる)を載せることだけを防ぐ。
+- **一時停止した時間だけ、終了が自動で延びる。** 現行法では、選挙期間中は収集を中断するが、期間が短くなるわけではない。コントラクトは実効的な終了を`collectionEnd + 一時停止の合計時間`として計算する。選管は一時停止と再開はできるが、終了日を直接設定することはできない(F4と整合)。
+- **実効的な終了時点ですべて凍結する。** その後は署名も一覧の編集もできない。最終的な署名数が固定され、それが証明される数になる。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0016](../../decisions/0016-direct-demand-petition-model.md)。

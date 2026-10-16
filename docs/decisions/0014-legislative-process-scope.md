@@ -1,7 +1,7 @@
 # 0014. Legislative process scope: exclude the core, carve out petition signatures and roll-call records, adopt an on-chain value test
 
 **Date:** 2026-10-13
-**Status:** Accepted. The roll-call-records bullet is superseded by [ADR 0015](0015-political-donations-model.md).
+**Status:** Accepted. The roll-call-records bullet is superseded by [ADR 0015](0015-political-donations-model.md). The petition-signature design deferred here is completed in [ADR 0016](0016-direct-demand-petition-model.md).
 
 ## Context
 
@@ -34,7 +34,7 @@ Findings:
 # 0014. 立法プロセスのスコープ: 本体は対象外とし、直接請求の署名と議員の記名採決記録を切り出し、オンチェーン価値テストを採用する(日本語)
 
 **日付:** 2026-10-13
-**ステータス:** Accepted。記名採決記録の項目は[ADR 0015](0015-political-donations-model.md)で上書き。
+**ステータス:** Accepted。記名採決記録の項目は[ADR 0015](0015-political-donations-model.md)で上書き。ここで先送りした直接請求の署名の設計は[ADR 0016](0016-direct-demand-petition-model.md)で確定。
 
 ## 背景
 

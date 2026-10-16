@@ -39,6 +39,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - Root `README.md`: added a prominent "System Roadmap" table (English + Japanese) embedding a condensed copy of `docs/FEATURES.md` directly in the README, per the user's request for maximum visibility — not merely linked.
 - `docs/state-design/legislative/` and `docs/decisions/0014-legislative-process-scope.md`: scoped the legislative process out (🚫), carving out direct-demand petition signatures as their own item; adopted the reusable on-chain value test.
 - `docs/state-design/political-donations/` and `docs/decisions/0015-political-donations-model.md`: completed design spec for political donations — receiving-side `PoliticalFund` contracts, traceable donors without on-chain names, and a 総務省-operated `OfficialContractRegistry`.
+- `docs/state-design/direct-demand/` and `docs/decisions/0016-direct-demand-petition-model.md`: completed design spec for direct-demand petition signatures — one `Petition` contract per demand, explicit per-petition eligible list, full-text hash, fixed threshold, public self-signed signatures with no collectors, count certification only.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
@@ -59,3 +60,6 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/BACKLOG.md`: closed the on-chain municipality registry item (now `OfficialContractRegistry`); added disposition of a political organization's funds on dissolution.
 - `docs/glossary.md`: added on-chain value test, political fund, and official contract registry.
 - `docs/PROJECT_STATUS.md`: updated for ADR 0014/0015 and added a "paused / resume point" section before choosing the next system.
+- `docs/FEATURES.md`, root `README.md`: direct-demand petition signatures set to 🟢 Spec drafted.
+- `docs/glossary.md`: added direct demand. `docs/BACKLOG.md`: the large-list cost item now also covers petitions. `docs/state-design/legislative/README.md`: petition open items marked resolved.
+- `docs/PROJECT_STATUS.md`: removed the paused/resume section; updated for ADR 0016; next steps set to executive, then judiciary (Governance Core top-down).
