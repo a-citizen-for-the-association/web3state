@@ -14,14 +14,13 @@ A chain can only prove a record has not changed since it was anchored. Preventin
 - **v1 scope:** every agency must register the **title and hash** of each **approval document** (決裁文書) in its own append-only `DocumentRegistry`. Corrections are new registrations that reference the previous version. Authenticity is checked through the agency's `.go.jp`/`.lg.jp` publication; no `OfficialContractRegistry` entry is needed yet.
 - **Sensitive titles** are replaced by a non-identifying abbreviation following a fixed, off-chain rule.
 - **Deferred, not excluded:** "no anchor, no effect"; other document types; statistics; information-disclosure linkage; the official-authority registry. These go to the backlog for the redesign phase, rather than becoming 🚫 exclusions.
-- **Workflow change:** the project moves from "resolve everything on paper first" to **initial design → implementation → scenario tests → find issues → redesign**. The initial design ends with the twelve already-specified functions plus the rest of Governance Core in minimal form (executive: this ADR; judiciary: next). Then the cross-feature consistency review, then implementation. The remaining 🔴 items are designed after the first cycle.
+- **Workflow change:** the project moves from "resolve everything on paper first" to **initial design → implementation → scenario tests → find issues → redesign**. The initial design still covers **every item in `docs/FEATURES.md`**; then the cross-feature consistency review, then implementation. *(Corrected 2026-10-17: an earlier wording of this ADR said the initial design would stop after Governance Core and leave the remaining 🔴 items until after the first cycle. That misrecorded the user's decision; the user confirmed that all listed items are designed first.)*
 
 ## Consequences
 
 - Rewriting an approved document after the fact becomes detectable once the document is disclosed. Non-creation and false creation are knowingly not addressed in v1.
 - The executive item stays small and cheap to implement, which is the point: scenario tests will show which deferred piece matters most.
-- The project's design phase now has a defined end. The 2026-10-03 workflow decision (design everything first) is narrowed to the initial-design scope above, so implementation can start sooner.
-- Judiciary is expected to follow the same minimal-v1 approach.
+- The 2026-10-03 workflow decision (design everything first, then review, then implement) still holds. What is new is that hard parts of a function may be deferred to the redesign phase after scenario tests, as done here.
 
 ---
 
@@ -41,11 +40,10 @@ A chain can only prove a record has not changed since it was anchored. Preventin
 - **第1版の範囲:** すべての行政機関は、各**決裁文書**の**名称とハッシュ**を、自らの追記専用の`DocumentRegistry`に登録しなければならない。訂正は前の版を参照する新しい登録とする。本物かどうかは機関の`.go.jp`/`.lg.jp`での公表で確認する。`OfficialContractRegistry`への登録はまだ必要ない。
 - **機微な名称**は、オフチェーンで定める一定のルールに従った、それとは分からない略称に置き換える。
 - **対象外ではなく先送り:** 「アンカーなしでは効力なし」、その他の種類の文書、統計、情報公開との連携、行政の権限レジストリ。これらは🚫対象外にはせず、再設計の段階に向けてBACKLOGに入れる。
-- **進め方の変更:** プロジェクトは「すべてを先に机上で解決する」から、**初期設計 → 実装 → シナリオテスト → 課題の発見 → 再設計**に移る。初期設計は、確定済みの12機能と、統治の中核の残りを最小の形で設計したところで終える(行政: このADR、司法: 次)。その後に機能間の整合性レビュー、そして実装に入る。残りの🔴項目は、最初の一巡の後に設計する。
+- **進め方の変更:** プロジェクトは「すべてを先に机上で解決する」から、**初期設計 → 実装 → シナリオテスト → 課題の発見 → 再設計**に移る。初期設計は引き続き**`docs/FEATURES.md`のすべての項目**を対象とする。その後に機能間の整合性レビュー、そして実装に入る。*(2026-10-17訂正: このADRの以前の文言は、初期設計を統治の中核までで終え、残りの🔴項目を最初の一巡の後に回すとしていた。これはユーザーの決定を誤って記録したものであり、ユーザーは掲げた項目すべてを先に設計すると確認した。)*
 
 ## 結果
 
 - 決裁済みの文書を後から書き換えたことは、文書が開示されれば検出できるようになる。記録を作らないこと、偽って作ることは、第1版では承知のうえで扱わない。
 - 行政の項目は小さく、実装のコストも低い。それが狙いである: どの先送り項目が最も重要かは、シナリオテストで明らかになる。
-- 設計段階に明確な終わりができる。2026-10-03の進め方の決定(すべてを先に設計する)は上記の初期設計の範囲に狭められ、より早く実装に入れる。
-- 司法も同じく最小の第1版の方針で進める見込みである。
+- 2026-10-03の進め方の決定(すべてを先に設計し、レビューしてから実装する)は引き続き有効である。新しいのは、機能の難しい部分を、シナリオテスト後の再設計の段階に先送りできるようになった点で、今回の行政がその例である。

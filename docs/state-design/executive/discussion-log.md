@@ -67,7 +67,7 @@ Decided by the user: when a title itself is sensitive (personal names, classifie
 
 ### Initial-design scope (workflow change)
 
-Agreed: the initial design ends with the twelve specified functions plus the rest of Governance Core in minimal form (executive: this design; judiciary: next, also minimal). Then the cross-feature consistency review, then implementation. The remaining 🔴 items are designed after the first implementation and scenario-test cycle.
+Claude proposed ending the initial design after Governance Core and designing the remaining 🔴 items after the first cycle, and initially recorded this as agreed. **Correction (same day): the user rejected it.** Every item in the original list is designed before implementation. The new loop applies after that whole initial design.
 
 ### Status
 
@@ -144,7 +144,7 @@ Resolved. Spec written ([`README.md`](README.md)); ADR: [0017](../../decisions/0
 
 ### 初期設計の範囲(進め方の変更)
 
-合意: 初期設計は、確定済みの12機能と、統治の中核の残りを最小の形で設計したところで終える(行政: この設計、司法: 次に、同じく最小で)。その後に機能間の整合性レビュー、そして実装に入る。残りの🔴項目は、最初の実装とシナリオテストの一巡の後に設計する。
+Claudeは、初期設計を統治の中核までで終え、残りの🔴項目は最初の一巡の後に設計することを提案し、いったん合意として記録した。**訂正(同日): ユーザーはこれを否定した。** 当初のリストの項目はすべて実装の前に設計する。新しい流れは、その初期設計全体が終わった後に適用する。
 
 ### ステータス
 

@@ -10,7 +10,7 @@
 
 **Explicit workflow decision (2026-10-03):** implementation (Solidity, `contracts/` Foundry init, etc.) will **not** start after each individual feature's design is finished. Instead, the project will first design all of the initially-planned state functions, then review them together for overall cross-feature consistency, and only then move into implementation. No smart contracts or frontend code have been written yet, and none will be until that consistency review happens.
 
-**Workflow change (2026-10-17, [ADR 0017](decisions/0017-executive-document-anchoring-v1.md)):** the loop is now **initial design → implementation → scenario tests → find issues → redesign**. The initial design is defined as the already-specified functions plus the rest of Governance Core in minimal form (executive done; judiciary next). After that: the consistency review, then implementation. The remaining 🔴 items are designed after the first cycle.
+**Workflow change (2026-10-17, [ADR 0017](decisions/0017-executive-document-anchoring-v1.md)):** the loop is now **initial design → implementation → scenario tests → find issues → redesign**. The initial design still covers **every item in `docs/FEATURES.md`**; after that, the consistency review, then implementation. Hard parts of a function may be deferred to the redesign phase (as for the executive).
 
 ## Decided
 
@@ -50,7 +50,7 @@
 
 ## Next steps
 
-1. Judiciary / dispute resolution, in minimal-v1 form (the last item of the initial design). Screen with the on-chain value test first. Claude's preliminary candidates: evidence chain of custody, case-record preservation, judgment enforcement (overlaps the Judicial Infrastructure items).
+1. Continue designing every remaining 🔴 item in `docs/FEATURES.md`, top-down as the user chose: judiciary / dispute resolution next (Claude's preliminary candidates: evidence chain of custody, case-record preservation, judgment enforcement; overlaps the Judicial Infrastructure items). Screen each with the on-chain value test first.
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -68,7 +68,7 @@
 
 **明示的なワークフロー決定(2026-10-03):** 各機能の設計が終わるたびに実装(Solidity、`contracts/` のFoundry initなど)には進みません。まず当初想定している国家機能全体の設計を終わらせ、機能間で矛盾がないか全体を見直した上で、初めて実装に入ります。スマートコントラクト・フロントエンドのコードはまだ書かれておらず、この全体整合性のレビューが終わるまでは書きません。
 
-**進め方の変更(2026-10-17、[ADR 0017](decisions/0017-executive-document-anchoring-v1.md)):** 流れを**初期設計 → 実装 → シナリオテスト → 課題の発見 → 再設計**とする。初期設計の範囲は、確定済みの機能と、統治の中核の残りを最小の形で設計したもの(行政は完了、次は司法)。その後に整合性レビュー、そして実装に入る。残りの🔴項目は、最初の一巡の後に設計する。
+**進め方の変更(2026-10-17、[ADR 0017](decisions/0017-executive-document-anchoring-v1.md)):** 流れを**初期設計 → 実装 → シナリオテスト → 課題の発見 → 再設計**とする。初期設計は引き続き**`docs/FEATURES.md`のすべての項目**を対象とし、その後に整合性レビュー、そして実装に入る。機能の難しい部分は再設計の段階に先送りできる(行政がその例)。
 
 ## 決定済み事項
 
@@ -108,6 +108,6 @@
 
 ## 次のステップ
 
-1. 司法・紛争解決を最小の第1版として設計する(初期設計の最後の項目)。まずオンチェーン価値テストにかける。Claudeの予備的な候補: 証拠の保管の連鎖、事件記録の保存、判決の執行(司法インフラの項目と重複あり)。
+1. ユーザーの選択どおり上から順に、`docs/FEATURES.md`の残りの🔴項目をすべて設計する。次は司法・紛争解決(Claudeの予備的な候補: 証拠の保管の連鎖、事件記録の保存、判決の執行。司法インフラの項目と重複あり)。それぞれ、まずオンチェーン価値テストにかける。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。

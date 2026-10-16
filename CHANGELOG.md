@@ -64,4 +64,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/FEATURES.md`, root `README.md`: direct-demand petition signatures set to 🟢 Spec drafted.
 - `docs/glossary.md`: added direct demand. `docs/BACKLOG.md`: the large-list cost item now also covers petitions. `docs/state-design/legislative/README.md`: petition open items marked resolved.
 - `docs/PROJECT_STATUS.md`: removed the paused/resume section; updated for ADR 0016; next steps set to executive, then judiciary (Governance Core top-down).
-- `docs/FEATURES.md`, root `README.md`: executive set to 🟢 Spec drafted (minimal v1). `docs/BACKLOG.md`: added five executive items deferred to the redesign phase. `docs/PROJECT_STATUS.md`: workflow change and initial-design scope recorded; next step is judiciary.
+- `docs/FEATURES.md`, root `README.md`: executive set to 🟢 Spec drafted (minimal v1). `docs/BACKLOG.md`: added five executive items deferred to the redesign phase. `docs/PROJECT_STATUS.md`: workflow change recorded (the initial design still covers every listed item, corrected the same day); next step is judiciary.
