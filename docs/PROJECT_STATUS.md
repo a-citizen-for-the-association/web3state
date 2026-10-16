@@ -2,13 +2,7 @@
 
 > Living document. Update this whenever the project moves phase, a major question is resolved, or a new major question opens. Keep it short — detail belongs in ADRs or architecture docs, this is a snapshot.
 
-**Last updated:** 2026-10-13
-
-## ⏸ Paused — resume point
-
-Work is paused right after finishing [political donations](state-design/political-donations/) (ADR 0015), before choosing the next system. The user asked for time to think about the next direction.
-
-**When the user says "再開して" (resume): show the remaining 🔴 candidates from `docs/FEATURES.md` again in a compact, category-grouped list, then ask which to design next.** Don't pick one yourself. Claude's last recommendation, for reference only: (1) donations + social-purpose crowdfunding (policy priority; can reuse the `PoliticalFund` pattern almost directly), (2) treasury/budget spending (foundation for procurement, subsidies, pensions), (3) VIP asset disclosure (pairs with political donations). Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)) first, then proceed as before: raise issues → discuss → discussion log → ADR + spec.
+**Last updated:** 2026-10-17
 
 ## Current phase
 
@@ -52,7 +46,7 @@ Work is paused right after finishing [political donations](state-design/politica
 
 ## Next steps
 
-1. Pick the next system from `docs/FEATURES.md` (political donations is now complete), screening it with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)) first.
+1. Finish direct-demand petition signatures (🟡, started 2026-10-17; the user is working through Governance Core top-down — executive and judiciary come next, each screened with the on-chain value test first). See [discussion log](state-design/direct-demand/discussion-log.md); awaiting the user's answers to follow-ups F1–F5.
 2. Once the initially-planned state functions are specified, review them together for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -62,13 +56,7 @@ Work is paused right after finishing [political donations](state-design/politica
 
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
-**最終更新日:** 2026-10-13
-
-## ⏸ 中断中 — 再開ポイント
-
-[政治献金](state-design/political-donations/)(ADR 0015)を確定した直後、次のシステムを選ぶ前の状態で作業を中断しています。ユーザーは次の展開を考える時間を求めた。
-
-**ユーザーが「再開して」と言ったら、`docs/FEATURES.md`の残りの🔴候補をカテゴリ別の簡潔な一覧で再提示し、次にどれを設計するかを尋ねること。** 自分で選ばないこと。参考までに、Claudeの直近のおすすめは (1) 寄付+社会目的のクラウドファンディング(方針上の優先事項で、`PoliticalFund`の仕組みをほぼそのまま流用できる)、(2) 財務・歳出(公共調達・補助金・年金の土台)、(3) 要人の資産公開(政治献金と対になる)。選ばれた項目は、まずオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))でふるいにかけ、その後はこれまでと同じ進め方(論点の提起→議論→議論ログ→ADR＋仕様)で進める。
+**最終更新日:** 2026-10-17
 
 ## 現在のフェーズ
 
@@ -112,6 +100,6 @@ Work is paused right after finishing [political donations](state-design/politica
 
 ## 次のステップ
 
-1. `docs/FEATURES.md`から次の機能を選ぶ(政治献金は設計確定済み)。まずオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))でふるいにかける。
+1. 直接請求の署名を仕上げる(🟡、2026-10-17着手。ユーザーは統治の中核を上から順に進めており、次は行政、司法で、それぞれまずオンチェーン価値テストにかける)。[議論ログ](state-design/direct-demand/discussion-log.md)参照。確認点F1〜F5へのユーザーの回答待ち。
 2. 当初想定している国家機能の設計が出揃った段階で、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
