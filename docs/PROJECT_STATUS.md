@@ -6,12 +6,11 @@
 
 ## ⏸ Paused — resume point
 
-Paused on 2026-10-17 right after finishing the [judiciary](state-design/judiciary/) (ADR 0018), which completed Governance Core.
+Paused on 2026-10-17 right after finishing the [judiciary](state-design/judiciary/) (ADR 0018), which completed Governance Core. The judiciary's spec adjustments were confirmed by the user; nothing in the judiciary is open.
 
 **When the user says "再開して" (resume):**
-1. First ask the user to confirm the four adjustments Claude made while writing the judiciary spec (listed in its [discussion log](state-design/judiciary/discussion-log.md), Round 3): opaque case references, interrogation recordings as an evidence type, guarded disposal of special-preservation records, no new contract for enforcement. They were presented but not yet confirmed.
-2. Show the remaining 🔴 items from `docs/FEATURES.md` (18 at pause time) as a compact, category-grouped list, and ask the user which theme to design next. Don't pick one yourself.
-3. Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)), then proceed as before: raise issues → discuss → discussion log → ADR + spec. Every listed item is designed before any implementation.
+1. Show the remaining 🔴 items from `docs/FEATURES.md` (18 at pause time) as a compact, category-grouped list, and ask the user which theme to design next. Don't pick one yourself.
+2. Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)), then proceed as before: raise issues → discuss → discussion log → ADR + spec. Every listed item is designed before any implementation.
 
 ## Current phase
 
@@ -74,12 +73,11 @@ Paused on 2026-10-17 right after finishing the [judiciary](state-design/judiciar
 
 ## ⏸ 中断中 — 再開ポイント
 
-2026-10-17、[司法](state-design/judiciary/)(ADR 0018)を確定し、統治の中核が完了した直後に中断しました。
+2026-10-17、[司法](state-design/judiciary/)(ADR 0018)を確定し、統治の中核が完了した直後に中断しました。司法の仕様作成時の調整はユーザーの了承済みで、司法に未決の点はありません。
 
 **ユーザーが「再開して」と言ったら:**
-1. まず、Claudeが司法の仕様作成時に加えた4つの調整([議論ログ](state-design/judiciary/discussion-log.md)のRound 3)について、ユーザーに確認を求めること。秘匿化した事件参照、取調べの録音・録画を証拠の種類に含めること、特別保存の記録の廃棄の制限、執行に新しいコントラクトを作らないこと。提示はしたが、まだ確認を得ていない。
-2. `docs/FEATURES.md`の残りの🔴項目(中断時点で18件)をカテゴリ別の簡潔な一覧で示し、次にどのテーマを設計するかをユーザーに尋ねること。自分で選ばないこと。
-3. 選ばれた項目をオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))にかけ、これまでと同じく、論点の提起→議論→議論ログ→ADR＋仕様の順に進める。掲げた項目はすべて、実装の前に設計する。
+1. `docs/FEATURES.md`の残りの🔴項目(中断時点で18件)をカテゴリ別の簡潔な一覧で示し、次にどのテーマを設計するかをユーザーに尋ねること。自分で選ばないこと。
+2. 選ばれた項目をオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))にかけ、これまでと同じく、論点の提起→議論→議論ログ→ADR＋仕様の順に進める。掲げた項目はすべて、実装の前に設計する。
 
 ## 現在のフェーズ
 

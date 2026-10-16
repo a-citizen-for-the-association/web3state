@@ -75,6 +75,12 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0018](../../
 
 ---
 
+## Round 4 — 2026-10-17 (user)
+
+The user **confirmed all four Round 3 adjustments** (opaque case references, interrogation recordings as an evidence type, guarded disposal of special-preservation records, no new contract for enforcement). No further open points.
+
+---
+
 # 議論ログ: 司法・紛争解決(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -149,3 +155,9 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0018](../../
 ### ステータス
 
 すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0018](../../decisions/0018-judiciary-model.md)。
+
+---
+
+## Round 4 — 2026-10-17(ユーザー)
+
+ユーザーは**Round 3の4つの調整をすべて了承した**(秘匿化した事件参照、取調べの録音・録画を証拠の種類に含めること、特別保存の記録の廃棄の制限、執行に新しいコントラクトを作らないこと)。未決の点は残っていない。
