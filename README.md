@@ -18,7 +18,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Governance Core | [Voting](docs/state-design/voting/) | 🟢 Spec drafted |
 | Governance Core | [Direct-demand petition signatures](docs/state-design/direct-demand/) | 🟢 Spec drafted |
 | Governance Core | [Executive / administration](docs/state-design/executive/) | 🟢 Spec drafted (minimal v1) |
-| Governance Core | Judiciary / dispute resolution | 🔴 Not started |
+| Governance Core | [Judiciary / dispute resolution](docs/state-design/judiciary/) | 🟡 Discussing |
 | Public Finance & Taxation | [Taxation: payment](docs/state-design/taxation/) | 🟢 Spec drafted |
 | Public Finance & Taxation | Treasury / public finance (budget, spending) | 🔴 Not started |
 | Political Transparency | [Political donations](docs/state-design/political-donations/) | 🟢 Spec drafted |
@@ -108,7 +108,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 統治の中核 | [投票](docs/state-design/voting/) | 🟢 設計確定 |
 | 統治の中核 | [直接請求の署名](docs/state-design/direct-demand/) | 🟢 設計確定 |
 | 統治の中核 | [行政](docs/state-design/executive/) | 🟢 設計確定(最小の第1版) |
-| 統治の中核 | 司法・紛争解決 | 🔴 未着手 |
+| 統治の中核 | [司法・紛争解決](docs/state-design/judiciary/) | 🟡 議論中 |
 | 財政・税 | [納税](docs/state-design/taxation/) | 🟢 設計確定 |
 | 財政・税 | 財務(予算・歳出) | 🔴 未着手 |
 | 政治の透明性 | [政治献金](docs/state-design/political-donations/) | 🟢 設計確定 |
