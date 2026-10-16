@@ -18,7 +18,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Governance Core | [Voting](docs/state-design/voting/) | 🟢 Spec drafted |
 | Governance Core | [Direct-demand petition signatures](docs/state-design/direct-demand/) | 🟢 Spec drafted |
 | Governance Core | [Executive / administration](docs/state-design/executive/) | 🟢 Spec drafted (minimal v1) |
-| Governance Core | [Judiciary / dispute resolution](docs/state-design/judiciary/) | 🟡 Discussing |
+| Governance Core | [Judiciary / dispute resolution](docs/state-design/judiciary/) | 🟢 Spec drafted |
 | Public Finance & Taxation | [Taxation: payment](docs/state-design/taxation/) | 🟢 Spec drafted |
 | Public Finance & Taxation | Treasury / public finance (budget, spending) | 🔴 Not started |
 | Political Transparency | [Political donations](docs/state-design/political-donations/) | 🟢 Spec drafted |
@@ -36,12 +36,13 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Corporate & Market Transparency | Public company disclosures | 🔴 Not started |
 | Corporate & Market Transparency | Audit trails | 🔴 Not started |
 | Judicial Infrastructure | Notarization / contract timestamping | 🔴 Not started |
-| Judicial Infrastructure | Public court records | 🔴 Not started |
+| Judicial Infrastructure | [Public court records](docs/state-design/judiciary/) (merged into Judiciary) | 🟢 Spec drafted |
 | Commerce & Markets | Everyday commerce | 🔴 Not started |
 | Commerce & Markets | Wealth-focused financial services | 🔴 Not started (provider-handled tax compliance, not full on-chain transparency) |
 | Deliberately excluded | High-frequency trading | 🚫 Excluded |
 | Deliberately excluded | Personal wealth-accumulation investment | 🚫 Excluded |
 | Deliberately excluded | [Legislative process](docs/state-design/legislative/) | 🚫 Excluded |
+| Deliberately excluded | [Token-juror arbitration](docs/state-design/judiciary/) | 🚫 Excluded |
 
 ## Tech Stack
 
@@ -108,7 +109,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 統治の中核 | [投票](docs/state-design/voting/) | 🟢 設計確定 |
 | 統治の中核 | [直接請求の署名](docs/state-design/direct-demand/) | 🟢 設計確定 |
 | 統治の中核 | [行政](docs/state-design/executive/) | 🟢 設計確定(最小の第1版) |
-| 統治の中核 | [司法・紛争解決](docs/state-design/judiciary/) | 🟡 議論中 |
+| 統治の中核 | [司法・紛争解決](docs/state-design/judiciary/) | 🟢 設計確定 |
 | 財政・税 | [納税](docs/state-design/taxation/) | 🟢 設計確定 |
 | 財政・税 | 財務(予算・歳出) | 🔴 未着手 |
 | 政治の透明性 | [政治献金](docs/state-design/political-donations/) | 🟢 設計確定 |
@@ -126,12 +127,13 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 法人・市場の透明性 | 上場企業の開示書類 | 🔴 未着手 |
 | 法人・市場の透明性 | 会計監査記録 | 🔴 未着手 |
 | 司法インフラ | 公証・契約の電子証明 | 🔴 未着手 |
-| 司法インフラ | 判決等の司法記録の公開 | 🔴 未着手 |
+| 司法インフラ | [判決等の司法記録の公開](docs/state-design/judiciary/)(司法に統合) | 🟢 設計確定 |
 | 商取引・市場 | 日常の商取引 | 🔴 未着手 |
 | 商取引・市場 | 富裕層向け金融サービス | 🔴 未着手(提供者が納税処理の責任を持ち、完全なオンチェーン透明化は行わない) |
 | 意図的に対象外 | 高頻度取引(HFT) | 🚫 対象外 |
 | 意図的に対象外 | 個人の資産形成目的の投資 | 🚫 対象外 |
 | 意図的に対象外 | [立法プロセス](docs/state-design/legislative/) | 🚫 対象外 |
+| 意図的に対象外 | [トークン陪審員による仲裁](docs/state-design/judiciary/) | 🚫 対象外 |
 
 ## 技術スタック
 

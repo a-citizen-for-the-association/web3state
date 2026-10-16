@@ -30,6 +30,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0015](0015-political-donations-model.md) | Political donations model: receiving-side fund contracts, traceable donors without names, on-chain official-contract registry | Accepted |
 | [0016](0016-direct-demand-petition-model.md) | Direct-demand petition model: per-demand contract, explicit eligible list, public signatures, count certification only | Accepted |
 | [0017](0017-executive-document-anchoring-v1.md) | Executive v1: mandatory title-and-hash registration of approval documents; iterate after implementation | Accepted |
+| [0018](0018-judiciary-model.md) | Judiciary: evidence and case-record anchoring, address identification for enforcement, token-juror arbitration excluded | Accepted |
 
 ---
 

@@ -31,6 +31,7 @@
 | Executive: statistics — anchoring raw data, and computing statistics directly from on-chain data | same | Real cases (毎月勤労統計, construction-orders survey). Computing statistics from on-chain data depends on payroll and commerce being on-chain. | Redesign phase; everyday commerce and payroll designs. |
 | Executive: link information disclosure requests to registered hashes | same | With hashes on-chain, a "document does not exist" answer becomes falsifiable. Not needed for v1. | Redesign phase. |
 | Official-authority registry (individual officials' roles and keys) | same | v1 records only the agency, not the individual approver. Likely an extension of `OfficialContractRegistry`; it would also serve every authority-issued item. | Redesign phase. |
+| Judiciary: preserve case-record content, not just its hash (e.g. encrypted durable storage) | [judiciary discussion](state-design/judiciary/discussion-log.md), [ADR 0018](decisions/0018-judiciary-model.md) | A hash makes destruction visible but does not keep the content. Storage choice involves litigant privacy and long-term custody of keys. | Redesign phase. |
 
 ---
 

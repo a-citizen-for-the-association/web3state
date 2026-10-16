@@ -56,6 +56,25 @@ Awaiting the user's decision on Issue 6.
 
 ---
 
+## Round 3 — 2026-10-17 (user + Claude)
+
+### User's decision
+
+- Issue 6: **as proposed**. Kleros-style token-juror arbitration with official force is 🚫 excluded. A state-run escrow dispute flow is noted for the everyday-commerce item.
+
+### Adjustments made while writing the spec (flagged for review)
+
+- **Opaque case references.** An evidence inventory that the public can read during an investigation could tip off suspects or accomplices, and could expose a suspect's identity. Each entry therefore uses an **opaque case reference** (a hash of the internal case number with a secret salt) and a rule-based abbreviated description, as for sensitive executive titles. The prosecution discloses the mapping to the court and the defence at indictment. Anyone can then confirm that the inventory has been complete and unchanged since seizure.
+- **Interrogation recordings as an evidence type.** The screen said to fold them into evidence anchoring if wanted. The spec includes them as an item type, at no extra design cost.
+- **Special preservation cannot be disposed of silently.** `dispose()` is rejected for a record classed as special preservation. The court must first lower the class, which is itself a public event. Physical destruction cannot be stopped by a contract, but destroying such a record without that public trail becomes a provable violation.
+- **Enforcement needs no new contract.** With option (b), the on-chain part is only tracing flows that are already public. The new element is an off-chain procedure: under a court order, the municipality discloses the debtor's `ResidentLink` address to the court and the creditor. This is the same legal-process resolution used for donors ([ADR 0015](../../decisions/0015-political-donations-model.md)).
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0018](../../decisions/0018-judiciary-model.md).
+
+---
+
 # 議論ログ: 司法・紛争解決(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -111,3 +130,22 @@ Awaiting the user's decision on Issue 6.
 ### ステータス
 
 論点6についてのユーザーの判断待ち。
+
+---
+
+## Round 3 — 2026-10-17(ユーザー + Claude)
+
+### ユーザーの決定
+
+- 論点6: **提案どおり**。Kleros型のトークン陪審員の仲裁に公的な効力を与えることは🚫対象外とする。国が運営するエスクローの紛争処理は、日常の商取引の項目へのメモとする。
+
+### 仕様作成時に加えた調整(レビュー対象)
+
+- **秘匿化した事件参照。** 捜査中に誰でも読める証拠目録は、被疑者や共犯者に捜査を知らせてしまい、被疑者が誰かを明かしてしまうおそれがある。そのため各登録は、**秘匿化した事件参照**(内部の事件番号を秘密のソルトとともにハッシュ化したもの)と、ルールに基づく略称の説明を使う。行政の機微な名称と同じ扱いである。検察は起訴の時点で、その対応関係を裁判所と弁護側に開示する。そうすれば誰でも、押収以来、目録が完全で変わっていないことを確認できる。
+- **取調べの録音・録画を証拠の種類に含める。** 選別では、必要なら証拠のアンカリングに含めるとしていた。追加の設計コストなしで、仕様では証拠の種類の1つとして含める。
+- **特別保存の記録は黙って廃棄できない。** 特別保存に区分された記録に対する`dispose()`は拒否される。裁判所はまず区分を下げる必要があり、それ自体が公開のイベントになる。物理的な破棄はコントラクトでは止められないが、その公開の痕跡なしにこうした記録を破棄すれば、証明可能な違反になる。
+- **執行に新しいコントラクトは要らない。** 選択肢(b)では、オンチェーンの部分は、すでに公開されている資金の流れをたどることだけである。新しいのはオフチェーンの手続きで、裁判所の命令に基づき、自治体が債務者の`ResidentLink`アドレスを裁判所と債権者に開示する。献金者の特定([ADR 0015](../../decisions/0015-political-donations-model.md))と同じ、法的手続きによる特定である。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0018](../../decisions/0018-judiciary-model.md)。
