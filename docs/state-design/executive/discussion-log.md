@@ -41,6 +41,40 @@ Awaiting the user's response.
 
 ---
 
+## Round 2 — 2026-10-17 (user + Claude)
+
+### User's direction
+
+The user found the full problem very hard and chose a minimal first version: **agencies must register the title and hash of official documents on-chain**, nothing more. Not everything can go on-chain from the start. The user also changed the project workflow: **finish the initial design → implement → scenario tests → find issues → redesign**, instead of trying to resolve everything on paper first.
+
+### Claude's defaults, accepted by the user
+
+- **Who registers:** each agency (ministry, municipality, etc.) has its own registration contract. Authenticity via the agency's `.go.jp`/`.lg.jp` publication, as before. No registry of individual officials' roles.
+- **Which documents:** approval documents (決裁文書) only, the type rewritten in the Moritomo case.
+- **Corrections:** never overwrite; a new registration references the previous version, so the revision history is public.
+- **Deferred to the backlog** for the redesign phase: "no anchor, no effect" (Issue 3), statistics (both raw-data anchoring and computing statistics from on-chain data), information disclosure linkage, the official-authority registry (Issue 4), other document types.
+
+### Sensitive titles
+
+Decided by the user: when a title itself is sensitive (personal names, classified matters), the agency registers a **non-identifying abbreviation following a fixed rule** instead of the real title. The rule is defined off-chain.
+
+### Effect on Issues 1–4
+
+1. Screening: the core is **not** put on-chain in v1, but this is deferral to the redesign phase, not a permanent 🚫 exclusion.
+2. Carve-out: one item, approval-document anchoring.
+3. Validity condition: deferred.
+4. Authority registry: deferred.
+
+### Initial-design scope (workflow change)
+
+Agreed: the initial design ends with the twelve specified functions plus the rest of Governance Core in minimal form (executive: this design; judiciary: next, also minimal). Then the cross-feature consistency review, then implementation. The remaining 🔴 items are designed after the first implementation and scenario-test cycle.
+
+### Status
+
+Resolved. Spec written ([`README.md`](README.md)); ADR: [0017](../../decisions/0017-executive-document-anchoring-v1.md).
+
+---
+
 # 議論ログ: 行政(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -81,3 +115,37 @@ Awaiting the user's response.
 ### ステータス
 
 ユーザーの回答待ち。
+
+---
+
+## Round 2 — 2026-10-17(ユーザー + Claude)
+
+### ユーザーの方針
+
+ユーザーは問題全体を非常に難しいと判断し、最小の第1版を選んだ。**行政機関は、公文書の名称とハッシュをオンチェーンに登録することを義務付けられる**。それ以上はしない。最初からすべてをオンチェーン化することはできない。ユーザーはプロジェクトの進め方も変更した。すべてを机上で解決しようとするのではなく、**初期設計の完了 → 実装 → シナリオテスト → 課題の発見 → 再設計**の流れにする。
+
+### ユーザーが了承したClaudeの既定案
+
+- **登録する主体:** 行政機関(省庁、自治体など)ごとに登録用のコントラクトを持つ。本物かどうかは、これまでと同じく機関の`.go.jp`/`.lg.jp`での公表で確認する。職員個人の役職のレジストリは作らない。
+- **対象の文書:** 決裁文書のみ。森友学園の件で書き換えられた種類の文書である。
+- **修正:** 上書きしない。新しい登録が前の版を参照するので、改訂の履歴が公開される。
+- **再設計の段階に向けてBACKLOGへ先送り:** 「アンカーなしでは効力なし」(論点3)、統計(原データのアンカリングと、オンチェーンデータからの統計の計算の両方)、情報公開との連携、行政の権限レジストリ(論点4)、その他の種類の文書。
+
+### 機微な名称
+
+ユーザーの決定: 名称そのものが機微な場合(個人名、秘密指定の事項など)、機関は実際の名称の代わりに、**一定のルールに従った、それとは分からない略称**を登録する。ルールはオフチェーンで定める。
+
+### 論点1〜4への影響
+
+1. 選別: 第1版では本体をオンチェーン化**しない**。ただしこれは再設計の段階への先送りであり、恒久的な🚫対象外ではない。
+2. 切り出し: 決裁文書のアンカリングという1つの項目にする。
+3. 効力の条件: 先送り。
+4. 権限レジストリ: 先送り。
+
+### 初期設計の範囲(進め方の変更)
+
+合意: 初期設計は、確定済みの12機能と、統治の中核の残りを最小の形で設計したところで終える(行政: この設計、司法: 次に、同じく最小で)。その後に機能間の整合性レビュー、そして実装に入る。残りの🔴項目は、最初の実装とシナリオテストの一巡の後に設計する。
+
+### ステータス
+
+解決。仕様を作成([`README.md`](README.md))。ADR: [0017](../../decisions/0017-executive-document-anchoring-v1.md)。
