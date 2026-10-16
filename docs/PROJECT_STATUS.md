@@ -4,6 +4,15 @@
 
 **Last updated:** 2026-10-17
 
+## ⏸ Paused — resume point
+
+Paused on 2026-10-17 right after finishing the [judiciary](state-design/judiciary/) (ADR 0018), which completed Governance Core.
+
+**When the user says "再開して" (resume):**
+1. First ask the user to confirm the four adjustments Claude made while writing the judiciary spec (listed in its [discussion log](state-design/judiciary/discussion-log.md), Round 3): opaque case references, interrogation recordings as an evidence type, guarded disposal of special-preservation records, no new contract for enforcement. They were presented but not yet confirmed.
+2. Show the remaining 🔴 items from `docs/FEATURES.md` (18 at pause time) as a compact, category-grouped list, and ask the user which theme to design next. Don't pick one yourself.
+3. Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)), then proceed as before: raise issues → discuss → discussion log → ADR + spec. Every listed item is designed before any implementation.
+
 ## Current phase
 
 **Phase 1 (continued) — Designing state functions; implementation deliberately deferred.** Repository scaffold is in place (Phase 0 complete). Fourteen state functions are fully resolved and specified: citizenship/residency (resident-link NFT, [ADR 0003](decisions/0003-resident-link-identity-model.md)), taxation/payment rail ([ADR 0004](decisions/0004-taxation-payment-rail.md)), corporations/registration ([ADR 0005](decisions/0005-corporate-registration-model.md)), the passport credential ([ADR 0006](decisions/0006-passport-credential.md)), the diploma credential ([ADR 0007](decisions/0007-diploma-credential.md)), the license credential ([ADR 0008](decisions/0008-license-credential.md)), the health-insurance credential ([ADR 0009](decisions/0009-health-insurance-credential.md)), the employee ID credential ([ADR 0010](decisions/0010-employee-id-credential.md)), the vaccination credential ([ADR 0011](decisions/0011-vaccination-credential.md)) — **completing the originally-listed set of six concrete "credentials" instances** — and voting ([ADR 0013](decisions/0013-voting-model.md)), the first function requiring genuinely new cryptographic machinery rather than the soulbound-NFT pattern — and political donations ([ADR 0015](decisions/0015-political-donations-model.md)), the first to force the *receiving* side through contract logic — and direct-demand petition signatures ([ADR 0016](decisions/0016-direct-demand-petition-model.md)), the first public, non-secret participation record — and the executive in minimal v1 form ([ADR 0017](decisions/0017-executive-document-anchoring-v1.md)): approval-document title-and-hash anchoring — and the judiciary ([ADR 0018](decisions/0018-judiciary-model.md)), which completes Governance Core. The legislative process was screened out ([ADR 0014](decisions/0014-legislative-process-scope.md)). See [`docs/FEATURES.md`](FEATURES.md) for the full, up-to-date progress table, and [`docs/BACKLOG.md`](BACKLOG.md) for items deferred out of those designs.
@@ -62,6 +71,15 @@
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
 **最終更新日:** 2026-10-17
+
+## ⏸ 中断中 — 再開ポイント
+
+2026-10-17、[司法](state-design/judiciary/)(ADR 0018)を確定し、統治の中核が完了した直後に中断しました。
+
+**ユーザーが「再開して」と言ったら:**
+1. まず、Claudeが司法の仕様作成時に加えた4つの調整([議論ログ](state-design/judiciary/discussion-log.md)のRound 3)について、ユーザーに確認を求めること。秘匿化した事件参照、取調べの録音・録画を証拠の種類に含めること、特別保存の記録の廃棄の制限、執行に新しいコントラクトを作らないこと。提示はしたが、まだ確認を得ていない。
+2. `docs/FEATURES.md`の残りの🔴項目(中断時点で18件)をカテゴリ別の簡潔な一覧で示し、次にどのテーマを設計するかをユーザーに尋ねること。自分で選ばないこと。
+3. 選ばれた項目をオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))にかけ、これまでと同じく、論点の提起→議論→議論ログ→ADR＋仕様の順に進める。掲げた項目はすべて、実装の前に設計する。
 
 ## 現在のフェーズ
 
