@@ -78,6 +78,32 @@ Awaiting the user's response to S1–S8.
 
 ---
 
+## Round 3 — 2026-10-18 (user + Claude)
+
+### User's decisions
+
+- **S1: reject.** A transfer to an uncertified address reverts; nothing is confiscated.
+- **S2: successor procedures in the contract.** After a move, a key loss or a death, the next address is always determined (the new address, or the heirs). The procedure that moves the balance to it is done through the contract.
+- **S3:** the user asked for a fuller explanation.
+- **S4: one aggregated certified-address list.**
+- **S5: accepted.** Every money-holding contract must be registered. For tourists and other special cases, a **temporary, non-`ResidentLink` method** will be designed, limited in **duration** and in **maximum balance**, so that it cannot become a channel for crime.
+- **S6/S7:** accepted. Holding foreign stablecoins is in itself grounds for **enhanced monitoring**, and domestic payment use of foreign stablecoins that do not implement this rule is **prohibited** (law, off-chain).
+- **S8: accepted.** Being a politician demands that level of commitment, which should also discourage people who only want to profit from office.
+
+### Claude's explanation of S3
+
+ADR 0018 rejected option (a): a court order that the stablecoin itself executes, moving money out of a debtor's wallet. The reason was that the stablecoin would then contain a function that moves funds **out of an address without the owner's signature**, and that power could reach every wallet.
+
+S2 needs a function of exactly that technical kind. After a key loss or a death, nobody can sign for the old address, so an authority (the municipality, or the inheritance procedure) must move the balance without the owner's signature.
+
+The two are compatible if the power is narrowed. Proposal: the forced move works **only on an address that has lost its certification** (its `ResidentLink` burned), and **only to the certified successor address(es)** recorded by the procedure. An active, certified address can never be touched, so ADR 0018's concern (power over living people's wallets) still holds, and judgment enforcement stays off-chain.
+
+### Status
+
+Awaiting the user's confirmation of the S3 narrowing.
+
+---
+
 # 議論ログ: 要人の資産公開(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。ユーザーは「政治の透明性」のカテゴリを選んだ。この項目を最初に扱い、次に公共調達、補助金の順とする。
@@ -155,3 +181,29 @@ Awaiting the user's response to S1–S8.
 ### ステータス
 
 S1〜S8へのユーザーの回答待ち。
+
+---
+
+## Round 3 — 2026-10-18(ユーザー + Claude)
+
+### ユーザーの決定
+
+- **S1: 拒否。** 認定外のアドレスへの送金はリバートする。没収はしない。
+- **S2: 承継の手続きをコントラクトで行う。** 転居、鍵の紛失、死亡のいずれでも、次のアドレス(新しいアドレス、または相続人)は必ず決まる。残高をそこへ移す手続きは、コントラクトを通して行う。
+- **S3:** ユーザーはより詳しい説明を求めた。
+- **S4: 認定アドレスを集約した1つの一覧を作る。**
+- **S5: 了承。** お金を持つすべてのコントラクトは登録が必要。旅行者などの特別な場合には、**`ResidentLink`ではない一時的な方式**を設計する。**期間**と**保有できる残高の上限**を制限し、犯罪の経路にならないようにする。
+- **S6/S7:** 了承。外国のステーブルコインを保有すること自体が**監視強化**の対象になり、このルールを実装しない外国のステーブルコインの国内での決済利用は**禁止**する(法律、オフチェーン)。
+- **S8: 受け入れる。** 政治家になるにはそれくらいの覚悟が必要であり、利権を得たいだけの人が政治家になることを抑える効果も期待できる。
+
+### S3のClaudeによる説明
+
+ADR 0018は選択肢(a)を退けた。裁判所の命令をステーブルコイン自体が実行し、債務者のウォレットからお金を移すものである。理由は、ステーブルコインの中に**持ち主の署名なしにアドレスからお金を移す**機能ができ、その権限がすべてのウォレットに及びうることだった。
+
+S2には、技術的にまさにその種の機能が必要になる。鍵の紛失や死亡の後は、古いアドレスのために署名できる人がいないので、当局(自治体や相続の手続き)が持ち主の署名なしに残高を移さなければならない。
+
+権限を絞れば両立する。提案: 強制的な移転は、**認定を失ったアドレス**(`ResidentLink`がburnされたもの)に**だけ**働き、手続きで記録された**認定済みの承継先アドレスにだけ**移せる。有効で認定されたアドレスには決して手を出せないので、ADR 0018の懸念(生きている人のウォレットに対する権限)は引き続き守られ、判決の執行もオフチェーンのままとなる。
+
+### ステータス
+
+S3の絞り込みについて、ユーザーの確認待ち。
