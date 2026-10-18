@@ -40,6 +40,31 @@ Awaiting the user's response.
 
 ---
 
+## Round 2 — 2026-10-18 (user + Claude)
+
+### User's decisions
+
+| # | Decision |
+|---|---|
+| 1 | **Accepted.** |
+| 2 | **Accepted**: a treasury contract per public body. |
+| 3 | **(b)**: payments are tagged with a budget code; overspending is caught by audit. No on-chain caps. |
+| 4 | **Accepted**: only genuine `ResidentLink` holders, registered corporations, or other public treasuries can be paid. |
+| 5 | **No special mechanism.** Payments are stablecoin transfers, and the chain already lets anyone follow the money past the first recipient, individual or corporation. Some secrecy is tolerated: cash or special financial-institution accounts may be used where secrecy is needed (e.g. the Cabinet Secretariat's discretionary fund, 官房機密費). The goal is a society where whatever is **not** on-chain is checked thoroughly by off-chain mechanisms. |
+| 6 | **(a)**: payments to individuals are public, like everything else. |
+| 7 | **Same as 5**: activity expenses are paid in stablecoin. A politician's address is public, so anyone can see where the money went, how much, and whether the payee is a plausible corporation or a suspicious individual. |
+
+### Follow-up points raised by Claude before writing the spec
+
+- **F1. Visible exits to off-chain.** Proposal: money that leaves the chain for secret use must be paid to a registered financial institution (a corporation, so Issue 4 already allows it) with an explicit `OffChainExit` tag. The *use* stays secret, but the **amount and timing of every exit** stay public, so total secret spending per body is always known and the off-chain checks know exactly what to check.
+- **F2. Which address receives activity expenses.** (a) The legislator's own `ResidentLink` address. It is simple and already public for VIPs, but activity spending mixes with personal spending, so nobody can tell which outflows were activity expenses. (b) A **dedicated activity address** registered for each legislator (named, public), used only for activity expenses. Payments and spending are then cleanly separable. For (b), the treasury's payee check must accept such registered addresses.
+
+### Status
+
+Awaiting the user's response to F1–F2.
+
+---
+
 # 議論ログ: 歳出・予算(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -79,3 +104,28 @@ Awaiting the user's response.
 ### ステータス
 
 ユーザーの回答待ち。
+
+---
+
+## Round 2 — 2026-10-18(ユーザー + Claude)
+
+### ユーザーの決定
+
+| # | 決定 |
+|---|---|
+| 1 | **了承。** |
+| 2 | **了承**: 公的機関ごとに国庫コントラクトを置く。 |
+| 3 | **(b)**: 支払いには予算コードを付け、超過は検査で見つける。オンチェーンの上限は設けない。 |
+| 4 | **了承**: 支払えるのは、本物の`ResidentLink`の保有者、登記済みの法人、別の公的な国庫だけ。 |
+| 5 | **特別な仕組みは不要。** 支払いはステーブルコインの送金であり、個人でも法人でも、最初の受取人より先も誰でもチェーン上で追える。秘密にしたいものについては、一部、現金や金融機関の特殊な口座の利用を許容する(官房機密費などのため)。目指すのは、オンチェーンで**ない**部分を、オフチェーンの仕組みで徹底してチェックする社会である。 |
+| 6 | **(a)**: 個人への支払いも、他と同じく公開する。 |
+| 7 | **5と同じ**: 政務活動費もステーブルコインで支払う。政治家のアドレスは公開されているので、誰でも、どこにいくら支払われたか、支払先が納得感のある法人か怪しい個人かを判別できる。 |
+
+### 仕様作成前にClaudeが提起した確認点
+
+- **F1. オフチェーンへの出口を見えるようにする。** 提案: 秘密の用途のためにチェーンの外に出るお金は、登記済みの金融機関(法人なので論点4ですでに支払える)に、明示的な`OffChainExit`のタグを付けて支払わなければならない。*使い道*は秘密のままだが、**すべての出口の金額と時期は公開**されるので、機関ごとの秘密の支出の総額は常に分かり、オフチェーンのチェックも何を調べればよいかが正確に分かる。
+- **F2. 政務活動費をどのアドレスで受け取るか。** (a) 議員自身の`ResidentLink`アドレス。単純で、要人としてすでに公開されているが、活動の支出と私的な支出が混ざり、どの支出が政務活動費だったかを誰も見分けられない。(b) 議員ごとに登録する**専用の活動用アドレス**(名前付きで公開)を、政務活動費だけに使う。受け取りと支出をきれいに分けられる。(b)の場合、国庫の支払先の確認で、こうした登録済みアドレスも受け付ける必要がある。
+
+### ステータス
+
+F1〜F2へのユーザーの回答待ち。
