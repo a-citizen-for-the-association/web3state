@@ -84,6 +84,12 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0019](../../
 
 ---
 
+## Round 4 — 2026-10-18 (user)
+
+The user **confirmed both Round 3 adjustments** (the `PublicTreasury` registry kind; checking off-chain that an `OffChainExit` payee is a financial institution). No open points remain.
+
+---
+
 # 議論ログ: 歳出・予算(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -167,3 +173,9 @@ F1〜F2へのユーザーの回答待ち。
 ### ステータス
 
 すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0019](../../decisions/0019-treasury-model.md)。
+
+---
+
+## Round 4 — 2026-10-18(ユーザー)
+
+ユーザーは**Round 3の2つの調整をいずれも了承した**(レジストリの`PublicTreasury`の種類、`OffChainExit`の支払先が金融機関かどうかをオフチェーンで確認すること)。未決の点は残っていない。

@@ -71,3 +71,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/PROJECT_STATUS.md`: added a "paused / resume point" section after the judiciary (confirm judiciary adjustments, then show the remaining list and let the user choose).
 - `docs/state-design/judiciary/discussion-log.md`: Round 4 — user confirmed the four spec adjustments. `docs/PROJECT_STATUS.md`: resume point updated accordingly.
 - `docs/FEATURES.md`, root `README.md`: treasury 🟢. `docs/glossary.md`: added public treasury. `docs/PROJECT_STATUS.md`: removed the resume point; recorded ADR 0019 and its principle.
+- `docs/state-design/treasury/discussion-log.md`: Round 4 — user confirmed the spec adjustments. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section after the treasury.
