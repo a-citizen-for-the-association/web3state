@@ -20,7 +20,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Governance Core | [Executive / administration](docs/state-design/executive/) | 🟢 Spec drafted (minimal v1) |
 | Governance Core | [Judiciary / dispute resolution](docs/state-design/judiciary/) | 🟢 Spec drafted |
 | Public Finance & Taxation | [Taxation: payment](docs/state-design/taxation/) | 🟢 Spec drafted |
-| Public Finance & Taxation | [Treasury / public finance (budget, spending)](docs/state-design/treasury/) | 🟡 Discussing |
+| Public Finance & Taxation | [Treasury / public finance (budget, spending)](docs/state-design/treasury/) | 🟢 Spec drafted |
 | Political Transparency | [Political donations](docs/state-design/political-donations/) | 🟢 Spec drafted |
 | Political Transparency | VIP / politician asset disclosure | 🔴 Not started |
 | Political Transparency | Public procurement / bidding | 🔴 Not started |
@@ -111,7 +111,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 統治の中核 | [行政](docs/state-design/executive/) | 🟢 設計確定(最小の第1版) |
 | 統治の中核 | [司法・紛争解決](docs/state-design/judiciary/) | 🟢 設計確定 |
 | 財政・税 | [納税](docs/state-design/taxation/) | 🟢 設計確定 |
-| 財政・税 | [財務(予算・歳出)](docs/state-design/treasury/) | 🟡 議論中 |
+| 財政・税 | [財務(予算・歳出)](docs/state-design/treasury/) | 🟢 設計確定 |
 | 政治の透明性 | [政治献金](docs/state-design/political-donations/) | 🟢 設計確定 |
 | 政治の透明性 | 要人(政治家等)の資産公開 | 🔴 未着手 |
 | 政治の透明性 | 公共調達・入札 | 🔴 未着手 |

@@ -65,6 +65,25 @@ Awaiting the user's response to F1–F2.
 
 ---
 
+## Round 3 — 2026-10-18 (user + Claude)
+
+### User's decisions
+
+- **F1: as proposed.** Exits to off-chain carry an `OffChainExit` tag; amount and timing are public, use is not.
+- **F2: (a)**, the legislator's own `ResidentLink` address. The user wants complex mechanisms kept out. Activity expenses can be classified by their source (the treasury payment), and an off-chain application can easily analyse where the money went from that address.
+- **New design principle (user):** *whatever can be done off-chain is not put on-chain.* On-chain logic is kept to what genuinely needs a chain; analysis, classification and checks that an off-chain application can do from public chain data stay off-chain.
+
+### Adjustments made while writing the spec (flagged for review)
+
+- **`OfficialContractRegistry` gains a `PublicTreasury` kind,** so a treasury can check on-chain that a payee is another public treasury (Issue 4). This is the minimal addition: without it, transfers between bodies (e.g. local allocation tax) could not pass the payee check.
+- **Whether an `OffChainExit` payee is really a financial institution is checked off-chain,** not in the contract. The payee must still be a registered corporation (Issue 4). Following the new principle, the "is it a bank?" check is done from public data.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0019](../../decisions/0019-treasury-model.md).
+
+---
+
 # 議論ログ: 歳出・予算(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -129,3 +148,22 @@ Awaiting the user's response to F1–F2.
 ### ステータス
 
 F1〜F2へのユーザーの回答待ち。
+
+---
+
+## Round 3 — 2026-10-18(ユーザー + Claude)
+
+### ユーザーの決定
+
+- **F1: 提案どおり。** オフチェーンへの出口には`OffChainExit`のタグを付ける。金額と時期は公開し、使い道は公開しない。
+- **F2: (a)**、議員自身の`ResidentLink`アドレス。ユーザーは複雑な仕組みを極力排除したい。政務活動費は送金元(国庫からの支払い)で分類でき、そのアドレスからの行き先を分析するアプリケーションはオフチェーンで容易に実装できる。
+- **新しい設計方針(ユーザー):** *オフチェーンでできることは、極力オンチェーン化しない。* オンチェーンのロジックは本当にチェーンが必要なものに限る。公開されたチェーンのデータからオフチェーンのアプリケーションでできる分析・分類・チェックは、オフチェーンに置く。
+
+### 仕様作成時に加えた調整(レビュー対象)
+
+- **`OfficialContractRegistry`に`PublicTreasury`の種類を加える。** 国庫が、支払先が別の公的な国庫であることをオンチェーンで確認できるようにするため(論点4)。これは最小限の追加で、これがないと機関の間の移転(地方交付税など)が支払先の確認を通らない。
+- **`OffChainExit`の支払先が本当に金融機関かどうかは、コントラクトではなくオフチェーンで確認する。** 支払先は引き続き登記済みの法人でなければならない(論点4)。新しい方針に従い、「銀行かどうか」の確認は公開データから行う。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0019](../../decisions/0019-treasury-model.md)。

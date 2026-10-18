@@ -42,6 +42,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/direct-demand/` and `docs/decisions/0016-direct-demand-petition-model.md`: completed design spec for direct-demand petition signatures — one `Petition` contract per demand, explicit per-petition eligible list, full-text hash, fixed threshold, public self-signed signatures with no collectors, count certification only.
 - `docs/state-design/executive/` and `docs/decisions/0017-executive-document-anchoring-v1.md`: executive screened with the on-chain value test; minimal v1 spec — mandatory title-and-hash registration of approval documents in a per-agency append-only `DocumentRegistry`. Also records the workflow change to design → implement → scenario test → redesign.
 - `docs/state-design/judiciary/` and `docs/decisions/0018-judiciary-model.md`: judiciary spec — `EvidenceRegistry` (evidence registered at seizure), `CaseRecordRegistry` (retention classes, guarded disposal, judgments), enforcement by court-ordered address disclosure; token-juror arbitration excluded.
+- `docs/state-design/treasury/` and `docs/decisions/0019-treasury-model.md`: treasury spec — per-body `PublicTreasury`, identified payees, budget codes as tags, public `OffChainExit`; adopts the "off-chain if it can be" principle.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
@@ -69,3 +70,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/FEATURES.md`, root `README.md`: judiciary 🟢; public court records merged into judiciary (🟢); new 🚫 row for token-juror arbitration; everyday-commerce note on purchase escrow. `docs/BACKLOG.md`: case-record content preservation. `docs/PROJECT_STATUS.md`: Governance Core complete.
 - `docs/PROJECT_STATUS.md`: added a "paused / resume point" section after the judiciary (confirm judiciary adjustments, then show the remaining list and let the user choose).
 - `docs/state-design/judiciary/discussion-log.md`: Round 4 — user confirmed the four spec adjustments. `docs/PROJECT_STATUS.md`: resume point updated accordingly.
+- `docs/FEATURES.md`, root `README.md`: treasury 🟢. `docs/glossary.md`: added public treasury. `docs/PROJECT_STATUS.md`: removed the resume point; recorded ADR 0019 and its principle.
