@@ -1,7 +1,7 @@
 # 0018. Judiciary: evidence and case-record anchoring, address identification for enforcement, token-juror arbitration excluded
 
 **Date:** 2026-10-17
-**Status:** Accepted
+**Status:** Accepted. [ADR 0020](0020-certified-address-stablecoin.md) adds a narrowly-scoped successor-migration power to the stablecoin; it never touches an active address, so this ADR's refusal of court power over wallets stands.
 
 ## Context
 
@@ -32,7 +32,7 @@ Filing and procedure (already being digitalised), deliberation (institutional), 
 # 0018. 司法: 証拠と事件記録のアンカリング、執行のためのアドレス特定、トークン陪審員による仲裁は対象外(日本語)
 
 **日付:** 2026-10-17
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0020](0020-certified-address-stablecoin.md)は、範囲を狭く絞った承継の移転の権限をステーブルコインに加える。有効なアドレスには決して手を出さないので、ウォレットに対する裁判所の権限を退けたこのADRの判断は維持される。
 
 ## 背景
 

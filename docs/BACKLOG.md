@@ -32,6 +32,9 @@
 | Executive: link information disclosure requests to registered hashes | same | With hashes on-chain, a "document does not exist" answer becomes falsifiable. Not needed for v1. | Redesign phase. |
 | Official-authority registry (individual officials' roles and keys) | same | v1 records only the agency, not the individual approver. Likely an extension of `OfficialContractRegistry`; it would also serve every authority-issued item. | Redesign phase. |
 | Judiciary: preserve case-record content, not just its hash (e.g. encrypted durable storage) | [judiciary discussion](state-design/judiciary/discussion-log.md), [ADR 0018](decisions/0018-judiciary-model.md) | A hash makes destruction visible but does not keep the content. Storage choice involves litigant privacy and long-term custody of keys. | Redesign phase. |
+| Visitor pass: handling a balance left when the pass expires | [VIP disclosure discussion](state-design/vip-asset-disclosure/discussion-log.md), [ADR 0020](decisions/0020-certified-address-stablecoin.md) | Not needed to fix the rule itself; options include a grace period to cash out through certified operators. | Before implementation of the stablecoin rule. |
+| Legal parameter values for the certified-address rule (visitor duration and balance cap, heavy-path waiting period) | same | Values are policy, not design. | Implementation phase. |
+| Re-check every earlier design under the certified-address premise (e.g. which contracts must be registered; employee-ID holders and foreign corporations without a `ResidentLink`; cross-border payments) | [ADR 0020](decisions/0020-certified-address-stablecoin.md) | The premise was introduced after most designs were written. | Cross-feature consistency review. |
 
 ---
 

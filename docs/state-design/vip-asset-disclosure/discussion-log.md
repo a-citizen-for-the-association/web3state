@@ -104,6 +104,27 @@ Awaiting the user's confirmation of the S3 narrowing.
 
 ---
 
+## Round 4 — 2026-10-18 (user + Claude)
+
+### User's decision
+
+The narrowing is accepted, and the user added the procedure for key loss. The person reports to the municipality. Moving the balance must be **so complicated and tedious that criminals would not want to attempt it**: the municipality certifies the case, examines the address's past incoming and outgoing transfers for anything suspicious, and only if a **court** approves can a **multisig** execute the forced move.
+
+### Adjustments made while writing the specs (flagged for review)
+
+- **Public waiting period and owner veto.** After approval, the move waits for a public timelock period. During it, the old address itself can cancel the move by signing. This stops the main attack, in which someone impersonates a victim at the office and claims a "lost key" to redirect the victim's money: the real owner still holds the key and can veto.
+- **Death uses the same heavy path,** with the successors (heirs and shares) fixed by the inheritance procedure.
+- **A light path when the owner still holds the key.** Switching to a new address after leaving office (Issue 5), or any voluntary address change, is signed by the old address and confirmed by the municipality; no court and no waiting period. The heavy path is only for moves *without* the owner's signature.
+- **Senders are checked too.** Both sender and recipient must be certified. A decertified address (e.g. during a move's gap) is therefore frozen until it is certified again or its balance is migrated. This also enforces the legal premise that receiving funds from an uncertified address is illegal.
+- **Visitor pass defaults.** The pass is issued by the Immigration Services Agency at entry. Its duration and balance cap are legal parameters held in the registry. Handling a balance left when a pass expires is left to the backlog.
+- **The VIP declaration shrinks.** Uncertified addresses cannot hold the JPY stablecoin, and each person has exactly one `ResidentLink` address. So a VIP's on-chain declaration is just that address; corporate roles are already public. What remains to declare is off-chain assets (including ordinary deposits) and any non-JPY tokens.
+
+### Status
+
+All issues resolved. Specs written: [`README.md`](README.md) and [`../certified-stablecoin/README.md`](../certified-stablecoin/README.md). ADRs: [0020](../../decisions/0020-certified-address-stablecoin.md), [0021](../../decisions/0021-vip-asset-disclosure.md).
+
+---
+
 # 議論ログ: 要人の資産公開(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。ユーザーは「政治の透明性」のカテゴリを選んだ。この項目を最初に扱い、次に公共調達、補助金の順とする。
@@ -207,3 +228,24 @@ S2には、技術的にまさにその種の機能が必要になる。鍵の紛
 ### ステータス
 
 S3の絞り込みについて、ユーザーの確認待ち。
+
+---
+
+## Round 4 — 2026-10-18(ユーザー + Claude)
+
+### ユーザーの決定
+
+絞り込みを了承し、鍵を紛失した場合の手続きを加えた。本人は役所に申し出る。残高の移転は、**犯罪者が「とてもやりたくない」と思うほど複雑で面倒な処理**を経なければできないようにする。役所が事案を認定し、そのアドレスの過去の着金・送金に疑わしい点がないかを調べ、**裁判所**が認定した場合に限り、**マルチシグ**で強制移転を実行できる。
+
+### 仕様作成時に加えた調整(レビュー対象)
+
+- **公開の待機期間と持ち主の拒否権。** 承認の後、移転は公開の待機期間(タイムロック)を待つ。その間、古いアドレス自身が署名すれば移転を取り消せる。これで主な攻撃を防ぐ。役所で被害者になりすまし、「鍵をなくした」と申し出て被害者のお金を横取りする攻撃である。本当の持ち主は鍵を持っているので拒否できる。
+- **死亡も同じ重い手続きを使う。** 承継先(相続人とその持分)は相続の手続きで確定する。
+- **持ち主が鍵を持っている場合の軽い手続き。** 退任後の新しいアドレスへの切り替え(論点5)や、任意のアドレス変更は、古いアドレスが署名し、役所が確認する。裁判所も待機期間も要らない。重い手続きは、持ち主の署名*なし*の移転に限る。
+- **送金元も確認する。** 送金元と受取人の両方が認定済みでなければならない。そのため認定を失ったアドレス(転居の空白期間など)は、再び認定されるか残高が移されるまで凍結される。これは、認定外のアドレスから資金を受け取ることは違法という法的な前提も強制する。
+- **旅行者パスの既定案。** 出入国在留管理庁が入国時に発行する。期間と残高の上限は、レジストリが持つ法定のパラメータとする。パスの期限切れ時に残った残高の扱いはBACKLOGに回す。
+- **要人の申告が小さくなる。** 認定外のアドレスは円建てステーブルコインを持てず、各人は`ResidentLink`アドレスをちょうど1つ持つ。したがって要人のオンチェーンの申告はそのアドレスだけになる。法人の役職はすでに公開されている。残る申告は、オフチェーンの資産(普通預金を含む)と、円以外のトークンの保有である。
+
+### ステータス
+
+すべての論点が解決。仕様を作成: [`README.md`](README.md)と[`../certified-stablecoin/README.md`](../certified-stablecoin/README.md)。ADR: [0020](../../decisions/0020-certified-address-stablecoin.md)、[0021](../../decisions/0021-vip-asset-disclosure.md)。

@@ -1,7 +1,7 @@
 # 0004. Taxation payment rail: direct, resident-initiated payments only, no dedicated contract
 
 **Date:** 2026-10-03
-**Status:** Accepted
+**Status:** Accepted. The payment rail is extended by [ADR 0020](0020-certified-address-stablecoin.md) (certified-address stablecoin).
 
 ## Context
 
