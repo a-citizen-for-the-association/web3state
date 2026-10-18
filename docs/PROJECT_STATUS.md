@@ -2,15 +2,7 @@
 
 > Living document. Update this whenever the project moves phase, a major question is resolved, or a new major question opens. Keep it short — detail belongs in ADRs or architecture docs, this is a snapshot.
 
-**Last updated:** 2026-10-17
-
-## ⏸ Paused — resume point
-
-Paused on 2026-10-17 right after finishing the [judiciary](state-design/judiciary/) (ADR 0018), which completed Governance Core. The judiciary's spec adjustments were confirmed by the user; nothing in the judiciary is open.
-
-**When the user says "再開して" (resume):**
-1. Show the remaining 🔴 items from `docs/FEATURES.md` (18 at pause time) as a compact, category-grouped list, and ask the user which theme to design next. Don't pick one yourself.
-2. Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)), then proceed as before: raise issues → discuss → discussion log → ADR + spec. Every listed item is designed before any implementation.
+**Last updated:** 2026-10-18
 
 ## Current phase
 
@@ -59,7 +51,7 @@ Paused on 2026-10-17 right after finishing the [judiciary](state-design/judiciar
 
 ## Next steps
 
-1. Continue designing every remaining 🔴 item in `docs/FEATURES.md` (Governance Core is complete). Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first.
+1. Treasury / public finance (🟡, started 2026-10-18): see the [discussion log](state-design/treasury/discussion-log.md); awaiting the user's response to Round 1. Then continue with the remaining 🔴 items in `docs/FEATURES.md`, letting the user choose each next theme.
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -69,15 +61,7 @@ Paused on 2026-10-17 right after finishing the [judiciary](state-design/judiciar
 
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
-**最終更新日:** 2026-10-17
-
-## ⏸ 中断中 — 再開ポイント
-
-2026-10-17、[司法](state-design/judiciary/)(ADR 0018)を確定し、統治の中核が完了した直後に中断しました。司法の仕様作成時の調整はユーザーの了承済みで、司法に未決の点はありません。
-
-**ユーザーが「再開して」と言ったら:**
-1. `docs/FEATURES.md`の残りの🔴項目(中断時点で18件)をカテゴリ別の簡潔な一覧で示し、次にどのテーマを設計するかをユーザーに尋ねること。自分で選ばないこと。
-2. 選ばれた項目をオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))にかけ、これまでと同じく、論点の提起→議論→議論ログ→ADR＋仕様の順に進める。掲げた項目はすべて、実装の前に設計する。
+**最終更新日:** 2026-10-18
 
 ## 現在のフェーズ
 
@@ -126,6 +110,6 @@ Paused on 2026-10-17 right after finishing the [judiciary](state-design/judiciar
 
 ## 次のステップ
 
-1. `docs/FEATURES.md`の残りの🔴項目をすべて設計する(統治の中核は完了)。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかける。
+1. 歳出・予算(🟡、2026-10-18着手): [議論ログ](state-design/treasury/discussion-log.md)を参照。Round 1へのユーザーの回答待ち。その後、`docs/FEATURES.md`の残りの🔴項目を、毎回ユーザーに次のテーマを選んでもらいながら進める。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
