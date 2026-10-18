@@ -49,6 +49,35 @@ Awaiting the user's response.
 
 ---
 
+## Round 2 — 2026-10-18 (user + Claude)
+
+### User's decisions
+
+- **Issue 1:** civil servants are **not** VIPs. VIPs are legislators (national and local), heads of government, ministers and vice-ministers.
+- **Issue 2 → a new premise.** Receiving income at, or receiving funds from, an address **not linked to a `ResidentLink`** is illegal. The user also wants to consider a technical rule: the FSA-licensed JPY stablecoin, when sent to any address the state has not certified (anything other than a `ResidentLink` holder, a corporate contract, or a national/local public contract), is **forcibly moved to the treasury**.
+- **Issue 3:** off-chain assets are checked and managed thoroughly. Apart from cash, the user intends nearly all assets to be managed on-chain (to be designed later). **An omitted declaration is punished severely**, e.g. permanent exclusion from politics.
+- **Issue 4:** family members are **not** required to declare.
+- **Issue 5:** after leaving office, the person **switches to a new `ResidentLink` address**, ending public monitoring.
+
+### Claude's analysis of the certified-address stablecoin rule
+
+This is a project-wide premise, not a VIP-only rule. It changes the payment rail ([ADR 0004](../../decisions/0004-taxation-payment-rail.md)) and reaches every design that holds money. It is technically feasible, because a stablecoin contract can check the recipient on every transfer. Points to settle:
+
+- **S1. Confiscate or reject.** Rejecting (reverting) the transfer achieves the same goal (money never reaches an uncertified address) without seizing anything, and a typo costs nothing. Confiscation adds a deterrent, but needs a state power to move funds inside the stablecoin.
+- **S2. Addresses that lose certification.** `ResidentLink` is burned on a move (and reissued by the new municipality), on death, and on key loss (reissued to a new address); corporations dissolve. Under a "send to uncertified = confiscate" rule, salary arriving during a move's gap would be seized, and a deceased person's balance would bypass inheritance. These need a defined treatment (freeze, authority-mediated transfer, or sweep).
+- **S3. Conflict with ADR 0018.** The judiciary rejected giving the court power over wallets inside the stablecoin. Confiscation (S1) or authority-mediated moves (S2) put exactly that kind of power into the stablecoin. This needs to be decided consistently.
+- **S4. Lookup.** A stablecoin cannot check ~1,700 municipal `ResidentLink` contracts per transfer. It needs **one aggregated certified-address list** (an extension of `OfficialContractRegistry`) that identity contracts update on mint and burn.
+- **S5. Which contracts count.** Every contract that holds money (`PublicTreasury`, `PoliticalFund`, corporate multisigs, and future escrow or crowdfunding contracts) must be registered. Unregistered smart contracts (e.g. DeFi) cannot hold the stablecoin at all.
+- **S6. People without a `ResidentLink`.** Tourists, non-residents and foreign businesses cannot hold the stablecoin at all. They would need cash or a certified gateway (a bank or exchange, which is a registered corporation).
+- **S7. Other assets.** The rule binds only the JPY stablecoin. The native gas token, foreign stablecoins and other tokens can still move to uncertified addresses; only the law (off-chain) covers them.
+- **S8. Issue 5 and visible links.** Moving the balance from the old, public address to the new one is itself an on-chain transfer, so anyone can follow it and keep watching the new address. Either accept that, or define a way of switching that does not create a direct visible link.
+
+### Status
+
+Awaiting the user's response to S1–S8.
+
+---
+
 # 議論ログ: 要人の資産公開(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。ユーザーは「政治の透明性」のカテゴリを選んだ。この項目を最初に扱い、次に公共調達、補助金の順とする。
@@ -97,3 +126,32 @@ Awaiting the user's response.
 ### ステータス
 
 ユーザーの回答待ち。
+
+---
+
+## Round 2 — 2026-10-18(ユーザー + Claude)
+
+### ユーザーの決定
+
+- **論点1:** 公務員は要人に**含めない**。要人は、議員(国・地方)、首長、大臣と副大臣。
+- **論点2 → 新しい前提。** **`ResidentLink`と結びついていないアドレス**で所得を受け取ること、またはそうしたアドレスから資金を受け取ることは違法とする。ユーザーはさらに技術的なルールも検討したい: 金融庁が認可する円建てステーブルコインは、国家が認定していないアドレス(`ResidentLink`の保有者、法人のコントラクト、国・自治体が管理するコントラクト以外)に送られた場合、**国庫などに強制的に移転される**。
+- **論点3:** チェーン外の資産は徹底して確認・管理する。ユーザーは、現金を除き、ほぼすべての資産をオンチェーンで管理するつもりである(後で設計する)。**申告漏れには厳罰**を科す。たとえば政治の世界から永久に追放する。
+- **論点4:** 家族には申告を**求めない**。
+- **論点5:** 退任後は**新しい`ResidentLink`アドレスに切り替える**ことで、公開の監視を終える。
+
+### 認定アドレス制のステーブルコインについてのClaudeの分析
+
+これは要人だけのルールではなく、プロジェクト全体の前提である。決済レール([ADR 0004](../../decisions/0004-taxation-payment-rail.md))を変え、お金を扱うすべての設計に及ぶ。ステーブルコインのコントラクトは送金ごとに受取人を確認できるので、技術的には実現できる。決めるべき点:
+
+- **S1. 没収か拒否か。** 送金を拒否(リバート)すれば、没収せずに同じ目的(お金が認定外のアドレスに届かない)を果たせ、宛先の打ち間違いでも損をしない。没収は抑止力を加えるが、ステーブルコインの中に、資金を動かす国家の権限が必要になる。
+- **S2. 認定を失うアドレス。** `ResidentLink`は転居(新しい自治体が再発行する)、死亡、鍵の紛失(新しいアドレスに再発行)でburnされ、法人は解散する。「認定外への送金は没収」のルールでは、転居の空白期間に届いた給与が没収され、死亡した人の残高は相続を経ずに国庫へ行ってしまう。凍結、当局による移転、国庫への回収など、扱いを定める必要がある。
+- **S3. ADR 0018との衝突。** 司法の設計では、ステーブルコインの中で裁判所がウォレットに権限を持つことを退けた。没収(S1)や当局による移転(S2)は、まさにその種の権限をステーブルコインに入れることになる。一貫した判断が必要である。
+- **S4. 照会の方法。** ステーブルコインは、送金ごとに約1,700の自治体の`ResidentLink`コントラクトを確認することはできない。**認定アドレスを集約した1つの一覧**(`OfficialContractRegistry`の拡張)が必要で、本人確認のコントラクトがmintとburnのたびにそれを更新する。
+- **S5. どのコントラクトを認めるか。** お金を持つすべてのコントラクト(`PublicTreasury`、`PoliticalFund`、法人のマルチシグ、今後のエスクローやクラウドファンディングのコントラクト)を登録する必要がある。登録されていないスマートコントラクト(DeFiなど)はステーブルコインを一切保有できない。
+- **S6. `ResidentLink`を持たない人。** 旅行者、非居住者、海外の事業者は、ステーブルコインを一切保有できない。現金か、認定された窓口(登記済み法人である銀行や交換業者)が必要になる。
+- **S7. 他の資産。** ルールが縛るのは円建てステーブルコインだけである。ガス用のネイティブトークン、外国のステーブルコイン、その他のトークンは、引き続き認定外のアドレスに送れる。それらは法律(オフチェーン)でしか扱えない。
+- **S8. 論点5と見える結びつき。** 公開された古いアドレスから新しいアドレスへの残高の移動自体がオンチェーンの送金なので、誰でもたどれ、新しいアドレスを見続けられる。これを受け入れるか、直接の見える結びつきを作らない切り替え方を定めるか。
+
+### ステータス
+
+S1〜S8へのユーザーの回答待ち。
