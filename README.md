@@ -33,6 +33,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Public-Interest Finance | Crowdfunding (social-purpose) | 🔴 Not started |
 | Public-Interest Finance | NPO / public-interest corporation funds | 🔴 Not started |
 | Property & Vital Records | Real estate registry | 🔴 Not started |
+| Property & Vital Records | Securities / shareholdings | 🔴 Not started |
 | Property & Vital Records | Vital records (birth, marriage, death) | 🔴 Not started |
 | Corporate & Market Transparency | Public company disclosures | 🔴 Not started |
 | Corporate & Market Transparency | Audit trails | 🔴 Not started |
@@ -125,6 +126,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 公益金融 | クラウドファンディング(社会性の強いもの) | 🔴 未着手 |
 | 公益金融 | NPO法人・公益法人の資金管理 | 🔴 未着手 |
 | 財産・身分登記 | 不動産登記 | 🔴 未着手 |
+| 財産・身分登記 | 有価証券・株主の記録 | 🔴 未着手 |
 | 財産・身分登記 | 戸籍・婚姻・出生等の身分関係記録 | 🔴 未着手 |
 | 法人・市場の透明性 | 上場企業の開示書類 | 🔴 未着手 |
 | 法人・市場の透明性 | 会計監査記録 | 🔴 未着手 |

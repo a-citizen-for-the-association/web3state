@@ -75,3 +75,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/FEATURES.md`, root `README.md`: treasury 🟢. `docs/glossary.md`: added public treasury. `docs/PROJECT_STATUS.md`: removed the resume point; recorded ADR 0019 and its principle.
 - `docs/state-design/treasury/discussion-log.md`: Round 4 — user confirmed the spec adjustments. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section after the treasury.
 - `docs/FEATURES.md`, root `README.md`: new 🟢 row for the certified-address stablecoin; VIP asset disclosure 🟢. `docs/decisions/0004`, `0018`: status lines annotated for ADR 0020. `docs/glossary.md`: certified address, successor migration. `docs/BACKLOG.md`: three items from ADR 0020.
+- `docs/FEATURES.md`, root `README.md`: new 🔴 item "Securities / shareholdings" (user intends to put securities on-chain). VIP disclosure: Round 5 recorded (shareholder-controlled corporations: declare for now, option (a)).

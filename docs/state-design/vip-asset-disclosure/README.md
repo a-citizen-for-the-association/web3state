@@ -36,6 +36,7 @@ National and local legislators, heads of government (governors, mayors), ministe
 - Cash and assets not yet on-chain depend on declarations and off-chain checks.
 - Non-JPY tokens can still move to uncertified addresses; only the law covers them.
 - Family members' assets are not covered.
+- **Corporations controlled as a shareholder** (with others as officers) are not linked to the VIP on-chain. For now the shares are declared, and omission is punished severely; the gap mostly closes once securities are on-chain (Round 5).
 
 ---
 
@@ -77,3 +78,4 @@ National and local legislators, heads of government (governors, mayors), ministe
 - 現金と、まだオンチェーンにない資産は、申告とオフチェーンの確認に依存する。
 - 円以外のトークンは引き続き認定外のアドレスに送れる。それらを扱えるのは法律だけである。
 - 家族の資産は対象にならない。
+- **株主として支配する法人**(他人が役員)は、オンチェーンでは要人と結びつかない。当面は株式を申告させ、申告漏れには厳罰を科す。有価証券がオンチェーン化されれば、この抜け道はほぼ塞がる(Round 5)。

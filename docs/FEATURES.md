@@ -45,6 +45,7 @@
 | **Public-Interest Finance** | Crowdfunding, social-purpose (クラウドファンディング) | 🔴 Not started | — | Same rationale as donations; explicit policy priority. |
 | **Public-Interest Finance** | NPO / public-interest corporation funds (NPO法人等の資金管理) | 🔴 Not started | — | Extends the corporations design to fund-flow transparency. |
 | **Property & Vital Records** | Real estate registry (不動産登記) | 🔴 Not started | — | Addresses abandoned-property (空き家) and inheritance-dispute problems from stale paper records. |
+| **Property & Vital Records** | Securities / shareholdings (有価証券・株主の記録) | 🔴 Not started | — | Added 2026-10-18: the user intends to put securities on-chain. Recording who holds which shares (not trading; cf. [ADR 0012](decisions/0012-onchain-scope-philosophy.md)'s exclusion of personal wealth-accumulation vehicles) would make corporations controlled through shareholdings visible, closing the VIP-disclosure gap ([ADR 0021](decisions/0021-vip-asset-disclosure.md)). |
 | **Property & Vital Records** | Vital records (戸籍・婚姻・出生等) | 🔴 Not started | — | Related to the deferred nationality/在留資格 backlog item. |
 | **Corporate & Market Transparency** | Public company disclosures (有価証券報告書等) | 🔴 Not started | — | Extends corporations' transparency principle to ongoing reporting, not just registration. |
 | **Corporate & Market Transparency** | Audit trails (会計監査記録) | 🔴 Not started | — | Tamper-proof certification of financial statements. |

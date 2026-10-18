@@ -125,6 +125,14 @@ All issues resolved. Specs written: [`README.md`](README.md) and [`../certified-
 
 ---
 
+## Round 5 — 2026-10-18 (user + Claude)
+
+- Round 4 adjustments 1–5 **confirmed**. On adjustment 6 (the declaration shrinks), the user asked for an explanation.
+- Claude explained it, and raised a remaining gap: a corporation the VIP **controls as a shareholder** (with relatives or associates as officers) can hold JPY at its own certified address, unlinked to the VIP on-chain. Bribes can arrive as "consulting fees", the company can pay the VIP's living costs, public contracts can be steered to it, and wealth can accumulate there until after office.
+- **Decision: option (a).** For now, shareholdings are an off-chain asset to declare, and omission is punished severely. The user intends to put **real estate and securities on-chain** later; once shareholdings are on-chain, the link from the VIP's address to the controlled corporation becomes visible and the gap mostly closes (borrowed-name shareholdings remain an off-chain matter). Recorded in [`docs/BACKLOG.md`](../../BACKLOG.md), and a new 🔴 item "Securities / shareholdings" was added to [`docs/FEATURES.md`](../../FEATURES.md).
+
+---
+
 # 議論ログ: 要人の資産公開(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。ユーザーは「政治の透明性」のカテゴリを選んだ。この項目を最初に扱い、次に公共調達、補助金の順とする。
@@ -249,3 +257,11 @@ S3の絞り込みについて、ユーザーの確認待ち。
 ### ステータス
 
 すべての論点が解決。仕様を作成: [`README.md`](README.md)と[`../certified-stablecoin/README.md`](../certified-stablecoin/README.md)。ADR: [0020](../../decisions/0020-certified-address-stablecoin.md)、[0021](../../decisions/0021-vip-asset-disclosure.md)。
+
+---
+
+## Round 5 — 2026-10-18(ユーザー + Claude)
+
+- Round 4の調整1〜5を**了承**。調整6(申告が小さくなる)について、ユーザーは説明を求めた。
+- Claudeが説明し、残る抜け道を提起した: 要人が**株主として支配する法人**(役員は親族や知人)は、自らの認定アドレスに円を持てるが、オンチェーンでは要人と結びつかない。賄賂を「コンサル料」として受け取る、会社が要人の生活費を払う、公共契約をそこへ回す、退任後まで富をそこに貯める、といったことができる。
+- **決定: 選択肢(a)。** 当面、株式は申告すべきオフチェーンの資産とし、申告漏れには厳罰を科す。ユーザーは**不動産と有価証券を後でオンチェーン化する**つもりである。株式がオンチェーンになれば、要人のアドレスから支配する法人へのつながりが見えるようになり、抜け道はほぼ塞がる(名義を借りた株式はオフチェーンの問題として残る)。[`docs/BACKLOG.md`](../../BACKLOG.md)に記録し、[`docs/FEATURES.md`](../../FEATURES.md)に新しい🔴項目「有価証券・株主の記録」を追加した。
