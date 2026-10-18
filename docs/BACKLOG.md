@@ -35,6 +35,7 @@
 | Visitor pass: handling a balance left when the pass expires | [VIP disclosure discussion](state-design/vip-asset-disclosure/discussion-log.md), [ADR 0020](decisions/0020-certified-address-stablecoin.md) | Not needed to fix the rule itself; options include a grace period to cash out through certified operators. | Before implementation of the stablecoin rule. |
 | Legal parameter values for the certified-address rule (visitor duration and balance cap, heavy-path waiting period) | same | Values are policy, not design. | Implementation phase. |
 | Re-check every earlier design under the certified-address premise (e.g. which contracts must be registered; employee-ID holders and foreign corporations without a `ResidentLink`; cross-border payments) | [ADR 0020](decisions/0020-certified-address-stablecoin.md) | The premise was introduced after most designs were written. | Cross-feature consistency review. |
+| VIP disclosure: shrink off-chain declarations once real estate and securities are on-chain | [VIP disclosure discussion](state-design/vip-asset-disclosure/discussion-log.md), [ADR 0021](decisions/0021-vip-asset-disclosure.md) | The user intends to put real estate and securities on-chain later (2026-10-18). Then a VIP's real estate and shareholdings, including corporations they control as a shareholder, become visible from their address, and the remaining declaration shrinks to cash and non-JPY tokens. Note: securities (shareholdings) have no row in `docs/FEATURES.md` yet. | Real estate registry design; a securities design. |
 
 ---
 
