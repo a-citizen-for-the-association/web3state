@@ -64,6 +64,12 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0022](../../
 
 ---
 
+## Round 3 — 2026-10-24 (user)
+
+The user **confirmed all four Round 2 adjustments**. No open points remain.
+
+---
+
 # 議論ログ: 公共調達・入札(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -127,3 +133,9 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0022](../../
 ### ステータス
 
 すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0022](../../decisions/0022-procurement-model.md)。
+
+---
+
+## Round 3 — 2026-10-24(ユーザー)
+
+ユーザーは**Round 2の4つの調整をすべて了承した**。未決の点は残っていない。

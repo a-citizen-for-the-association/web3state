@@ -55,7 +55,7 @@
 
 ## Next steps
 
-1. Political Transparency category (chosen 2026-10-18): VIP asset disclosure done; procurement done; next subsidies. After that, continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
+1. Political Transparency category (chosen 2026-10-18): VIP asset disclosure done; procurement done; subsidies in discussion (🟡, [discussion log](state-design/subsidies/discussion-log.md), awaiting Round 1 response). After that, continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -118,6 +118,6 @@
 
 ## 次のステップ
 
-1. 「政治の透明性」カテゴリ(2026-10-18に選択): 要人の資産公開は完了。公共調達も完了。次は補助金。その後、`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
+1. 「政治の透明性」カテゴリ(2026-10-18に選択): 要人の資産公開は完了。公共調達も完了。補助金は議論中(🟡、[議論ログ](state-design/subsidies/discussion-log.md)、Round 1への回答待ち)。その後、`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
