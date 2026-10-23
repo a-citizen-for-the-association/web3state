@@ -71,6 +71,12 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0023](../../
 
 ---
 
+## Round 3 — 2026-10-24 (user)
+
+The user **confirmed all three Round 2 adjustments**. No open points remain.
+
+---
+
 # 議論ログ: 補助金・交付金(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -141,3 +147,9 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0023](../../
 ### ステータス
 
 すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0023](../../decisions/0023-subsidies-model.md)。
+
+---
+
+## Round 3 — 2026-10-24(ユーザー)
+
+ユーザーは**Round 2の3つの調整をすべて了承した**。未決の点は残っていない。

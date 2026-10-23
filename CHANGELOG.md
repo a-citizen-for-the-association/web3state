@@ -81,3 +81,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/BACKLOG.md`: design direction for securities (corporations as "glass boxes": traceable layered ownership, penalties for borrowed names). `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
+- `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
