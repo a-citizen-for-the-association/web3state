@@ -25,7 +25,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Political Transparency | [Political donations](docs/state-design/political-donations/) | 🟢 Spec drafted |
 | Political Transparency | [VIP / politician asset disclosure](docs/state-design/vip-asset-disclosure/) | 🟢 Spec drafted |
 | Political Transparency | [Public procurement / bidding](docs/state-design/procurement/) | 🟢 Spec drafted |
-| Political Transparency | [Subsidies / grants disbursement](docs/state-design/subsidies/) | 🟡 Discussing |
+| Political Transparency | [Subsidies / grants disbursement](docs/state-design/subsidies/) | 🟢 Spec drafted |
 | Social Welfare | Pension | 🔴 Not started |
 | Social Welfare | Benefits (child allowance, welfare, etc.) | 🔴 Not started |
 | Social Welfare | Unemployment insurance | 🔴 Not started |
@@ -118,7 +118,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 政治の透明性 | [政治献金](docs/state-design/political-donations/) | 🟢 設計確定 |
 | 政治の透明性 | [要人(政治家等)の資産公開](docs/state-design/vip-asset-disclosure/) | 🟢 設計確定 |
 | 政治の透明性 | [公共調達・入札](docs/state-design/procurement/) | 🟢 設計確定 |
-| 政治の透明性 | [補助金・交付金の交付](docs/state-design/subsidies/) | 🟡 議論中 |
+| 政治の透明性 | [補助金・交付金の交付](docs/state-design/subsidies/) | 🟢 設計確定 |
 | 社会保障 | 年金 | 🔴 未着手 |
 | 社会保障 | 各種手当(児童手当、生活保護等) | 🔴 未着手 |
 | 社会保障 | 雇用保険 | 🔴 未着手 |

@@ -46,6 +46,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/certified-stablecoin/` and `docs/decisions/0020-certified-address-stablecoin.md`: project-wide certified-address JPY stablecoin rule, successor migration, visitor pass.
 - `docs/state-design/vip-asset-disclosure/` and `docs/decisions/0021-vip-asset-disclosure.md`: VIP asset disclosure without a new contract.
 - `docs/state-design/procurement/` and `docs/decisions/0022-procurement-model.md`: procurement spec — commit–reveal sealed bidding, committed ceiling price, all bids public, contracts and change contracts on one record.
+- `docs/state-design/subsidies/` and `docs/decisions/0023-subsidies-model.md`: subsidies spec — no new contract; on-chain transactions replace receipts.
 
 ### Changed
 - `docs/PROJECT_STATUS.md`: recorded the explicit workflow decision that implementation (`contracts/` Foundry init, Solidity) is deferred until all initially-planned state functions are designed and reviewed together for cross-feature consistency — not started per-feature as each design finishes.
@@ -79,3 +80,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/FEATURES.md`, root `README.md`: new 🔴 item "Securities / shareholdings" (user intends to put securities on-chain). VIP disclosure: Round 5 recorded (shareholder-controlled corporations: declare for now, option (a)).
 - `docs/BACKLOG.md`: design direction for securities (corporations as "glass boxes": traceable layered ownership, penalties for borrowed names). `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
+- `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.

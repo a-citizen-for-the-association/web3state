@@ -53,6 +53,24 @@ Awaiting the user's response.
 
 ---
 
+## Round 2 — 2026-10-24 (user + Claude)
+
+### User's decisions
+
+Issues 1–6 **as proposed**; Issue 2: **(A)**, no new contract.
+
+### Adjustments made while writing the spec (flagged for review)
+
+- **Expense reports are anchored.** The granting body registers the hash of each submitted expense report in its `DocumentRegistry` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)), so a report cannot be quietly edited after the amount is finalised.
+- **Advance payments.** Where a subsidy is paid in advance, any unspent amount is returned to the granting body's `PublicTreasury` as an ordinary transfer, which is visible. No special mechanism.
+- **Budget-code convention.** A payment's budget code names the programme and the individual grant, so every payment, report and later use can be joined by off-chain analysis.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0023](../../decisions/0023-subsidies-model.md).
+
+---
+
 # 議論ログ: 補助金・交付金(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -105,3 +123,21 @@ Awaiting the user's response.
 ### ステータス
 
 ユーザーの回答待ち。
+
+---
+
+## Round 2 — 2026-10-24(ユーザー + Claude)
+
+### ユーザーの決定
+
+論点1〜6は**提案どおり**。論点2は**(A)**、新しいコントラクトは作らない。
+
+### 仕様作成時に加えた調整(レビュー対象)
+
+- **実績報告をアンカーする。** 交付する機関は、提出された各実績報告のハッシュを自らの`DocumentRegistry`([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md))に登録する。額の確定後に報告をひそかに書き換えることはできなくなる。
+- **概算払。** 補助金を前払いする場合、使わなかった額は通常の送金として交付した機関の`PublicTreasury`に返還する。これは見える。特別な仕組みはない。
+- **予算コードの約束事。** 支払いの予算コードで制度と個々の交付を示す。これで、すべての支払い、報告、その後の使い道を、オフチェーンの分析で結びつけられる。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0023](../../decisions/0023-subsidies-model.md)。
