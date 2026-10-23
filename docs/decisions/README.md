@@ -34,6 +34,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0019](0019-treasury-model.md) | Treasury model: per-body treasury contracts, identified payees, public off-chain exits; "off-chain if it can be" | Accepted |
 | [0020](0020-certified-address-stablecoin.md) | Certified-address JPY stablecoin: transfers only between state-certified addresses; frozen balances leave only to certified successors | Accepted |
 | [0021](0021-vip-asset-disclosure.md) | VIP asset disclosure: no new contract; published address plus off-chain declarations with severe penalties | Accepted |
+| [0022](0022-procurement-model.md) | Procurement model: commit–reveal sealed bidding, committed ceiling price, all bids public, one record per contract | Accepted |
 
 ---
 

@@ -45,6 +45,25 @@ Awaiting the user's response.
 
 ---
 
+## Round 2 — 2026-10-24 (user + Claude)
+
+### User's decisions
+
+Issues 1–6 **as proposed**; Issue 2: **(a) commit–reveal**. Issue 3: the ceiling price is committed as a hash before the deadline and revealed at opening (not published in advance).
+
+### Adjustments made while writing the spec (flagged for review)
+
+- **Sole proprietors may bid** from their `ResidentLink` address (Issue 4 left this as a question). Both kinds are certified under [ADR 0020](../../decisions/0020-certified-address-stablecoin.md), and individuals can bid today.
+- **The lowest-price award is checked on-chain.** Under the lowest-price method, `award()` accepts only the lowest revealed bid at or below the revealed ceiling. This is a real enforcement need: it stops the body from awarding to someone else. It is cheap, so it is an exception to "off-chain if it can be". Under comprehensive evaluation the award is a judgement: the scoring criteria are committed at creation, the score sheet is published at award, and judging stays off-chain.
+- **Deposits.** Tender contracts hold bid deposits in the JPY stablecoin, so `TenderFactory` is an approved registrar under ADR 0020. A forfeited deposit goes to the procuring body's `PublicTreasury`.
+- **Negotiated contracts use the same factory** (type `Negotiated`: no bidding, award directly with the stated reason). Then every contract of a body, competitive or not, appears in one place.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0022](../../decisions/0022-procurement-model.md).
+
+---
+
 # 議論ログ: 公共調達・入札(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -89,3 +108,22 @@ Awaiting the user's response.
 ### ステータス
 
 ユーザーの回答待ち。
+
+---
+
+## Round 2 — 2026-10-24(ユーザー + Claude)
+
+### ユーザーの決定
+
+論点1〜6は**提案どおり**。論点2は**(a) コミット・リビール**。論点3: 予定価格は締切前にハッシュをコミットし、開札時に明かす(事前公表はしない)。
+
+### 仕様作成時に加えた調整(レビュー対象)
+
+- **個人事業主も`ResidentLink`アドレスから入札できる**(論点4では問いとして残していた)。どちらも[ADR 0020](../../decisions/0020-certified-address-stablecoin.md)で認定されており、現在も個人は入札できる。
+- **最低価格による落札はオンチェーンで確認する。** 最低価格方式では、`award()`は、明かされた予定価格以下で最も低い、明かされた入札だけを受け付ける。機関が別の者に落札させることを防ぐ、実際の強制の必要があり、コストも小さいので、「オフチェーンでできることはオフチェーンで」の例外とする。総合評価方式では落札は判断の問題である。評価基準は作成時にコミットし、評価表は落札時に公開し、判断はオフチェーンに残す。
+- **保証金。** 入札コントラクトは入札の保証金を円建てステーブルコインで持つので、`TenderFactory`はADR 0020の承認された登録者とする。没収された保証金は、調達する機関の`PublicTreasury`に入る。
+- **随意契約も同じファクトリを使う**(種類`Negotiated`: 入札なしで、示された理由とともに直接落札させる)。これで、競争の有無にかかわらず、機関のすべての契約が1か所に現れる。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0022](../../decisions/0022-procurement-model.md)。
