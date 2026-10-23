@@ -2,15 +2,7 @@
 
 > Living document. Update this whenever the project moves phase, a major question is resolved, or a new major question opens. Keep it short — detail belongs in ADRs or architecture docs, this is a snapshot.
 
-**Last updated:** 2026-10-18
-
-## ⏸ Paused — resume point
-
-Paused on 2026-10-18 after finishing VIP asset disclosure (ADR 0021) and the certified-address stablecoin (ADR 0020), plus a discussion on corporations recorded as a design direction for the securities item ([`docs/BACKLOG.md`](BACKLOG.md)). Nothing is open in those items.
-
-**When the user says "再開して" (resume):**
-1. Show the remaining 🔴 items from `docs/FEATURES.md` (16 at pause time, including the newly added securities item) as a compact, category-grouped list. Mention that, per the user's earlier choice of the Political Transparency category, the next item would be **public procurement / bidding**, then subsidies, and ask the user to confirm or choose another theme. Don't pick on your own beyond that.
-2. Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)), applying the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)) and the certified-address premise ([ADR 0020](decisions/0020-certified-address-stablecoin.md)). Then proceed as before: raise issues → discuss → discussion log → ADR + spec. Every listed item is designed before any implementation.
+**Last updated:** 2026-10-24
 
 ## Current phase
 
@@ -62,7 +54,7 @@ Paused on 2026-10-18 after finishing VIP asset disclosure (ADR 0021) and the cer
 
 ## Next steps
 
-1. Political Transparency category (chosen 2026-10-18): VIP asset disclosure done; next procurement, then subsidies. After that, continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
+1. Political Transparency category (chosen 2026-10-18): VIP asset disclosure done; procurement in discussion (🟡, [discussion log](state-design/procurement/discussion-log.md), awaiting Round 1 response); then subsidies. After that, continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -72,15 +64,7 @@ Paused on 2026-10-18 after finishing VIP asset disclosure (ADR 0021) and the cer
 
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
-**最終更新日:** 2026-10-18
-
-## ⏸ 中断中 — 再開ポイント
-
-2026-10-18、要人の資産公開(ADR 0021)と認定アドレス制のステーブルコイン(ADR 0020)を確定し、法人についての議論を有価証券の項目の設計方針として([`docs/BACKLOG.md`](BACKLOG.md))記録した後に中断しました。これらの項目に未決の点はありません。
-
-**ユーザーが「再開して」と言ったら:**
-1. `docs/FEATURES.md`の残りの🔴項目(中断時点で16件。新たに追加した有価証券を含む)をカテゴリ別の簡潔な一覧で示すこと。ユーザーが以前「政治の透明性」カテゴリを選んだので、次は**公共調達・入札**、その次が補助金になることを伝え、それでよいか、別のテーマにするかを尋ねること。それ以上は自分で選ばないこと。
-2. 選ばれた項目をオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))にかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))と認定アドレス制の前提([ADR 0020](decisions/0020-certified-address-stablecoin.md))を適用する。その後はこれまでと同じく、論点の提起→議論→議論ログ→ADR＋仕様の順に進める。掲げた項目はすべて、実装の前に設計する。
+**最終更新日:** 2026-10-24
 
 ## 現在のフェーズ
 
@@ -132,6 +116,6 @@ Paused on 2026-10-18 after finishing VIP asset disclosure (ADR 0021) and the cer
 
 ## 次のステップ
 
-1. 「政治の透明性」カテゴリ(2026-10-18に選択): 要人の資産公開は完了。次は公共調達、その次が補助金。その後、`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
+1. 「政治の透明性」カテゴリ(2026-10-18に選択): 要人の資産公開は完了。公共調達は議論中(🟡、[議論ログ](state-design/procurement/discussion-log.md)、Round 1への回答待ち)。その次が補助金。その後、`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
