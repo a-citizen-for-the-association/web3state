@@ -2,15 +2,7 @@
 
 > Living document. Update this whenever the project moves phase, a major question is resolved, or a new major question opens. Keep it short — detail belongs in ADRs or architecture docs, this is a snapshot.
 
-**Last updated:** 2026-10-24
-
-## ⏸ Paused — resume point
-
-Paused on 2026-10-24 after finishing subsidies (ADR 0023), which completed the Political Transparency category. The user confirmed its adjustments; nothing is open.
-
-**When the user says "再開して" (resume):**
-1. Show the remaining 🔴 items from `docs/FEATURES.md` (14 at pause time) as a compact, category-grouped list, and ask the user which theme to design next. Don't pick one yourself.
-2. Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)), applying the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)) and the certified-address premise ([ADR 0020](decisions/0020-certified-address-stablecoin.md)). Then proceed as before: raise issues → discuss → discussion log → ADR + spec. Every listed item is designed before any implementation.
+**Last updated:** 2026-11-07
 
 ## Current phase
 
@@ -64,7 +56,7 @@ Paused on 2026-10-24 after finishing subsidies (ADR 0023), which completed the P
 
 ## Next steps
 
-1. Political Transparency is complete (2026-10-24). Continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
+1. Political Transparency is complete (2026-10-24). Social Welfare chosen next (2026-11-07): pension in discussion (🟡, [discussion log](state-design/pension/discussion-log.md), awaiting Round 1 response); then benefits and unemployment insurance. Continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -74,15 +66,7 @@ Paused on 2026-10-24 after finishing subsidies (ADR 0023), which completed the P
 
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
-**最終更新日:** 2026-10-24
-
-## ⏸ 中断中 — 再開ポイント
-
-2026-10-24、補助金(ADR 0023)を確定し、「政治の透明性」カテゴリが完了した後に中断しました。調整はユーザーの了承済みで、未決の点はありません。
-
-**ユーザーが「再開して」と言ったら:**
-1. `docs/FEATURES.md`の残りの🔴項目(中断時点で14件)をカテゴリ別の簡潔な一覧で示し、次にどのテーマを設計するかをユーザーに尋ねること。自分で選ばないこと。
-2. 選ばれた項目をオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))にかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))と認定アドレス制の前提([ADR 0020](decisions/0020-certified-address-stablecoin.md))を適用する。その後はこれまでと同じく、論点の提起→議論→議論ログ→ADR＋仕様の順に進める。掲げた項目はすべて、実装の前に設計する。
+**最終更新日:** 2026-11-07
 
 ## 現在のフェーズ
 
@@ -136,6 +120,6 @@ Paused on 2026-10-24 after finishing subsidies (ADR 0023), which completed the P
 
 ## 次のステップ
 
-1. 「政治の透明性」は完了(2026-10-24)。`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
+1. 「政治の透明性」は完了(2026-10-24)。次に「社会保障」を選択(2026-11-07): 年金は議論中(🟡、[議論ログ](state-design/pension/discussion-log.md)、Round 1への回答待ち)。その後、各種手当と雇用保険。`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。

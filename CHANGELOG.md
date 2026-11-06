@@ -79,6 +79,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/FEATURES.md`, root `README.md`: new 🟢 row for the certified-address stablecoin; VIP asset disclosure 🟢. `docs/decisions/0004`, `0018`: status lines annotated for ADR 0020. `docs/glossary.md`: certified address, successor migration. `docs/BACKLOG.md`: three items from ADR 0020.
 - `docs/FEATURES.md`, root `README.md`: new 🔴 item "Securities / shareholdings" (user intends to put securities on-chain). VIP disclosure: Round 5 recorded (shareholder-controlled corporations: declare for now, option (a)).
 - `docs/BACKLOG.md`: design direction for securities (corporations as "glass boxes": traceable layered ownership, penalties for borrowed names). `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
+- `docs/state-design/pension/discussion-log.md`: opened pension screening (Round 1). `docs/FEATURES.md`, root `README.md`: pension 🟡. `docs/PROJECT_STATUS.md`: removed the resume point; Social Welfare is next.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
