@@ -83,7 +83,13 @@ Issues 1–7 **as proposed**: Issue 2 **(A)**, no new contract; Issue 3 **(b)**,
 
 ### Status
 
-All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0025](../../decisions/0025-benefits-model.md). The shared code widens ADR 0024's single pension code. The three adjustments await the user's confirmation.
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0025](../../decisions/0025-benefits-model.md). The shared code widens ADR 0024's single pension code. The three adjustments were confirmed in Round 3.
+
+---
+
+## Round 3 — 2026-11-07 (user)
+
+The user **confirmed all three Round 2 adjustments**. No open points remain.
 
 ---
 
@@ -172,4 +178,10 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0025](../../
 
 ### ステータス
 
-すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0025](../../decisions/0025-benefits-model.md)。共通コードはADR 0024の年金共通コードを広げるものである。3つの調整はユーザーの確認待ち。
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0025](../../decisions/0025-benefits-model.md)。共通コードはADR 0024の年金共通コードを広げるものである。3つの調整はRound 3で了承された。
+
+---
+
+## Round 3 — 2026-11-07(ユーザー)
+
+ユーザーは**Round 2の3つの調整をすべて了承した**。未決の点は残っていない。

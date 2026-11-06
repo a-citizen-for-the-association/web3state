@@ -86,6 +86,8 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/benefits/discussion-log.md`: opened benefits screening (Round 1). `docs/FEATURES.md`, root `README.md`: benefits 🟡.
 - `docs/state-design/benefits/` and `docs/decisions/0025-benefits-model.md`: benefits spec — no new contract; one shared social-security budget code (ADR 0024 status note updated); consented income checks only. `docs/BACKLOG.md`: medical-claims system.
 - `docs/FEATURES.md`, root `README.md`: benefits 🟢. `docs/PROJECT_STATUS.md` updated.
+- `docs/state-design/benefits/discussion-log.md`: Round 3 — adjustments confirmed.
+- `docs/state-design/unemployment-insurance/discussion-log.md`: opened unemployment-insurance screening (Round 1). `docs/FEATURES.md`, root `README.md`: unemployment insurance 🟡.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.

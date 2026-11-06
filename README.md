@@ -28,7 +28,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Political Transparency | [Subsidies / grants disbursement](docs/state-design/subsidies/) | 🟢 Spec drafted |
 | Social Welfare | [Pension](docs/state-design/pension/) | 🟢 Spec drafted |
 | Social Welfare | [Benefits (child allowance, welfare, etc.)](docs/state-design/benefits/) | 🟢 Spec drafted |
-| Social Welfare | Unemployment insurance | 🔴 Not started |
+| Social Welfare | [Unemployment insurance](docs/state-design/unemployment-insurance/) | 🟡 Discussing |
 | Public-Interest Finance | Donations | 🔴 Not started |
 | Public-Interest Finance | Crowdfunding (social-purpose) | 🔴 Not started |
 | Public-Interest Finance | NPO / public-interest corporation funds | 🔴 Not started |
@@ -121,7 +121,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 政治の透明性 | [補助金・交付金の交付](docs/state-design/subsidies/) | 🟢 設計確定 |
 | 社会保障 | [年金](docs/state-design/pension/) | 🟢 設計確定 |
 | 社会保障 | [各種手当(児童手当、生活保護等)](docs/state-design/benefits/) | 🟢 設計確定 |
-| 社会保障 | 雇用保険 | 🔴 未着手 |
+| 社会保障 | [雇用保険](docs/state-design/unemployment-insurance/) | 🟡 議論中 |
 | 公益金融 | 寄付 | 🔴 未着手 |
 | 公益金融 | クラウドファンディング(社会性の強いもの) | 🔴 未着手 |
 | 公益金融 | NPO法人・公益法人の資金管理 | 🔴 未着手 |
