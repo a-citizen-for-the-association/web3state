@@ -43,7 +43,7 @@
 2. **Employees pay their whole premium themselves** (Issue 3(a)). The employer's former half is part of gross pay. The premium is computed from pay, which is itself on-chain, so under-declaring pay cannot be hidden.
 3. **Allocation to months is fixed by law:** each payment covers the oldest unpaid month first. Anyone computes the same record from the transfers.
 4. **Decisions that change entitlement but cannot be derived from the chain** (exemptions, deferrals, category 3, awards) are anchored by hash only. Their content stays private; the person can later prove them.
-5. **One budget code for all pension benefits,** so a payment does not reveal disability or widowhood.
+5. **One budget code for all pension benefits,** so a payment does not reveal disability or widowhood. Since [ADR 0025](../../decisions/0025-benefits-model.md) this is the code shared by all social-security payments to individuals.
 6. **Everything on-chain is public,** per address, like every other payment to or from an individual ([ADR 0019](../../decisions/0019-treasury-model.md)).
 7. **Death:** a registered death burns the `ResidentLink`, and later payments revert. Pension still owed at death (未支給年金) is paid to the survivors' addresses as an ordinary payment.
 8. **Address changes:** a move keeps the same address. Key loss or other replacement goes through successor migration ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)), whose on-chain link carries the contribution history over.
@@ -103,7 +103,7 @@
 2. **会社員は保険料を全額自分で払う**(論点3(a))。以前の雇用主負担分は額面の給与に含まれる。保険料はそれ自体オンチェーンにある給与から計算されるので、報酬の過少申告は隠せない。
 3. **何月分に充てるかは法律で固定する:** 各支払いは未納の最も古い月に充てる。誰が計算しても送金から同じ記録になる。
 4. **年金額を変えるがチェーンから導けない決定**(免除、猶予、第3号、裁定)は、ハッシュだけをアンカリングする。内容は非公開のままで、本人は後から証明できる。
-5. **年金給付の予算コードは1つ**にし、支払いから障害や死別がわからないようにする。
+5. **年金給付の予算コードは1つ**にし、支払いから障害や死別がわからないようにする。[ADR 0025](../../decisions/0025-benefits-model.md)以降、これは個人への社会保障の支払いすべてに共通のコードである。
 6. **オンチェーンにあるものはすべて公開**で、個人へのまたは個人からのほかの支払いと同じくアドレス単位である([ADR 0019](../../decisions/0019-treasury-model.md))。
 7. **死亡:** 届出済みの死亡で`ResidentLink`がburnされ、その後の支払いはrevertする。死亡時に未払いの年金(未支給年金)は、遺族のアドレスへの通常の支払いとする。
 8. **アドレスの変更:** 転居では同じアドレスのまま。鍵の紛失などによる交代は承継移転([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))を通り、そのオンチェーンのつながりによって納付の履歴が引き継がれる。

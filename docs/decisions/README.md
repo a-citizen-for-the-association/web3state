@@ -37,6 +37,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0022](0022-procurement-model.md) | Procurement model: commit–reveal sealed bidding, committed ceiling price, all bids public, one record per contract | Accepted |
 | [0023](0023-subsidies-model.md) | Subsidies model: no new contract; on-chain transactions replace receipts; everything public | Accepted |
 | [0024](0024-pension-model.md) | Pension model: no new contract; the contribution transfer is the record; employees pay their whole premium | Accepted |
+| [0025](0025-benefits-model.md) | Benefits model: no new contract; one shared social-security budget code; consented income checks only | Accepted |
 
 ---
 

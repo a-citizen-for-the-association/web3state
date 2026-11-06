@@ -1,7 +1,7 @@
 # 0024. Pension model: no new contract; the contribution transfer is the record; employees pay their whole premium
 
 **Date:** 2026-11-07
-**Status:** Accepted
+**Status:** Accepted. The single pension budget code is widened to one code shared by all social-security payments to individuals by [ADR 0025](0025-benefits-model.md).
 
 ## Context
 
@@ -30,7 +30,7 @@ The public pensions (National Pension and Employees' Pension) were screened with
 # 0024. 年金モデル: 新しいコントラクトは作らない。保険料の送金が記録になる。会社員は保険料を全額自分で払う(日本語)
 
 **日付:** 2026-11-07
-**ステータス:** Accepted
+**ステータス:** Accepted。年金共通の予算コードは、[ADR 0025](0025-benefits-model.md)で個人への社会保障の支払いすべてに共通のコードに広げられた。
 
 ## 背景
 
