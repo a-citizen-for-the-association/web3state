@@ -73,7 +73,7 @@ Issues 1–7 **as proposed**: Issue 2 **(A)**, no new contract; Issue 3 **(a)**,
 
 - **One receiving treasury is enough.** Unlike pension, both parts go to the same unemployment-insurance `PublicTreasury`. The sender's kind already tells them apart: a transfer from a `ResidentLink` address is a personal premium; a transfer from a corporate address is the 二事業 part.
 - **The "working while receiving" check depends on the benefit.** For the job-seeker's benefit, any salary inflow or new `EmployeeID` is flagged. For the childcare-leave benefit, the person still holds their `EmployeeID` by design, so only pay from the employer above the level the law allows during leave is flagged.
-- **Official statistics computed from chain data are recorded in the backlog,** as the future discussion that Issue 6 pointed to.
+- **Official statistics computed from chain data:** the future discussion that Issue 6 pointed to is linked to the existing backlog row on statistics.
 
 ### Status
 
@@ -156,7 +156,7 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0026](../../
 
 - **受け取る国庫は1つで足りる。** 年金と違い、両方の部分を同じ雇用保険の`PublicTreasury`に払う。送信元の種類で区別できるからである: `ResidentLink`アドレスからの送金は個人の保険料、法人アドレスからの送金は二事業の部分である。
 - **「受給中の就労」の確認は給付によって変える。** 基本手当では、給与の入金や新しい`EmployeeID`をすべて検知する。育児休業給付では、本人は制度上`EmployeeID`を持ったままなので、休業中に法律が認める水準を超える雇用主からの給与だけを検知する。
-- **チェーンのデータから計算する公式統計をバックログに記録する。** 論点6で触れた将来の議論として。
+- **チェーンのデータから計算する公式統計:** 論点6で触れた将来の議論を、統計についての既存のバックログ項目に結びつける。
 
 ### ステータス
 
