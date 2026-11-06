@@ -65,6 +65,26 @@ Awaiting the user's response.
 
 ---
 
+## Round 2 — 2026-11-07 (user + Claude)
+
+### User's decisions
+
+Issues 1, 2 and 4–7 **as proposed**; Issue 2: **(A)**, no new contract; Issue 3: **(a)**, the employee pays the whole premium from their own `ResidentLink` address, and the employer's half is added to gross pay.
+
+### Adjustments made while writing the spec (flagged for review)
+
+- **Two receiving treasuries.** The pension special account has two `PublicTreasury` contracts, one for the National Pension and one for Employees' Pension (mirroring today's 国民年金勘定 and 厚生年金勘定). A plain transfer carries no memo, so the pair "sending address + receiving treasury" identifies whose contribution it is and to which scheme.
+- **Allocation to months is fixed by law: oldest unpaid month first.** A transfer does not say which month it pays for (late payments are allowed up to two years, prepayment is possible). With a fixed rule, anyone can compute the same month-by-month record from the transfers, so the pension body keeps no separate ledger that could diverge.
+- **Award decisions (裁定) are anchored too,** by hash, like exemptions (Issue 5). The person can check the computation against their own on-chain contributions and anchored decisions.
+- **One generic budget code for all pension benefits.** Old-age, survivors' and disability pensions are paid with the same budget code, so a payment does not reveal that its recipient is disabled or widowed. The kind of pension is in the anchored, private decision. The body publishes totals per kind off-chain for audit.
+- **An employee who does not pay is treated like a category 1 delinquent** (reminder, then enforcement through the existing address-identification route of [ADR 0018](../../decisions/0018-judiciary-model.md)). Under withholding this could not happen; it is the cost of option (a).
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0024](../../decisions/0024-pension-model.md). The five adjustments await the user's confirmation.
+
+---
+
 # 議論ログ: 年金(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -129,3 +149,23 @@ Awaiting the user's response.
 ### ステータス
 
 ユーザーの回答待ち。
+
+---
+
+## Round 2 — 2026-11-07(ユーザー＋Claude)
+
+### ユーザーの決定
+
+論点1、2、4〜7は**提案どおり**。論点2は**(A)**で新しいコントラクトは作らない。論点3は**(a)**で、従業員が自分の`ResidentLink`アドレスから全額を払い、雇用主負担分は額面の給与に上乗せする。
+
+### 仕様を書く際に加えた調整(確認待ち)
+
+- **受け取る国庫は2つ。** 年金特別会計に、国民年金用と厚生年金用の2つの`PublicTreasury`を置く(現在の国民年金勘定と厚生年金勘定に対応)。単純な送金にはメモが付かないので、「送信元アドレス＋受け取る国庫」の組で、誰の、どちらの制度への保険料かがわかる。
+- **何月分に充てるかは法律で固定する: 未納の最も古い月から。** 送金はどの月の分かを示さない(2年までの後納や前納がある)。ルールを固定すれば、誰でも送金から同じ月ごとの記録を計算でき、年金を扱う機関がずれうる別の台帳を持つ必要がない。
+- **裁定もアンカリングする。** 免除(論点5)と同じくハッシュで。本人は、自分のオンチェーンの保険料とアンカーされた決定から計算を確認できる。
+- **年金給付の予算コードは1つにする。** 老齢・遺族・障害年金を同じ予算コードで支払い、支払いから受給者が障害者や遺族であることがわからないようにする。年金の種類はアンカーされた非公開の決定に記載する。機関は監査のため種類ごとの合計をオフチェーンで公表する。
+- **保険料を払わない従業員は第1号の滞納と同じに扱う**(督促、その後は[ADR 0018](../../decisions/0018-judiciary-model.md)の既存のアドレス特定の経路による強制徴収)。源泉徴収のもとでは起こらなかったことで、選択肢(a)のコストである。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0024](../../decisions/0024-pension-model.md)。5つの調整はユーザーの確認待ち。
