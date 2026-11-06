@@ -77,7 +77,13 @@ Issues 1–7 **as proposed**: Issue 2 **(A)**, no new contract; Issue 3 **(a)**,
 
 ### Status
 
-All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0026](../../decisions/0026-unemployment-insurance-model.md). The three adjustments await the user's confirmation.
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0026](../../decisions/0026-unemployment-insurance-model.md). The three adjustments were accepted in Round 3.
+
+---
+
+## Round 3 — 2026-11-07 (user)
+
+The user **accepted the three Round 2 adjustments** ("一旦、これで良いです", in the same reply that accepted the scope triage of [ADR 0027](../../decisions/0027-remaining-scope-triage.md)). No open points remain.
 
 ---
 
@@ -160,4 +166,10 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0026](../../
 
 ### ステータス
 
-すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0026](../../decisions/0026-unemployment-insurance-model.md)。3つの調整はユーザーの確認待ち。
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0026](../../decisions/0026-unemployment-insurance-model.md)。3つの調整はRound 3で了承された。
+
+---
+
+## Round 3 — 2026-11-07(ユーザー)
+
+ユーザーは**Round 2の3つの調整を了承した**(「一旦、これで良いです」。[ADR 0027](../../decisions/0027-remaining-scope-triage.md)のスコープの振り分けを了承したのと同じ返答)。未決の点は残っていない。

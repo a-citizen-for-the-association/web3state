@@ -29,18 +29,19 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Social Welfare | [Pension](docs/state-design/pension/) | 🟢 Spec drafted |
 | Social Welfare | [Benefits (child allowance, welfare, etc.)](docs/state-design/benefits/) | 🟢 Spec drafted |
 | Social Welfare | [Unemployment insurance](docs/state-design/unemployment-insurance/) | 🟢 Spec drafted |
-| Public-Interest Finance | Donations | 🔴 Not started |
-| Public-Interest Finance | Crowdfunding (social-purpose) | 🔴 Not started |
-| Public-Interest Finance | NPO / public-interest corporation funds | 🔴 Not started |
+| Public-Interest Finance | Donations | ⏸ On hold |
+| Public-Interest Finance | Crowdfunding (social-purpose) | ⏸ On hold |
+| Public-Interest Finance | NPO / public-interest corporation funds | ⏸ On hold |
 | Property & Vital Records | Real estate registry | 🔴 Not started |
 | Property & Vital Records | Securities / shareholdings | 🔴 Not started |
-| Property & Vital Records | Vital records (birth, marriage, death) | 🔴 Not started |
-| Corporate & Market Transparency | Public company disclosures | 🔴 Not started |
-| Corporate & Market Transparency | Audit trails | 🔴 Not started |
-| Judicial Infrastructure | Notarization / contract timestamping | 🔴 Not started |
+| Property & Vital Records | Vital records (birth, marriage, death) | ⏸ On hold |
+| Corporate & Market Transparency | Public company disclosures | ⏸ On hold |
+| Corporate & Market Transparency | Audit trails | ⏸ On hold |
+| Judicial Infrastructure | Notarization / contract timestamping | ⏸ On hold |
 | Judicial Infrastructure | [Public court records](docs/state-design/judiciary/) (merged into Judiciary) | 🟢 Spec drafted |
-| Commerce & Markets | Everyday commerce | 🔴 Not started |
-| Commerce & Markets | Wealth-focused financial services | 🔴 Not started (provider-handled tax compliance, not full on-chain transparency) |
+| Commerce & Markets | Everyday commerce | ⏸ On hold |
+| Commerce & Markets | Wealth-focused financial services | ⏸ On hold (provider-handled tax compliance, not full on-chain transparency) |
+| Data Protection | Personal data held by companies | 🔴 Not started |
 | Deliberately excluded | High-frequency trading | 🚫 Excluded |
 | Deliberately excluded | Personal wealth-accumulation investment | 🚫 Excluded |
 | Deliberately excluded | [Legislative process](docs/state-design/legislative/) | 🚫 Excluded |
@@ -122,18 +123,19 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 社会保障 | [年金](docs/state-design/pension/) | 🟢 設計確定 |
 | 社会保障 | [各種手当(児童手当、生活保護等)](docs/state-design/benefits/) | 🟢 設計確定 |
 | 社会保障 | [雇用保険](docs/state-design/unemployment-insurance/) | 🟢 設計確定 |
-| 公益金融 | 寄付 | 🔴 未着手 |
-| 公益金融 | クラウドファンディング(社会性の強いもの) | 🔴 未着手 |
-| 公益金融 | NPO法人・公益法人の資金管理 | 🔴 未着手 |
+| 公益金融 | 寄付 | ⏸ 保留 |
+| 公益金融 | クラウドファンディング(社会性の強いもの) | ⏸ 保留 |
+| 公益金融 | NPO法人・公益法人の資金管理 | ⏸ 保留 |
 | 財産・身分登記 | 不動産登記 | 🔴 未着手 |
 | 財産・身分登記 | 有価証券・株主の記録 | 🔴 未着手 |
-| 財産・身分登記 | 戸籍・婚姻・出生等の身分関係記録 | 🔴 未着手 |
-| 法人・市場の透明性 | 上場企業の開示書類 | 🔴 未着手 |
-| 法人・市場の透明性 | 会計監査記録 | 🔴 未着手 |
-| 司法インフラ | 公証・契約の電子証明 | 🔴 未着手 |
+| 財産・身分登記 | 戸籍・婚姻・出生等の身分関係記録 | ⏸ 保留 |
+| 法人・市場の透明性 | 上場企業の開示書類 | ⏸ 保留 |
+| 法人・市場の透明性 | 会計監査記録 | ⏸ 保留 |
+| 司法インフラ | 公証・契約の電子証明 | ⏸ 保留 |
 | 司法インフラ | [判決等の司法記録の公開](docs/state-design/judiciary/)(司法に統合) | 🟢 設計確定 |
-| 商取引・市場 | 日常の商取引 | 🔴 未着手 |
-| 商取引・市場 | 富裕層向け金融サービス | 🔴 未着手(提供者が納税処理の責任を持ち、完全なオンチェーン透明化は行わない) |
+| 商取引・市場 | 日常の商取引 | ⏸ 保留 |
+| 商取引・市場 | 富裕層向け金融サービス | ⏸ 保留(提供者が納税処理の責任を持ち、完全なオンチェーン透明化は行わない) |
+| データ保護 | 企業が保有する個人情報 | 🔴 未着手 |
 | 意図的に対象外 | 高頻度取引(HFT) | 🚫 対象外 |
 | 意図的に対象外 | 個人の資産形成目的の投資 | 🚫 対象外 |
 | 意図的に対象外 | [立法プロセス](docs/state-design/legislative/) | 🚫 対象外 |

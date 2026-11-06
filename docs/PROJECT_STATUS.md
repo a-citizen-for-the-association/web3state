@@ -45,7 +45,7 @@
 - Subsidies (2026-10-24, [ADR 0023](decisions/0023-subsidies-model.md)): no new contract; anchored grant decision plus treasury payments; subsidised expenses paid on-chain to certified addresses and listed as transactions instead of receipts (cash not eligible); expense reports anchored; everything public; kickbacks and duplicates detected off-chain. See [discussion log](state-design/subsidies/discussion-log.md) and [spec](state-design/subsidies/README.md).
 - Pension (2026-11-07, [ADR 0024](decisions/0024-pension-model.md)): no new contract; the contribution transfer from the insured person's own `ResidentLink` address to one of two pension treasuries is the record; months allocated oldest-unpaid-first by law; employees pay their whole premium (employer half added to pay); entitlement decisions anchored by hash only; one generic benefit budget code; registered deaths stop payments via the burn; GPIF excluded. See [discussion log](state-design/pension/discussion-log.md) and [spec](state-design/pension/README.md).
 - Benefits (2026-11-07, [ADR 0025](decisions/0025-benefits-model.md)): no new contract; treasury payments to the recipient's own address plus decisions anchored by hash; one budget code shared by all social-security payments to individuals (widening ADR 0024's); income checks only for applicants and recipients, with consent; medical and care assistance moved to the backlog. See [discussion log](state-design/benefits/discussion-log.md) and [spec](state-design/benefits/README.md).
-- Unemployment insurance (2026-11-07, [ADR 0026](decisions/0026-unemployment-insurance-model.md)): no new contract; pension, benefits and subsidies patterns combined; the employee pays the insurance part, the employer alone the 二事業 part, into one treasury; working while receiving flagged from salary inflows or a new `EmployeeID`, with consent; training fees paid on-chain; workers' accident compensation and chain-computed statistics moved to the backlog. See [discussion log](state-design/unemployment-insurance/discussion-log.md) and [spec](state-design/unemployment-insurance/README.md). Three spec-time adjustments await confirmation.
+- Unemployment insurance (2026-11-07, [ADR 0026](decisions/0026-unemployment-insurance-model.md)): no new contract; pension, benefits and subsidies patterns combined; the employee pays the insurance part, the employer alone the 二事業 part, into one treasury; working while receiving flagged from salary inflows or a new `EmployeeID`, with consent; training fees paid on-chain; workers' accident compensation and chain-computed statistics moved to the backlog. See [discussion log](state-design/unemployment-insurance/discussion-log.md) and [spec](state-design/unemployment-insurance/README.md).
 
 ## Open questions
 
@@ -59,7 +59,7 @@
 
 ## Next steps
 
-1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07; unemployment-insurance adjustments await confirmation). Continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
+1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07). **Scope triage (2026-11-07, [ADR 0027](decisions/0027-remaining-scope-triage.md)):** only three high-value items remain to design — real estate registry, securities/shareholdings, and personal data held by companies (new). Nine low-value items are ⏸ on hold and do not block implementation. Ask the user which of the three to take next; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -112,7 +112,7 @@
 - 補助金(2026-10-24、[ADR 0023](decisions/0023-subsidies-model.md)): 新しいコントラクトは作らない。アンカーした交付決定と国庫の支払い。補助対象の経費はオンチェーンで認定アドレスに支払い、領収書の代わりに取引として列挙する(現金は対象外)。実績報告をアンカー。すべて公開。キックバックと重複はオフチェーンで検出。[議論ログ](state-design/subsidies/discussion-log.md)と[仕様](state-design/subsidies/README.md)を参照。
 - 年金(2026-11-07、[ADR 0024](decisions/0024-pension-model.md)): 新しいコントラクトは作らない。被保険者自身の`ResidentLink`アドレスから年金の2つの国庫のいずれかへの送金が記録になる。何月分に充てるかは法律で未納の最も古い月からと固定。会社員は保険料を全額自分で払う(雇用主負担分は給与に上乗せ)。年金額を変える決定はハッシュだけをアンカリング。給付の予算コードは1つ。届出済みの死亡はburnで支払いが止まる。GPIFは対象外。[議論ログ](state-design/pension/discussion-log.md)と[仕様](state-design/pension/README.md)を参照。
 - 各種手当(2026-11-07、[ADR 0025](decisions/0025-benefits-model.md)): 新しいコントラクトは作らない。受給者本人のアドレスへの国庫の支払いと、ハッシュでアンカリングした決定。個人への社会保障の支払いすべてに共通の予算コードを1つ(ADR 0024を拡張)。収入確認は申請者と受給者に限り、同意に基づく。医療扶助・介護扶助はバックログへ。[議論ログ](state-design/benefits/discussion-log.md)と[仕様](state-design/benefits/README.md)を参照。
-- 雇用保険(2026-11-07、[ADR 0026](decisions/0026-unemployment-insurance-model.md)): 新しいコントラクトは作らない。年金・各種手当・補助金の型を組み合わせる。労使負担の部分は従業員が、二事業の部分は雇用主だけが、1つの国庫に払う。受給中の就労は、同意に基づき給与の入金や新しい`EmployeeID`から検知。受講料はオンチェーンで支払う。労災保険とチェーンから計算する統計はバックログへ。[議論ログ](state-design/unemployment-insurance/discussion-log.md)と[仕様](state-design/unemployment-insurance/README.md)を参照。仕様作成時の3つの調整は確認待ち。
+- 雇用保険(2026-11-07、[ADR 0026](decisions/0026-unemployment-insurance-model.md)): 新しいコントラクトは作らない。年金・各種手当・補助金の型を組み合わせる。労使負担の部分は従業員が、二事業の部分は雇用主だけが、1つの国庫に払う。受給中の就労は、同意に基づき給与の入金や新しい`EmployeeID`から検知。受講料はオンチェーンで支払う。労災保険とチェーンから計算する統計はバックログへ。[議論ログ](state-design/unemployment-insurance/discussion-log.md)と[仕様](state-design/unemployment-insurance/README.md)を参照。
 
 ## 未解決の論点
 
@@ -126,6 +126,6 @@
 
 ## 次のステップ
 
-1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07。雇用保険の調整は確認待ち)。`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
+1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。3項目のうちどれを次にするかはユーザーに尋ねる。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
