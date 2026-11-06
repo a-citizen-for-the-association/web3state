@@ -38,6 +38,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0023](0023-subsidies-model.md) | Subsidies model: no new contract; on-chain transactions replace receipts; everything public | Accepted |
 | [0024](0024-pension-model.md) | Pension model: no new contract; the contribution transfer is the record; employees pay their whole premium | Accepted |
 | [0025](0025-benefits-model.md) | Benefits model: no new contract; one shared social-security budget code; consented income checks only | Accepted |
+| [0026](0026-unemployment-insurance-model.md) | Unemployment insurance model: no new contract; pension, benefits and subsidies patterns combined; working while receiving made visible | Accepted |
 
 ---
 

@@ -63,6 +63,24 @@ Awaiting the user's response.
 
 ---
 
+## Round 2 — 2026-11-07 (user + Claude)
+
+### User's decisions
+
+Issues 1–7 **as proposed**: Issue 2 **(A)**, no new contract; Issue 3 **(a)**, the employee pays the whole insurance part, the employer alone pays the 二事業 part; workers' accident compensation goes to the backlog.
+
+### Adjustments made while writing the spec (flagged for review)
+
+- **One receiving treasury is enough.** Unlike pension, both parts go to the same unemployment-insurance `PublicTreasury`. The sender's kind already tells them apart: a transfer from a `ResidentLink` address is a personal premium; a transfer from a corporate address is the 二事業 part.
+- **The "working while receiving" check depends on the benefit.** For the job-seeker's benefit, any salary inflow or new `EmployeeID` is flagged. For the childcare-leave benefit, the person still holds their `EmployeeID` by design, so only pay from the employer above the level the law allows during leave is flagged.
+- **Official statistics computed from chain data are recorded in the backlog,** as the future discussion that Issue 6 pointed to.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0026](../../decisions/0026-unemployment-insurance-model.md). The three adjustments await the user's confirmation.
+
+---
+
 # 議論ログ: 雇用保険(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -125,3 +143,21 @@ Awaiting the user's response.
 ### ステータス
 
 ユーザーの回答待ち。
+
+---
+
+## Round 2 — 2026-11-07(ユーザー＋Claude)
+
+### ユーザーの決定
+
+論点1〜7は**提案どおり**。論点2は**(A)**で新しいコントラクトは作らない。論点3は**(a)**で、労使負担の部分は従業員が全額を払い、二事業の部分は雇用主だけが払う。労災保険はバックログへ。
+
+### 仕様を書く際に加えた調整(確認待ち)
+
+- **受け取る国庫は1つで足りる。** 年金と違い、両方の部分を同じ雇用保険の`PublicTreasury`に払う。送信元の種類で区別できるからである: `ResidentLink`アドレスからの送金は個人の保険料、法人アドレスからの送金は二事業の部分である。
+- **「受給中の就労」の確認は給付によって変える。** 基本手当では、給与の入金や新しい`EmployeeID`をすべて検知する。育児休業給付では、本人は制度上`EmployeeID`を持ったままなので、休業中に法律が認める水準を超える雇用主からの給与だけを検知する。
+- **チェーンのデータから計算する公式統計をバックログに記録する。** 論点6で触れた将来の議論として。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0026](../../decisions/0026-unemployment-insurance-model.md)。3つの調整はユーザーの確認待ち。

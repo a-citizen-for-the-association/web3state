@@ -88,6 +88,8 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/FEATURES.md`, root `README.md`: benefits 🟢. `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/benefits/discussion-log.md`: Round 3 — adjustments confirmed.
 - `docs/state-design/unemployment-insurance/discussion-log.md`: opened unemployment-insurance screening (Round 1). `docs/FEATURES.md`, root `README.md`: unemployment insurance 🟡.
+- `docs/state-design/unemployment-insurance/` and `docs/decisions/0026-unemployment-insurance-model.md`: unemployment-insurance spec — no new contract; working while receiving made visible. `docs/BACKLOG.md`: workers' accident compensation; official statistics from chain data.
+- `docs/FEATURES.md`, root `README.md`: unemployment insurance 🟢 (Social Welfare complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
