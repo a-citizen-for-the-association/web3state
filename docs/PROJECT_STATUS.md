@@ -59,7 +59,7 @@
 
 ## Next steps
 
-1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07). **Scope triage (2026-11-07, [ADR 0027](decisions/0027-remaining-scope-triage.md)):** only three high-value items remain to design — real estate registry, securities/shareholdings, and personal data held by companies (new). Nine low-value items are ⏸ on hold and do not block implementation. Ask the user which of the three to take next; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
+1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07). **Scope triage (2026-11-07, [ADR 0027](decisions/0027-remaining-scope-triage.md)):** only three high-value items remain to design — real estate registry, securities/shareholdings, and personal data held by companies (new). Nine low-value items are ⏸ on hold and do not block implementation. Personal data is in discussion (🟡, [discussion log](state-design/personal-data/discussion-log.md), awaiting Round 1 response); then ask which of the other two to take; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -126,6 +126,6 @@
 
 ## 次のステップ
 
-1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。3項目のうちどれを次にするかはユーザーに尋ねる。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
+1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。個人情報は議論中(🟡、[議論ログ](state-design/personal-data/discussion-log.md)、Round 1への回答待ち)。その後、残り2つのどちらにするかをユーザーに尋ねる。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。

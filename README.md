@@ -41,7 +41,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Judicial Infrastructure | [Public court records](docs/state-design/judiciary/) (merged into Judiciary) | 🟢 Spec drafted |
 | Commerce & Markets | Everyday commerce | ⏸ On hold |
 | Commerce & Markets | Wealth-focused financial services | ⏸ On hold (provider-handled tax compliance, not full on-chain transparency) |
-| Data Protection | Personal data held by companies | 🔴 Not started |
+| Data Protection | [Personal data held by companies](docs/state-design/personal-data/) | 🟡 Discussing |
 | Deliberately excluded | High-frequency trading | 🚫 Excluded |
 | Deliberately excluded | Personal wealth-accumulation investment | 🚫 Excluded |
 | Deliberately excluded | [Legislative process](docs/state-design/legislative/) | 🚫 Excluded |
@@ -135,7 +135,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 司法インフラ | [判決等の司法記録の公開](docs/state-design/judiciary/)(司法に統合) | 🟢 設計確定 |
 | 商取引・市場 | 日常の商取引 | ⏸ 保留 |
 | 商取引・市場 | 富裕層向け金融サービス | ⏸ 保留(提供者が納税処理の責任を持ち、完全なオンチェーン透明化は行わない) |
-| データ保護 | 企業が保有する個人情報 | 🔴 未着手 |
+| データ保護 | [企業が保有する個人情報](docs/state-design/personal-data/) | 🟡 議論中 |
 | 意図的に対象外 | 高頻度取引(HFT) | 🚫 対象外 |
 | 意図的に対象外 | 個人の資産形成目的の投資 | 🚫 対象外 |
 | 意図的に対象外 | [立法プロセス](docs/state-design/legislative/) | 🚫 対象外 |

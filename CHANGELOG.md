@@ -91,6 +91,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/unemployment-insurance/` and `docs/decisions/0026-unemployment-insurance-model.md`: unemployment-insurance spec — no new contract; working while receiving made visible. `docs/BACKLOG.md`: workers' accident compensation; the existing statistics row now also cites ADR 0026.
 - `docs/FEATURES.md`, root `README.md`: unemployment insurance 🟢 (Social Welfare complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/decisions/0027-remaining-scope-triage.md`: remaining-scope triage — nine low-value items ⏸ on hold (new status, not blocking implementation); new item "personal data held by companies" (Data Protection). `docs/FEATURES.md`, root `README.md`, `docs/PROJECT_STATUS.md` updated. Unemployment-insurance adjustments accepted (Round 3).
+- `docs/state-design/personal-data/discussion-log.md`: opened screening of personal data held by companies (Round 0: user's direction; Round 1). `docs/FEATURES.md`, root `README.md`: 🟡.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
