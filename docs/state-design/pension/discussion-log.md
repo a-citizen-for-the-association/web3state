@@ -81,7 +81,15 @@ Issues 1, 2 and 4–7 **as proposed**; Issue 2: **(A)**, no new contract; Issue 
 
 ### Status
 
-All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0024](../../decisions/0024-pension-model.md). The five adjustments await the user's confirmation.
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0024](../../decisions/0024-pension-model.md). The five adjustments were confirmed in Round 3.
+
+---
+
+## Round 3 — 2026-11-07 (user + Claude)
+
+The user asked what "two receiving treasuries" means. Claude explained: they are the two payment destinations (`PublicTreasury` addresses) for premiums, one for the National Pension and one for Employees' Pension. A stablecoin transfer carries no memo, only sender, recipient and amount, so with a single destination the chain could not show which scheme a payment was for; classifying it by amount or `EmployeeID` off-chain would be ambiguous for mid-month job changes or coincidental amounts. The split mirrors today's 国民年金勘定 and 厚生年金勘定, and the basic-pension share moving from the Employees' Pension side to the basic-pension side is an ordinary, visible transfer between treasuries.
+
+The user was satisfied and **confirmed all five Round 2 adjustments**. No open points remain.
 
 ---
 
@@ -168,4 +176,12 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0024](../../
 
 ### ステータス
 
-すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0024](../../decisions/0024-pension-model.md)。5つの調整はユーザーの確認待ち。
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0024](../../decisions/0024-pension-model.md)。5つの調整はRound 3で了承された。
+
+---
+
+## Round 3 — 2026-11-07(ユーザー＋Claude)
+
+ユーザーは「受け取る国庫を2つにする」とはどういう意味かを尋ねた。Claudeの説明: 保険料の振込先(`PublicTreasury`のアドレス)を、国民年金用と厚生年金用の2つにするということ。ステーブルコインの送金にはメモがなく、送信元・送信先・金額しか残らないので、振込先が1つだとどちらの制度の保険料かをチェーンから判別できない。金額や`EmployeeID`からオフチェーンで分類すると、月の途中の転職や金額の偶然の一致で曖昧になる。この分け方は現在の国民年金勘定と厚生年金勘定に対応し、厚生年金側から基礎年金側への基礎年金分の移動は、国庫間の通常の見える送金である。
+
+ユーザーは納得し、**Round 2の5つの調整をすべて了承した**。未決の点は残っていない。

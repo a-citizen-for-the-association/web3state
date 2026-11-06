@@ -82,6 +82,8 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/pension/discussion-log.md`: opened pension screening (Round 1). `docs/FEATURES.md`, root `README.md`: pension 🟡. `docs/PROJECT_STATUS.md`: removed the resume point; Social Welfare is next.
 - `docs/state-design/pension/` and `docs/decisions/0024-pension-model.md`: pension spec — no new contract; the contribution transfer is the record; employees pay their whole premium.
 - `docs/FEATURES.md`, root `README.md`: pension 🟢. `docs/PROJECT_STATUS.md` updated.
+- `docs/state-design/pension/discussion-log.md`: Round 3 — adjustments confirmed.
+- `docs/state-design/benefits/discussion-log.md`: opened benefits screening (Round 1). `docs/FEATURES.md`, root `README.md`: benefits 🟡.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.

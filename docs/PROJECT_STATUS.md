@@ -43,7 +43,7 @@
 - VIP asset disclosure (2026-10-18, [ADR 0021](decisions/0021-vip-asset-disclosure.md)): no new contract; published `ResidentLink` address plus off-chain declarations (including ordinary deposits and non-JPY tokens), with severe penalties for omission. See [discussion log](state-design/vip-asset-disclosure/discussion-log.md) and [spec](state-design/vip-asset-disclosure/README.md).
 - Public procurement (2026-10-24, [ADR 0022](decisions/0022-procurement-model.md)): one `Tender` per procurement from the body's `TenderFactory` (negotiated contracts included); commit–reveal sealed bids with deposits; ceiling price committed and revealed at opening; all bids public; lowest-price award checked on-chain; contracts and change contracts appended; rigging detection by off-chain analysis. See [discussion log](state-design/procurement/discussion-log.md) and [spec](state-design/procurement/README.md).
 - Subsidies (2026-10-24, [ADR 0023](decisions/0023-subsidies-model.md)): no new contract; anchored grant decision plus treasury payments; subsidised expenses paid on-chain to certified addresses and listed as transactions instead of receipts (cash not eligible); expense reports anchored; everything public; kickbacks and duplicates detected off-chain. See [discussion log](state-design/subsidies/discussion-log.md) and [spec](state-design/subsidies/README.md).
-- Pension (2026-11-07, [ADR 0024](decisions/0024-pension-model.md)): no new contract; the contribution transfer from the insured person's own `ResidentLink` address to one of two pension treasuries is the record; months allocated oldest-unpaid-first by law; employees pay their whole premium (employer half added to pay); entitlement decisions anchored by hash only; one generic benefit budget code; registered deaths stop payments via the burn; GPIF excluded. See [discussion log](state-design/pension/discussion-log.md) and [spec](state-design/pension/README.md). Five spec-time adjustments await confirmation.
+- Pension (2026-11-07, [ADR 0024](decisions/0024-pension-model.md)): no new contract; the contribution transfer from the insured person's own `ResidentLink` address to one of two pension treasuries is the record; months allocated oldest-unpaid-first by law; employees pay their whole premium (employer half added to pay); entitlement decisions anchored by hash only; one generic benefit budget code; registered deaths stop payments via the burn; GPIF excluded. See [discussion log](state-design/pension/discussion-log.md) and [spec](state-design/pension/README.md).
 
 ## Open questions
 
@@ -57,7 +57,7 @@
 
 ## Next steps
 
-1. Political Transparency is complete (2026-10-24). Social Welfare chosen next (2026-11-07): pension done (five spec-time adjustments await confirmation); next benefits and unemployment insurance. Continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
+1. Political Transparency is complete (2026-10-24). Social Welfare chosen next (2026-11-07): pension done; benefits in discussion (🟡, [discussion log](state-design/benefits/discussion-log.md), awaiting Round 1 response); then unemployment insurance. Continue designing every remaining 🔴 item in `docs/FEATURES.md`. Show the remaining list and let the user choose the next theme; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -108,7 +108,7 @@
 - 要人の資産公開(2026-10-18、[ADR 0021](decisions/0021-vip-asset-disclosure.md)): 新しいコントラクトは作らない。公表された`ResidentLink`アドレスと、オフチェーンの申告(普通預金と円以外のトークンを含む)。申告漏れには厳罰。[議論ログ](state-design/vip-asset-disclosure/discussion-log.md)と[仕様](state-design/vip-asset-disclosure/README.md)を参照。
 - 公共調達(2026-10-24、[ADR 0022](decisions/0022-procurement-model.md)): 調達ごとに、機関の`TenderFactory`から1つの`Tender`(随意契約を含む)。保証金付きのコミット・リビールによる封印入札。予定価格はコミットし開札時に明かす。すべての入札を公開。最低価格による落札はオンチェーンで確認。契約と変更契約を追記。談合の検出はオフチェーンの分析。[議論ログ](state-design/procurement/discussion-log.md)と[仕様](state-design/procurement/README.md)を参照。
 - 補助金(2026-10-24、[ADR 0023](decisions/0023-subsidies-model.md)): 新しいコントラクトは作らない。アンカーした交付決定と国庫の支払い。補助対象の経費はオンチェーンで認定アドレスに支払い、領収書の代わりに取引として列挙する(現金は対象外)。実績報告をアンカー。すべて公開。キックバックと重複はオフチェーンで検出。[議論ログ](state-design/subsidies/discussion-log.md)と[仕様](state-design/subsidies/README.md)を参照。
-- 年金(2026-11-07、[ADR 0024](decisions/0024-pension-model.md)): 新しいコントラクトは作らない。被保険者自身の`ResidentLink`アドレスから年金の2つの国庫のいずれかへの送金が記録になる。何月分に充てるかは法律で未納の最も古い月からと固定。会社員は保険料を全額自分で払う(雇用主負担分は給与に上乗せ)。年金額を変える決定はハッシュだけをアンカリング。給付の予算コードは1つ。届出済みの死亡はburnで支払いが止まる。GPIFは対象外。[議論ログ](state-design/pension/discussion-log.md)と[仕様](state-design/pension/README.md)を参照。仕様作成時の5つの調整は確認待ち。
+- 年金(2026-11-07、[ADR 0024](decisions/0024-pension-model.md)): 新しいコントラクトは作らない。被保険者自身の`ResidentLink`アドレスから年金の2つの国庫のいずれかへの送金が記録になる。何月分に充てるかは法律で未納の最も古い月からと固定。会社員は保険料を全額自分で払う(雇用主負担分は給与に上乗せ)。年金額を変える決定はハッシュだけをアンカリング。給付の予算コードは1つ。届出済みの死亡はburnで支払いが止まる。GPIFは対象外。[議論ログ](state-design/pension/discussion-log.md)と[仕様](state-design/pension/README.md)を参照。
 
 ## 未解決の論点
 
@@ -122,6 +122,6 @@
 
 ## 次のステップ
 
-1. 「政治の透明性」は完了(2026-10-24)。次に「社会保障」を選択(2026-11-07): 年金は完了(仕様作成時の5つの調整は確認待ち)。次は各種手当と雇用保険。`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
+1. 「政治の透明性」は完了(2026-10-24)。次に「社会保障」を選択(2026-11-07): 年金は完了。各種手当は議論中(🟡、[議論ログ](state-design/benefits/discussion-log.md)、Round 1への回答待ち)。その後、雇用保険。`docs/FEATURES.md`の残りの🔴項目をすべて設計する。残りの一覧を示し、次のテーマはユーザーに選んでもらう。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
