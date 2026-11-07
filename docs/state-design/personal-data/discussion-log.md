@@ -85,6 +85,25 @@ Awaiting the user's response.
 
 ---
 
+## Round 2 — 2026-11-07 (user + Claude)
+
+### User's decisions
+
+Issues 1–7 **as proposed**: the person holds the credentials and companies only read them (Issue 1); address as customer identifier and signature login (2); municipal age-threshold credentials, option (a) (3); merchants never receive the delivery address, option (a), with (b) only where unavoidable (4); purpose-bound, retention-limited unavoidable data (5); one shared `AnchorRegistry`, option (a) (6); access-log rule also for public bodies and contractors (7).
+
+### Adjustments made while writing the spec (flagged for review)
+
+- **`AnchorRegistry` is event-only.** `anchor(hash, kind)` checks that the caller is a certified corporate or public address and emits an event; it stores nothing. Nobody needs to look anchors up from inside a contract, so storage would be waste ("off-chain if it can be").
+- **A missed anchor is itself visible.** Each holder of personal data anchors one Merkle root of its access log per day. A day with no anchor from a company that is required to anchor shows on-chain and is a violation in itself. The log stays with the company; the regulator (or a court) can demand it and check it against the root.
+- **Age credentials are never burned on a move,** because an age threshold, once reached, stays true. A verifier checks both a valid `ResidentLink` and the age credential at the same address. On death the `ResidentLink` burn is enough. Visitors (visitor pass) have no age credential; their age is checked off-chain from the passport, without keeping a copy.
+- **What a company may keep after a check:** the address, which fact was checked, and the block number at which it was true. Nothing else.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0028](../../decisions/0028-personal-data-model.md). The four adjustments await the user's confirmation.
+
+---
+
 # 議論ログ: 企業が保有する個人情報(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -169,3 +188,22 @@ Awaiting the user's response.
 ### ステータス
 
 ユーザーの回答待ち。
+
+---
+
+## Round 2 — 2026-11-07(ユーザー＋Claude)
+
+### ユーザーの決定
+
+論点1〜7は**提案どおり**: クレデンシャルは本人が持ち、企業は読むだけ(論点1)。アドレスを顧客の識別子とし、署名でログイン(2)。市区町村による年齢の基準のクレデンシャル、選択肢(a)(3)。販売者は配送先の住所を受け取らない、選択肢(a)、やむをえない場合だけ(b)(4)。避けられないデータは目的に限定し保存期間を制限(5)。共有の`AnchorRegistry`を1つ、選択肢(a)(6)。アクセスログのルールは公的機関と委託先にも適用(7)。
+
+### 仕様を書く際に加えた調整(確認待ち)
+
+- **`AnchorRegistry`はイベントだけを出す。** `anchor(hash, kind)`は呼び出し元が認定された法人または公的なアドレスであることを確認してイベントを出し、何も保存しない。コントラクトの中からアンカーを参照する必要は誰にもないので、保存は無駄になる(「オフチェーンでできることはオフチェーンで」)。
+- **アンカーの欠落自体が見える。** 個人情報を持つ者は、アクセスログのマークルルートを1日1つアンカリングする。義務のある企業からアンカーがない日はオンチェーンでわかり、それ自体が違反となる。ログは企業が保管し、規制当局(または裁判所)が提出を求めてルートと照合できる。
+- **年齢のクレデンシャルは転居してもburnしない。** 一度達した年齢の基準はずっと真だからである。確認する側は、同じアドレスで有効な`ResidentLink`と年齢のクレデンシャルの両方を確認する。死亡の場合は`ResidentLink`のburnで足りる。訪問者(訪問者パス)には年齢のクレデンシャルがないので、年齢はパスポートからオフチェーンで確認し、写しは保管しない。
+- **確認の後に企業が保持してよいもの:** アドレス、どの事実を確認したか、それが真だったブロック番号。それ以外は保持しない。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0028](../../decisions/0028-personal-data-model.md)。4つの調整はユーザーの確認待ち。
