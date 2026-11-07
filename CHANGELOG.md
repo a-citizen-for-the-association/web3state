@@ -93,6 +93,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/decisions/0027-remaining-scope-triage.md`: remaining-scope triage — nine low-value items ⏸ on hold (new status, not blocking implementation); new item "personal data held by companies" (Data Protection). `docs/FEATURES.md`, root `README.md`, `docs/PROJECT_STATUS.md` updated. Unemployment-insurance adjustments accepted (Round 3).
 - `docs/state-design/personal-data/discussion-log.md`: opened screening of personal data held by companies (Round 0: user's direction; Round 1). `docs/FEATURES.md`, root `README.md`: 🟡.
 - `docs/state-design/personal-data/` and `docs/decisions/0028-personal-data-model.md`: personal-data spec — "don't hold it" law, age-threshold credentials, shared `AnchorRegistry`. `docs/FEATURES.md`, root `README.md`: 🟢; notarization row notes `AnchorRegistry`. `docs/PROJECT_STATUS.md` updated.
+- `docs/state-design/personal-data/discussion-log.md`: Round 3 — adjustments accepted. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.

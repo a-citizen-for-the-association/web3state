@@ -4,6 +4,15 @@
 
 **Last updated:** 2026-11-07
 
+## ⏸ Paused — resume point
+
+Paused on 2026-11-07 after finishing Social Welfare (ADRs 0024–0026), the remaining-scope triage (ADR 0027) and personal data held by companies (ADR 0028). The user confirmed every adjustment; nothing is open.
+
+**When the user says "再開して" (resume):**
+1. Remind the user that, after the triage of [ADR 0027](decisions/0027-remaining-scope-triage.md), only **two** items remain to design: **real estate registry** and **securities / shareholdings**. The nine ⏸ on-hold items are not to be designed unless the user brings one back. Ask which of the two to take first. Don't pick one yourself.
+2. Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)), applying the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)) and the certified-address premise ([ADR 0020](decisions/0020-certified-address-stablecoin.md)). Check `docs/BACKLOG.md` first (VIP disclosure and "glass-box corporations" rows bear on both items). Then proceed as before: raise issues → discuss → discussion log → ADR + spec.
+3. After both are designed: the cross-feature consistency review, then implementation.
+
 ## Current phase
 
 **Phase 1 (continued) — Designing state functions; implementation deliberately deferred.** Repository scaffold is in place (Phase 0 complete). Twenty-three state functions are fully resolved and specified: citizenship/residency (resident-link NFT, [ADR 0003](decisions/0003-resident-link-identity-model.md)), taxation/payment rail ([ADR 0004](decisions/0004-taxation-payment-rail.md)), corporations/registration ([ADR 0005](decisions/0005-corporate-registration-model.md)), the passport credential ([ADR 0006](decisions/0006-passport-credential.md)), the diploma credential ([ADR 0007](decisions/0007-diploma-credential.md)), the license credential ([ADR 0008](decisions/0008-license-credential.md)), the health-insurance credential ([ADR 0009](decisions/0009-health-insurance-credential.md)), the employee ID credential ([ADR 0010](decisions/0010-employee-id-credential.md)), the vaccination credential ([ADR 0011](decisions/0011-vaccination-credential.md)) — **completing the originally-listed set of six concrete "credentials" instances** — and voting ([ADR 0013](decisions/0013-voting-model.md)), the first function requiring genuinely new cryptographic machinery rather than the soulbound-NFT pattern — and political donations ([ADR 0015](decisions/0015-political-donations-model.md)), the first to force the *receiving* side through contract logic — and direct-demand petition signatures ([ADR 0016](decisions/0016-direct-demand-petition-model.md)), the first public, non-secret participation record — and the executive in minimal v1 form ([ADR 0017](decisions/0017-executive-document-anchoring-v1.md)): approval-document title-and-hash anchoring — and the judiciary ([ADR 0018](decisions/0018-judiciary-model.md)), which completes Governance Core — and the treasury ([ADR 0019](decisions/0019-treasury-model.md)), the rail all public spending goes through — the certified-address JPY stablecoin ([ADR 0020](decisions/0020-certified-address-stablecoin.md)), a project-wide premise — VIP asset disclosure ([ADR 0021](decisions/0021-vip-asset-disclosure.md)), public procurement ([ADR 0022](decisions/0022-procurement-model.md)), and subsidies ([ADR 0023](decisions/0023-subsidies-model.md)), completing Political Transparency — pension ([ADR 0024](decisions/0024-pension-model.md)), the first Social Welfare item, benefits ([ADR 0025](decisions/0025-benefits-model.md)), and unemployment insurance ([ADR 0026](decisions/0026-unemployment-insurance-model.md)), completing Social Welfare — and personal data held by companies ([ADR 0028](decisions/0028-personal-data-model.md)), added in the scope triage of [ADR 0027](decisions/0027-remaining-scope-triage.md). The legislative process was screened out ([ADR 0014](decisions/0014-legislative-process-scope.md)). See [`docs/FEATURES.md`](FEATURES.md) for the full, up-to-date progress table, and [`docs/BACKLOG.md`](BACKLOG.md) for items deferred out of those designs.
@@ -46,7 +55,7 @@
 - Pension (2026-11-07, [ADR 0024](decisions/0024-pension-model.md)): no new contract; the contribution transfer from the insured person's own `ResidentLink` address to one of two pension treasuries is the record; months allocated oldest-unpaid-first by law; employees pay their whole premium (employer half added to pay); entitlement decisions anchored by hash only; one generic benefit budget code; registered deaths stop payments via the burn; GPIF excluded. See [discussion log](state-design/pension/discussion-log.md) and [spec](state-design/pension/README.md).
 - Benefits (2026-11-07, [ADR 0025](decisions/0025-benefits-model.md)): no new contract; treasury payments to the recipient's own address plus decisions anchored by hash; one budget code shared by all social-security payments to individuals (widening ADR 0024's); income checks only for applicants and recipients, with consent; medical and care assistance moved to the backlog. See [discussion log](state-design/benefits/discussion-log.md) and [spec](state-design/benefits/README.md).
 - Unemployment insurance (2026-11-07, [ADR 0026](decisions/0026-unemployment-insurance-model.md)): no new contract; pension, benefits and subsidies patterns combined; the employee pays the insurance part, the employer alone the 二事業 part, into one treasury; working while receiving flagged from salary inflows or a new `EmployeeID`, with consent; training fees paid on-chain; workers' accident compensation and chain-computed statistics moved to the backlog. See [discussion log](state-design/unemployment-insurance/discussion-log.md) and [spec](state-design/unemployment-insurance/README.md).
-- Personal data held by companies (2026-11-07, [ADR 0028](decisions/0028-personal-data-model.md)): a "don't hold it" law; personal data never on-chain; facts proved by credentials the person holds (new municipal age-threshold credentials); companies keep only address, fact and block; signature login; delivery addresses only to the carrier; daily access-log roots in a shared, event-only `AnchorRegistry`, a missing day being a violation. See [discussion log](state-design/personal-data/discussion-log.md) and [spec](state-design/personal-data/README.md). Four spec-time adjustments await confirmation.
+- Personal data held by companies (2026-11-07, [ADR 0028](decisions/0028-personal-data-model.md)): a "don't hold it" law; personal data never on-chain; facts proved by credentials the person holds (new municipal age-threshold credentials); companies keep only address, fact and block; signature login; delivery addresses only to the carrier; daily access-log roots in a shared, event-only `AnchorRegistry`, a missing day being a violation. See [discussion log](state-design/personal-data/discussion-log.md) and [spec](state-design/personal-data/README.md).
 
 ## Open questions
 
@@ -60,7 +69,7 @@
 
 ## Next steps
 
-1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07). **Scope triage (2026-11-07, [ADR 0027](decisions/0027-remaining-scope-triage.md)):** only three high-value items remain to design — real estate registry, securities/shareholdings, and personal data held by companies (new). Nine low-value items are ⏸ on hold and do not block implementation. Personal data done (four spec-time adjustments await confirmation); ask which of the other two (real estate, securities) to take next; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
+1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07). **Scope triage (2026-11-07, [ADR 0027](decisions/0027-remaining-scope-triage.md)):** only three high-value items remain to design — real estate registry, securities/shareholdings, and personal data held by companies (new). Nine low-value items are ⏸ on hold and do not block implementation. Personal data done; ask which of the other two (real estate, securities) to take next; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -71,6 +80,15 @@
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
 **最終更新日:** 2026-11-07
+
+## ⏸ 中断中 — 再開ポイント
+
+2026-11-07、社会保障(ADR 0024〜0026)、残りのスコープの振り分け(ADR 0027)、企業が保有する個人情報(ADR 0028)を確定させた後に中断しました。調整はすべてユーザーの了承済みで、未決の点はありません。
+
+**ユーザーが「再開して」と言ったら:**
+1. [ADR 0027](decisions/0027-remaining-scope-triage.md)の振り分けにより、設計が残っているのは**不動産登記**と**有価証券・株主の記録**の**2項目だけ**であることを伝える。⏸保留の9項目は、ユーザーが取り上げない限り設計しない。2つのうちどちらを先にするかをユーザーに尋ねること。自分で選ばないこと。
+2. 選ばれた項目をオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))にかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))と認定アドレス制の前提([ADR 0020](decisions/0020-certified-address-stablecoin.md))を適用する。先に`docs/BACKLOG.md`を確認する(要人の資産公開と「ガラス張りの法人」の行が両項目に関係する)。その後はこれまでと同じく、論点の提起→議論→議論ログ→ADR＋仕様の順に進める。
+3. 2項目の設計後: 機能間の整合性レビュー、その後に実装。
 
 ## 現在のフェーズ
 
@@ -114,7 +132,7 @@
 - 年金(2026-11-07、[ADR 0024](decisions/0024-pension-model.md)): 新しいコントラクトは作らない。被保険者自身の`ResidentLink`アドレスから年金の2つの国庫のいずれかへの送金が記録になる。何月分に充てるかは法律で未納の最も古い月からと固定。会社員は保険料を全額自分で払う(雇用主負担分は給与に上乗せ)。年金額を変える決定はハッシュだけをアンカリング。給付の予算コードは1つ。届出済みの死亡はburnで支払いが止まる。GPIFは対象外。[議論ログ](state-design/pension/discussion-log.md)と[仕様](state-design/pension/README.md)を参照。
 - 各種手当(2026-11-07、[ADR 0025](decisions/0025-benefits-model.md)): 新しいコントラクトは作らない。受給者本人のアドレスへの国庫の支払いと、ハッシュでアンカリングした決定。個人への社会保障の支払いすべてに共通の予算コードを1つ(ADR 0024を拡張)。収入確認は申請者と受給者に限り、同意に基づく。医療扶助・介護扶助はバックログへ。[議論ログ](state-design/benefits/discussion-log.md)と[仕様](state-design/benefits/README.md)を参照。
 - 雇用保険(2026-11-07、[ADR 0026](decisions/0026-unemployment-insurance-model.md)): 新しいコントラクトは作らない。年金・各種手当・補助金の型を組み合わせる。労使負担の部分は従業員が、二事業の部分は雇用主だけが、1つの国庫に払う。受給中の就労は、同意に基づき給与の入金や新しい`EmployeeID`から検知。受講料はオンチェーンで支払う。労災保険とチェーンから計算する統計はバックログへ。[議論ログ](state-design/unemployment-insurance/discussion-log.md)と[仕様](state-design/unemployment-insurance/README.md)を参照。
-- 企業が保有する個人情報(2026-11-07、[ADR 0028](decisions/0028-personal-data-model.md)): 「持たせない」法律。個人情報はオンチェーンに載せない。事実は本人が持つクレデンシャルで証明する(市区町村による年齢の基準のクレデンシャルを新設)。企業が保持するのはアドレス、事実、ブロックだけ。署名でログイン。配送先の住所は配送業者にだけ。アクセスログの毎日のルートを、イベントだけを出す共有の`AnchorRegistry`に記録し、欠落した日は違反。[議論ログ](state-design/personal-data/discussion-log.md)と[仕様](state-design/personal-data/README.md)を参照。仕様作成時の4つの調整は確認待ち。
+- 企業が保有する個人情報(2026-11-07、[ADR 0028](decisions/0028-personal-data-model.md)): 「持たせない」法律。個人情報はオンチェーンに載せない。事実は本人が持つクレデンシャルで証明する(市区町村による年齢の基準のクレデンシャルを新設)。企業が保持するのはアドレス、事実、ブロックだけ。署名でログイン。配送先の住所は配送業者にだけ。アクセスログの毎日のルートを、イベントだけを出す共有の`AnchorRegistry`に記録し、欠落した日は違反。[議論ログ](state-design/personal-data/discussion-log.md)と[仕様](state-design/personal-data/README.md)を参照。
 
 ## 未解決の論点
 
@@ -128,6 +146,6 @@
 
 ## 次のステップ
 
-1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。個人情報は完了(仕様作成時の4つの調整は確認待ち)。残り2つ(不動産登記、有価証券)のどちらを次にするかをユーザーに尋ねる。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
+1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。個人情報は完了。残り2つ(不動産登記、有価証券)のどちらを次にするかをユーザーに尋ねる。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。

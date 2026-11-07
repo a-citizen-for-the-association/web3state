@@ -100,7 +100,13 @@ Issues 1–7 **as proposed**: the person holds the credentials and companies onl
 
 ### Status
 
-All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0028](../../decisions/0028-personal-data-model.md). The four adjustments await the user's confirmation.
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0028](../../decisions/0028-personal-data-model.md). The four adjustments were accepted in Round 3.
+
+---
+
+## Round 3 — 2026-11-07 (user)
+
+The user **accepted the four Round 2 adjustments** ("了解") and asked to pause here. No open points remain.
 
 ---
 
@@ -206,4 +212,10 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0028](../../
 
 ### ステータス
 
-すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0028](../../decisions/0028-personal-data-model.md)。4つの調整はユーザーの確認待ち。
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0028](../../decisions/0028-personal-data-model.md)。4つの調整はRound 3で了承された。
+
+---
+
+## Round 3 — 2026-11-07(ユーザー)
+
+ユーザーは**Round 2の4つの調整を了承し**(「了解」)、ここで中断するよう求めた。未決の点は残っていない。
