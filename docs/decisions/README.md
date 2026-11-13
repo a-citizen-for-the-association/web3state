@@ -42,6 +42,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0027](0027-remaining-scope-triage.md) | Remaining scope triage: design only high-value items now, put the rest on hold, add personal-data protection | Accepted |
 | [0028](0028-personal-data-model.md) | Personal data model: a "don't hold it" law; prove instead of collect; anchor access logs | Accepted |
 | [0029](0029-real-estate-registry-model.md) | Real estate registry model: the token is the right; owner plus agent to transfer; no parcel on-chain; no foreign ownership | Accepted |
+| [0030](0030-securities-model.md) | Securities model: shares as tokens at holders' addresses; exchanges off-chain, brokers record the result on-chain; named beneficial owners | Accepted |
 
 ---
 

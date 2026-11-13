@@ -1,7 +1,7 @@
 # 0021. VIP asset disclosure: no new contract; published address plus off-chain declarations with severe penalties
 
 **Date:** 2026-10-18
-**Status:** Accepted
+**Status:** Accepted. Real estate ([ADR 0029](0029-real-estate-registry-model.md)) and shares ([ADR 0030](0030-securities-model.md)) are now visible from a VIP's address, shrinking the off-chain declaration.
 
 ## Context
 
@@ -26,7 +26,7 @@ Under the Diet members' asset disclosure law, reports are self-declared and unve
 # 0021. 要人の資産公開: 新しいコントラクトは作らない。公表されたアドレスと、厳罰付きのオフチェーンの申告(日本語)
 
 **日付:** 2026-10-18
-**ステータス:** Accepted
+**ステータス:** Accepted。不動産([ADR 0029](0029-real-estate-registry-model.md))と株式([ADR 0030](0030-securities-model.md))が要人のアドレスから見えるようになり、オフチェーンの申告が縮小する。
 
 ## 背景
 

@@ -1,7 +1,7 @@
 # 0029. Real estate registry model: the token is the right; owner plus agent to transfer; no parcel on-chain; no foreign ownership
 
 **Date:** 2026-11-14
-**Status:** Accepted. Extends [ADR 0020](0020-certified-address-stablecoin.md) (new certified kind `NonResidentOwner`) and [ADR 0028](0028-personal-data-model.md) (new `AnchorRegistry` kind).
+**Status:** Accepted. Extends [ADR 0020](0020-certified-address-stablecoin.md) (new certified kind `NonResidentOwner`) and [ADR 0028](0028-personal-data-model.md) (new `AnchorRegistry` kind). [ADR 0030](0030-securities-model.md) defines foreign-controlled corporations (over 50%, traced through all layers).
 
 ## Context
 
@@ -33,7 +33,7 @@ Kept in the scope triage ([ADR 0027](0027-remaining-scope-triage.md)) for two pr
 # 0029. 不動産登記モデル: トークンが権利そのもの。移転は所有者と代理人で。土地はオンチェーンに載せない。外国人の所有は認めない(日本語)
 
 **日付:** 2026-11-14
-**ステータス:** Accepted。[ADR 0020](0020-certified-address-stablecoin.md)(新しい認定の種類`NonResidentOwner`)と[ADR 0028](0028-personal-data-model.md)(`AnchorRegistry`の新しい種類)を拡張する。
+**ステータス:** Accepted。[ADR 0020](0020-certified-address-stablecoin.md)(新しい認定の種類`NonResidentOwner`)と[ADR 0028](0028-personal-data-model.md)(`AnchorRegistry`の新しい種類)を拡張する。[ADR 0030](0030-securities-model.md)が外国人が支配する法人(すべての層をたどって50%超)を定義する。
 
 ## 背景
 

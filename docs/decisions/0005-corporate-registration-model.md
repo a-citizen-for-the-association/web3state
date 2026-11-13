@@ -1,7 +1,7 @@
 # 0005. Corporate registration model: authority-issued, on-chain, officer-name-only NFT
 
 **Date:** 2026-10-03
-**Status:** Accepted
+**Status:** Accepted. [ADR 0030](0030-securities-model.md) adds beneficial-owner names (25% or more) to the corporate record.
 
 ## Context
 

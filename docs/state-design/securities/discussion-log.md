@@ -124,7 +124,31 @@ Unlisted shares are unaffected: dealings are bilateral and off-chain, and the to
 
 ### Status
 
-Awaiting the user's response on A–E.
+Superseded by the user's proposal in Round 3.
+
+---
+
+## Round 3 — 2026-11-14 (user + Claude)
+
+Claude explained Issue B (front-running on a public chain, and sealed batch auctions as the cure) at the user's request. The user then proposed a different approach:
+
+> The exchange mechanism stays off-chain, as today, in principle. Securities firms are responsible for recording trade and execution reports on-chain. Firms that fail to do so are severely punished.
+
+Claude's assessment: this removes the front-running problem (only results reach the chain), leaves [ADR 0012](../../decisions/0012-onchain-scope-philosophy.md) untouched (speed competition stays inside today's exchanges; the state builds only the record), and keeps exchanges as they are. Points raised:
+1. **The record is the transfer:** the broker's on-chain record is itself the movement of share tokens (and stablecoin) between the holders' addresses, so the record and the holdings cannot disagree. Investors give their broker authority to move listed shares and the price.
+2. **Granularity:** (a) every execution on-chain; (b) **holdings move once a day, net, and each day's executions are anchored as a Merkle root**, so any execution can later be proved (the access-log pattern of [ADR 0028](../../decisions/0028-personal-data-model.md)).
+3. **Detection:** exchanges also anchor a daily root of their executions; a mismatch with a broker's records, or a missing day, is a violation.
+4. **Penalties** up to licence revocation; details are law.
+
+Consequences: issues A and B of Round 2 fall away; C shrinks to the exchange's daily anchor; short selling and margin trading (D) can stay inside the off-chain market, since only the settled result must be real at the addresses; scale (E) becomes much lighter with (b).
+
+### User's decision
+
+**1–3 as proposed; 2 is (b).** All issues are resolved.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0030](../../decisions/0030-securities-model.md). Spec-time adjustments are listed in the spec and await the user's confirmation.
 
 ---
 
@@ -254,4 +278,28 @@ E. **規模。** 上場市場では1日に数百万件の約定がある。バ�
 
 ### ステータス
 
-A〜Eについてユーザーの回答待ち。
+Round 3のユーザーの提案で置き換えられた。
+
+---
+
+## Round 3 — 2026-11-14(ユーザー＋Claude)
+
+ユーザーの求めに応じて、Claudeが論点B(公開チェーンでのフロントランニングと、その対策としての封印したバッチオークション)を説明した。その後、ユーザーが別の方法を提案した:
+
+> 取引所の仕組みは原則として今のオフチェーンのままとする。一方で、取引報告、約定報告などは証券会社が責任を持ってオンチェーンに記録するものとする。それを怠った企業は、厳罰に処するようにする。
+
+Claudeの評価: これでフロントランニングの問題はなくなる(チェーンに載るのは結果だけ)。[ADR 0012](../../decisions/0012-onchain-scope-philosophy.md)にも手を入れずに済む(速さの競争は今の取引所の中に残り、国家が作るのは記録だけ)。取引所も今のままでよい。提起した点:
+1. **記録が移転そのもの:** 証券会社のオンチェーンの記録そのものを、保有者のアドレス間の株式のトークン(とステーブルコイン)の移動とする。記録と保有が食い違えない。投資家は、上場株式と代金を動かす権限を証券会社に与える。
+2. **粒度:** (a) すべての約定をオンチェーンに。(b) **保有は1日1回差し引きで動かし、その日の約定はマークルルートでアンカリングする。** どの約定も後から証明できる([ADR 0028](../../decisions/0028-personal-data-model.md)のアクセスログの型)。
+3. **検知:** 取引所も約定の毎日のルートをアンカリングする。証券会社の記録との不一致や、日の欠落は違反。
+4. **罰則**は免許取消しまで。詳細は法律。
+
+結果: Round 2の論点AとBは不要になる。Cは取引所の毎日のアンカーだけに縮む。空売りと信用取引(D)は、決済された結果がアドレスで実在すればよいので、オフチェーンの市場の中に置ける。規模(E)は(b)で大きく軽くなる。
+
+### ユーザーの決定
+
+**1〜3は提案どおり。2は(b)。** すべての論点が解決した。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0030](../../decisions/0030-securities-model.md)。仕様作成時の調整は仕様に列挙し、ユーザーの確認待ち。
