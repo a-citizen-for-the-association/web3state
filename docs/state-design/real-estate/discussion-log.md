@@ -93,7 +93,51 @@ Ownership of each parcel and building becomes a **transferable token issued by t
 
 ### Status
 
-Awaiting the user's response.
+Answered in Round 2.
+
+---
+
+## Round 2 — 2026-11-14 (user + Claude)
+
+### User's decisions
+
+- **Real estate is tokenised**, and **moving the token is the transfer of the right** (Issue 1 as proposed).
+- **Privacy (Issue 2): the parties check and exchange whatever they need off-chain.** All conditions are settled off-chain; the token transfer is the last step. No unnecessary personal data reaches the chain. This replaces options (a)–(c).
+- **Key theft (Issue 3): agents instead of a waiting period.** The owner can appoint several agents (代理人). A transfer needs the owner **and at least one agent**. The waiting period is dropped.
+
+### Remaining issues (Claude)
+
+Issues 1 and 2 are resolved; the waiting period in Issue 3 is replaced. What remains:
+
+A. **What the token itself shows.** Even with all dealings off-chain, if a token publicly carries its lot number, anyone can see which address owns which parcel, and the nameplate on the house gives away the owner's whole financial history. Proposal: **the token carries no lot number** (an opaque ID plus a salted hash). A buyer, lender, court or the municipality learns which token is which parcel from the Legal Affairs Bureau, off-chain, which fits the user's off-chain approach. **Exception:** for tokens held by corporations, public bodies and VIPs, the bureau publishes the parcel openly (the project's asymmetry; this also closes the VIP-disclosure backlog item). Agree?
+
+B. **Details of the agent rule.**
+   1. **Who can be an agent:** any certified address (family members, a judicial scrivener, a bank). Proposal: adopt.
+   2. **Changing agents** needs the owner **and at least one current agent**; otherwise a thief with the owner's key could replace the agents first.
+   3. **An owner with no agent:** then the owner's key alone could move the token, and the protection is gone. Proposal: **individuals must have at least one agent**; a corporation's multisig already serves this purpose, so agents are optional for corporations.
+   4. **The last agent is lost** (death, key loss): an agent whose `ResidentLink` is burned stops counting automatically. If no valid agent remains, the owner can appoint a new one **only with the municipality's confirmation** (as in ADR 0020's light path).
+   5. **The owner's key is lost:** the agents alone cannot transfer. Recovery goes through **ADR 0020's heavy successor path**, which moves the tokens with the funds to the owner's new address.
+   6. **Agent addresses are visible on the token** and reveal the owner's relationships. Proposal: store **only a hash of the agent set**; an agent shows that they are in the set when signing.
+
+C. **Paying the price.** Proposal: the token contract offers an **optional atomic settlement**: the buyer deposits the stablecoin, and the owner's and an agent's signatures release the token and the money in one transaction. Transfers without payment (gifts, transfers inside a family) are still possible. Agree?
+
+D. **Transfers that need a permission** (e.g. farmland): the Legal Affairs Bureau approves before the transfer, as proposed in Issue 3.
+
+E. **Transfers without the owner's signature** (Issue 4, unchanged): inheritance through ADR 0020's heavy path; auction, judgment, prescription and expropriation by the bureau, only on the hash of a registered decision.
+
+F. **Mortgages and other rights** (Issue 5, unchanged): mortgages on-chain as a lien that blocks transfer without the lender's consent; other rights off-chain with anchored hashes.
+
+G. **Co-ownership (共有). New issue.** Many parcels have several owners, often heirs, and this is a main cause of unknown owners. Proposal: **one token per co-owner's share**, recording the fraction. Each share can be transferred under the same owner + agent rule. Decisions that need all co-owners (selling the whole parcel) are made off-chain, and the shares are then transferred together.
+
+H. **Non-residents** (Issue 6, unchanged): a certified "non-resident owner" address issued by the bureau.
+
+I. **Moving existing records** (Issue 7, unchanged): mint on the next sale, inheritance or mortgage, or on request.
+
+J. **Off-chain items and fixed-asset tax** (Issue 8, unchanged). The bureau gives the municipality the token–parcel mapping, so the municipality can find the owner on 1 January.
+
+### Status
+
+Awaiting the user's response on A–J.
 
 ---
 
@@ -192,4 +236,48 @@ Awaiting the user's response.
 
 ### ステータス
 
-ユーザーの回答待ち。
+Round 2で回答された。
+
+---
+
+## Round 2 — 2026-11-14(ユーザー＋Claude)
+
+### ユーザーの決定
+
+- **不動産をトークン化し**、**トークンの移転を権利の移転とする**(論点1は提案どおり)。
+- **プライバシー(論点2): 必要な情報の確認と交換は取引者の間でオフチェーンで行う。** 条件はすべてオフチェーンでまとめ、トークンの移転を最後の手順とする。不要な個人情報をチェーンに載せない。選択肢(a)〜(c)はこれで置き換える。
+- **鍵の流出(論点3): 待機期間ではなく代理人。** 所有者は複数の代理人を設定できる。移転には所有者**と1人以上の代理人**の賛成が必要。待機期間はやめる。
+
+### 残っている論点(Claude)
+
+論点1と2は解決し、論点3の待機期間は置き換えられた。残るもの:
+
+A. **トークン自体が示すもの。** 取引がすべてオフチェーンでも、トークンが地番を公開で持っていれば、どのアドレスがどの土地を持つかが誰にでもわかり、家の表札から所有者の収支の履歴がすべてさらされる。提案: **トークンに地番を持たせない**(不透明なIDとソルト付きハッシュだけ)。どのトークンがどの土地かは、買主、貸し手、裁判所、市区町村が法務局からオフチェーンで知る。これはユーザーのオフチェーンの方針に合う。**例外:** 法人、公的機関、要人が持つトークンについては、法務局が土地を公開する(プロジェクトの非対称の原則。要人の資産公開のバックログ項目もこれで閉じる)。これでよいか?
+
+B. **代理人のルールの詳細。**
+   1. **誰が代理人になれるか:** 認定アドレスなら誰でも(家族、司法書士、銀行)。提案: 採用。
+   2. **代理人の変更**には、所有者**と現在の代理人の1人以上**が必要。そうしないと、所有者の鍵を盗んだ者がまず代理人を入れ替えてしまう。
+   3. **代理人のいない所有者:** その場合は所有者の鍵だけでトークンが動き、保護がなくなる。提案: **個人は代理人を1人以上置かなければならない**。法人はマルチシグが同じ役割を果たすので、代理人は任意。
+   4. **最後の代理人がいなくなった場合**(死亡、鍵の紛失): `ResidentLink`がburnされた代理人は自動的に数えられなくなる。有効な代理人が残っていなければ、所有者は**市区町村の確認があるときに限り**新しい代理人を設定できる(ADR 0020の軽い手続きと同様)。
+   5. **所有者の鍵を紛失した場合:** 代理人だけでは移転できない。回復は**ADR 0020の重い承継の手続き**で行い、資金と一緒にトークンも所有者の新しいアドレスに移す。
+   6. **代理人のアドレスがトークン上で見えると**、所有者の人間関係がわかってしまう。提案: **代理人の集合のハッシュだけを保存し**、代理人は署名するときに自分がその集合に含まれることを示す。
+
+C. **代金の支払い。** 提案: トークンのコントラクトに**任意のアトミック決済**を用意する: 買主がステーブルコインを預け、所有者と代理人の署名で、トークンと代金が1つのトランザクションで交換される。支払いのない移転(贈与、家族内の移転)も引き続き可能。これでよいか?
+
+D. **許可が必要な移転**(例: 農地): 論点3の提案どおり、移転の前に法務局が承認する。
+
+E. **所有者の署名のない移転**(論点4、変更なし): 相続はADR 0020の重い手続きで。競売、判決、時効取得、収用は、登録された決定のハッシュを示したときに限り法務局が行う。
+
+F. **抵当権とその他の権利**(論点5、変更なし): 抵当権はオンチェーンの担保とし、貸し手の同意なしには移転できない。その他の権利はオフチェーンで、ハッシュをアンカリング。
+
+G. **共有。新しい論点。** 多くの土地には複数の所有者がいて(相続人であることが多い)、これが所有者不明の大きな原因になっている。提案: **共有者の持分ごとに1つのトークン**とし、割合を記録する。各持分は同じ「所有者＋代理人」のルールで移転できる。共有者全員の同意が必要な判断(土地全体の売却)はオフチェーンで行い、その後に持分をまとめて移転する。
+
+H. **非居住者**(論点6、変更なし): 法務局が発行する認定済みの「非居住所有者」アドレス。
+
+I. **既存の記録の移行**(論点7、変更なし): 次の売買、相続、抵当権の設定のとき、または求めがあったときにmintする。
+
+J. **オフチェーンに残すものと固定資産税**(論点8、変更なし)。法務局はトークンと土地の対応を市区町村に渡し、市区町村が1月1日の所有者を見つけられるようにする。
+
+### ステータス
+
+A〜Jについてユーザーの回答待ち。
