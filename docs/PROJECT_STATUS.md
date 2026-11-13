@@ -2,16 +2,7 @@
 
 > Living document. Update this whenever the project moves phase, a major question is resolved, or a new major question opens. Keep it short — detail belongs in ADRs or architecture docs, this is a snapshot.
 
-**Last updated:** 2026-11-07
-
-## ⏸ Paused — resume point
-
-Paused on 2026-11-07 after finishing Social Welfare (ADRs 0024–0026), the remaining-scope triage (ADR 0027) and personal data held by companies (ADR 0028). The user confirmed every adjustment; nothing is open.
-
-**When the user says "再開して" (resume):**
-1. Remind the user that, after the triage of [ADR 0027](decisions/0027-remaining-scope-triage.md), only **two** items remain to design: **real estate registry** and **securities / shareholdings**. The nine ⏸ on-hold items are not to be designed unless the user brings one back. Ask which of the two to take first. Don't pick one yourself.
-2. Screen the chosen item with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)), applying the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)) and the certified-address premise ([ADR 0020](decisions/0020-certified-address-stablecoin.md)). Check `docs/BACKLOG.md` first (VIP disclosure and "glass-box corporations" rows bear on both items). Then proceed as before: raise issues → discuss → discussion log → ADR + spec.
-3. After both are designed: the cross-feature consistency review, then implementation.
+**Last updated:** 2026-11-14
 
 ## Current phase
 
@@ -69,7 +60,7 @@ Paused on 2026-11-07 after finishing Social Welfare (ADRs 0024–0026), the rema
 
 ## Next steps
 
-1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07). **Scope triage (2026-11-07, [ADR 0027](decisions/0027-remaining-scope-triage.md)):** only three high-value items remain to design — real estate registry, securities/shareholdings, and personal data held by companies (new). Nine low-value items are ⏸ on hold and do not block implementation. Personal data done; ask which of the other two (real estate, securities) to take next; screen it with the on-chain value test first, and apply the "off-chain if it can be" principle ([ADR 0019](decisions/0019-treasury-model.md)).
+1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07). **Scope triage (2026-11-07, [ADR 0027](decisions/0027-remaining-scope-triage.md)):** only three high-value items remain to design — real estate registry, securities/shareholdings, and personal data held by companies (new). Nine low-value items are ⏸ on hold and do not block implementation. Personal data done. **Real estate registry under discussion** (🟡, [discussion log](state-design/real-estate/discussion-log.md), awaiting the user's answer to Round 1); securities after that.
 2. Once the initial design is complete, review it for cross-feature consistency before writing any Solidity.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
@@ -79,16 +70,7 @@ Paused on 2026-11-07 after finishing Social Welfare (ADRs 0024–0026), the rema
 
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
-**最終更新日:** 2026-11-07
-
-## ⏸ 中断中 — 再開ポイント
-
-2026-11-07、社会保障(ADR 0024〜0026)、残りのスコープの振り分け(ADR 0027)、企業が保有する個人情報(ADR 0028)を確定させた後に中断しました。調整はすべてユーザーの了承済みで、未決の点はありません。
-
-**ユーザーが「再開して」と言ったら:**
-1. [ADR 0027](decisions/0027-remaining-scope-triage.md)の振り分けにより、設計が残っているのは**不動産登記**と**有価証券・株主の記録**の**2項目だけ**であることを伝える。⏸保留の9項目は、ユーザーが取り上げない限り設計しない。2つのうちどちらを先にするかをユーザーに尋ねること。自分で選ばないこと。
-2. 選ばれた項目をオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))にかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))と認定アドレス制の前提([ADR 0020](decisions/0020-certified-address-stablecoin.md))を適用する。先に`docs/BACKLOG.md`を確認する(要人の資産公開と「ガラス張りの法人」の行が両項目に関係する)。その後はこれまでと同じく、論点の提起→議論→議論ログ→ADR＋仕様の順に進める。
-3. 2項目の設計後: 機能間の整合性レビュー、その後に実装。
+**最終更新日:** 2026-11-14
 
 ## 現在のフェーズ
 
@@ -146,6 +128,6 @@ Paused on 2026-11-07 after finishing Social Welfare (ADRs 0024–0026), the rema
 
 ## 次のステップ
 
-1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。個人情報は完了。残り2つ(不動産登記、有価証券)のどちらを次にするかをユーザーに尋ねる。まずオンチェーン価値テストにかけ、「オフチェーンでできることはオフチェーンで」の方針([ADR 0019](decisions/0019-treasury-model.md))を適用する。
+1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。個人情報は完了。**不動産登記を議論中**(🟡、[議論ログ](state-design/real-estate/discussion-log.md)、Round 1へのユーザーの回答待ち)。その後に有価証券。
 2. 初期設計が完了したら、Solidityを書く前に機能間の整合性を全体でレビューする。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
