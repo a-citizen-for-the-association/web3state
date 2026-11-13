@@ -78,7 +78,7 @@ The chain cannot see that a holder holds for someone else. Handled by **off-chai
 
 A VIP's shares, and the corporations they control through shares, are visible from their published address. The off-chain declaration ([ADR 0021](../../decisions/0021-vip-asset-disclosure.md)) shrinks to cash outside the chain and non-JPY tokens.
 
-## Spec-time adjustments (await confirmation)
+## Spec-time adjustments (accepted in Round 4)
 
 1. Listed shares settle daily through one `ClearingContract` run by the clearing house.
 2. Corporate resolutions for issuance and cancellation are anchored in `AnchorRegistry` (new kind `CorporateResolution`); trade reports use the new kind `TradeReport`.
@@ -175,7 +175,7 @@ A VIP's shares, and the corporations they control through shares, are visible fr
 
 要人の株式と、株式を通じて支配する法人が、その公開アドレスから見える。オフチェーンの申告([ADR 0021](../../decisions/0021-vip-asset-disclosure.md))は、チェーン外の現金と円以外のトークンに縮小する。
 
-## 仕様作成時の調整(確認待ち)
+## 仕様作成時の調整(Round 4で了承)
 
 1. 上場株式は、清算機関が運用する1つの`ClearingContract`で毎日決済する。
 2. 発行と消却のための法人の決議は`AnchorRegistry`にアンカリングする(新しい種類`CorporateResolution`)。約定の報告は新しい種類`TradeReport`を使う。

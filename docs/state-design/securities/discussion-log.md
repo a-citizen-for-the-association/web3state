@@ -148,7 +148,13 @@ Consequences: issues A and B of Round 2 fall away; C shrinks to the exchange's d
 
 ### Status
 
-All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0030](../../decisions/0030-securities-model.md). Spec-time adjustments are listed in the spec and await the user's confirmation.
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0030](../../decisions/0030-securities-model.md). Spec-time adjustments were accepted in Round 4.
+
+---
+
+## Round 4 — 2026-11-14 (user)
+
+The user **accepted the four spec-time adjustments** ("良いです"). No open points remain.
 
 ---
 
@@ -302,4 +308,10 @@ Claudeの評価: これでフロントランニングの問題はなくなる(�
 
 ### ステータス
 
-すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0030](../../decisions/0030-securities-model.md)。仕様作成時の調整は仕様に列挙し、ユーザーの確認待ち。
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0030](../../decisions/0030-securities-model.md)。仕様作成時の調整はRound 4で了承された。
+
+---
+
+## Round 4 — 2026-11-14(ユーザー)
+
+ユーザーは**仕様作成時の4つの調整を了承した**(「良いです」)。未決の点は残っていない。
