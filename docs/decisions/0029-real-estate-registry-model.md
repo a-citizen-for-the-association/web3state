@@ -12,7 +12,7 @@ Kept in the scope triage ([ADR 0027](0027-remaining-scope-triage.md)) for two pr
 - **Real estate is tokenised** by the Legal Affairs Bureau in one `RealEstateToken` contract (parcels, buildings, condominium units, co-ownership shares). **Moving the token is the transfer of the right.**
 - **Dealings are off-chain.** The parties check and exchange what they need off-chain and settle all conditions there; the token transfer is the last step. Optional atomic settlement against the stablecoin.
 - **The token carries no lot number**, only a salted hash. Parcels held by corporations, public bodies and VIPs are published by the bureau; for individuals, the link is given only to parties with a legitimate interest.
-- **Owner plus agent.** Owners appoint agents; a transfer, and a change of agents, needs the owner and at least one agent. Individuals must have agents; corporations use their multisig.
+- **Owner plus agent.** Owners appoint agents per token, publicly on-chain (only addresses are visible); a transfer, and a change of agents, needs the owner and at least one agent. Individuals must have agents; corporations use their multisig.
 - **Without the owner's signature:** inheritance and key loss through ADR 0020's heavy successor path, moving money and property together; auction, judgment, prescription, expropriation and forced sales by the bureau, citing the hash of a registered decision.
 - **Mortgages on-chain** as a lien that blocks transfer without the lender's consent; other rights off-chain, hashes anchored in `AnchorRegistry`.
 - **Co-ownership:** one token per share.
@@ -44,7 +44,7 @@ Kept in the scope triage ([ADR 0027](0027-remaining-scope-triage.md)) for two pr
 - **不動産をトークン化する。** 法務局が1つの`RealEstateToken`コントラクトで発行する(土地、建物、区分所有建物の専有部分、共有持分)。**トークンの移転が権利の移転である。**
 - **取引はオフチェーンで。** 当事者は必要なことをオフチェーンで確認・交換し、条件もそこでまとめる。トークンの移転は最後の手順。ステーブルコインとの任意のアトミック決済を用意する。
 - **トークンは地番を持たず**、ソルト付きハッシュだけを持つ。法人、公的機関、要人が持つ土地は法務局が公開する。個人については、対応を正当な利害関係者にだけ伝える。
-- **所有者と代理人。** 所有者は代理人を設定する。移転と代理人の変更には、所有者と1人以上の代理人が必要。個人は代理人を置かなければならない。法人はマルチシグを使う。
+- **所有者と代理人。** 所有者はトークンごとに代理人を設定し、オンチェーンで公開する(見えるのはアドレスだけ)。移転と代理人の変更には、所有者と1人以上の代理人が必要。個人は代理人を置かなければならない。法人はマルチシグを使う。
 - **所有者の署名のない移転:** 相続と鍵の紛失はADR 0020の重い承継の手続きで、資金と不動産をまとめて移す。競売、判決、時効取得、収用、強制的な売却は、登録された決定のハッシュを示して法務局が行う。
 - **抵当権はオンチェーン**の担保とし、貸し手の同意なしには移転できない。その他の権利はオフチェーンで、ハッシュを`AnchorRegistry`にアンカリングする。
 - **共有:** 持分ごとに1つのトークン。

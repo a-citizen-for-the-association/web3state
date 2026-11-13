@@ -52,23 +52,25 @@ Each token holds:
 - `share`: the fraction for a co-ownership share (1/1 for sole ownership).
 - `needsApproval`: set by the bureau for parcels whose transfer needs a permission (e.g. farmland).
 - `lien`: the lender's address and the hash of the mortgage contract, if any.
+- `agents`: the addresses of the owner's agents for this token, **in plain view**.
 
 The contract holds the stablecoin during settlement, so it is registered in `OfficialContractRegistry` (ADR 0020).
 
 ### Agents
 
-- **The agent set belongs to the owner's address, not to each token** *(spec-time adjustment)*: one set protects everything the owner holds. On-chain it is stored only as a **Merkle root**; an agent proves membership with a Merkle proof when signing, which reveals only that agent *(adjustment)*.
+- **Agents are set per token** (Round 5): an owner may choose different agents for different properties.
+- **Agents are public** (Round 5): only addresses are visible. Whether an address is linked to a person is the person's own matter; web3state treats this kind of information as something that can be seen, not something to hide.
 - Agents must be certified addresses other than the owner (family, a judicial scrivener, a bank).
-- **Changing the set** needs the owner and at least one current agent.
-- **First set:** the owner alone may set agents **while the address holds no token**; a thief gains nothing there *(adjustment)*. Individuals must have a set before receiving a token. Corporations need none (their multisig does the same job).
+- **Changing a token's agents** needs the owner and at least one current agent of that token.
+- **First agents:** the new owner names the token's agents **as part of receiving it** (in the transfer, the settlement or the forced transfer, signed by the new owner) *(spec-time adjustment)*. An individual's token cannot be received without at least one agent. Corporations need none (their multisig does the same job).
 - **No valid agent left** (an agent's `ResidentLink` burned, key lost): an agent counts only while certified at signing time. If none remains, the owner sets a new one with the municipality's confirmation (as ADR 0020's light path).
 - **Owner's key lost:** agents cannot transfer alone; recovery is ADR 0020's heavy successor path, which moves tokens together with funds.
 
 ### Transfers
 
-`transfer(tokenId, to, agentSignature, merkleProof)`, called by the owner. It reverts unless:
-- an agent's signature and proof are valid (owner is an individual), or the call comes from the corporate multisig;
-- `to` is an **eligible owner** (below) and, if an individual, already has an agent set;
+`transfer(tokenId, to, newAgents, agentSignature)`, called by the owner, with `newAgents` signed by the recipient. It reverts unless:
+- the signature comes from one of the token's agents (owner is an individual), or the call comes from the corporate multisig;
+- `to` is an **eligible owner** (below) and, if an individual, names at least one agent;
 - if `lien` is set, the lender has consented (signature);
 - if `needsApproval` is set, the bureau has approved this transfer.
 
@@ -100,9 +102,9 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 
 ## Spec-time adjustments (await confirmation)
 
-1. The agent set belongs to the owner's address, not to each token.
-2. Agents are stored as a Merkle root; signing reveals only the signing agent.
-3. The owner alone may set the first agents while the address holds no token.
+1. *(Withdrawn in Round 5: agents are per token and public.)*
+2. *(Withdrawn in Round 5.)*
+3. The new owner names the token's first agents as part of receiving it.
 4. `forceTransfer` records the decision hash in an event; the contract does not check it on-chain.
 5. Other rights are anchored in the existing `AnchorRegistry` (new kind `RealEstateRight`).
 6. Parcels of corporations, public bodies and VIPs are published off-chain with their salt.
@@ -171,23 +173,25 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 - `share`: 共有持分の割合(単独所有なら1/1)。
 - `needsApproval`: 移転に許可が必要な土地(例: 農地)に法務局が設定する。
 - `lien`: 抵当権がある場合、貸し手のアドレスと抵当権設定契約のハッシュ。
+- `agents`: このトークンについての所有者の代理人のアドレス。**公開で見える**。
 
 このコントラクトは決済の間ステーブルコインを保持するので、`OfficialContractRegistry`に登録する(ADR 0020)。
 
 ### 代理人
 
-- **代理人の集合はトークンごとではなく所有者のアドレスに属する**(*仕様作成時の調整*): 1つの集合で、所有者が持つすべてを守る。オンチェーンには**マークルルート**だけを保存する。代理人は署名するときにマークル証明で自分が含まれることを示し、明らかになるのはその代理人だけである(*調整*)。
+- **代理人はトークンごとに設定する**(Round 5): 所有者は不動産ごとに別の代理人を選べる。
+- **代理人は公開する**(Round 5): 見えるのはアドレスだけである。あるアドレスが誰のものかを公表するかは本人の問題である。web3stateでは、この種の情報は隠すものではなく、見えても問題ないものとして扱う。
 - 代理人は、所有者以外の認定アドレスでなければならない(家族、司法書士、銀行)。
-- **集合の変更**には、所有者と現在の代理人の1人以上が必要。
-- **最初の集合:** **アドレスがトークンを1つも持たない間は**、所有者だけで代理人を設定できる。そこでは盗んだ者は何も得られない(*調整*)。個人はトークンを受け取る前に集合を持たなければならない。法人は不要(マルチシグが同じ役割を果たす)。
+- **トークンの代理人の変更**には、所有者と、そのトークンの現在の代理人の1人以上が必要。
+- **最初の代理人:** 新しい所有者は、**トークンを受け取る手続きの中で**(移転、決済、強制的な移転の中で、新しい所有者の署名つきで)そのトークンの代理人を指定する(*仕様作成時の調整*)。個人は、代理人を1人以上指定しなければトークンを受け取れない。法人は不要(マルチシグが同じ役割を果たす)。
 - **有効な代理人がいなくなった場合**(代理人の`ResidentLink`のburn、鍵の紛失): 代理人は署名の時点で認定されているときだけ数えられる。誰も残っていなければ、所有者は市区町村の確認を得て新しく設定する(ADR 0020の軽い手続きと同様)。
 - **所有者の鍵の紛失:** 代理人だけでは移転できない。回復はADR 0020の重い承継の手続きで、資金と一緒にトークンも移す。
 
 ### 移転
 
-`transfer(tokenId, to, agentSignature, merkleProof)`を所有者が呼ぶ。次の場合を除きrevertする:
-- 代理人の署名と証明が有効である(所有者が個人の場合)、または法人のマルチシグからの呼び出しである。
-- `to`が**所有資格のある者**(下記)であり、個人の場合はすでに代理人の集合を持つ。
+`transfer(tokenId, to, newAgents, agentSignature)`を所有者が呼ぶ。`newAgents`には受け取る側が署名する。次の場合を除きrevertする:
+- 署名がそのトークンの代理人の1人からのものである(所有者が個人の場合)、または法人のマルチシグからの呼び出しである。
+- `to`が**所有資格のある者**(下記)であり、個人の場合は代理人を1人以上指定している。
 - `lien`がある場合、貸し手が同意している(署名)。
 - `needsApproval`がある場合、法務局がこの移転を承認している。
 
@@ -219,9 +223,9 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 
 ## 仕様作成時の調整(確認待ち)
 
-1. 代理人の集合はトークンごとではなく所有者のアドレスに属する。
-2. 代理人はマークルルートで保存し、署名で明らかになるのは署名した代理人だけ。
-3. アドレスがトークンを持たない間は、所有者だけで最初の代理人を設定できる。
+1. *(Round 5で取り下げ: 代理人はトークンごと、公開。)*
+2. *(Round 5で取り下げ。)*
+3. 新しい所有者は、受け取る手続きの中でトークンの最初の代理人を指定する。
 4. `forceTransfer`は決定のハッシュをイベントに記録し、コントラクトはオンチェーンで確認しない。
 5. その他の権利は既存の`AnchorRegistry`にアンカリングする(新しい種類`RealEstateRight`)。
 6. 法人、公的機関、要人の土地は、ソルトとともにオフチェーンで公開する。

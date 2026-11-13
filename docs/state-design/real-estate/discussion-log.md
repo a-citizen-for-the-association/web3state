@@ -191,6 +191,16 @@ All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0029](../../
 
 ---
 
+## Round 5 — 2026-11-14 (user + Claude)
+
+Claude explained adjustments 1 and 2 at the user's request. The user decided:
+- **Adjustment 1 rejected: agents are set per token**, not per owner address.
+- **Adjustment 2 rejected: agents are public.** Only addresses are visible; if a person announces who owns an address, that is their own matter. The user wants web3state to be a state whose citizens share the view that such information is **not something to hide, but something that can be seen without harm**.
+
+Consequence (Claude, in the spec): adjustment 3 changes with per-token agents: **the new owner names the token's first agents as part of receiving it**, signed by the new owner. Adjustments 3–6 still await confirmation.
+
+---
+
 # 議論ログ: 不動産登記(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -381,3 +391,13 @@ Claudeの回答: ほぼ投資と流動性の問題だが、4つの点がある:
 ### ステータス
 
 すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0029](../../decisions/0029-real-estate-registry-model.md)。仕様作成時の調整は仕様に列挙し、ユーザーの確認待ち。
+
+---
+
+## Round 5 — 2026-11-14(ユーザー＋Claude)
+
+ユーザーの求めに応じて、Claudeが調整1と2を説明した。ユーザーの決定:
+- **調整1は不採用: 代理人はトークンごとに設定する**。所有者のアドレスごとではない。
+- **調整2は不採用: 代理人は公開する。** 見えるのはアドレスだけである。アドレスが誰のものかを本人が公表するなら、それは本人の問題である。ユーザーは、web3stateを、この種の情報は**隠すものではなく、見えても問題ないもの**という理念を国民が共有する国家にしたい。
+
+結果(Claude、仕様に反映): 代理人がトークンごとになったため調整3が変わる: **新しい所有者は、受け取る手続きの中で、自分の署名つきでトークンの最初の代理人を指定する**。調整3〜6は引き続き確認待ち。
