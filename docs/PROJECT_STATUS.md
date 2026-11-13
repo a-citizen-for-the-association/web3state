@@ -66,6 +66,13 @@
 2. **In progress:** the cross-feature consistency review ([`architecture/consistency-review.md`](architecture/consistency-review.md)); issues R1–R6 are being discussed with the user.
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
+**Roadmap after the review (set by the user, 2026-11-14):**
+4. Provisional implementation with minimal tests.
+5. Choose proof-of-concept themes: **10 or more PoCs**, each asking whether the design can solve a current social problem.
+6. Decide how the PoCs are run.
+7. Run the PoCs and compile the results.
+8. Write a paper.
+
 ---
 
 # プロジェクトの現状(日本語)
@@ -135,3 +142,10 @@
 1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。個人情報は完了。不動産登記も完了([ADR 0029](decisions/0029-real-estate-registry-model.md))。有価証券も完了([ADR 0030](decisions/0030-securities-model.md))。**初期設計は完了した(2026-11-14)。**
 2. **進行中:** 機能間の整合性レビュー([`architecture/consistency-review.md`](architecture/consistency-review.md))。論点R1〜R6をユーザーと議論中。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
+
+**レビュー後のロードマップ(ユーザーが設定、2026-11-14):**
+4. 仮実装と最低限のテスト。
+5. 実証実験のテーマの選定: 現在の社会問題を解決できるかを問う**PoCを10件以上**。
+6. 実証実験の方法の決定。
+7. 実証実験の実施と結果の取りまとめ。
+8. 論文の執筆。
