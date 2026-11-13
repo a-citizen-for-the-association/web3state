@@ -201,6 +201,12 @@ Consequence (Claude, in the spec): adjustment 3 changes with per-token agents: *
 
 ---
 
+## Round 6 — 2026-11-14 (user)
+
+The user **accepted the remaining spec-time adjustments 3–6** ("良いです"). No open points remain.
+
+---
+
 # 議論ログ: 不動産登記(日本語)
 
 この機能の設計に関するやり取りを順に記録する。形式は[`docs/state-design/citizenship/discussion-log.md`](../citizenship/discussion-log.md)に従う。
@@ -401,3 +407,9 @@ Claudeの回答: ほぼ投資と流動性の問題だが、4つの点がある:
 - **調整2は不採用: 代理人は公開する。** 見えるのはアドレスだけである。アドレスが誰のものかを本人が公表するなら、それは本人の問題である。ユーザーは、web3stateを、この種の情報は**隠すものではなく、見えても問題ないもの**という理念を国民が共有する国家にしたい。
 
 結果(Claude、仕様に反映): 代理人がトークンごとになったため調整3が変わる: **新しい所有者は、受け取る手続きの中で、自分の署名つきでトークンの最初の代理人を指定する**。調整3〜6は引き続き確認待ち。
+
+---
+
+## Round 6 — 2026-11-14(ユーザー)
+
+ユーザーは**残りの仕様作成時の調整3〜6を了承した**(「良いです」)。未決の点は残っていない。

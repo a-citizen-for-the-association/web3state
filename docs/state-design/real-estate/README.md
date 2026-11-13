@@ -100,7 +100,7 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 - For individuals, the bureau's public registry shows only "owned by an individual". The token–parcel link is given to parties with a legitimate interest (a buyer before a sale, a lender, a neighbour in a boundary matter, a court, the municipality).
 - **Fixed-asset tax:** the bureau gives each municipality the mapping for its area; the municipality reads the owner at the last block of 1 January and is paid as in ADR 0004.
 
-## Spec-time adjustments (await confirmation)
+## Spec-time adjustments (accepted in Round 6)
 
 1. *(Withdrawn in Round 5: agents are per token and public.)*
 2. *(Withdrawn in Round 5.)*
@@ -221,7 +221,7 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 - 個人については、法務局の公開の登記には「個人所有」とだけ示す。トークンと土地の対応は、正当な利害関係者(売買前の買主、貸し手、境界の問題での隣人、裁判所、市区町村)に伝える。
 - **固定資産税:** 法務局は各市区町村にその区域の対応を渡す。市区町村は1月1日の最後のブロックでの所有者を読み、ADR 0004のとおり支払いを受ける。
 
-## 仕様作成時の調整(確認待ち)
+## 仕様作成時の調整(Round 6で了承)
 
 1. *(Round 5で取り下げ: 代理人はトークンごと、公開。)*
 2. *(Round 5で取り下げ。)*
