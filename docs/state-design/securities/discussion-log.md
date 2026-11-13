@@ -94,7 +94,37 @@ Known problems (the pattern matters more than the numbers):
 
 ### Status
 
-Awaiting the user's response.
+Answered in Round 2.
+
+---
+
+## Round 2 — 2026-11-14 (user + Claude)
+
+### User's decisions
+
+- **Issues 1, 2 and 4–9: accepted as proposed, for now** ("一旦OK").
+- **Issue 3: trading goes on-chain, including matching** (the user chose "matching on-chain too" when asked whether only settlement was meant). Orders and their matching run in contracts; the exchange itself becomes a contract.
+
+### Remaining issues raised by this choice (Claude)
+
+A. **Relation to ADR 0012.** [ADR 0012](../../decisions/0012-onchain-scope-philosophy.md) excludes high-frequency trading as something the state builds infrastructure for. Proposal: **ADR 0012 excludes infrastructure for *speed competition*, not markets.** If matching is done in a way that gives no advantage to speed (B), an on-chain exchange is consistent with it, and in fact removes high-frequency trading. A new ADR records this reading; ADR 0012's status notes it.
+
+B. **How orders are matched.** On a public chain, a naive order book lets others see an order before it is executed and trade ahead of it (front-running). Proposal: **sealed batch auctions.** Orders are submitted as hashes during a short round (e.g. a few seconds to a minute), revealed afterwards, and all orders of the round are executed at **one clearing price**. This reuses the commit–reveal pattern of procurement ([ADR 0022](../../decisions/0022-procurement-model.md)). Arriving a millisecond earlier gains nothing, so speed competition disappears. Settlement against the stablecoin is atomic inside the same contract.
+
+C. **Who runs the exchange and the market rules.** Proposal:
+   - **Licensed exchanges operate their own registered exchange contracts** (they hold money during settlement, so they must be registered, [ADR 0020](../../decisions/0020-certified-address-stablecoin.md)). Listing and delisting, trading halts, and daily price limits (値幅制限) are operator functions recorded as public events.
+   - **Investors trade from their own address**; a broker is no longer needed for access, since every address is already certified. Brokers may still offer advice and tools.
+   - **Market surveillance** (manipulation, insider trading) stays off-chain with the regulator, now working on a complete public record.
+
+D. **Short selling and margin trading.** They need lending of shares and money. Proposal: **out of scope for the initial design** (spot trading only); put in the backlog.
+
+E. **Scale.** Listed markets execute millions of trades a day. Batch auctions shrink this (one clearing per round per stock), but the chain's capacity still matters. Proposal: record it as a constraint for the mainnet chain choice (an open question in `docs/PROJECT_STATUS.md`), not solve it here.
+
+Unlisted shares are unaffected: dealings are bilateral and off-chain, and the token transfer is the last step, as in real estate.
+
+### Status
+
+Awaiting the user's response on A–E.
 
 ---
 
@@ -194,4 +224,34 @@ Awaiting the user's response.
 
 ### ステータス
 
-ユーザーの回答待ち。
+Round 2で回答された。
+
+---
+
+## Round 2 — 2026-11-14(ユーザー＋Claude)
+
+### ユーザーの決定
+
+- **論点1、2、4〜9: ひとまず提案どおり了承**(「一旦OK」)。
+- **論点3: 取引をオンチェーンにする。約定も含む**(決済だけかを尋ねたところ、ユーザーは「約定もオンチェーン」を選んだ)。注文と約定はコントラクトで行い、取引所そのものがコントラクトになる。
+
+### この選択から生じる残りの論点(Claude)
+
+A. **ADR 0012との関係。** [ADR 0012](../../decisions/0012-onchain-scope-philosophy.md)は、国家が基盤を作るものとしての高頻度取引を対象外としている。提案: **ADR 0012が対象外とするのは*速さを競う*ための基盤であって、市場ではない。** 速さが有利にならない方法で約定するなら(B)、オンチェーンの取引所はADR 0012と矛盾せず、むしろ高頻度取引をなくす。新しいADRにこの解釈を記録し、ADR 0012のステータスに注記する。
+
+B. **注文の約定の方法。** 公開のチェーンでは、単純な板では、注文が実行される前に他人がそれを見て先回りできる(フロントランニング)。提案: **封印したバッチオークション。** 注文は短い回(例: 数秒から1分)の間にハッシュで出し、後で開示し、その回のすべての注文を**1つの約定価格**で執行する。これは公共調達のコミット・リビールの型([ADR 0022](../../decisions/0022-procurement-model.md))の再利用である。1ミリ秒早く着いても何も得られないので、速さの競争がなくなる。ステーブルコインとの決済は同じコントラクトの中でアトミックに行う。
+
+C. **取引所を誰が運営するか、市場のルール。** 提案:
+   - **免許を受けた取引所が、登録された自分の取引所コントラクトを運営する**(決済の間に資金を持つので登録が必要、[ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。上場と上場廃止、売買停止、値幅制限は運営者の機能で、公開のイベントとして記録する。
+   - **投資家は自分のアドレスから取引する。** すべてのアドレスがすでに認定済みなので、取引の入口としての証券会社は不要になる。証券会社は助言やツールを提供できる。
+   - **市場の監視**(相場操縦、インサイダー取引)は規制当局がオフチェーンで行い、完全な公開の記録を使えるようになる。
+
+D. **空売りと信用取引。** 株式やお金の貸し借りを要する。提案: **初期設計では対象外**(現物取引のみ)とし、バックログに入れる。
+
+E. **規模。** 上場市場では1日に数百万件の約定がある。バッチオークションはこれを減らす(銘柄ごとに1回の約定ごとに1つ)が、チェーンの処理能力は依然として重要である。提案: ここでは解決せず、メインネットのチェーン選定(`docs/PROJECT_STATUS.md`の未解決の論点)の制約として記録する。
+
+非上場株式は影響を受けない: 取引は当事者間でオフチェーンで行い、不動産と同じくトークンの移転が最後の手順である。
+
+### ステータス
+
+A〜Eについてユーザーの回答待ち。
