@@ -137,7 +137,35 @@ J. **Off-chain items and fixed-asset tax** (Issue 8, unchanged). The bureau give
 
 ### Status
 
-Awaiting the user's response on A–J.
+Answered in Round 3.
+
+---
+
+## Round 3 — 2026-11-14 (user + Claude)
+
+### User's decisions
+
+- **A, C, D, G as proposed; B, E, F, J accepted.**
+- **I (moving existing records) is dropped.** This thought experiment does not assume a transition from the current system: the starting line is building a web3-based state from zero. Tokens exist from the start; there is no lazy migration.
+- **H was unclear** and the user asked for an explanation.
+
+### Explanation of H (Claude)
+
+Under the certified-address rule ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)), a token can be held only at a certified address: a `ResidentLink` holder, a registered corporation, a public contract, or a visitor pass. **People who do not live in the country have none of these**:
+- a citizen who moves abroad: moving out burns the `ResidentLink`, so the address is decertified. **The house they own stays at an address that can no longer do anything**; only the heavy successor path can move it;
+- a foreign individual living abroad who wants to own land here;
+- a foreign corporation not registered here;
+- a visitor pass expires after a short legal period, so it cannot hold land.
+
+So the question is: **can people living abroad own real estate here, and if so, at what address?** Options:
+- (a) **A "non-resident owner" certification, issued by the Legal Affairs Bureau after an off-chain identity check**, registered as its own kind in `OfficialContractRegistry`. The address can hold real estate tokens, pay fixed-asset tax, and receive rent and sale proceeds. A citizen moving abroad can switch to it, keeping the same address.
+- (b) People abroad cannot own real estate directly; they must sell before leaving, or hold it through a domestic corporation.
+
+Proposal: **(a)**. (b) would force citizens who move abroad to sell their homes.
+
+### Status
+
+Awaiting the user's response on H.
 
 ---
 
@@ -280,4 +308,32 @@ J. **オフチェーンに残すものと固定資産税**(論点8、変更な�
 
 ### ステータス
 
-A〜Jについてユーザーの回答待ち。
+Round 3で回答された。
+
+---
+
+## Round 3 — 2026-11-14(ユーザー＋Claude)
+
+### ユーザーの決定
+
+- **A、C、D、Gは提案どおり。B、E、F、Jは了承。**
+- **I(既存の記録の移行)は取り下げ。** この思考実験は現状からの移行を想定しない。ゼロからweb3ベースの国家を作ることがスタートラインである。トークンは最初から存在し、必要になったときの移行もない。
+- **Hは意味がわからない**ので説明してほしいとのこと。
+
+### Hの説明(Claude)
+
+認定アドレス制([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))のもとでは、トークンを置けるのは認定アドレスだけである: `ResidentLink`の保有者、登録された法人、公的なコントラクト、ビジターパス。**国内に住んでいない人は、このどれも持たない**:
+- 海外に引っ越す国民: 転出で`ResidentLink`がburnされ、アドレスの認定が外れる。**持っている家は、もう何もできないアドレスに残る**。動かせるのは重い承継の手続きだけ。
+- 海外に住みながら国内の土地を持ちたい外国人個人。
+- 国内で登録されていない外国法人。
+- ビジターパスは短い法定期間で失効するので、土地を持てない。
+
+つまり問いは: **海外に住む人は国内の不動産を持てるか。持てるなら、どのアドレスで持つか。** 選択肢:
+- (a) **法務局がオフチェーンの本人確認の後に発行する「非居住所有者」の認定。** `OfficialContractRegistry`に独自の種類として登録する。このアドレスは不動産のトークンを持ち、固定資産税を払い、賃料や売却代金を受け取れる。海外に引っ越す国民は、同じアドレスのままこれに切り替えられる。
+- (b) 海外に住む人は不動産を直接持てない。出国前に売るか、国内の法人を通じて持つ。
+
+提案: **(a)**。(b)では、海外に引っ越す国民が自宅を売らなければならなくなる。
+
+### ステータス
+
+Hについてユーザーの回答待ち。
