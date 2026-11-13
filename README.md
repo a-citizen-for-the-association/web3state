@@ -33,7 +33,7 @@ This is **not** a simulation or a game. It is an attempt to see how far the mech
 | Public-Interest Finance | Crowdfunding (social-purpose) | ⏸ On hold |
 | Public-Interest Finance | NPO / public-interest corporation funds | ⏸ On hold |
 | Property & Vital Records | [Real estate registry](docs/state-design/real-estate/) | 🟢 Spec drafted |
-| Property & Vital Records | Securities / shareholdings | 🔴 Not started |
+| Property & Vital Records | [Securities / shareholdings](docs/state-design/securities/) | 🟡 Discussing |
 | Property & Vital Records | Vital records (birth, marriage, death) | ⏸ On hold |
 | Corporate & Market Transparency | Public company disclosures | ⏸ On hold |
 | Corporate & Market Transparency | Audit trails | ⏸ On hold |
@@ -127,7 +127,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CHANGELOG.md`](CHANGELOG.md).
 | 公益金融 | クラウドファンディング(社会性の強いもの) | ⏸ 保留 |
 | 公益金融 | NPO法人・公益法人の資金管理 | ⏸ 保留 |
 | 財産・身分登記 | [不動産登記](docs/state-design/real-estate/) | 🟢 設計確定 |
-| 財産・身分登記 | 有価証券・株主の記録 | 🔴 未着手 |
+| 財産・身分登記 | [有価証券・株主の記録](docs/state-design/securities/) | 🟡 議論中 |
 | 財産・身分登記 | 戸籍・婚姻・出生等の身分関係記録 | ⏸ 保留 |
 | 法人・市場の透明性 | 上場企業の開示書類 | ⏸ 保留 |
 | 法人・市場の透明性 | 会計監査記録 | ⏸ 保留 |
