@@ -104,6 +104,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/securities/discussion-log.md`: Round 2 — trading and matching on-chain; remaining issues A–E.
 - `docs/state-design/securities/` and `docs/decisions/0030-securities-model.md`: Round 3 (user's proposal: exchanges off-chain, brokers record on-chain) and spec — `ShareRegistry`, daily net settlement via `ClearingContract`, daily execution anchors, beneficial-owner names, `ForeignInvestor`. `docs/FEATURES.md`, root `README.md`: 🟢. `docs/BACKLOG.md`: four rows closed, one added. ADRs 0005, 0020, 0021, 0029 status notes. `docs/PROJECT_STATUS.md`: initial design complete.
 - `docs/state-design/securities/`: Round 4 — adjustments accepted.
+- `docs/architecture/consistency-review.md`: cross-feature consistency review opened (five parallel reviews merged into issues R1–R6). `docs/PROJECT_STATUS.md` updated.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
