@@ -97,6 +97,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/real-estate/discussion-log.md`: opened screening of the real estate registry (Round 0: user chose it; Round 1). `docs/FEATURES.md`, root `README.md`: 🟡. `docs/PROJECT_STATUS.md`: resume point removed.
 - `docs/state-design/real-estate/discussion-log.md`: Round 2 — tokenisation, off-chain dealings, owner + agent approval; remaining issues A–J.
 - `docs/state-design/real-estate/discussion-log.md`: Round 3 — A–G and J accepted; migration (I) dropped (zero-based state); H explained.
+- `docs/state-design/real-estate/` and `docs/decisions/0029-real-estate-registry-model.md`: real-estate spec — `RealEstateToken`, owner + agent transfers, no parcel on-chain, no foreign ownership, `NonResidentOwner`. `docs/FEATURES.md`, root `README.md`: 🟢. `docs/BACKLOG.md`: VIP row updated, two rows added. ADR 0020 status notes the new kind. `docs/PROJECT_STATUS.md` updated.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.

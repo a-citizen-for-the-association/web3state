@@ -1,7 +1,7 @@
 # 0020. Certified-address JPY stablecoin: transfers only between state-certified addresses; frozen balances leave only to certified successors
 
 **Date:** 2026-10-18
-**Status:** Accepted. Extends [ADR 0004](0004-taxation-payment-rail.md) (payment rail) and [ADR 0015](0015-political-donations-model.md) (`OfficialContractRegistry`).
+**Status:** Accepted. Extends [ADR 0004](0004-taxation-payment-rail.md) (payment rail) and [ADR 0015](0015-political-donations-model.md) (`OfficialContractRegistry`). [ADR 0029](0029-real-estate-registry-model.md) adds the certified kind `NonResidentOwner`.
 
 ## Context
 
@@ -41,7 +41,7 @@ Forces ([log](../state-design/vip-asset-disclosure/discussion-log.md), Rounds 2�
 # 0020. 認定アドレス制の円建てステーブルコイン: 国家が認定したアドレスの間でのみ送金できる。凍結された残高は認定済みの承継先にのみ出ていける(日本語)
 
 **日付:** 2026-10-18
-**ステータス:** Accepted。[ADR 0004](0004-taxation-payment-rail.md)(決済レール)と[ADR 0015](0015-political-donations-model.md)(`OfficialContractRegistry`)を拡張する。
+**ステータス:** Accepted。[ADR 0004](0004-taxation-payment-rail.md)(決済レール)と[ADR 0015](0015-political-donations-model.md)(`OfficialContractRegistry`)を拡張する。[ADR 0029](0029-real-estate-registry-model.md)が認定の種類`NonResidentOwner`を追加する。
 
 ## 背景
 

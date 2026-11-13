@@ -165,7 +165,29 @@ Proposal: **(a)**. (b) would force citizens who move abroad to sell their homes.
 
 ### Status
 
-Awaiting the user's response on H.
+Answered in Round 4.
+
+---
+
+## Round 4 — 2026-11-14 (user + Claude)
+
+The user would like to **prohibit foreign corporations and non-residents without Japanese nationality from owning land**, and asked whether this has downsides beyond investment and liquidity.
+
+Claude's answer: mostly investment and liquidity, plus four points:
+1. **Bypass through a domestic corporation:** a foreigner can set up a domestic company and buy through it. Enforcement needs ownership traced to the final individual, which belongs to the securities design ("glass-box corporations").
+2. **Inheritance and leaving the country:** a foreign heir living abroad, or a foreign resident who leaves, can no longer hold the land; a forced-sale rule is needed.
+3. **Reciprocity:** other countries may restrict Japanese ownership in return.
+4. **A nationality check** is needed at certification, since `ResidentLink` makes no nationality claim ([ADR 0003](../../decisions/0003-resident-link-identity-model.md)); the passport credential's off-chain check is enough.
+
+Several countries (Thailand, the Philippines, Indonesia) prohibit foreign land ownership and allow long leases instead. Proposed shape: prohibit; Japanese non-residents keep ownership through H (a); leases are allowed; ownership lost through inheritance or departure must be sold within a legal period; foreign-controlled domestic corporations are left to the securities design.
+
+### User's decision
+
+**Adopted as proposed** ("その方向でお願いします"). H is resolved: option (a), limited to Japanese nationals.
+
+### Status
+
+All issues resolved. Spec written ([`README.md`](README.md)); ADR: [0029](../../decisions/0029-real-estate-registry-model.md). Spec-time adjustments are listed in the spec and await the user's confirmation.
 
 ---
 
@@ -336,4 +358,26 @@ Round 3で回答された。
 
 ### ステータス
 
-Hについてユーザーの回答待ち。
+Round 4で回答された。
+
+---
+
+## Round 4 — 2026-11-14(ユーザー＋Claude)
+
+ユーザーは**外国法人と、日本国籍を持たない非居住者による土地の所有を禁止したい**と考え、投資や流動性以外にデメリットがあるかを尋ねた。
+
+Claudeの回答: ほぼ投資と流動性の問題だが、4つの点がある:
+1. **国内法人を使った抜け道:** 外国人は国内に会社を作り、その会社で買える。実効性には最終的な個人までの所有の追跡が必要で、これは有価証券の設計(「ガラス張りの法人」)に属する。
+2. **相続と出国:** 海外に住む外国籍の相続人や、出国する外国人の住民は、土地を持ち続けられない。処分を義務付けるルールが必要。
+3. **相互主義:** 他国が日本人の所有を同様に制限するかもしれない。
+4. **認定時の国籍確認**が必要になる。`ResidentLink`は国籍を表さない([ADR 0003](../../decisions/0003-resident-link-identity-model.md))。パスポートのクレデンシャルのオフチェーンの確認で足りる。
+
+いくつかの国(タイ、フィリピン、インドネシア)は外国人の土地所有を禁止し、代わりに長期の借地を認めている。提案した形: 禁止する。日本国籍の非居住者はH(a)で所有を続けられる。借地は認める。相続や出国で所有できなくなった場合は法定期間内に売却する。外国人が支配する国内法人は有価証券の設計に委ねる。
+
+### ユーザーの決定
+
+**提案どおり採用**(「その方向でお願いします」)。Hは解決: 選択肢(a)、日本国籍の人に限る。
+
+### ステータス
+
+すべての論点が解決。仕様を作成([`README.md`](README.md))。ADR: [0029](../../decisions/0029-real-estate-registry-model.md)。仕様作成時の調整は仕様に列挙し、ユーザーの確認待ち。
