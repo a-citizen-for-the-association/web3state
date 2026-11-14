@@ -106,6 +106,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/state-design/securities/`: Round 4 — adjustments accepted.
 - `docs/architecture/consistency-review.md`: cross-feature consistency review opened (five parallel reviews merged into issues R1–R6). `docs/PROJECT_STATUS.md` updated.
 - `docs/PROJECT_STATUS.md`: roadmap after the review (provisional implementation, 10+ PoCs, PoC method, PoC results, paper).
+- `docs/PROJECT_STATUS.md`: added a "paused / resume point" section (resume by showing the review results again).
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.

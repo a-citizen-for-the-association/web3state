@@ -4,6 +4,15 @@
 
 **Last updated:** 2026-11-14
 
+## ⏸ Paused — resume point
+
+Paused on 2026-11-14 after completing the initial design (real estate ADR 0029, securities ADR 0030) and opening the cross-feature consistency review. The user set the roadmap after the review (see Next steps) and was about to answer the review's issues.
+
+**When the user says "再開して" (resume):**
+1. **Show the review results again** from [`architecture/consistency-review.md`](architecture/consistency-review.md): the High issues of R1–R5 in plain Japanese, and the proposed order (R6 documentation fixes by Claude first; then design discussion R1·R2 → R3 → R4 → R5).
+2. Ask the user for their answers: whether Claude may fix R6 directly, and their decisions on R1·R2. The user said they would answer the issues next.
+3. Record each decision in the review document's Status column (and in the affected ADRs and specs), then continue to the roadmap: provisional implementation with minimal tests → 10+ PoCs → PoC method → results → paper.
+
 ## Current phase
 
 **Phase 1 (continued) — Designing state functions; implementation deliberately deferred.** Repository scaffold is in place (Phase 0 complete). Twenty-five state functions are fully resolved and specified: citizenship/residency (resident-link NFT, [ADR 0003](decisions/0003-resident-link-identity-model.md)), taxation/payment rail ([ADR 0004](decisions/0004-taxation-payment-rail.md)), corporations/registration ([ADR 0005](decisions/0005-corporate-registration-model.md)), the passport credential ([ADR 0006](decisions/0006-passport-credential.md)), the diploma credential ([ADR 0007](decisions/0007-diploma-credential.md)), the license credential ([ADR 0008](decisions/0008-license-credential.md)), the health-insurance credential ([ADR 0009](decisions/0009-health-insurance-credential.md)), the employee ID credential ([ADR 0010](decisions/0010-employee-id-credential.md)), the vaccination credential ([ADR 0011](decisions/0011-vaccination-credential.md)) — **completing the originally-listed set of six concrete "credentials" instances** — and voting ([ADR 0013](decisions/0013-voting-model.md)), the first function requiring genuinely new cryptographic machinery rather than the soulbound-NFT pattern — and political donations ([ADR 0015](decisions/0015-political-donations-model.md)), the first to force the *receiving* side through contract logic — and direct-demand petition signatures ([ADR 0016](decisions/0016-direct-demand-petition-model.md)), the first public, non-secret participation record — and the executive in minimal v1 form ([ADR 0017](decisions/0017-executive-document-anchoring-v1.md)): approval-document title-and-hash anchoring — and the judiciary ([ADR 0018](decisions/0018-judiciary-model.md)), which completes Governance Core — and the treasury ([ADR 0019](decisions/0019-treasury-model.md)), the rail all public spending goes through — the certified-address JPY stablecoin ([ADR 0020](decisions/0020-certified-address-stablecoin.md)), a project-wide premise — VIP asset disclosure ([ADR 0021](decisions/0021-vip-asset-disclosure.md)), public procurement ([ADR 0022](decisions/0022-procurement-model.md)), and subsidies ([ADR 0023](decisions/0023-subsidies-model.md)), completing Political Transparency — pension ([ADR 0024](decisions/0024-pension-model.md)), the first Social Welfare item, benefits ([ADR 0025](decisions/0025-benefits-model.md)), and unemployment insurance ([ADR 0026](decisions/0026-unemployment-insurance-model.md)), completing Social Welfare — and personal data held by companies ([ADR 0028](decisions/0028-personal-data-model.md)), added in the scope triage of [ADR 0027](decisions/0027-remaining-scope-triage.md) — the real estate registry ([ADR 0029](decisions/0029-real-estate-registry-model.md)), and securities and shareholdings ([ADR 0030](decisions/0030-securities-model.md)), **completing the initial design**. The legislative process was screened out ([ADR 0014](decisions/0014-legislative-process-scope.md)). See [`docs/FEATURES.md`](FEATURES.md) for the full, up-to-date progress table, and [`docs/BACKLOG.md`](BACKLOG.md) for items deferred out of those designs.
@@ -80,6 +89,15 @@
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
 **最終更新日:** 2026-11-14
+
+## ⏸ 中断中 — 再開ポイント
+
+2026-11-14、初期設計(不動産 ADR 0029、有価証券 ADR 0030)を完了し、機能間の整合性レビューを開始した後に中断しました。ユーザーはレビュー後のロードマップを設定し(次のステップを参照)、レビューの論点に回答するところでした。
+
+**ユーザーが「再開して」と言ったら:**
+1. [`architecture/consistency-review.md`](architecture/consistency-review.md)から**レビューの結果を再度表示する**: R1〜R5のHighの論点をわかりやすい日本語で示し、提案した順序(先にClaudeがR6のドキュメント修正、その後に設計の議論をR1・R2 → R3 → R4 → R5)を示す。
+2. ユーザーの回答を求める: R6をClaudeが直接直してよいか、R1・R2についての判断。ユーザーは次に論点へ回答すると言っていた。
+3. 各判断をレビュー文書のステータスの列(と影響するADRと仕様)に記録し、その後ロードマップに進む: 仮実装と最低限のテスト → 10件以上のPoC → PoCの方法 → 結果 → 論文。
 
 ## 現在のフェーズ
 
