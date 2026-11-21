@@ -1,7 +1,7 @@
 # 0009. Health insurance credential: continuous status, multi-issuer-type trust reuse
 
 **Date:** 2026-10-09
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): re-issue after a recorded succession (R3.3); burn on death (R3.10).
 
 ## Context
 
@@ -27,7 +27,7 @@ Following license (ADR 0008), the fourth concrete instance of the general "crede
 # 0009. 健康保険のクレデンシャル: 継続的な状態、複数の種類の発行者による信頼の再利用(日本語)
 
 **日付:** 2026-10-09
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 承継が記録されたら再発行(R3.3)。死亡でburnする(R3.10)。
 
 ## 背景
 

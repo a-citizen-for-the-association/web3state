@@ -1,7 +1,7 @@
 # 0005. Corporate registration model: authority-issued, on-chain, officer-name-only NFT
 
 **Date:** 2026-10-03
-**Status:** Accepted. [ADR 0030](0030-securities-model.md) adds beneficial-owner names (25% or more) to the corporate record.
+**Status:** Accepted. [ADR 0030](0030-securities-model.md) adds beneficial-owner names (25% or more) to the corporate record. Amended by [ADR 0032](0032-consistency-review-decisions.md): registrations are written to `OfficialContractRegistry` (R1.5); foreign companies' branches register with a foreign flag (R2.3); dissolution and merger order (R3.5); signer rotation (R3.6); officers accept that their names may be linked to their addresses, which appear as multisig signers (R5.1, R5.8); the registration contract is named `CorporateRegistration` (R4.3).
 
 ## Context
 
@@ -34,7 +34,7 @@ Discussion (see [`docs/state-design/corporations/discussion-log.md`](../state-de
 # 0005. 法人登録モデル: 当局が発行する、オンチェーンの、役員の氏名だけを載せるNFT(日本語)
 
 **日付:** 2026-10-03
-**ステータス:** Accepted。[ADR 0030](0030-securities-model.md)が法人の記録に実質的支配者(25%以上)の氏名を加える。
+**ステータス:** Accepted。[ADR 0030](0030-securities-model.md)が法人の記録に実質的支配者(25%以上)の氏名を加える。[ADR 0032](0032-consistency-review-decisions.md)で修正: 登録は`OfficialContractRegistry`へ書き込む(R1.5)。外国会社の支店は外国の印付きで登録(R2.3)。解散と合併の順序(R3.5)。署名者の交代(R3.6)。役員は、マルチシグの署名者として載るアドレスに氏名が結びつきうることを受け入れる(R5.1、R5.8)。登録のコントラクトは`CorporateRegistration`と命名(R4.3)。
 
 ## 背景
 

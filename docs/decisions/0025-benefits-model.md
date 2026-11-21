@@ -1,7 +1,7 @@
 # 0025. Benefits model: no new contract; one shared social-security budget code; consented income checks only
 
 **Date:** 2026-11-07
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): the shared budget code is kept, its reason restated as avoiding stigma and discrimination; per-programme totals are published off-chain (R5.9).
 
 ## Context
 
@@ -29,7 +29,7 @@ Cash benefits to individuals (child allowance, child-rearing allowance, disabili
 # 0025. 各種手当モデル: 新しいコントラクトは作らない。社会保障の共通予算コードを1つにする。収入確認は同意がある場合のみ(日本語)
 
 **日付:** 2026-11-07
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 共通の予算コードは残し、理由を偏見と差別を避けるためと言い直す。制度ごとの合計はオフチェーンで公表(R5.9)。
 
 ## 背景
 

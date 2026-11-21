@@ -1,7 +1,7 @@
 # 0016. Direct-demand petition model: per-demand contract, explicit eligible list, public signatures, count certification only
 
 **Date:** 2026-10-17
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): the standing voter credential replaces the per-petition list (R5.9).
 
 ## Context
 
@@ -39,7 +39,7 @@ Key forces from the discussion ([log](../state-design/direct-demand/discussion-l
 # 0016. 直接請求の署名モデル: 請求ごとのコントラクト、明示的な有資格一覧、公開署名、署名数の証明のみ(日本語)
 
 **日付:** 2026-10-17
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 常設の有権者クレデンシャルが請求ごとの名簿に代わる(R5.9)。
 
 ## 背景
 

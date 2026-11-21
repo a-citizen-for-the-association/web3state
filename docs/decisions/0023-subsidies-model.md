@@ -1,7 +1,7 @@
 # 0023. Subsidies model: no new contract; on-chain transactions replace receipts; everything public
 
 **Date:** 2026-10-24
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): grant records show individuals by address only (R5.7); expense reports are anchored by their authors in `AnchorRegistry` (R4.2).
 
 ## Context
 
@@ -29,7 +29,7 @@ Subsidies and grants to local governments were screened with the on-chain value 
 # 0023. 補助金モデル: 新しいコントラクトは作らない。オンチェーンの取引が領収書に代わる。すべて公開する(日本語)
 
 **日付:** 2026-10-24
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 交付の記録では個人はアドレスだけで示す(R5.7)。実績報告は作成者が`AnchorRegistry`にアンカーする(R4.2)。
 
 ## 背景
 

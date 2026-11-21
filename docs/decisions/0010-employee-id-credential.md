@@ -1,7 +1,7 @@
 # 0010. Employee ID credential: corporate-registration reuse, no ResidentLink dependency
 
 **Date:** 2026-10-09
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): overseas hires without a `ResidentLink` are paid above the cap through licensed exchangers or banks (R2.3); outstanding IDs are burned before the employer's registration is burned (R3.5); re-issue after succession and burn on death (R3.3, R3.10).
 
 ## Context
 
@@ -27,7 +27,7 @@ Following health insurance (ADR 0009), the fifth concrete instance of the genera
 # 0010. 社員証のクレデンシャル: 法人登録の再利用、ResidentLinkへの依存なし(日本語)
 
 **日付:** 2026-10-09
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: `ResidentLink`のない海外採用の社員への上限を超える支払いは、免許を受けた両替業者や銀行を通す(R2.3)。雇用主の登録のburnの前に発行済みの社員証をburnする(R3.5)。承継後の再発行と死亡でのburn(R3.3、R3.10)。
 
 ## 背景
 

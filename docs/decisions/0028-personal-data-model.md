@@ -1,7 +1,7 @@
 # 0028. Personal data model: a "don't hold it" law; prove instead of collect; anchor access logs
 
 **Date:** 2026-11-07
-**Status:** Accepted. [ADR 0029](0029-real-estate-registry-model.md) and [ADR 0030](0030-securities-model.md) add `AnchorRegistry` kinds.
+**Status:** Accepted. [ADR 0029](0029-real-estate-registry-model.md) and [ADR 0030](0030-securities-model.md) add `AnchorRegistry` kinds. Amended by [ADR 0032](0032-consistency-review-decisions.md): `AnchorRegistry` accepts any registered address (R1.4); delivery labels carry a one-time order code (R5.4); age credentials are minted monthly in a batch (R5.5); age checks accept `NationalAbroad` (R3.10).
 
 ## Context
 
@@ -28,7 +28,7 @@ Added by the user in [ADR 0027](0027-remaining-scope-triage.md): incidents invol
 # 0028. 個人情報モデル: 「持たせない」法律。集めずに証明する。アクセスログをアンカリングする(日本語)
 
 **日付:** 2026-11-07
-**ステータス:** Accepted。[ADR 0029](0029-real-estate-registry-model.md)と[ADR 0030](0030-securities-model.md)が`AnchorRegistry`の種類を加える。
+**ステータス:** Accepted。[ADR 0029](0029-real-estate-registry-model.md)と[ADR 0030](0030-securities-model.md)が`AnchorRegistry`の種類を加える。[ADR 0032](0032-consistency-review-decisions.md)で修正: `AnchorRegistry`は登録済みのアドレスなら誰でも受け付ける(R1.4)。配送ラベルには1回限りの注文コード(R5.4)。年齢のクレデンシャルは毎月まとめてmint(R5.5)。年齢の確認は`NationalAbroad`も認める(R3.10)。
 
 ## 背景
 

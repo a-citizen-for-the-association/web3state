@@ -1,7 +1,7 @@
 # 0030. Securities model: shares as tokens at holders' addresses; exchanges off-chain, brokers record the result on-chain; named beneficial owners
 
 **Date:** 2026-11-14
-**Status:** Accepted. Extends [ADR 0005](0005-corporate-registration-model.md) (beneficial-owner names), [ADR 0020](0020-certified-address-stablecoin.md) (new certified kind `ForeignInvestor`), [ADR 0028](0028-personal-data-model.md) (new `AnchorRegistry` kinds) and [ADR 0029](0029-real-estate-registry-model.md) (foreign-controlled corporations cannot own land).
+**Status:** Accepted. Extends [ADR 0005](0005-corporate-registration-model.md) (beneficial-owner names), [ADR 0020](0020-certified-address-stablecoin.md) (new certified kind `ForeignInvestor`), [ADR 0028](0028-personal-data-model.md) (new `AnchorRegistry` kinds) and [ADR 0029](0029-real-estate-registry-model.md) (foreign-controlled corporations cannot own land). Amended by [ADR 0032](0032-consistency-review-decisions.md): `ShareRegistry` is renamed `ShareToken` (R4.3); beneficial owners accept that names may be linked to addresses (R5.2); operator approvals lapse on deregistration or suspension (R3.2); clearing deliveries fail one by one (R3.8); vehicles register as FinancialVehicle (R1.3).
 
 ## Context
 
@@ -31,7 +31,7 @@ The last item kept by the scope triage ([ADR 0027](0027-remaining-scope-triage.m
 # 0030. 有価証券モデル: 株式は保有者のアドレスにあるトークン。取引所はオフチェーン、証券会社が結果をオンチェーンに記録する。実質的支配者の氏名を載せる(日本語)
 
 **日付:** 2026-11-14
-**ステータス:** Accepted。[ADR 0005](0005-corporate-registration-model.md)(実質的支配者の氏名)、[ADR 0020](0020-certified-address-stablecoin.md)(新しい認定の種類`ForeignInvestor`)、[ADR 0028](0028-personal-data-model.md)(`AnchorRegistry`の新しい種類)、[ADR 0029](0029-real-estate-registry-model.md)(外国人が支配する法人は土地を所有できない)を拡張する。
+**ステータス:** Accepted。[ADR 0005](0005-corporate-registration-model.md)(実質的支配者の氏名)、[ADR 0020](0020-certified-address-stablecoin.md)(新しい認定の種類`ForeignInvestor`)、[ADR 0028](0028-personal-data-model.md)(`AnchorRegistry`の新しい種類)、[ADR 0029](0029-real-estate-registry-model.md)(外国人が支配する法人は土地を所有できない)を拡張する。[ADR 0032](0032-consistency-review-decisions.md)で修正: `ShareRegistry`は`ShareToken`に改名(R4.3)。実質的支配者は氏名がアドレスと結びつきうることを受け入れる(R5.2)。登録の喪失か停止でオペレーターの承認は失効(R3.2)。清算の受け渡しは1件ずつ失敗(R3.8)。器はFinancialVehicleとして登録(R1.3)。
 
 ## 背景
 

@@ -1,7 +1,7 @@
 # 0006. Passport credential: pure travel document, nationality verified off-chain
 
 **Date:** 2026-10-06
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): issuers re-issue after a recorded succession (R3.3) and burn on death (R3.10).
 
 ## Context
 
@@ -31,7 +31,7 @@ Initial discussion considered splitting this into two credentials — a persiste
 # 0006. パスポートのクレデンシャル: 純粋な渡航文書、国籍はオフチェーンで確認する(日本語)
 
 **日付:** 2026-10-06
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 承継が記録されたら再発行し(R3.3)、死亡でburnする(R3.10)。
 
 ## 背景
 

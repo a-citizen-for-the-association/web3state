@@ -1,7 +1,7 @@
 # 0020. Certified-address JPY stablecoin: transfers only between state-certified addresses; frozen balances leave only to certified successors
 
 **Date:** 2026-10-18
-**Status:** Accepted. Extends [ADR 0004](0004-taxation-payment-rail.md) (payment rail) and [ADR 0015](0015-political-donations-model.md) (`OfficialContractRegistry`). [ADR 0029](0029-real-estate-registry-model.md) adds the certified kind `NonResidentOwner`; [ADR 0030](0030-securities-model.md) adds `ForeignInvestor`. **The transfer rule is superseded by [ADR 0031](0031-registered-address-transfer-rule.md)** (cumulative cap on sending to unregistered addresses; zero for VIPs).
+**Status:** Accepted. Extends [ADR 0004](0004-taxation-payment-rail.md) (payment rail) and [ADR 0015](0015-political-donations-model.md) (`OfficialContractRegistry`). [ADR 0029](0029-real-estate-registry-model.md) adds the certified kind `NonResidentOwner`; [ADR 0030](0030-securities-model.md) adds `ForeignInvestor`. **The transfer rule is superseded by [ADR 0031](0031-registered-address-transfer-rule.md)** (cumulative cap on sending to unregistered addresses; zero for VIPs). Amended by [ADR 0032](0032-consistency-review-decisions.md): one flag per kind and registrar, one canonical registry section (R1.1, R1.2); the `Visitor` kind and visitor pass are abolished (D1); suspension on key theft (R3.1); the heavy path covers every asset token and is proposed by the registrar of the address's kind (R3.2, R3.4); proposals carry heirs' real-estate agents (R3.9).
 
 ## Context
 
@@ -41,7 +41,7 @@ Forces ([log](../state-design/vip-asset-disclosure/discussion-log.md), Rounds 2�
 # 0020. 認定アドレス制の円建てステーブルコイン: 国家が認定したアドレスの間でのみ送金できる。凍結された残高は認定済みの承継先にのみ出ていける(日本語)
 
 **日付:** 2026-10-18
-**ステータス:** Accepted。[ADR 0004](0004-taxation-payment-rail.md)(決済レール)と[ADR 0015](0015-political-donations-model.md)(`OfficialContractRegistry`)を拡張する。[ADR 0029](0029-real-estate-registry-model.md)が認定の種類`NonResidentOwner`を、[ADR 0030](0030-securities-model.md)が`ForeignInvestor`を追加する。**送金ルールは[ADR 0031](0031-registered-address-transfer-rule.md)で上書き**(未登録アドレスへの送金は合計額で上限、要人は0)。
+**ステータス:** Accepted。[ADR 0004](0004-taxation-payment-rail.md)(決済レール)と[ADR 0015](0015-political-donations-model.md)(`OfficialContractRegistry`)を拡張する。[ADR 0029](0029-real-estate-registry-model.md)が認定の種類`NonResidentOwner`を、[ADR 0030](0030-securities-model.md)が`ForeignInvestor`を追加する。**送金ルールは[ADR 0031](0031-registered-address-transfer-rule.md)で上書き**(未登録アドレスへの送金は合計額で上限、要人は0)。[ADR 0032](0032-consistency-review-decisions.md)で修正: 種類と登録者ごとに1つのフラグ、レジストリの正本の節を1つ(R1.1、R1.2)。種類`Visitor`とビジターパスは廃止(D1)。鍵の盗難での停止(R3.1)。重い手続きはすべての資産トークンを対象とし、アドレスの種類の登録者が提案する(R3.2、R3.4)。提案に相続人の不動産の代理人を含める(R3.9)。
 
 ## 背景
 

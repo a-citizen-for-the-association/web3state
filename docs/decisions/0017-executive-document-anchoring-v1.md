@@ -1,7 +1,7 @@
 # 0017. Executive v1: mandatory title-and-hash registration of approval documents; iterate after implementation
 
 **Date:** 2026-10-17
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): `DocumentRegistry` becomes a kind of the event-only `AnchorRegistry` (R4.1); the author of a document anchors it (R4.2).
 
 ## Context
 
@@ -27,7 +27,7 @@ A chain can only prove a record has not changed since it was anchored. Preventin
 # 0017. 行政の第1版: 決裁文書の名称とハッシュの登録を義務付ける。実装の後で反復する(日本語)
 
 **日付:** 2026-10-17
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: `DocumentRegistry`はイベントだけの`AnchorRegistry`の種類になる(R4.1)。文書を作った者がアンカーする(R4.2)。
 
 ## 背景
 

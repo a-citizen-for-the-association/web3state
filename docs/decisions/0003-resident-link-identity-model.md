@@ -1,7 +1,7 @@
 # 0003. Resident-link identity model for citizenship/residency
 
 **Date:** 2026-10-03
-**Status:** Accepted. The "no on-chain registry in v1" point is revisited by [ADR 0015](0015-political-donations-model.md) (`OfficialContractRegistry`).
+**Status:** Accepted. The "no on-chain registry in v1" point is revisited by [ADR 0015](0015-political-donations-model.md) (`OfficialContractRegistry`). Amended by [ADR 0032](0032-consistency-review-decisions.md): registrations are written to `OfficialContractRegistry` on mint and burn (R1.5); on a domestic move the new municipality mints before the old one burns, replacing the `everIssued` check with the move-out declaration (R3.8); a reported key theft suspends the address instead of burning (R3.1).
 
 ## Context
 
@@ -34,7 +34,7 @@ These were worked through in detail with the user; see [`docs/state-design/citiz
 # 0003. 国民・住民のための`ResidentLink`アイデンティティモデル(日本語)
 
 **日付:** 2026-10-03
-**ステータス:** Accepted。「v1ではオンチェーンのレジストリを置かない」という点は[ADR 0015](0015-political-donations-model.md)(`OfficialContractRegistry`)で見直される。
+**ステータス:** Accepted。「v1ではオンチェーンのレジストリを置かない」という点は[ADR 0015](0015-political-donations-model.md)(`OfficialContractRegistry`)で見直される。[ADR 0032](0032-consistency-review-decisions.md)で修正: 発行と取消のたびに`OfficialContractRegistry`へ書き込む(R1.5)。国内の転居では転入先が先にmintし転出元が後でburnし、`everIssued`の確認を転出届の確認に替える(R3.8)。鍵の盗難の届出ではburnせずアドレスを停止する(R3.1)。
 
 ## 背景
 

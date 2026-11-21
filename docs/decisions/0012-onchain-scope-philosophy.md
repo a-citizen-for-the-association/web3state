@@ -1,7 +1,7 @@
 # 0012. On-chain scope philosophy: what this project pushes on-chain, and what it deliberately avoids
 
 **Date:** 2026-10-10
-**Status:** Accepted
+**Status:** Accepted. The remaining candidate items were triaged by [ADR 0027](0027-remaining-scope-triage.md) (nine put on hold).
 
 ## Context
 
@@ -37,7 +37,7 @@ Claude proposed a candidate list of additional on-chain-able systems, organized 
 # 0012. オンチェーンのスコープの考え方: このプロジェクトが何をオンチェーンに載せ、何を意図して避けるか(日本語)
 
 **日付:** 2026-10-10
-**ステータス:** Accepted
+**ステータス:** Accepted。残りの候補項目は[ADR 0027](0027-remaining-scope-triage.md)で振り分けた(9項目を保留)。
 
 ## 背景
 

@@ -1,7 +1,7 @@
 # 0026. Unemployment insurance model: no new contract; pension, benefits and subsidies patterns combined; working while receiving made visible
 
 **Date:** 2026-11-07
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): the employer anchors its statement of the reason for leaving in `AnchorRegistry` (R4.2); outstanding employee IDs are burned before dissolution (R3.5).
 
 ## Context
 
@@ -29,7 +29,7 @@ Unemployment insurance was screened with the on-chain value test ([ADR 0014](001
 # 0026. 雇用保険モデル: 新しいコントラクトは作らない。年金・各種手当・補助金の型を組み合わせる。受給中の就労を見えるようにする(日本語)
 
 **日付:** 2026-11-07
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 雇用主は離職理由の申し立てを`AnchorRegistry`にアンカーする(R4.2)。解散の前に発行済みの社員証をburnする(R3.5)。
 
 ## 背景
 

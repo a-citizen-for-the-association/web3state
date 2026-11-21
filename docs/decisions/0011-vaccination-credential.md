@@ -1,7 +1,7 @@
 # 0011. Vaccination credential: stateful coupon, three-party authorization
 
 **Date:** 2026-10-10
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): re-issue after a recorded succession, as an exception to never-burn (R3.3); the vaccinator's registration is checked at every `markVaccinated` (R3.5).
 
 ## Context
 
@@ -32,7 +32,7 @@ This forced two genuine departures from every prior identity-style credential (c
 # 0011. 接種証明のクレデンシャル: 状態を持つ接種券、3者による権限(日本語)
 
 **日付:** 2026-10-10
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 承継が記録されたら、burnしないの例外として再発行する(R3.3)。接種の記録のたびに病院の登録を確認する(R3.5)。
 
 ## 背景
 

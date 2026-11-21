@@ -1,7 +1,7 @@
 # 0021. VIP asset disclosure: no new contract; published address plus off-chain declarations with severe penalties
 
 **Date:** 2026-10-18
-**Status:** Accepted. Real estate ([ADR 0029](0029-real-estate-registry-model.md)) and shares ([ADR 0030](0030-securities-model.md)) are now visible from a VIP's address, shrinking the off-chain declaration.
+**Status:** Accepted. Real estate ([ADR 0029](0029-real-estate-registry-model.md)) and shares ([ADR 0030](0030-securities-model.md)) are now visible from a VIP's address, shrinking the off-chain declaration. Amended by [ADR 0032](0032-consistency-review-decisions.md): the switch to a new address on leaving office becomes optional; the VIP flag (ADR 0031) stays for a legal period after leaving office (R5.9); family exposure is an accepted cost of office (R5.6).
 
 ## Context
 
@@ -26,7 +26,7 @@ Under the Diet members' asset disclosure law, reports are self-declared and unve
 # 0021. 要人の資産公開: 新しいコントラクトは作らない。公表されたアドレスと、厳罰付きのオフチェーンの申告(日本語)
 
 **日付:** 2026-10-18
-**ステータス:** Accepted。不動産([ADR 0029](0029-real-estate-registry-model.md))と株式([ADR 0030](0030-securities-model.md))が要人のアドレスから見えるようになり、オフチェーンの申告が縮小する。
+**ステータス:** Accepted。不動産([ADR 0029](0029-real-estate-registry-model.md))と株式([ADR 0030](0030-securities-model.md))が要人のアドレスから見えるようになり、オフチェーンの申告が縮小する。[ADR 0032](0032-consistency-review-decisions.md)で修正: 退任時の新しいアドレスへの切り替えは任意。要人の印(ADR 0031)は退任後も法定の期間残す(R5.9)。家族が知られうることは公職の代償(R5.6)。
 
 ## 背景
 

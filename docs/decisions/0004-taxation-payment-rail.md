@@ -1,7 +1,7 @@
 # 0004. Taxation payment rail: direct, resident-initiated payments only, no dedicated contract
 
 **Date:** 2026-10-03
-**Status:** Accepted. The payment rail is extended by [ADR 0020](0020-certified-address-stablecoin.md) (certified-address stablecoin).
+**Status:** Accepted. The payment rail is extended by [ADR 0020](0020-certified-address-stablecoin.md) (certified-address stablecoin). Amended by [ADR 0032](0032-consistency-review-decisions.md): tax receiving addresses are `PublicTreasury` contracts, one per body per account (R1.6).
 
 ## Context
 
@@ -33,7 +33,7 @@ Discussion (see [`docs/state-design/taxation/discussion-log.md`](../state-design
 # 0004. 納税の決済レール: 住民が自ら行う直接の支払いのみ、専用のコントラクトなし(日本語)
 
 **日付:** 2026-10-03
-**ステータス:** Accepted。決済レールは[ADR 0020](0020-certified-address-stablecoin.md)(認定アドレスのステーブルコイン)で拡張される。
+**ステータス:** Accepted。決済レールは[ADR 0020](0020-certified-address-stablecoin.md)(認定アドレスのステーブルコイン)で拡張される。[ADR 0032](0032-consistency-review-decisions.md)で修正: 税の受取アドレスは`PublicTreasury`のコントラクトで、機関ごと勘定ごとに1つ(R1.6)。
 
 ## 背景
 

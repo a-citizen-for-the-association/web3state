@@ -1,7 +1,7 @@
 # 0007. Diploma credential: reuses corporate registration, requires ResidentLink
 
 **Date:** 2026-10-06
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): re-issue to a successor address after a recorded succession, as an exception to mint-once (R3.3); burn on death (R3.10).
 
 ## Context
 
@@ -28,7 +28,7 @@ The user initially proposed requiring `ResidentLink` to prevent non-Japanese-nat
 # 0007. 卒業証明のクレデンシャル: 法人登録を再利用し、ResidentLinkを要件とする(日本語)
 
 **日付:** 2026-10-06
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 承継が記録されたら、一度だけ発行の例外として承継先へ再発行する(R3.3)。死亡でburnする(R3.10)。
 
 ## 背景
 

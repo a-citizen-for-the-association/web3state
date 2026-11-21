@@ -1,7 +1,7 @@
 # 0008. License credential: single possession-only contract, suspension and revocation both burn
 
 **Date:** 2026-10-06
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): re-issue after a recorded succession (R3.3); burn on death (R3.10).
 
 ## Context
 
@@ -30,7 +30,7 @@ Claude initially proposed one contract per vehicle class (mirroring diploma's pe
 # 0008. 免許のクレデンシャル: 保有だけを示す単一のコントラクト。停止も取消しもburnとする(日本語)
 
 **日付:** 2026-10-06
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 承継が記録されたら再発行(R3.3)。死亡でburnする(R3.10)。
 
 ## 背景
 

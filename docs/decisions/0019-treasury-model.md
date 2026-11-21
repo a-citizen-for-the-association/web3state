@@ -1,7 +1,7 @@
 # 0019. Treasury model: per-body treasury contracts, identified payees, public off-chain exits; "off-chain if it can be"
 
 **Date:** 2026-10-18
-**Status:** Accepted
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): one treasury per body per account (R1.6); treasuries pay any registered address (R2.1); failed payments stay owed and are retried (R3.8).
 
 ## Context
 
@@ -33,7 +33,7 @@ In the discussion ([log](../state-design/treasury/discussion-log.md)), the user 
 # 0019. 国庫モデル: 機関ごとの国庫コントラクト、身元の分かる支払先、公開されたオフチェーンへの出口、「オフチェーンでできることはオフチェーンで」(日本語)
 
 **日付:** 2026-10-18
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 国庫は機関ごと勘定ごとに1つ(R1.6)。国庫は登録済みのどのアドレスにも払う(R2.1)。失敗した支払いは未払いとして残し再試行(R3.8)。
 
 ## 背景
 
