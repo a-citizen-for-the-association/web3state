@@ -4,10 +4,15 @@ out = "out"
 libs = ["lib"]
 test = "test"
 script = "script"
-# Pin and review at implementation time — check for a newer stable (non-nightly) release.
-solc_version = "0.8.26"
+# Pinned 2026-11-21: latest stable release older than two weeks (0.8.39 was released 2026-11-19).
+solc_version = "0.8.38"
+evm_version = "prague"
 optimizer = true
 optimizer_runs = 200
+remappings = [
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+    "forge-std/=lib/forge-std/src/",
+]
 
 [rpc_endpoints]
 # Priority network for development and testing.
