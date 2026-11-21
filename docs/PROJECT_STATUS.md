@@ -4,13 +4,11 @@
 
 **Last updated:** 2026-11-21
 
-## ⏸ Resume point (work in progress)
+## ⏸ Resume point
 
-Updated 2026-11-21. The consistency review's design issues **R1–R5 are all decided** (see the Status column of [`architecture/consistency-review.md`](architecture/consistency-review.md); ADR 0031 relaxed the transfer rule). The user approved the next two steps, in this order, and Claude is working through them:
-1. **R6 documentation fixes** (missing Japanese translations of ADRs 0001–0013, the template and the citizenship log; stale status text; back-references; backlog tidy-up; small link fixes).
-2. **Apply the review decisions**: write ADR 0032 (consistency-review decisions, including folding `DocumentRegistry`/`EvidenceRegistry` into `AnchorRegistry`), add status notes to affected ADRs, and rewrite the affected specs.
+Updated 2026-11-21. **The cross-feature consistency review is complete**: R1–R6 and the follow-ups F1–F5 are decided and applied ([`architecture/consistency-review.md`](architecture/consistency-review.md); [ADR 0031](decisions/0031-registered-address-transfer-rule.md) relaxed the transfer rule; [ADR 0032](decisions/0032-consistency-review-decisions.md) records the decisions; specs, FEATURES and the glossary are updated). Nothing is open.
 
-**When the user says "再開して" (resume):** check `git log` and the review document to see how far R6 and step 2 got, report briefly, and continue. After both are done: the roadmap (provisional implementation with minimal tests → 10+ PoCs → PoC method → results → paper).
+**When the user says "再開して" (resume):** tell the user the review is complete and that the next roadmap step is **provisional implementation with minimal tests** (`contracts/` Foundry init, starting with `ResidentLink` and `OfficialContractRegistry`); propose an implementation plan and order before writing code, and ask for approval. Keep tests minimal (the user's roadmap), and note PoC candidates as they come up.
 
 ## Current phase
 
@@ -70,7 +68,7 @@ Updated 2026-11-21. The consistency review's design issues **R1–R5 are all dec
 ## Next steps
 
 1. Political Transparency is complete (2026-10-24). Social Welfare is complete (2026-11-07). **Scope triage (2026-11-07, [ADR 0027](decisions/0027-remaining-scope-triage.md)):** only three high-value items remain to design — real estate registry, securities/shareholdings, and personal data held by companies (new). Nine low-value items are ⏸ on hold and do not block implementation. Personal data done. Real estate registry done ([ADR 0029](decisions/0029-real-estate-registry-model.md)). Securities done ([ADR 0030](decisions/0030-securities-model.md)). **The initial design is complete (2026-11-14).**
-2. **In progress:** the cross-feature consistency review ([`architecture/consistency-review.md`](architecture/consistency-review.md)); issues R1–R6 are being discussed with the user.
+2. **Done (2026-11-21):** the cross-feature consistency review ([`architecture/consistency-review.md`](architecture/consistency-review.md), [ADR 0032](decisions/0032-consistency-review-decisions.md)).
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
 **Roadmap after the review (set by the user, 2026-11-14):**
@@ -90,13 +88,11 @@ Updated 2026-11-21. The consistency review's design issues **R1–R5 are all dec
 
 **最終更新日:** 2026-11-21
 
-## ⏸ 再開ポイント(作業中)
+## ⏸ 再開ポイント
 
-2026-11-21更新。整合性レビューの設計の論点**R1〜R5はすべて決定済み**([`architecture/consistency-review.md`](architecture/consistency-review.md)のステータスの列を参照。ADR 0031で送金ルールを緩めた)。ユーザーは次の2つの作業をこの順で承認し、Claudeが進めている:
-1. **R6のドキュメント修正**(ADR 0001〜0013、テンプレート、国民・住民の議論ログの日本語訳の欠落。古いステータスの記述。相互参照。バックログの整理。小さなリンクの修正)。
-2. **レビューの決定の反映**: ADR 0032(整合性レビューの決定。`DocumentRegistry`と`EvidenceRegistry`の`AnchorRegistry`への統合を含む)を書き、影響するADRのステータス欄に注記し、影響する仕様を書き直す。
+2026-11-21更新。**機能間の整合性レビューは完了した**: R1〜R6と追加の論点F1〜F5を決定し、反映済み([`architecture/consistency-review.md`](architecture/consistency-review.md)。[ADR 0031](decisions/0031-registered-address-transfer-rule.md)で送金ルールを緩め、[ADR 0032](decisions/0032-consistency-review-decisions.md)に決定を記録。仕様、FEATURES、用語集を更新)。未決の点はない。
 
-**ユーザーが「再開して」と言ったら:** `git log`とレビュー文書でR6と2の進み具合を確認し、簡潔に報告して続ける。両方が終わったらロードマップへ(仮実装と最低限のテスト → 10件以上のPoC → PoCの方法 → 結果 → 論文)。
+**ユーザーが「再開して」と言ったら:** レビューが完了したこと、ロードマップの次は**仮実装と最低限のテスト**(`contracts/`のFoundry init。`ResidentLink`と`OfficialContractRegistry`から)であることを伝える。コードを書く前に実装の計画と順序を提案し、承認を得る。テストは最低限とし(ユーザーのロードマップ)、PoCの候補は出てきたら書き留める。
 
 ## 現在のフェーズ
 
@@ -156,7 +152,7 @@ Updated 2026-11-21. The consistency review's design issues **R1–R5 are all dec
 ## 次のステップ
 
 1. 「政治の透明性」は完了(2026-10-24)。「社会保障」も完了(2026-11-07)。**スコープの振り分け(2026-11-07、[ADR 0027](decisions/0027-remaining-scope-triage.md)):** 設計が残るのは有益性の高い3項目だけ — 不動産登記、有価証券・株主の記録、企業が保有する個人情報(新規)。追加の価値が小さい9項目は⏸保留とし、実装の妨げにしない。個人情報は完了。不動産登記も完了([ADR 0029](decisions/0029-real-estate-registry-model.md))。有価証券も完了([ADR 0030](decisions/0030-securities-model.md))。**初期設計は完了した(2026-11-14)。**
-2. **進行中:** 機能間の整合性レビュー([`architecture/consistency-review.md`](architecture/consistency-review.md))。論点R1〜R6をユーザーと議論中。
+2. **完了(2026-11-21):** 機能間の整合性レビュー([`architecture/consistency-review.md`](architecture/consistency-review.md)、[ADR 0032](decisions/0032-consistency-review-decisions.md))。
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
 
 **レビュー後のロードマップ(ユーザーが設定、2026-11-14):**
