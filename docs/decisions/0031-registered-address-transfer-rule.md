@@ -19,7 +19,8 @@ Point 2 cannot hold without point 3: anyone can create addresses for free, so if
 - **One registered address per resident and per corporation.**
 - **Sending from a registered address to an unregistered address is capped by a cumulative amount per sender per period** (e.g. per month; the amount is a legal parameter). Splitting into small payments does not help, because the contract counts the sender's total. This cap is the "cash-like" zone.
 - **VIP addresses have a cap of zero:** they cannot send to unregistered addresses at all. VIP addresses carry a flag in `OfficialContractRegistry`.
-- **Licensed businesses that do identity checks off-chain** (exchangers, the stablecoin issuer) are exempt from the cap, and must keep records.
+- **Licensed businesses that do identity checks off-chain** (exchangers, the stablecoin issuer) are exempt from the cap, **but they may send JPY to an unregistered address only when exchanging the recipient's own foreign currency or cash**, after an identity check (e.g. passport) and with records. Forwarding JPY to an unregistered address on behalf of a registered customer is prohibited (it would bypass a VIP's zero cap); violations are punished up to licence revocation.
+- **The visitor pass is abolished** (and the `Visitor` kind): visitors use unregistered addresses, buying JPY from exchangers and paying merchants freely.
 - **Public treasuries pay only registered addresses** (consistency review R2.1).
 - **Nothing else is blocked:** unregistered → registered and unregistered → unregistered transfers are free; they are public and checked afterwards.
 
@@ -28,7 +29,8 @@ Point 2 cannot hold without point 3: anyone can create addresses for free, so if
 - Most of the review's R1–R3 problems shrink: an address that loses its registration is no longer frozen; it becomes an unregistered address. Small dealings with foreigners, visitors and nationals abroad need no certification; certification matters only above the cap (e.g. pensions, large trade).
 - Funds of a dead person can be moved by whoever holds the key, as with cash in a drawer; inheritance law applies off-chain. The heavy successor path remains for key loss, where nobody can move the funds.
 - ADR 0020's "every money-holding contract must be registered" now applies to public and official contracts; private contracts may be unregistered, and are then reached only within senders' caps.
-- The visitor pass and some certified kinds (`NationalAbroad`, `ForeignParty`) may become unnecessary or narrower; they are re-examined item by item in the review.
+- Re-examined in the review: `ForeignParty` is not created (payments above the cap go through licensed exchangers or banks); `NationalAbroad` is kept (pensions, land, shares); the visitor pass is abolished.
+- **Residual limit:** a VIP can still send to registered relatives or acquaintances who each forward within their own caps; every first hop is public, and VIP omissions are punished severely ([ADR 0021](0021-vip-asset-disclosure.md)). A round trip such as VIP → registered person → the VIP's own business is public and found afterwards by analysis.
 - Specs that describe the ADR 0020 rule are updated when the review's decisions are applied.
 - This rule is a candidate theme for the proofs of concept.
 
@@ -55,7 +57,8 @@ ADR 0020は、要人の資産公開で見つかった「申告していない2�
 - **住民と法人は、登録済みのアドレスを1つずつ持つ。**
 - **登録済みのアドレスから未登録のアドレスへの送金は、送り手ごと・期間ごとの合計額で上限を設ける**(例: 月ごと。金額は法律で定める値)。コントラクトが送り手の合計を数えるので、小分けにしても意味がない。この上限が「現金のように使える範囲」である。
 - **要人のアドレスの上限は0:** 未登録のアドレスには一切送れない。要人のアドレスには`OfficialContractRegistry`で印を付ける。
-- **オフチェーンで本人確認を行う免許業者**(両替業者、ステーブルコインの発行者)は上限の対象外とし、記録を残す義務を負う。
+- **オフチェーンで本人確認を行う免許業者**(両替業者、ステーブルコインの発行者)は上限の対象外とする。**ただし未登録のアドレスに円を送れるのは、受取人本人の外貨や現金を両替する場合だけ**で、本人確認(例: パスポート)と記録を要する。登録済みの客に代わって未登録のアドレスへ円を転送することは禁止する(要人の上限0の回避になるため)。違反は免許取消しまでの罰則の対象。
+- **ビジターパス(と種類`Visitor`)は廃止する:** 訪問者は未登録のアドレスを使い、両替業者から円を買い、店には自由に払う。
 - **国庫は登録済みのアドレスにだけ支払う**(整合性レビューR2.1)。
 - **それ以外は止めない:** 未登録 → 登録済み、未登録 → 未登録の送金は自由。公開されており、後から確認する。
 
@@ -64,6 +67,7 @@ ADR 0020は、要人の資産公開で見つかった「申告していない2�
 - レビューのR1〜R3の問題の多くが小さくなる: 登録が外れたアドレスは凍結されず、未登録のアドレスになるだけである。外国人、ビジター、海外の国民との小さな取引に認定は要らない。認定が問題になるのは上限を超える場合だけ(例: 年金、大きな取引)。
 - 亡くなった人の資金は、鍵を持つ者なら動かせる。引き出しの中の現金と同じで、相続の法律はオフチェーンで適用される。誰も資金を動かせない鍵の紛失のために、重い承継の手続きは残る。
 - ADR 0020の「資金を持つコントラクトはすべて登録する」は、公的・公式のコントラクトに適用される。民間のコントラクトは未登録でもよく、その場合は送り手の上限の範囲でしか届かない。
-- ビジターパスと一部の認定の種類(`NationalAbroad`、`ForeignParty`)は不要になるか、範囲が狭まるかもしれない。レビューで項目ごとに見直す。
+- レビューで見直した結果: `ForeignParty`は作らない(上限を超える支払いは免許を受けた両替業者や銀行を通す)。`NationalAbroad`は残す(年金、土地、株式)。ビジターパスは廃止。
+- **残る限界:** 要人は、登録済みの親族や知人に送り、それぞれがその上限の範囲で転送することはできる。最初の送金はすべて公開され、要人の申告漏れは重く罰せられる([ADR 0021](0021-vip-asset-disclosure.md))。要人 → 登録済みの人 → 要人自身の事業、のような往復は公開されており、後から分析で見つかる。
 - ADR 0020のルールを書いている仕様は、レビューの決定を反映するときに更新する。
 - このルールは実証実験のテーマの候補である。
