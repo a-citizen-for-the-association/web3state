@@ -112,6 +112,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - Consistency review under D1: R2.3 revised, R2.2 and R1.3 confirmed; visitor pass abolished and the exchanger exemption narrowed (ADR 0031 updated).
 - Consistency review: R3.1–R3.10 accepted (suspension on key theft; heavy path for every asset token; credential re-issue on succession and burn on death; registrar-led heavy path; dissolution/merger order; signer rotation; ballot-time checks; mint-before-burn on moves; heirs' agents; age checks abroad).
 - Consistency review: R4.1–R4.3 accepted (`DocumentRegistry` and `EvidenceRegistry` folded into `AnchorRegistry`; author anchors; kind list; naming and token-standard pass).
+- Consistency review: R5.1–R5.9 decided (officers and beneficial owners accept name–address links; real-estate buyer exposure accepted for PoC study; order codes on delivery labels; monthly age-credential batches; standing voter credential; shared social-security code kept; optional VIP address switch). R1–R5 complete; R6 open.
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
