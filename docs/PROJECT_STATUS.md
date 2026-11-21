@@ -82,6 +82,8 @@ Paused on 2026-11-14 after completing the initial design (real estate ADR 0029, 
 7. Run the PoCs and compile the results.
 8. Write a paper.
 
+**Working hypothesis to test in the PoCs (the user, 2026-11-21):** a blockchain is highly effective for the retail economic activity of ordinary people, but for large-value processing, real estate, inheritance and some other procedures the drawbacks of being on-chain are large. Possible conclusion: use the chain for retail only, and implement the large-value or hard-to-manage-on-chain parts off-chain under strict supervision by the responsible bodies.
+
 ---
 
 # プロジェクトの現状(日本語)
@@ -167,3 +169,5 @@ Paused on 2026-11-14 after completing the initial design (real estate ADR 0029, 
 6. 実証実験の方法の決定。
 7. 実証実験の実施と結果の取りまとめ。
 8. 論文の執筆。
+
+**実証実験で検証する作業仮説(ユーザー、2026-11-21):** ブロックチェーンは一般庶民が行うリテールの経済活動には極めて有効である。一方で、金額の大きい処理、不動産、相続、その他の一部の手続きについては、オンチェーンであるデメリットが大きい。考えられる結論: ブロックチェーンはリテールだけで扱い、巨額になるもの、オンチェーンでの管理が難しいものはオフチェーンで実装し、担当機関が厳しく監督する。
