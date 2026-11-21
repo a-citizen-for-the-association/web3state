@@ -2,16 +2,15 @@
 
 > Living document. Update this whenever the project moves phase, a major question is resolved, or a new major question opens. Keep it short — detail belongs in ADRs or architecture docs, this is a snapshot.
 
-**Last updated:** 2026-11-14
+**Last updated:** 2026-11-21
 
-## ⏸ Paused — resume point
+## ⏸ Resume point (work in progress)
 
-Paused on 2026-11-14 after completing the initial design (real estate ADR 0029, securities ADR 0030) and opening the cross-feature consistency review. The user set the roadmap after the review (see Next steps) and was about to answer the review's issues.
+Updated 2026-11-21. The consistency review's design issues **R1–R5 are all decided** (see the Status column of [`architecture/consistency-review.md`](architecture/consistency-review.md); ADR 0031 relaxed the transfer rule). The user approved the next two steps, in this order, and Claude is working through them:
+1. **R6 documentation fixes** (missing Japanese translations of ADRs 0001–0013, the template and the citizenship log; stale status text; back-references; backlog tidy-up; small link fixes).
+2. **Apply the review decisions**: write ADR 0032 (consistency-review decisions, including folding `DocumentRegistry`/`EvidenceRegistry` into `AnchorRegistry`), add status notes to affected ADRs, and rewrite the affected specs.
 
-**When the user says "再開して" (resume):**
-1. **Show the review results again** from [`architecture/consistency-review.md`](architecture/consistency-review.md): the High issues of R1–R5 in plain Japanese, and the proposed order (R6 documentation fixes by Claude first; then design discussion R1·R2 → R3 → R4 → R5).
-2. Ask the user for their answers: whether Claude may fix R6 directly, and their decisions on R1·R2. The user said they would answer the issues next.
-3. Record each decision in the review document's Status column (and in the affected ADRs and specs), then continue to the roadmap: provisional implementation with minimal tests → 10+ PoCs → PoC method → results → paper.
+**When the user says "再開して" (resume):** check `git log` and the review document to see how far R6 and step 2 got, report briefly, and continue. After both are done: the roadmap (provisional implementation with minimal tests → 10+ PoCs → PoC method → results → paper).
 
 ## Current phase
 
@@ -90,16 +89,15 @@ Paused on 2026-11-14 after completing the initial design (real estate ADR 0029, 
 
 > 生きたドキュメントです。プロジェクトのフェーズが進んだとき、大きな論点が解決したとき、新たな論点が生まれたときに更新してください。詳細はADRやアーキテクチャドキュメントに記載し、ここはスナップショットとして簡潔に保ちます。
 
-**最終更新日:** 2026-11-14
+**最終更新日:** 2026-11-21
 
-## ⏸ 中断中 — 再開ポイント
+## ⏸ 再開ポイント(作業中)
 
-2026-11-14、初期設計(不動産 ADR 0029、有価証券 ADR 0030)を完了し、機能間の整合性レビューを開始した後に中断しました。ユーザーはレビュー後のロードマップを設定し(次のステップを参照)、レビューの論点に回答するところでした。
+2026-11-21更新。整合性レビューの設計の論点**R1〜R5はすべて決定済み**([`architecture/consistency-review.md`](architecture/consistency-review.md)のステータスの列を参照。ADR 0031で送金ルールを緩めた)。ユーザーは次の2つの作業をこの順で承認し、Claudeが進めている:
+1. **R6のドキュメント修正**(ADR 0001〜0013、テンプレート、国民・住民の議論ログの日本語訳の欠落。古いステータスの記述。相互参照。バックログの整理。小さなリンクの修正)。
+2. **レビューの決定の反映**: ADR 0032(整合性レビューの決定。`DocumentRegistry`と`EvidenceRegistry`の`AnchorRegistry`への統合を含む)を書き、影響するADRのステータス欄に注記し、影響する仕様を書き直す。
 
-**ユーザーが「再開して」と言ったら:**
-1. [`architecture/consistency-review.md`](architecture/consistency-review.md)から**レビューの結果を再度表示する**: R1〜R5のHighの論点をわかりやすい日本語で示し、提案した順序(先にClaudeがR6のドキュメント修正、その後に設計の議論をR1・R2 → R3 → R4 → R5)を示す。
-2. ユーザーの回答を求める: R6をClaudeが直接直してよいか、R1・R2についての判断。ユーザーは次に論点へ回答すると言っていた。
-3. 各判断をレビュー文書のステータスの列(と影響するADRと仕様)に記録し、その後ロードマップに進む: 仮実装と最低限のテスト → 10件以上のPoC → PoCの方法 → 結果 → 論文。
+**ユーザーが「再開して」と言ったら:** `git log`とレビュー文書でR6と2の進み具合を確認し、簡潔に報告して続ける。両方が終わったらロードマップへ(仮実装と最低限のテスト → 10件以上のPoC → PoCの方法 → 結果 → 論文)。
 
 ## 現在のフェーズ
 
