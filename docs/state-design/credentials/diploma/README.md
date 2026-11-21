@@ -23,7 +23,7 @@ A soulbound, possession-only NFT (per the credentials-wide rule) proving a gradu
 - Mint (authority/school only, after conferring the degree through its existing real-world process), restricted to the school's admin role.
 - A one-time, mint-time-only cross-contract check that the recipient holds a valid `ResidentLink` NFT, against a `ResidentLink` contract the applicant declares.
 - Soulbound ownership (`tokenId ↔ address`) — no other fields.
-- Burn (authority only, rare — actual degree revocation).
+- Burn (authority only, rare — actual degree revocation; also on the holder's death and on re-issue to a successor address, consistency review R3.3, R3.10).
 
 **Online:**
 - The school's officially-attested registration, published the same way as any other corporation (see [corporations](../../corporations/)) — no separate mechanism for diploma-issuing specifically.
@@ -55,12 +55,14 @@ Minting requires the recipient to hold a valid `ResidentLink` NFT:
 
 ```
 [not issued] --mint (school only, after conferring the degree + ResidentLink check)--> [Active: NFT exists]
-[Active]      --burn (school only; rare — actual degree revocation, reason kept off-chain)--> [not issued]
+[Active]      --burn (school only; rare — actual degree revocation, death, or re-issue to a successor address; reason kept off-chain)--> [not issued]
 ```
 
 - **The simplest lifecycle designed so far.** Unlike `Passport` (renews) or corporations (fields change routinely), a conferred degree doesn't legitimately change. No updates, no renewal.
 - **Authority-only mint/burn — no self-burn.**
 - No on-chain reason code for a revocation (same minimization principle as citizenship/corporations).
+- *Explicit exception to "mint-once, no renewal":* **Re-issue after a recorded succession:** after an address succession is recorded on-chain (key loss, a VIP leaving office), the school may burn the credential at the old address and re-issue it to the successor address, on the person's request, after checking the on-chain record; for a closed school, its successor body does so (consistency review R3.3, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
+- **Burn on death:** the school burns the credential when the holder dies, informed off-chain by the municipality (consistency review R3.10, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
 
 ## Open items for later
 
@@ -93,7 +95,7 @@ None specific to this credential — the general credentials pattern's remaining
 - mint(学校の管理者ロールに限定。既存の現実の学位授与プロセスを経た後)。
 - 受領者が、申告された`ResidentLink`コントラクトで有効な`ResidentLink`NFTを保有していることの、mint時点限りのクロスコントラクトチェック。
 - 譲渡不可の所有権(`tokenId ↔ アドレス`) — それ以外のフィールドはなし。
-- burn(発行主体のみ、稀 — 実際の学位取消)。
+- burn(発行主体のみ、稀 — 実際の学位取消。保有者の死亡と承継先のアドレスへの再発行の場合も。整合性レビューR3.3、R3.10)。
 
 **オンライン:**
 - 学校の、公式に証明された登録。他の法人と同じ方法で公表([法人設計](../../corporations/)参照) — 卒業証明専用の別の仕組みはない。
@@ -128,6 +130,8 @@ mintには、受領者が有効な`ResidentLink`NFTを保有していること�
 - **これまで設計した中で最もシンプルなライフサイクルです。** `Passport`(更新される)や法人(フィールドが日常的に変化する)とは異なり、授与された学位は正当に変化しません。更新も更新(renewal)もありません。
 - **発行主体限定のmint/burn — 自主バーンなし。**
 - 失効(学位取消)の理由コードはオンチェーンに残しません(国民・住民・法人設計と同じ最小化の原則)。
+- *「一度だけmintし、更新しない」の明示的な例外:* **承継の記録後の再発行:** アドレスの承継がオンチェーンに記録されたら(鍵の紛失、要人の退任)、学校は本人の申し出により、オンチェーンの記録を確認したうえで、旧アドレスのクレデンシャルをburnし、承継先のアドレスに再発行できる。閉校した学校の場合は、その承継先の機関が行う(整合性レビューR3.3、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
+- **死亡でburn:** 保有者が亡くなったら、市区町村からオフチェーンで知らせを受けて、学校がクレデンシャルをburnする(整合性レビューR3.10、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
 
 ## 今後の課題
 

@@ -4,7 +4,7 @@
 
 ## Summary
 
-Shares and member interests of every corporation are **tokens in one `ShareRegistry` run by the Legal Affairs Bureau (法務局)**, held at the holders' own certified addresses. **Moving the token is the transfer of the share.** Because corporations have addresses too, **who owns whom can be followed to the final individual** by any off-chain application; corporations become "glass boxes".
+Shares and member interests of every corporation are **tokens in one `ShareToken` contract run by the Legal Affairs Bureau (法務局)**, held at the holders' own registered addresses. **Moving the token is the transfer of the share.** Because corporations have addresses too, **who owns whom can be followed to the final individual** by any off-chain application; corporations become "glass boxes".
 
 - **Unlisted shares:** dealings are off-chain; the token transfer is the last step (the real estate pattern, [ADR 0029](../../decisions/0029-real-estate-registry-model.md)).
 - **Listed shares:** exchanges stay off-chain as today. **Securities firms record the result on-chain** as the transfer itself: holdings move once a day, net, and each day's executions are anchored as a Merkle root by both firms and exchanges. A missing or mismatching record is severely punished.
@@ -26,9 +26,9 @@ Shares and member interests of every corporation are **tokens in one `ShareRegis
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain:**
-- **New: `ShareRegistry`**, one contract run by the Legal Affairs Bureau.
+- **New: `ShareToken`** (ERC-1155-style; renamed from `ShareRegistry`, consistency review R4.3, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)), one contract run by the Legal Affairs Bureau.
 - **New: `ClearingContract`**, run by the clearing house, for the daily net settlement of listed shares *(spec-time adjustment)*.
-- **New certified kind `ForeignInvestor`** in `OfficialContractRegistry` ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)).
+- Registration kinds in `OfficialContractRegistry` (defined in the [canonical registry section](../certified-stablecoin/README.md) of the stablecoin spec): **`ForeignInvestor`** (registered by the FSA; for shares only, consistency review R2.3), and **`FinancialVehicle`** (registered by the FSA) for the `ClearingContract` and for trusts, partnerships and funds (consistency review R1.3; both [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 - Existing: `AnchorRegistry` with new kinds `TradeReport` and `CorporateResolution` ([ADR 0028](../../decisions/0028-personal-data-model.md)); corporate records with a new beneficial-owner field ([ADR 0005](../../decisions/0005-corporate-registration-model.md)); the JPY stablecoin.
 
 **Online:**
@@ -41,33 +41,34 @@ Shares and member interests of every corporation are **tokens in one `ShareRegis
 
 ## Architecture
 
-### `ShareRegistry` (one contract, run by the Legal Affairs Bureau)
+### `ShareToken` (one contract, run by the Legal Affairs Bureau)
 
-- **One token class per corporation and share class** (and per vehicle, for units). Balances are held at certified addresses only.
+- **One token class per corporation and share class** (and per vehicle, for units). Balances are held at registered addresses only.
 - **Issuance and cancellation** (new shares, buybacks, splits, mergers): only the corporation's multisig, citing the hash of the resolution anchored in `AnchorRegistry` under kind `CorporateResolution` *(adjustment)*.
 - **Transfer-restricted shares** (譲渡制限株式): a class flag; each transfer needs the corporation's approval first.
 - **Agents:** the owner + agent rule of real estate is **optional** for shares; an individual may set agents per class.
 - **Transfer:** by the holder (unlisted shares), or by an authorised broker or the clearing contract (listed shares, below).
+- **Operator approvals and allowances lapse** when the holder's registration ends or the address is suspended. **Shares at an address that lost its registration move only by ADR 0020's heavy successor path**, whose multisig is authorised on `ShareToken` as on every asset-token contract (consistency review R3.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
 ### Eligible holders
 
-- `ResidentLink` holders, registered corporations, public bodies, and Japanese nationals abroad (`NonResidentOwner`, [ADR 0029](../../decisions/0029-real-estate-registry-model.md)).
-- **`ForeignInvestor`:** certified by the Financial Services Agency after an off-chain identity check, either directly or through a licensed foreign custodian that registers **each final holder** (no omnibus accounts). Can hold shares and the stablecoin needed to pay for them; cannot own land.
-- **Trusts, partnerships and funds:** only at a registered contract address, and **their own participants are recorded in `ShareRegistry` as units** in the same way, so the chain of ownership never stops at a vehicle.
+- `ResidentLink` holders, registered corporations, public bodies, and Japanese nationals abroad (`NationalAbroad`, registered by 外務省; consistency review R2.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- **`ForeignInvestor`:** registered by the Financial Services Agency after an off-chain identity check, either directly or through a licensed foreign custodian that registers **each final holder** (no omnibus accounts). **Kept for shares only:** it can hold shares and the stablecoin needed to pay for them; cannot own land. Other foreign parties get no registration kind; **payments to them above the cap** on sending to unregistered addresses ([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)) go through licensed exchangers or banks (consistency review R2.3, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- **Trusts, partnerships and funds:** only at a contract address registered by the FSA as a `FinancialVehicle` (consistency review R1.3), and **their own participants are recorded in `ShareToken` as units** in the same way, so the chain of ownership never stops at a vehicle.
 
 ### Listed shares: off-chain exchange, on-chain record
 
-1. **Authority:** the investor gives their broker authority to move their listed shares (an operator approval in `ShareRegistry`) and the stablecoin needed to pay (an allowance). Every movement the broker makes is public.
+1. **Authority:** the investor gives their broker authority to move their listed shares (an operator approval in `ShareToken`) and the stablecoin needed to pay (an allowance). Every movement the broker makes is public. Both lapse when the investor's registration ends or the address is suspended (consistency review R3.2).
 2. **Trading:** exchanges match orders off-chain as today. Short selling and margin trading stay inside the off-chain market.
 3. **Daily anchors:** after the close, **each exchange** anchors one Merkle root of its executions, and **each broker** one root of its executions with the client address for each, in `AnchorRegistry` under kind `TradeReport`. A missing day is visible on-chain and is a violation in itself.
-4. **Daily net settlement:** net sellers' shares and net buyers' money go into the **clearing house's registered `ClearingContract`**, which then delivers shares to net buyers' addresses and money to net sellers' addresses *(adjustment: settlement through one clearing contract, so brokers need not pair clients with each other)*. Only net results move; positions opened and closed within the day never reach the chain.
+4. **Daily net settlement:** net sellers' shares and net buyers' money go into the **clearing house's `ClearingContract`** (registered by the FSA as a `FinancialVehicle`, consistency review R1.3), which then delivers shares to net buyers' addresses and money to net sellers' addresses *(adjustment: settlement through one clearing contract, so brokers need not pair clients with each other)*. Only net results move; positions opened and closed within the day never reach the chain. **Each delivery fails on its own and is retried**, so one failing delivery does not fail the batch (consistency review R3.8, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 5. **Checking:** the regulator can demand the execution data and check it against both roots, and the net transfers against the executions. A mismatch, or settlement that was not recorded, is punished up to licence revocation.
 
 Unlisted shares: dealings are bilateral and off-chain; the holder transfers the token as the last step.
 
 ### Beneficial owners and foreign control
 
-- **The corporate record lists by name every individual who ultimately holds 25% or more of the voting rights** (traced through all layers), as officers' names are listed today ([ADR 0005](../../decisions/0005-corporate-registration-model.md)). Names are never linked to addresses. The corporation must file a change; **an application can check that the number of individuals at or above 25% on-chain matches the number of names** *(adjustment)*.
+- **The corporate record lists by name every individual who ultimately holds 25% or more of the voting rights** (traced through all layers), as officers' names are listed today ([ADR 0005](../../decisions/0005-corporate-registration-model.md)). Beneficial owners are a public class like officers: **they accept that their names may be linked to their addresses** (consistency review R5.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). The corporation must file a change; **an application can check that the number of individuals at or above 25% on-chain matches the number of names** *(adjustment)*.
 - **Foreign control:** a corporation whose voting rights are held more than 50% by `ForeignInvestor` addresses or foreign-controlled corporations, traced through all layers, is treated as a foreign corporation for land: the Legal Affairs Bureau refuses land transfers to it, and a corporation that becomes foreign-controlled while owning land must sell within a legal period ([ADR 0029](../../decisions/0029-real-estate-registry-model.md)) *(adjustment: the second half)*.
 
 ### Borrowed-name shares
@@ -91,7 +92,7 @@ A VIP's shares, and the corporations they control through shares, are visible fr
 - Within a day, the chain shows nothing; it relies on the daily anchors and the regulator's checks.
 - Brokers hold authority over their clients' listed shares; misuse is visible and punished, not prevented.
 - Chain capacity: daily net settlement of all listed shares is still large; a constraint on the mainnet chain choice.
-- Addresses and holdings are public; names are public only for officers and beneficial owners, and never linked to addresses.
+- Addresses and holdings are public; names are public only for officers and beneficial owners, and may be linked to their addresses, which they accept (consistency review R5.2).
 
 ---
 
@@ -101,7 +102,7 @@ A VIP's shares, and the corporations they control through shares, are visible fr
 
 ## 概要
 
-すべての法人の株式と持分を、**法務局が運用する1つの`ShareRegistry`のトークン**にし、保有者自身の認定アドレスに置く。**トークンの移転が株式の移転である。** 法人もアドレスを持つので、**誰が誰を所有しているかを最終的な個人まで**、どのオフチェーンのアプリケーションでもたどれる。法人は「ガラス張り」になる。
+すべての法人の株式と持分を、**法務局が運用する1つの`ShareToken`のコントラクトのトークン**にし、保有者自身の登録済みのアドレスに置く。**トークンの移転が株式の移転である。** 法人もアドレスを持つので、**誰が誰を所有しているかを最終的な個人まで**、どのオフチェーンのアプリケーションでもたどれる。法人は「ガラス張り」になる。
 
 - **非上場株式:** 取引はオフチェーンで、トークンの移転が最後の手順(不動産の型、[ADR 0029](../../decisions/0029-real-estate-registry-model.md))。
 - **上場株式:** 取引所は今のままオフチェーン。**証券会社が結果を移転そのものとしてオンチェーンに記録する:** 保有は1日1回差し引きで動き、その日の約定は証券会社と取引所の両方がマークルルートでアンカリングする。記録の欠落や不一致は厳罰。
@@ -123,9 +124,9 @@ A VIP's shares, and the corporations they control through shares, are visible fr
 (区分の考え方は[`docs/operations/README.md`](../../operations/README.md)を参照。)
 
 **オンチェーン:**
-- **新規: `ShareRegistry`。** 法務局が運用するコントラクトを1つ。
+- **新規: `ShareToken`**(ERC-1155型。`ShareRegistry`から改名。整合性レビューR4.3、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。法務局が運用するコントラクトを1つ。
 - **新規: `ClearingContract`。** 清算機関が運用し、上場株式の毎日の差し引き決済に使う(*仕様作成時の調整*)。
-- **新しい認定の種類`ForeignInvestor`**を`OfficialContractRegistry`に([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。
+- `OfficialContractRegistry`の登録の種類(ステーブルコインの仕様の[正本となるレジストリの節](../certified-stablecoin/README.md)で定める): **`ForeignInvestor`**(金融庁が登録。株式のためだけ。整合性レビューR2.3)。`ClearingContract`と信託、組合、ファンドのための**`FinancialVehicle`**(金融庁が登録。整合性レビューR1.3。どちらも[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - 既存: `AnchorRegistry`に新しい種類`TradeReport`と`CorporateResolution`([ADR 0028](../../decisions/0028-personal-data-model.md))。法人の記録に実質的支配者の新しいフィールド([ADR 0005](../../decisions/0005-corporate-registration-model.md))。円建てステーブルコイン。
 
 **オンライン:**
@@ -138,33 +139,34 @@ A VIP's shares, and the corporations they control through shares, are visible fr
 
 ## アーキテクチャ
 
-### `ShareRegistry`(法務局が運用するコントラクトを1つ)
+### `ShareToken`(法務局が運用するコントラクトを1つ)
 
-- **法人と株式の種類ごとに1つのトークンの種類**(器の持分についても器ごとに)。残高は認定アドレスにしか置けない。
+- **法人と株式の種類ごとに1つのトークンの種類**(器の持分についても器ごとに)。残高は登録済みのアドレスにしか置けない。
 - **発行と消却**(新株発行、自己株式の取得、株式分割、合併): その法人のマルチシグだけが、`AnchorRegistry`に種類`CorporateResolution`でアンカリングした決議のハッシュを示して行う(*調整*)。
 - **譲渡制限株式:** 種類のフラグ。移転のたびに、先に法人の承認が必要。
 - **代理人:** 不動産の「所有者＋代理人」のルールは株式では**任意**。個人は種類ごとに代理人を設定できる。
 - **移転:** 保有者が行う(非上場株式)、または権限を与えられた証券会社か清算コントラクトが行う(上場株式、下記)。
+- 保有者の登録が外れるかアドレスが停止されたら、**オペレーターの承認とallowanceは失効する**。**登録の外れたアドレスにある株式は、ADR 0020の重い承継の手続きでしか動かない。** その手続きのマルチシグには、すべての資産トークンのコントラクトと同じく`ShareToken`での権限を与える(整合性レビューR3.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
 ### 保有資格のある者
 
-- `ResidentLink`の保有者、登録された法人、公的機関、海外に住む日本国籍の人(`NonResidentOwner`、[ADR 0029](../../decisions/0029-real-estate-registry-model.md))。
-- **`ForeignInvestor`:** 金融庁がオフチェーンの本人確認の後に認定する。直接、または**最終的な保有者を1人ずつ**登録する認可を受けた海外のカストディアンを通じて(オムニバス口座は不可)。株式と、その代金の支払いに必要なステーブルコインを持てる。土地は所有できない。
-- **信託、組合、ファンド:** 登録されたコントラクトのアドレスでのみ持てる。**その参加者も`ShareRegistry`に持分として同じ方法で記録する。** 所有のつながりが器で止まることはない。
+- `ResidentLink`の保有者、登録された法人、公的機関、海外に住む日本国籍の人(`NationalAbroad`。外務省が登録。整合性レビューR2.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- **`ForeignInvestor`:** 金融庁がオフチェーンの本人確認の後に登録する。直接、または**最終的な保有者を1人ずつ**登録する認可を受けた海外のカストディアンを通じて(オムニバス口座は不可)。**株式のためだけに残す:** 株式と、その代金の支払いに必要なステーブルコインを持てる。土地は所有できない。それ以外の外国の相手には登録の種類を設けない。未登録のアドレスへの送金の上限([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md))を**超える支払い**は、免許を受けた両替業者や銀行を通す(整合性レビューR2.3、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- **信託、組合、ファンド:** 金融庁が`FinancialVehicle`として登録したコントラクトのアドレスでのみ持てる(整合性レビューR1.3)。**その参加者も`ShareToken`に持分として同じ方法で記録する。** 所有のつながりが器で止まることはない。
 
 ### 上場株式: オフチェーンの取引所、オンチェーンの記録
 
-1. **権限:** 投資家は、自分の上場株式を動かす権限(`ShareRegistry`でのオペレーターの承認)と、代金の支払いに必要なステーブルコインの権限(allowance)を証券会社に与える。証券会社による移動はすべて公開される。
+1. **権限:** 投資家は、自分の上場株式を動かす権限(`ShareToken`でのオペレーターの承認)と、代金の支払いに必要なステーブルコインの権限(allowance)を証券会社に与える。証券会社による移動はすべて公開される。投資家の登録が外れるかアドレスが停止されたら、どちらも失効する(整合性レビューR3.2)。
 2. **取引:** 取引所は今と同じくオフチェーンで約定させる。空売りと信用取引はオフチェーンの市場の中にとどまる。
 3. **毎日のアンカー:** 取引終了後、**各取引所**は約定のマークルルートを1つ、**各証券会社**は顧客ごとのアドレスを含む約定のルートを1つ、`AnchorRegistry`に種類`TradeReport`でアンカリングする。1日分の欠落はオンチェーンでわかり、それ自体が違反である。
-4. **毎日の差し引き決済:** 差し引きで売った人の株式と、差し引きで買った人の代金を、**清算機関の登録された`ClearingContract`**に入れ、そこから株式を買った人のアドレスへ、代金を売った人のアドレスへ渡す(*調整: 1つの清算コントラクトを通すので、証券会社が顧客どうしを組み合わせる必要がない*)。動くのは差し引きの結果だけで、1日の中で売り買いした分はチェーンに載らない。
+4. **毎日の差し引き決済:** 差し引きで売った人の株式と、差し引きで買った人の代金を、**清算機関の`ClearingContract`**(金融庁が`FinancialVehicle`として登録。整合性レビューR1.3)に入れ、そこから株式を買った人のアドレスへ、代金を売った人のアドレスへ渡す(*調整: 1つの清算コントラクトを通すので、証券会社が顧客どうしを組み合わせる必要がない*)。動くのは差し引きの結果だけで、1日の中で売り買いした分はチェーンに載らない。**受け渡しは1件ずつ失敗し、再試行する。** 1件の失敗で全体の決済が失敗することはない(整合性レビューR3.8、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 5. **確認:** 規制当局は約定のデータを提出させて両方のルートと照合し、差し引きの移転を約定と照合できる。不一致や、記録されなかった決済は、免許取消しまでの罰則の対象となる。
 
 非上場株式: 取引は当事者間でオフチェーンで行い、保有者が最後の手順としてトークンを移転する。
 
 ### 実質的支配者と外国人による支配
 
-- **法人の記録に、議決権の25%以上を最終的に持つすべての個人の氏名を載せる**(すべての層をたどる)。今の役員の氏名と同じ扱い([ADR 0005](../../decisions/0005-corporate-registration-model.md))。氏名をアドレスと結びつけることはない。法人は変更を届け出なければならない。**オンチェーンで25%以上を持つ個人の数と氏名の数が一致するかを、アプリケーションで確認できる**(*調整*)。
+- **法人の記録に、議決権の25%以上を最終的に持つすべての個人の氏名を載せる**(すべての層をたどる)。今の役員の氏名と同じ扱い([ADR 0005](../../decisions/0005-corporate-registration-model.md))。実質的支配者は役員と同じく公開される人々であり、**氏名がアドレスと結びつきうることを受け入れる**(整合性レビューR5.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。法人は変更を届け出なければならない。**オンチェーンで25%以上を持つ個人の数と氏名の数が一致するかを、アプリケーションで確認できる**(*調整*)。
 - **外国人による支配:** `ForeignInvestor`のアドレスと外国人が支配する法人が、すべての層をたどって議決権の50%超を持つ法人は、土地について外国法人と同じに扱う: 法務局はその法人への土地の移転を拒否する。土地を持ったまま外国人が支配する法人になった場合は、法定期間内に売らなければならない([ADR 0029](../../decisions/0029-real-estate-registry-model.md))(*調整: 後半*)。
 
 ### 名義株
@@ -188,4 +190,4 @@ A VIP's shares, and the corporations they control through shares, are visible fr
 - 1日の中のことはチェーンには何も現れない。毎日のアンカーと規制当局の確認に頼る。
 - 証券会社は顧客の上場株式を動かす権限を持つ。不正は見え、罰せられるが、防がれはしない。
 - チェーンの処理能力: すべての上場株式の毎日の差し引き決済でも量は大きい。メインネットのチェーン選定の制約となる。
-- アドレスと保有は公開される。氏名が公開されるのは役員と実質的支配者だけで、アドレスと結びつけられることはない。
+- アドレスと保有は公開される。氏名が公開されるのは役員と実質的支配者だけで、アドレスと結びつきうることを本人たちは受け入れる(整合性レビューR5.2)。

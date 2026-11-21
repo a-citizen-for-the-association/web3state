@@ -43,13 +43,15 @@ A soulbound, ERC-721-based token, following the same shape as `ResidentLink` and
 
 ```
 [not issued] --mint (外務省 only, after off-chain nationality+identity verification)--> [Active: NFT exists]
-[Active]      --burn (外務省 only; reason kept off-chain: renewal, loss/theft, loss of nationality)--> [not issued]
-[not issued]  --mint again (renewal or re-issuance, same off-chain verification)--------> [Active]
+[Active]      --burn (外務省 only; reason kept off-chain: renewal, loss/theft, loss of nationality, death)--> [not issued]
+[not issued]  --mint again (renewal or re-issuance, incl. to a successor address; same off-chain verification)--> [Active]
 ```
 
 - **Authority-only mint/burn — no self-burn.** Unlike the nationality-renunciation right initially considered (see discussion log, Round 1), this credential is a controlled travel document, not a personal-rights status — it reverts to the citizenship default (mirrors how a physical passport is surrendered to the authority, not unilaterally destroyed by the holder).
 - **Renewal is modeled as burn-and-reissue**, not an on-chain expiry field — consistent with carrying zero fields. "Holds a `Passport` NFT" means "administratively valid as of 外務省's last mint/burn action," not a continuously-tracked date.
 - No on-chain reason codes for burn (same minimization principle as citizenship).
+- **Re-issue after a recorded succession:** after an address succession is recorded on-chain (key loss, a VIP leaving office), 外務省 may burn the credential at the old address and re-issue it to the successor address, on the person's request, after checking the on-chain record (consistency review R3.3, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
+- **Burn on death:** 外務省 burns the credential when the holder dies, informed off-chain by the municipality (consistency review R3.10, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
 
 ### Official-issuer attestation
 
@@ -109,6 +111,8 @@ This design deliberately does **not** build an on-chain nationality credential. 
 - **発行主体限定のmint/burn — 自主バーンなし。** 当初検討した国籍離脱の権利(議論ログRound 1参照)とは異なり、このクレデンシャルは個人の権利としての地位ではなく統制された渡航文書であるため、国民・住民設計のデフォルトに戻ります(物理的なパスポートも本人が一方的に破棄するのではなく、発行主体に返納するのと同じです)。
 - **更新は、オンチェーンの有効期限フィールドではなく、burnして再発行する形でモデル化**します — フィールドを一切持たないという原則と一致します。「`Passport`NFTを保持している」ことは「外務省が最後にmint/burnを行った時点で、行政上有効である」ことを意味し、継続的に追跡される日付に基づく主張ではありません。
 - burnの理由コードはオンチェーンに残しません(国民・住民設計と同じ最小化の原則)。
+- **承継の記録後の再発行:** アドレスの承継がオンチェーンに記録されたら(鍵の紛失、要人の退任)、外務省は本人の申し出により、オンチェーンの記録を確認したうえで、旧アドレスのクレデンシャルをburnし、承継先のアドレスに再発行できる(整合性レビューR3.3、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
+- **死亡でburn:** 保有者が亡くなったら、市区町村からオフチェーンで知らせを受けて、外務省がクレデンシャルをburnする(整合性レビューR3.10、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
 
 ### 公式発行体の証明
 

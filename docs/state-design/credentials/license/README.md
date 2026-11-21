@@ -55,13 +55,15 @@ Same pattern as [diploma](../diploma/#residentlink-precondition-nationality-neut
 
 ```
 [not issued] --mint (公安委員会 only, after licensing process + ResidentLink check)--> [Active: NFT exists]
-[Active]      --burn (公安委員会 only; suspension or revocation, reason kept off-chain)--> [not issued]
-[not issued]  --mint again (renewal, or re-issuance after suspension/revocation ends)--> [Active]
+[Active]      --burn (公安委員会 only; suspension, revocation or death, reason kept off-chain)--> [not issued]
+[not issued]  --mint again (renewal, re-issuance after suspension/revocation ends, or re-issuance to a successor address)--> [Active]
 ```
 
 - **Authority-only mint/burn — no self-burn.**
 - **Renewal is burn-and-reissue**, same as passport — no on-chain expiry date.
 - **No on-chain reason code** for any burn (suspension or revocation alike).
+- **Re-issue after a recorded succession:** after an address succession is recorded on-chain (key loss, a VIP leaving office), the 公安委員会 may burn the credential at the old address and re-issue it to the successor address, on the person's request, after checking the on-chain record (consistency review R3.3, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
+- **Burn on death:** the 公安委員会 burns the credential when the holder dies, informed off-chain by the municipality (consistency review R3.10, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
 
 ## Open items for later
 
@@ -129,6 +131,8 @@ None specific to this credential. Professional licenses (医師免許, 建築士
 - **発行主体限定のmint/burn — 自主バーンなし。**
 - **更新はパスポートと同じくburn+再発行** — オンチェーンの有効期限フィールドはなし。
 - **いかなるburnについてもオンチェーンの理由コードなし**(停止・取消いずれも)。
+- **承継の記録後の再発行:** アドレスの承継がオンチェーンに記録されたら(鍵の紛失、要人の退任)、公安委員会は本人の申し出により、オンチェーンの記録を確認したうえで、旧アドレスのクレデンシャルをburnし、承継先のアドレスに再発行できる(整合性レビューR3.3、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
+- **死亡でburn:** 保有者が亡くなったら、市区町村からオフチェーンで知らせを受けて、公安委員会がクレデンシャルをburnする(整合性レビューR3.10、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
 
 ## 今後の課題
 

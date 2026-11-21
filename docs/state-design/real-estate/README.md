@@ -4,7 +4,7 @@
 
 ## Summary
 
-Every land parcel, building, condominium unit and co-ownership share is a **token issued by the Legal Affairs Bureau (法務局)**, held at the owner's certified address. **Moving the token is the transfer of the right.** The parties check and exchange everything they need off-chain, settle all conditions there, and the token transfer is the last step, so no personal data reaches the chain.
+Every land parcel, building, condominium unit and co-ownership share is a **token issued by the Legal Affairs Bureau (法務局)**, held at the owner's registered address. **Moving the token is the transfer of the right.** The parties check and exchange everything they need off-chain, settle all conditions there, and the token transfer is the last step, so no personal data reaches the chain.
 
 - **Impersonation (地面師) becomes structurally impossible:** a transfer needs the owner's signature **and at least one agent's** (代理人), not papers.
 - **Owners cannot become unknown:** the owner is an address, which does not change on a move, and a death is visible when the `ResidentLink` is burned.
@@ -29,7 +29,7 @@ This design assumes a state built on web3 from the start; there is no migration 
 
 **On-chain:**
 - **New: `RealEstateToken`**, one contract run by the bureau: the tokens, agent sets, mortgages, settlement and forced transfers.
-- **New certified kind `NonResidentOwner`** in `OfficialContractRegistry` ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)).
+- Registration kinds in `OfficialContractRegistry` (defined in the [canonical registry section](../certified-stablecoin/README.md) of the stablecoin spec): **`NationalAbroad`** (registered by 外務省; renamed from `NonResidentOwner` and no longer tied to land; consistency review R2.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)), and `RealEstateToken` itself as a **`PublicContract`** registered by 総務省 (consistency review R1.3, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 - Existing: `ResidentLink`, `OfficialContractRegistry`, the JPY stablecoin, `AnchorRegistry` ([ADR 0028](../../decisions/0028-personal-data-model.md)).
 
 **Online:**
@@ -41,7 +41,7 @@ This design assumes a state built on web3 from the start; there is no migration 
 - The title section, maps and boundaries; valuation; fixed-asset tax amounts.
 - Leases, easements and other rights (only their hashes are anchored).
 - Permission decisions (e.g. farmland) and court decisions.
-- Nationality checks for `NonResidentOwner`.
+- Nationality checks for `NationalAbroad` (by 外務省).
 
 ## Architecture
 
@@ -54,16 +54,17 @@ Each token holds:
 - `lien`: the lender's address and the hash of the mortgage contract, if any.
 - `agents`: the addresses of the owner's agents for this token, **in plain view**.
 
-The contract holds the stablecoin during settlement, so it is registered in `OfficialContractRegistry` (ADR 0020).
+The contract holds the stablecoin during settlement, so 総務省 registers it in `OfficialContractRegistry` as a `PublicContract` (consistency review R1.3, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
 ### Agents
 
 - **Agents are set per token** (Round 5): an owner may choose different agents for different properties.
 - **Agents are public** (Round 5): only addresses are visible. Whether an address is linked to a person is the person's own matter; web3state treats this kind of information as something that can be seen, not something to hide.
-- Agents must be certified addresses other than the owner (family, a judicial scrivener, a bank).
+- Agents must be registered addresses other than the owner (family, a judicial scrivener, a bank).
+- **VIPs are recommended (not required) to use professional agents** (a judicial scrivener, a bank): regular agent roles would mark family members' addresses, which is an accepted cost of office (consistency review R5.6, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 - **Changing a token's agents** needs the owner and at least one current agent of that token.
 - **First agents:** the new owner names the token's agents **as part of receiving it** (in the transfer, the settlement or the forced transfer, signed by the new owner) *(spec-time adjustment)*. An individual's token cannot be received without at least one agent. Corporations need none (their multisig does the same job).
-- **No valid agent left** (an agent's `ResidentLink` burned, key lost): an agent counts only while certified at signing time. If none remains, the owner sets a new one with the municipality's confirmation (as ADR 0020's light path).
+- **No valid agent left** (an agent's `ResidentLink` burned, key lost): an agent counts only while registered at signing time. If none remains, the owner sets a new one with the municipality's confirmation (as ADR 0020's light path).
 - **Owner's key lost:** agents cannot transfer alone; recovery is ADR 0020's heavy successor path, which moves tokens together with funds.
 
 ### Transfers
@@ -80,13 +81,13 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 
 - `ResidentLink` holders (Japanese or foreign residents).
 - Registered domestic corporations and public bodies.
-- **`NonResidentOwner`:** certified by the bureau after an off-chain check of identity and **Japanese nationality** (e.g. via the passport credential). A citizen moving abroad switches to it **on the same address** before the `ResidentLink` is burned; on return, the municipality mints the `ResidentLink` again and the bureau removes the certification. The address can also hold the stablecoin (receive rent and sale proceeds, pay fixed-asset tax), which adds one kind to ADR 0020's list.
-- **Not eligible:** foreign corporations, non-residents without Japanese nationality, and visitor passes. **Leases are allowed** to anyone (off-chain).
+- **`NationalAbroad`:** a Japanese national living abroad, registered by **外務省** after an off-chain check of identity and **Japanese nationality** (e.g. via the passport credential). It is the general kind for nationals abroad, **not tied to land** (consistency review R2.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). A citizen moving abroad switches to it **on the same address** before the `ResidentLink` is burned; on return, the municipality mints the `ResidentLink` again and 外務省 removes the registration. The address can also hold the stablecoin (receive rent and sale proceeds, pay fixed-asset tax).
+- **Not eligible:** foreign corporations and non-residents without Japanese nationality. **Leases are allowed** to anyone (off-chain).
 - **Losing eligibility** (a foreign heir living abroad; a foreign resident leaving): the token must be sold within a legal period; after that, the court orders a sale and the bureau carries it out as a forced transfer.
 
 ### Transfers without the owner's signature
 
-- **Inheritance and the owner's key loss:** ADR 0020's heavy successor path (municipality + court multisig, public waiting period). The path's multisig is authorised on `RealEstateToken`, so money and property move in one procedure. A token at an address whose `ResidentLink` was burned is visible on-chain, so an unhandled inheritance shows by itself.
+- **Inheritance and the owner's key loss:** ADR 0020's heavy successor path (registrar + court multisig, public waiting period). The path's multisig is authorised on every asset-token contract, `RealEstateToken` included, so money and property move in one procedure (consistency review R3.2). The path is **proposed by the registrar of the address's kind**: the municipality for a resident, 外務省 for `NationalAbroad`, the corporation's registrar for a corporation (consistency review R3.4). The proposal **carries each receiving heir's agents**, signed by that heir; **land shared among heirs is re-issued by the bureau as co-ownership share tokens**, each with its holder's agents (consistency review R3.9). **Tokens at an address that lost its registration move only by the heavy path** (consistency review R3.2; [ADR 0032](../../decisions/0032-consistency-review-decisions.md) for all four). Such a token is visible on-chain, so an unhandled inheritance shows by itself.
 - **Auction, judgment, prescription, expropriation, forced sale:** `forceTransfer(tokenId, to, decisionHash, kind)`, callable only by the bureau. It emits a public event with the hash of the decision in `CaseRecordRegistry` ([ADR 0018](../../decisions/0018-judiciary-model.md)) or, for expropriation, the anchored decision of the expropriating body. **The contract does not look the decision up on-chain**; anyone can check it off-chain *(adjustment, "off-chain if it can be")*. A forced sale on foreclosure clears the lien.
 
 ### Mortgages and other rights
@@ -114,7 +115,8 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 - A buyer must trust the bureau's off-chain answer about which token is which parcel; the bureau stays a trusted party for the title section.
 - An owner and an agent who both lose their keys to the same attacker (e.g. a shared device) are not protected.
 - The foreign-ownership ban can be bypassed through a domestic corporation until the securities design traces ownership.
-- Sale proceeds owed to a foreign heir abroad need a cross-border payment path, which is still open ([`docs/BACKLOG.md`](../../BACKLOG.md)).
+- Sale proceeds owed to a foreign heir abroad, and other payments to foreign parties above the cap on sending to unregistered addresses ([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)), go through licensed exchangers or banks. **Foreign tenants** pay rent from unregistered addresses (transfers into a registered address are not blocked); payments to them stay within the sender's cap or go through licensed exchangers (consistency review R2.3, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- **A buyer from a published holder** (corporation, public body, VIP) **may be identified:** the published lot number and salt, together with the settlement, reveal the buyer's address and home. Accepted, and left to the proofs of concept (consistency review R5.3, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 - Transfers and settlement amounts are public, as for all stablecoin payments; the parcel is not.
 
 ---
@@ -125,7 +127,7 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 
 ## 概要
 
-土地の各筆、建物、区分所有建物の専有部分、共有持分のそれぞれが、**法務局が発行するトークン**であり、所有者の認定アドレスに置かれる。**トークンの移転が権利の移転である。** 当事者は必要なことをすべてオフチェーンで確認・交換し、条件もそこでまとめる。トークンの移転は最後の手順なので、個人情報はチェーンに載らない。
+土地の各筆、建物、区分所有建物の専有部分、共有持分のそれぞれが、**法務局が発行するトークン**であり、所有者の登録済みのアドレスに置かれる。**トークンの移転が権利の移転である。** 当事者は必要なことをすべてオフチェーンで確認・交換し、条件もそこでまとめる。トークンの移転は最後の手順なので、個人情報はチェーンに載らない。
 
 - **なりすまし(地面師)は構造的に不可能になる:** 移転に必要なのは書類ではなく、所有者の署名**と1人以上の代理人の署名**である。
 - **所有者は不明にならない:** 所有者はアドレスであり、引っ越しでは変わらない。死亡は`ResidentLink`のburnで見える。
@@ -150,7 +152,7 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 
 **オンチェーン:**
 - **新規: `RealEstateToken`。** 法務局が運用するコントラクトを1つ: トークン、代理人の集合、抵当権、決済、強制的な移転。
-- **新しい認定の種類`NonResidentOwner`**を`OfficialContractRegistry`に([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。
+- `OfficialContractRegistry`の登録の種類(ステーブルコインの仕様の[正本となるレジストリの節](../certified-stablecoin/README.md)で定める): **`NationalAbroad`**(外務省が登録。`NonResidentOwner`から改名し、土地と切り離す。整合性レビューR2.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。`RealEstateToken`自体は総務省が登録する**`PublicContract`**(整合性レビューR1.3、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - 既存: `ResidentLink`、`OfficialContractRegistry`、円建てステーブルコイン、`AnchorRegistry`([ADR 0028](../../decisions/0028-personal-data-model.md))。
 
 **オンライン:**
@@ -162,7 +164,7 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 - 表題部、地図と筆界。評価。固定資産税の額。
 - 賃借権、地役権などの権利(ハッシュだけをアンカリング)。
 - 許可の判断(例: 農地)と裁判所の決定。
-- `NonResidentOwner`のための国籍の確認。
+- `NationalAbroad`のための国籍の確認(外務省)。
 
 ## アーキテクチャ
 
@@ -175,16 +177,17 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 - `lien`: 抵当権がある場合、貸し手のアドレスと抵当権設定契約のハッシュ。
 - `agents`: このトークンについての所有者の代理人のアドレス。**公開で見える**。
 
-このコントラクトは決済の間ステーブルコインを保持するので、`OfficialContractRegistry`に登録する(ADR 0020)。
+このコントラクトは決済の間ステーブルコインを保持するので、総務省が`OfficialContractRegistry`に`PublicContract`として登録する(整合性レビューR1.3、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
 ### 代理人
 
 - **代理人はトークンごとに設定する**(Round 5): 所有者は不動産ごとに別の代理人を選べる。
 - **代理人は公開する**(Round 5): 見えるのはアドレスだけである。あるアドレスが誰のものかを公表するかは本人の問題である。web3stateでは、この種の情報は隠すものではなく、見えても問題ないものとして扱う。
-- 代理人は、所有者以外の認定アドレスでなければならない(家族、司法書士、銀行)。
+- 代理人は、所有者以外の登録済みのアドレスでなければならない(家族、司法書士、銀行)。
+- **要人には専門家の代理人を勧める(義務ではない)**(司法書士、銀行): 家族が代理人を務め続けると家族のアドレスが知られうる。これは公職の代償として受け入れる(整合性レビューR5.6、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - **トークンの代理人の変更**には、所有者と、そのトークンの現在の代理人の1人以上が必要。
 - **最初の代理人:** 新しい所有者は、**トークンを受け取る手続きの中で**(移転、決済、強制的な移転の中で、新しい所有者の署名つきで)そのトークンの代理人を指定する(*仕様作成時の調整*)。個人は、代理人を1人以上指定しなければトークンを受け取れない。法人は不要(マルチシグが同じ役割を果たす)。
-- **有効な代理人がいなくなった場合**(代理人の`ResidentLink`のburn、鍵の紛失): 代理人は署名の時点で認定されているときだけ数えられる。誰も残っていなければ、所有者は市区町村の確認を得て新しく設定する(ADR 0020の軽い手続きと同様)。
+- **有効な代理人がいなくなった場合**(代理人の`ResidentLink`のburn、鍵の紛失): 代理人は署名の時点で登録されているときだけ数えられる。誰も残っていなければ、所有者は市区町村の確認を得て新しく設定する(ADR 0020の軽い手続きと同様)。
 - **所有者の鍵の紛失:** 代理人だけでは移転できない。回復はADR 0020の重い承継の手続きで、資金と一緒にトークンも移す。
 
 ### 移転
@@ -201,13 +204,13 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 
 - `ResidentLink`の保有者(日本人と外国人の住民)。
 - 登録された国内法人と公的機関。
-- **`NonResidentOwner`:** オフチェーンで本人と**日本国籍**を確認したうえで(例: パスポートのクレデンシャル)、法務局が認定する。海外に引っ越す国民は、`ResidentLink`がburnされる前に**同じアドレスのまま**これに切り替える。帰国すれば市区町村が再び`ResidentLink`をmintし、法務局が認定を外す。このアドレスはステーブルコインも持てる(賃料や売却代金を受け取り、固定資産税を払う)。これはADR 0020の一覧に種類を1つ加える。
-- **所有資格のない者:** 外国法人、日本国籍を持たない非居住者、ビジターパス。**借地は誰にでも認める**(オフチェーン)。
+- **`NationalAbroad`:** 海外に住む日本国民。オフチェーンで本人と**日本国籍**を確認したうえで(例: パスポートのクレデンシャル)、**外務省**が登録する。海外の国民のための一般的な種類で、**土地と結びつかない**(整合性レビューR2.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。海外に引っ越す国民は、`ResidentLink`がburnされる前に**同じアドレスのまま**これに切り替える。帰国すれば市区町村が再び`ResidentLink`をmintし、外務省が登録を外す。このアドレスはステーブルコインも持てる(賃料や売却代金を受け取り、固定資産税を払う)。
+- **所有資格のない者:** 外国法人、日本国籍を持たない非居住者。**借地は誰にでも認める**(オフチェーン)。
 - **所有資格を失った場合**(海外に住む外国籍の相続人、出国する外国人の住民): 法定期間内にトークンを売らなければならない。過ぎれば裁判所が売却を命じ、法務局が強制的な移転として実行する。
 
 ### 所有者の署名のない移転
 
-- **相続と所有者の鍵の紛失:** ADR 0020の重い承継の手続き(市区町村と裁判所のマルチシグ、公開の待機期間)。この手続きのマルチシグに`RealEstateToken`での権限を与え、資金と不動産を1つの手続きで移す。`ResidentLink`がburnされたアドレスにあるトークンはオンチェーンで見えるので、処理されない相続はそれだけで浮かび上がる。
+- **相続と所有者の鍵の紛失:** ADR 0020の重い承継の手続き(登録者と裁判所のマルチシグ、公開の待機期間)。この手続きのマルチシグには`RealEstateToken`を含むすべての資産トークンのコントラクトでの権限を与え、資金と不動産を1つの手続きで移す(整合性レビューR3.2)。手続きは**アドレスの種類の登録者が提案する**: 住民なら市区町村、`NationalAbroad`なら外務省、法人ならその法人の登録者(整合性レビューR3.4)。提案には**受け取る各相続人の代理人を含め**、その相続人が署名する。**相続人で分ける土地は、法務局が共有持分のトークンとして発行し直し**、それぞれに保有者の代理人を付ける(整合性レビューR3.9)。**登録の外れたアドレスにあるトークンは、重い手続きでしか動かない**(整合性レビューR3.2。4つとも[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。そのようなトークンはオンチェーンで見えるので、処理されない相続はそれだけで浮かび上がる。
 - **競売、判決、時効取得、収用、強制的な売却:** `forceTransfer(tokenId, to, decisionHash, kind)`。法務局だけが呼べる。`CaseRecordRegistry`([ADR 0018](../../decisions/0018-judiciary-model.md))にある決定のハッシュ、収用の場合は収用する機関のアンカリングされた決定のハッシュを付けて、公開のイベントを出す。**コントラクトはオンチェーンで決定を確認しない**。誰でもオフチェーンで確認できる(*調整、「オフチェーンでできることはオフチェーンで」*)。担保の実行による強制的な売却は、抵当権を消す。
 
 ### 抵当権とその他の権利
@@ -235,5 +238,6 @@ The contract holds the stablecoin during settlement, so it is registered in `Off
 - 買主は、どのトークンがどの土地かについて法務局のオフチェーンの回答を信頼しなければならない。表題部については、法務局は信頼される当事者のままである。
 - 所有者と代理人が同じ攻撃者に鍵を奪われた場合(例: 共有の端末)は守られない。
 - 外国人による所有の禁止は、有価証券の設計が所有を追跡するまで、国内法人を通じて回避できる。
-- 海外に住む外国籍の相続人への売却代金には、国境を越える支払いの経路が必要で、これはまだ決まっていない([`docs/BACKLOG.md`](../../BACKLOG.md))。
+- 海外に住む外国籍の相続人への売却代金など、未登録のアドレスへの送金の上限([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md))を超える外国の相手への支払いは、免許を受けた両替業者や銀行を通す。**外国人の借主**は未登録のアドレスから賃料を払う(登録済みのアドレスへの送金は止められない)。借主への支払いは送り手の上限の範囲内か、免許を受けた両替業者を通す(整合性レビューR2.3、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- **公開される保有者**(法人、公的機関、要人)**から買った人は特定されうる:** 公開される地番とソルトが、決済と合わせて、買主のアドレスと住まいを明かす。受け入れ、実証実験に委ねる(整合性レビューR5.3、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - 移転と決済の金額は、ほかのステーブルコインの支払いと同じく公開される。土地は公開されない。

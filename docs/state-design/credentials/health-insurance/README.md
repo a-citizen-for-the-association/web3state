@@ -71,6 +71,8 @@ A dependent is simply another enrolled person: they receive their own `HealthIns
 - **Continuous status, not periodic renewal** — unlike `Passport`/`License`, there is no fixed validity period to renew. Enrollment persists until a disenrollment event (job change, aging into 後期高齢者医療制度, death, etc.), at which point the insurer burns the NFT. Switching insurers is simply burn (old) + mint (new), the same shape as citizenship's municipality-move pattern.
 - **Authority-only mint/burn — no self-burn.**
 - **No on-chain reason code** for disenrollment (same minimization principle as every other credential).
+- **Re-issue after a recorded succession:** after an address succession is recorded on-chain (key loss, a VIP leaving office), the insurer may burn the credential at the old address and re-issue it to the successor address, on the person's request, after checking the on-chain record (consistency review R3.3, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
+- **Burn on death:** the insurer burns the credential when the holder dies, informed off-chain by the municipality (consistency review R3.10, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
 
 ## Open items for later
 
@@ -148,6 +150,8 @@ None specific to this credential. Tracked separately in [`docs/BACKLOG.md`](../.
 - **継続的な状態であり、定期更新ではありません** — `Passport`/`License`とは異なり、更新すべき決まった有効期間はありません。加入は、脱退事由(転職、後期高齢者医療制度への移行、死亡等)が発生するまで継続し、その時点で保険者がNFTをburnします。保険者の切り替えは、単に旧保険者のburn＋新保険者のmintであり、国民・住民設計の転居パターンと同じ形です。
 - **発行主体限定のmint/burn — 自主バーンなし。**
 - **脱退について、オンチェーンの理由コードなし**(他の全てのクレデンシャルと同じ最小化の原則)。
+- **承継の記録後の再発行:** アドレスの承継がオンチェーンに記録されたら(鍵の紛失、要人の退任)、保険者は本人の申し出により、オンチェーンの記録を確認したうえで、旧アドレスのクレデンシャルをburnし、承継先のアドレスに再発行できる(整合性レビューR3.3、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
+- **死亡でburn:** 保有者が亡くなったら、市区町村からオフチェーンで知らせを受けて、保険者がクレデンシャルをburnする(整合性レビューR3.10、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
 
 ## 今後の課題
 

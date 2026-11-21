@@ -43,7 +43,7 @@ A soulbound, ERC-721-based token, following the same shape as `ResidentLink`, `P
 
 ### No `ResidentLink` precondition
 
-Unlike diploma, license, and health insurance — all run by Japan-specific institutions for Japan-based individuals — employment at a Japanese-registered company is not inherently tied to Japanese residency. A company may employ remote workers or local hires at an overseas branch who were never Japan residents. `EmployeeID` is therefore independent of `ResidentLink`, the same way `Passport` is.
+Unlike diploma, license, and health insurance — all run by Japan-specific institutions for Japan-based individuals — employment at a Japanese-registered company is not inherently tied to Japanese residency. A company may employ remote workers or local hires at an overseas branch who were never Japan residents. `EmployeeID` is therefore independent of `ResidentLink`, the same way `Passport` is. Such hires may have no registered address (a national abroad can use `NationalAbroad`); for those who do not, **pay above the cap** on sending to unregistered addresses ([ADR 0031](../../../decisions/0031-registered-address-transfer-rule.md)) goes through licensed exchangers or banks (consistency review R2.3, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
 
 ### Lifecycle
 
@@ -55,6 +55,9 @@ Unlike diploma, license, and health insurance — all run by Japan-specific inst
 - **Continuous status, not periodic renewal** — same shape as health insurance. Employment doesn't expire on a schedule; it ends on specific trigger events (resignation, termination, retirement, fixed-term contract end).
 - **Authority-only mint/burn — no self-burn, including for resignation.** Although resignation is initiated by the employee in the real world, invalidating the credential itself is still processed by the employer (notice periods, possible withdrawal of resignation, handover requirements, etc.) — consistent with how this project keeps credential invalidation authority-side even where the underlying real-world action is personally initiated (see passport's discussion of 国籍離脱, resolved the same way).
 - **No on-chain reason code** for employment ending (same minimization principle as every other credential).
+- **Re-issue after a recorded succession:** after an address succession is recorded on-chain (key loss, a VIP leaving office), the company may burn the credential at the old address and re-issue it to the successor address, on the person's request, after checking the on-chain record (consistency review R3.3, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
+- **Burn on death:** the company burns the credential when the holder dies, informed off-chain by the municipality (consistency review R3.10, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
+- **Dissolution and merger:** before the employer's registration NFT is burned, the corporation (or its liquidator) burns every outstanding employee ID, checked by the registrar from public data; in a merger, the acquirer re-issues the employee IDs (consistency review R3.5, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
 
 ## Open items for later
 
@@ -107,7 +110,7 @@ None specific to this credential.
 
 ### `ResidentLink`の前提条件なし
 
-卒業証明・免許証・健康保険証(いずれも日本固有の機関が日本在住者向けに運用)とは異なり、日本で登録された会社での雇用は日本の住民資格に本質的に結びついていません。会社は、一度も日本の住民になったことがない遠隔勤務者や海外拠点の現地採用者を雇用することがあります。したがって`EmployeeID`は、`Passport`と同様、`ResidentLink`から独立しています。
+卒業証明・免許証・健康保険証(いずれも日本固有の機関が日本在住者向けに運用)とは異なり、日本で登録された会社での雇用は日本の住民資格に本質的に結びついていません。会社は、一度も日本の住民になったことがない遠隔勤務者や海外拠点の現地採用者を雇用することがあります。したがって`EmployeeID`は、`Passport`と同様、`ResidentLink`から独立しています。このような従業員は登録済みのアドレスを持たないことがある(海外の国民は`NationalAbroad`を使える)。持たない人への、未登録のアドレスへの送金の上限([ADR 0031](../../../decisions/0031-registered-address-transfer-rule.md))を**超える給与**は、免許を受けた両替業者や銀行を通して払います(整合性レビューR2.3、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
 
 ### ライフサイクル
 
@@ -116,6 +119,9 @@ None specific to this credential.
 - **継続的な状態であり、定期更新ではありません** — 健康保険証と同じ形です。雇用は決まった周期で期限切れになるものではなく、特定の契機(退職、解雇、定年、有期契約満了)で終了します。
 - **発行主体限定のmint/burn — 退職の場合も含め自主バーンなし。** 現実には退職は従業員本人の意思で開始されますが、クレデンシャル自体の無効化は雇用主側が処理する事項です(予告期間、退職撤回の可能性、引継ぎ要件等があるため) — 本人が行使する現実の行為であっても、クレデンシャルの無効化権限は発行主体側に残すという、このプロジェクトの一貫した方針です(パスポート設計での国籍離脱の議論を参照、同じ結論になりました)。
 - **雇用終了について、オンチェーンの理由コードなし**(他の全てのクレデンシャルと同じ最小化の原則)。
+- **承継の記録後の再発行:** アドレスの承継がオンチェーンに記録されたら(鍵の紛失、要人の退任)、会社は本人の申し出により、オンチェーンの記録を確認したうえで、旧アドレスのクレデンシャルをburnし、承継先のアドレスに再発行できる(整合性レビューR3.3、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
+- **死亡でburn:** 保有者が亡くなったら、市区町村からオフチェーンで知らせを受けて、会社がクレデンシャルをburnする(整合性レビューR3.10、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
+- **解散と合併:** 雇用主の登録NFTがburnされる前に、法人(または清算人)が発行済みのすべての社員証をburnし、登録者が公開のデータで確認する。合併では、存続する会社が社員証を発行し直す(整合性レビューR3.5、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
 
 ## 今後の課題
 

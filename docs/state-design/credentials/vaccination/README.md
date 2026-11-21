@@ -20,9 +20,9 @@ A municipality-issued, soulbound **vaccination coupon (接種券)** NFT with a t
 
 **On-chain:**
 - Mint (municipality's admin role only), requiring the recipient to hold a valid `ResidentLink` NFT on the issuing municipality's *own* `ResidentLink` contract (no applicant-declared parameter — see [Architecture](#residentlink-precondition-municipality-is-always-the-residents-own)).
-- `markVaccinated` (callable only by addresses holding `VACCINATOR_ROLE`), flipping a coupon's status from `Issued` to `Vaccinated`.
+- `markVaccinated` (callable only by addresses holding `VACCINATOR_ROLE` whose corporate registration is still valid at the call), flipping a coupon's status from `Issued` to `Vaccinated`.
 - Granting `VACCINATOR_ROLE` (municipality's admin role only), requiring the candidate address to hold a valid corporate registration NFT (checked on-chain).
-- Burn (municipality's admin role only), allowed **only** while a coupon is `Issued`.
+- Burn (municipality's admin role only), allowed **only** while a coupon is `Issued`, except on the holder's death or a re-issue to a successor address (consistency review R3.3, R3.10).
 - Soulbound ownership (`tokenId ↔ address`) plus the status field — the only credential besides corporations with real per-token state.
 
 **Online:**
@@ -52,14 +52,16 @@ A soulbound, ERC-721-based token — but unlike every other credential except co
                     on the issuing municipality's own contract)
 [not issued] ─────────────────────────────────────────────> [Issued]
 
-[Issued] ──markVaccinated (VACCINATOR_ROLE only)───────────> [Vaccinated]  (permanent — never burned)
+[Issued] ──markVaccinated (VACCINATOR_ROLE only)───────────> [Vaccinated]  (permanent — burned only on death or re-issue)
 
 [Issued] ──burn (municipality only; unused/expired)────────> [not issued]
 ```
 
 - **Multiple doses = multiple separate coupons.** Each dose (primary series, booster, etc.) is a fresh mint from the same vaccine-type contract, independently cycling through `Issued` → `Vaccinated`. A fully-vaccinated person accumulates multiple permanent `Vaccinated` tokens over time — dose history is derivable by enumerating a holder's tokens and their statuses, with no dedicated "dose count" field needed.
-- **`Vaccinated` is permanent — never burned.** Only `Issued` (unused) coupons can be burned by the municipality (e.g., expiry, program cancellation, administrative cleanup).
+- **`Vaccinated` is permanent — never burned,** except as below (death, re-issue). Otherwise only `Issued` (unused) coupons can be burned by the municipality (e.g., expiry, program cancellation, administrative cleanup).
 - **No self-burn, no self-update** — only the municipality (mint/burn) and role-holding hospitals (`markVaccinated`) can act on a coupon.
+- *Explicit exception to "never burned":* **Re-issue after a recorded succession:** after an address succession is recorded on-chain (key loss, a VIP leaving office), the issuing municipality may burn the credential at the old address and re-issue it to the successor address, on the person's request, after checking the on-chain record, in the same status (consistency review R3.3, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
+- **Burn on death:** the issuing municipality burns the credential when the holder dies (informed off-chain by the holder's municipality, if that is another one) (consistency review R3.10, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
 
 ### Vaccinator authorization: a three-party model
 
@@ -68,7 +70,7 @@ This is the first credential where the issuer (municipality) isn't the only part
 - The municipality grants `VACCINATOR_ROLE` to a specific hospital address.
 - **On-chain precondition**: that address must, at grant time, hold a valid corporate registration NFT (registered as a specially-regulated 医療法人 corporation, per the [corporations](../../corporations/) design) — checked via a cross-contract call, the same general pattern as `ResidentLink` checks elsewhere.
 - **Off-chain responsibility**: whether this hospital is actually a legitimate, properly-licensed medical institution the municipality wants to contract with is the municipality's own due diligence — holding a corporate registration is a necessary but not sufficient on-chain signal.
-- A `VACCINATOR_ROLE` holder can call `markVaccinated` on any `Issued` coupon in that municipality's contract for that vaccine type.
+- A `VACCINATOR_ROLE` holder can call `markVaccinated` on any `Issued` coupon in that municipality's contract for that vaccine type. **The registration is checked again at every `markVaccinated`**, so a dissolved or deregistered vaccinator cannot act on a role it still holds (consistency review R3.5, [ADR 0032](../../../decisions/0032-consistency-review-decisions.md)).
 
 ### `ResidentLink` precondition: municipality is always the resident's own
 
@@ -102,9 +104,9 @@ None specific to this credential. This completes the originally-listed set of si
 
 **オンチェーン:**
 - mint(市区町村の管理者ロールに限定)。受領者が、発行市区町村**自身**の`ResidentLink`コントラクトで有効な`ResidentLink`NFTを保有していることを要件とする(申告パラメータなし — [アーキテクチャ](#residentlinkの前提条件-市区町村は常に本人自身の居住先)参照)。
-- `markVaccinated`(`VACCINATOR_ROLE`を保有するアドレスのみ呼び出し可能)、接種券のステータスを`Issued`から`Vaccinated`に変更する。
+- `markVaccinated`(`VACCINATOR_ROLE`を保有し、呼び出しの時点で法人登録が有効なアドレスのみ呼び出し可能)、接種券のステータスを`Issued`から`Vaccinated`に変更する。
 - `VACCINATOR_ROLE`の付与(市区町村の管理者ロールに限定)。候補のアドレスが有効な法人登録NFTを保有していることをオンチェーンで確認する。
-- burn(市区町村の管理者ロールに限定)。接種券が`Issued`の間**のみ**可能。
+- burn(市区町村の管理者ロールに限定)。接種券が`Issued`の間**のみ**可能。ただし保有者の死亡と承継先のアドレスへの再発行の場合を除く(整合性レビューR3.3、R3.10)。
 - 譲渡不可の所有権(`tokenId ↔ アドレス`)に加えて状態フィールド — 法人を除き、トークンごとの実質的な状態を持つ唯一のクレデンシャル。
 
 **オンライン:**
@@ -131,8 +133,10 @@ None specific to this credential. This completes the originally-listed set of si
 上記の英語版の図を参照してください(内容は同一です)。
 
 - **複数回接種＝複数の別々の接種券。** 各接種(初回シリーズ、ブースター等)は、同じワクチン種類のコントラクトからの新しいmintであり、それぞれ独立して`Issued`→`Vaccinated`を辿ります。完全に接種を終えた人は、時間とともに複数の恒久的な`Vaccinated`トークンを蓄積します — 接種履歴は、保有者のトークンとその状態を列挙することで導出でき、専用の「接種回数」フィールドは不要です。
-- **`Vaccinated`は恒久的 — 決してburnしません。** burnできるのは市区町村による`Issued`(未使用)の接種券のみです(例: 期限切れ、プログラム中止、事務的な整理)。
+- **`Vaccinated`は恒久的 — 下記(死亡、再発行)を除き、決してburnしません。** それ以外にburnできるのは市区町村による`Issued`(未使用)の接種券のみです(例: 期限切れ、プログラム中止、事務的な整理)。
 - **自主バーン・自己更新はなし** — 市区町村(mint/burn)と、ロールを持つ病院(`markVaccinated`)のみが接種券に対して操作できます。
+- *「決してburnしない」の明示的な例外:* **承継の記録後の再発行:** アドレスの承継がオンチェーンに記録されたら(鍵の紛失、要人の退任)、発行した市区町村は本人の申し出により、オンチェーンの記録を確認したうえで、旧アドレスのクレデンシャルをburnし、承継先のアドレスに再発行できる。状態はそのまま引き継ぐ(整合性レビューR3.3、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
+- **死亡でburn:** 保有者が亡くなったら、発行した市区町村がクレデンシャルをburnする(本人の市区町村が別であれば、そこからオフチェーンで知らせを受ける)(整合性レビューR3.10、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
 
 ### 接種実施者の認可: 三者間モデル
 
@@ -141,7 +145,7 @@ None specific to this credential. This completes the originally-listed set of si
 - 市区町村が、特定の病院のアドレスに`VACCINATOR_ROLE`を付与します。
 - **オンチェーンの前提条件**: そのアドレスは、付与時点で、有効な法人登録NFT([法人設計](../../corporations/)による、特殊な規制対象法人としての医療法人登録)を保有している必要があります — `ResidentLink`の確認と同じ一般的なパターンで、クロスコントラクトの呼び出しにより確認します。
 - **オフチェーンの責任**: その病院が実際に正当で適切な資格を持つ医療機関であり、市区町村が契約したい相手かどうかは、市区町村自身のデューデリジェンスです — 法人登録を保有していることは、オンチェーンの必要条件ではありますが、十分条件ではありません。
-- `VACCINATOR_ROLE`を持つ者は、その市区町村のそのワクチンの種類のコントラクトにある、任意の`Issued`状態の接種券に対して`markVaccinated`を呼び出せます。
+- `VACCINATOR_ROLE`を持つ者は、その市区町村のそのワクチンの種類のコントラクトにある、任意の`Issued`状態の接種券に対して`markVaccinated`を呼び出せます。**登録は`markVaccinated`のたびに改めて確認します。** 解散した、または登録が外れた接種実施者は、ロールが残っていても操作できません(整合性レビューR3.5、[ADR 0032](../../../decisions/0032-consistency-review-decisions.md))。
 
 ### `ResidentLink`の前提条件: 市区町村は常に本人自身の居住先
 

@@ -4,7 +4,7 @@
 
 ## Summary
 
-For each direct demand, the election board deploys a dedicated `Petition` contract holding the demand type, a hash of the full text being demanded, the threshold, the collection period, and an explicit list of eligible addresses. Eligible residents sign by calling the contract from their own `ResidentLink` address. The contract **only certifies the count**: everything before deployment and after the count (the formal demand, a recall vote, objections, relief) stays off-chain.
+For each direct demand, the election board deploys a dedicated `Petition` contract holding the demand type, a hash of the full text being demanded, the threshold, the collection period, and the municipalities whose voters may sign. Eligible residents, holding the **standing voter credential**, sign by calling the contract from their own `ResidentLink` address. The contract **only certifies the count**: everything before deployment and after the count (the formal demand, a recall vote, objections, relief) stays off-chain.
 
 **Goal, precisely stated:** make signature forgery like the 2020 Aichi recall case (~362,000 of ~435,000 signatures suspected invalid) structurally impossible, by removing the collector role and verifying each signer at the moment of signing. Hiding who signed is *not* a goal.
 
@@ -24,8 +24,9 @@ For each direct demand, the election board deploys a dedicated `Petition` contra
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain:**
-- One `Petition` contract per demand, deployed from `PetitionFactory` by the election board: demand type, representative address(es), content hash, denominator, threshold, collection period, eligible list, signatures, pause history.
-- Every board action (list edit, pause, resume) and every signature emits an event.
+- One `Petition` contract per demand, deployed from `PetitionFactory` by the election board: demand type, representative address(es), content hash, denominator, threshold, collection period, issuing municipalities, signatures, pause history.
+- The **standing voter credential** ("Japanese national, 18+", issued by municipalities in a monthly batch) replaces the per-petition eligible list (consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)); it is defined with [voting](../voting/).
+- Every board action (pause, resume) and every signature emits an event.
 
 **Online:**
 - The election board publishes the petition's contract address under its own `.lg.jp` domain. This is how residents tell a genuine petition from a look-alike (Issue 4), the same attestation pattern as earlier designs.
@@ -33,7 +34,7 @@ For each direct demand, the election board deploys a dedicated `Petition` contra
 
 **Offline:**
 - The representative's application, and the board's checks before deployment (e.g. the one-year restrictions after an election or a previous recall vote).
-- Building the eligible list from the voter roll (Japanese national, 18+, 3+ months' residence; the district's voters for an assembly-member recall).
+- Fixing the denominator from the voter roll (Japanese national, 18+, 3+ months' residence; the district's voters for an assembly-member recall). Eligibility itself is checked on-chain through the standing voter credential (R5.9).
 - Deciding to pause for an election period.
 - Objections, and relief for coerced or key-compromised signers.
 - The formal demand once the threshold is met, and every step after it.
@@ -56,19 +57,19 @@ For each direct demand, the election board deploys a dedicated `Petition` contra
 | `denominator` | The number of eligible voters the threshold is based on, so anyone can recompute 1/50, 1/3, 1/6, 1/8 (F3) |
 | `threshold` | The required signature count (F3) |
 | `collectionStart`, `collectionEnd` | The collection period (Issue 5) |
+| `issuers` | The municipalities whose voter credentials count: the whole area of the demand; for an assembly-member recall, the municipalities of the member's district (consistency review R5.9) |
 
 **Board-only functions (until the effective end):**
-- `addEligible(address[])`: each address must hold a token from a `ResidentLink` contract allowlisted in `OfficialContractRegistry` ([ADR 0015](../../decisions/0015-political-donations-model.md)), the same check as voting's `grantVotingRight` (Round 3 adjustment).
-- `removeEligible(address[])`: e.g. a resident who moved out (Issue 12). If the address has already signed, that signature drops out of the count; it is restored if the address is added back (F2).
+- *(Replaced: `addEligible` and `removeEligible` are dropped; the standing voter credential replaces the per-petition eligible list — consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md).)*
 - `pause()` / `resume()`: for election periods. Paused time is added to the end automatically (see below).
 
 The board **cannot** change the content hash, the threshold, the denominator, or the end date, and cannot delete a signature (F4).
 
 **Signing:**
-- `sign()`: no arguments, since the content is fixed by `contentHash`. Requires the caller to be listed, not to have signed before, the petition not paused, and `collectionStart ≤ block.timestamp < effectiveEnd`. Records the signature and emits `Signed(signer)`. Signer addresses are public (Issue 6). There is no `unsign()` (Issue 7).
+- `sign()`: no arguments, since the content is fixed by `contentHash`. Requires the caller to hold a valid voter credential issued by one of the petition's `issuers` (R5.9), not to have signed before, the petition not paused, and `collectionStart ≤ block.timestamp < effectiveEnd`. Records the signature and emits `Signed(signer)`. Signer addresses are public (Issue 6). There is no `unsign()` (Issue 7).
 
 **Count and certification:**
-- `signatureCount()`: signatures from currently listed addresses (F2).
+- `signatureCount()`: the recorded signatures.
 - `effectiveEnd()`: `collectionEnd + total paused time` (Round 3 adjustment).
 - `isFinal()`: true once `block.timestamp ≥ effectiveEnd`. From then on, nothing can change, so `signatureCount()` is the certified count and `signatureCount() ≥ threshold` is the certified result (Issue 8).
 
@@ -79,22 +80,22 @@ The collection period is actively enforced, so it is a justified on-chain date e
 ### What is public, and why that is accepted
 
 - **Who signed** (by address): accepted as what using web3 means (Issue 6). Today's public inspection (縦覧) already exposes signers' names and addresses, which is more than this does.
-- **Who is eligible** (by address): each listed address is publicly signalled as "Japanese national, 18+". Voting's per-election grants already publish the same signal, so this is consistent with existing design. No *standing* nationality credential is created (F1, option (a)).
-- **Every board action**: list edits and pauses are visible immediately, which is the check on the board's own power (Issue 12).
+- **Who is eligible** (by address): every holder of the standing voter credential is publicly signalled as "Japanese national, 18+". The consistency review adopted this standing credential in place of per-petition lists (R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)), replacing F1, option (a).
+- **Every board action**: pauses are visible immediately, which is the check on the board's own power (Issue 12).
 
 ### Comparison with today
 
 | Weakness today | With this design |
 |---|---|
-| Identity not verified when signing | Only a listed address holding a genuine `ResidentLink` can sign |
+| Identity not verified when signing | Only an address holding a genuine voter credential can sign |
 | Collectors can write in other people's names | No collectors: each resident signs themself |
 | Manual checking against the voter roll | The count is computed by the contract |
 | Public inspection exposes names and addresses | Only addresses are public |
-| The board's checking is a black box | Every list edit and pause is on-chain |
+| The board's checking is a black box | Eligibility is checked by the contract; every pause is on-chain |
 
 ## Open items for later
 
-- Large eligible lists (a prefecture-wide recall can mean millions of addresses): the same cost issue as voting's per-voter grants, tracked in [`docs/BACKLOG.md`](../../BACKLOG.md) (Merkle-root alternative).
+- *(Resolved: large eligible lists — a prefecture-wide recall could mean millions of addresses — are no longer built; the standing voter credential replaces them, consistency review R5.9.)*
 - Key governance for the board's controlling address: covered by the existing backlog item on selecting an audited multisig standard.
 
 ---
@@ -105,7 +106,7 @@ The collection period is actively enforced, so it is a justified on-chain date e
 
 ## 概要
 
-選挙管理委員会は、直接請求ごとに専用の`Petition`コントラクトをデプロイする。コントラクトには、請求の種類、請求内容の全文のハッシュ、必要数、収集期間、有資格アドレスの明示的な一覧を持たせる。有資格の住民は、自分の`ResidentLink`アドレスからコントラクトを呼び出して署名する。コントラクトは**署名数の証明だけ**を行う。デプロイ前と集計後のこと(本請求、解職の住民投票、異議申し立て、救済)はすべてオフチェーンで扱う。
+選挙管理委員会は、直接請求ごとに専用の`Petition`コントラクトをデプロイする。コントラクトには、請求の種類、請求内容の全文のハッシュ、必要数、収集期間、署名できる有権者の市区町村を持たせる。**常設の有権者クレデンシャル**を持つ有資格の住民は、自分の`ResidentLink`アドレスからコントラクトを呼び出して署名する。コントラクトは**署名数の証明だけ**を行う。デプロイ前と集計後のこと(本請求、解職の住民投票、異議申し立て、救済)はすべてオフチェーンで扱う。
 
 **目的を正確に言うと:** 受任者という役割をなくし、署名した時点で各署名者を確認することで、2020年の愛知県リコール(約43万5千筆のうち約36万2千筆に不正の疑い)のような署名偽造を構造的に不可能にする。誰が署名したかを隠すことは目的*ではない*。
 
@@ -125,8 +126,9 @@ The collection period is actively enforced, so it is a justified on-chain date e
 (区分の考え方は[`docs/operations/README.md`](../../operations/README.md)を参照。)
 
 **オンチェーン:**
-- 請求ごとに1つの`Petition`コントラクト。選管が`PetitionFactory`からデプロイする。請求の種類、代表者のアドレス、全文ハッシュ、分母、必要数、収集期間、有資格一覧、署名、一時停止の履歴を持つ。
-- 選管の操作(一覧の編集、一時停止、再開)と署名は、すべてイベントとして記録する。
+- 請求ごとに1つの`Petition`コントラクト。選管が`PetitionFactory`からデプロイする。請求の種類、代表者のアドレス、全文ハッシュ、分母、必要数、収集期間、署名できる有権者の市区町村、署名、一時停止の履歴を持つ。
+- **常設の有権者クレデンシャル**(「日本国籍・18歳以上」、市区町村が毎月まとめて発行)が請求ごとの有資格一覧に代わる(整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。定義は[投票](../voting/)にある。
+- 選管の操作(一時停止、再開)と署名は、すべてイベントとして記録する。
 
 **オンライン:**
 - 選管は、請求のコントラクトアドレスを自らの`.lg.jp`ドメインで公表する。住民はこれで本物の請求とよく似た偽物を見分ける(論点4)。これまでの設計と同じ証明の仕組みである。
@@ -134,7 +136,7 @@ The collection period is actively enforced, so it is a justified on-chain date e
 
 **オフライン:**
 - 代表者の申し出と、デプロイ前の選管の確認(選挙や前回の解職投票から1年間の制限など)。
-- 選挙人名簿から有資格一覧を作ること(日本国籍・18歳以上・3か月以上居住。議員の解職ではその選挙区の有権者)。
+- 選挙人名簿から分母を定めること(日本国籍・18歳以上・3か月以上居住。議員の解職ではその選挙区の有権者)。資格そのものは常設の有権者クレデンシャルでオンチェーンで確認する(R5.9)。
 - 選挙期間のために一時停止するかの判断。
 - 異議申し立てと、圧力で署名させられた人や鍵を盗まれた人の救済。
 - 必要数に達した後の本請求と、それ以降のすべての手続き。
@@ -157,19 +159,19 @@ The collection period is actively enforced, so it is a justified on-chain date e
 | `denominator` | 必要数の基準となる有権者数。誰でも1/50、1/3、1/6、1/8を検算できる(F3) |
 | `threshold` | 必要署名数(F3) |
 | `collectionStart`、`collectionEnd` | 収集期間(論点5) |
+| `issuers` | 有権者クレデンシャルを数える市区町村: 請求の区域全体。議員の解職ではその議員の選挙区の市区町村(整合性レビューR5.9) |
 
 **選管だけが呼べる関数(実効的な終了まで):**
-- `addEligible(address[])`: 各アドレスが、`OfficialContractRegistry`([ADR 0015](../../decisions/0015-political-donations-model.md))の許可リストにある`ResidentLink`コントラクトのトークンを持つことを確認する。投票の`grantVotingRight`と同じ確認である(Round 3の調整)。
-- `removeEligible(address[])`: 転出した住民など(論点12)。すでに署名していれば、その署名は数から外れる。一覧に戻せば署名も数に戻る(F2)。
+- *(置き換え: `addEligible`と`removeEligible`はなくす。常設の有権者クレデンシャルが請求ごとの有資格一覧に代わる — 整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)。)*
 - `pause()` / `resume()`: 選挙期間のため。一時停止した時間は自動で終了に加算される(下記)。
 
 選管は、全文ハッシュ、必要数、分母、終了日を変更できず、署名を削除することもできない(F4)。
 
 **署名:**
-- `sign()`: 内容は`contentHash`で固定されているので引数はない。呼び出し元が一覧に載っていること、まだ署名していないこと、一時停止中でないこと、`collectionStart ≤ block.timestamp < effectiveEnd`であることを確認する。署名を記録し、`Signed(signer)`を発行する。署名者のアドレスは公開される(論点6)。`unsign()`はない(論点7)。
+- `sign()`: 内容は`contentHash`で固定されているので引数はない。呼び出し元が請求の`issuers`のいずれかが発行した有効な有権者クレデンシャルを持つこと(R5.9)、まだ署名していないこと、一時停止中でないこと、`collectionStart ≤ block.timestamp < effectiveEnd`であることを確認する。署名を記録し、`Signed(signer)`を発行する。署名者のアドレスは公開される(論点6)。`unsign()`はない(論点7)。
 
 **署名数と証明:**
-- `signatureCount()`: 現在一覧に載っているアドレスの署名の数(F2)。
+- `signatureCount()`: 記録された署名の数。
 - `effectiveEnd()`: `collectionEnd + 一時停止の合計時間`(Round 3の調整)。
 - `isFinal()`: `block.timestamp ≥ effectiveEnd`になると真。それ以降は何も変わらないので、`signatureCount()`が証明された署名数、`signatureCount() ≥ threshold`が証明された結果になる(論点8)。
 
@@ -180,20 +182,20 @@ The collection period is actively enforced, so it is a justified on-chain date e
 ### 公開されるものと、それを受け入れる理由
 
 - **誰が署名したか**(アドレス単位): web3を使うとはそういうことだとして受け入れる(論点6)。現在の縦覧はすでに署名者の氏名と住所を公開しており、それより公開範囲は狭い。
-- **誰が有資格者か**(アドレス単位): 一覧に載った各アドレスは「18歳以上の日本国籍者」であることを公に示す。投票の選挙ごとの付与もすでに同じ情報を公開しているので、既存の設計と整合する。*常設の*国籍証明は作らない(F1、選択肢(a))。
-- **選管のすべての操作**: 一覧の編集と一時停止はすぐに見える。これが選管自身の権限に対する歯止めになる(論点12)。
+- **誰が有資格者か**(アドレス単位): 常設の有権者クレデンシャルを持つ各アドレスは「18歳以上の日本国籍者」であることを公に示す。整合性レビューは請求ごとの一覧の代わりにこの常設のクレデンシャルを採用し(R5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))、F1の選択肢(a)を置き換えた。
+- **選管のすべての操作**: 一時停止はすぐに見える。これが選管自身の権限に対する歯止めになる(論点12)。
 
 ### 現行制度との比較
 
 | 現行の弱点 | この設計では |
 |---|---|
-| 署名した時点で本人確認ができない | 一覧に載り、本物の`ResidentLink`を持つアドレスだけが署名できる |
+| 署名した時点で本人確認ができない | 本物の有権者クレデンシャルを持つアドレスだけが署名できる |
 | 受任者が他人の名前を書き込める | 受任者はいない。住民が自分で署名する |
 | 選挙人名簿との手作業の照合 | 署名数はコントラクトが計算する |
 | 縦覧で氏名と住所が公開される | 公開されるのはアドレスだけ |
-| 選管の審査が外から見えない | 一覧の編集と一時停止はすべてオンチェーン |
+| 選管の審査が外から見えない | 資格はコントラクトが確認する。一時停止はすべてオンチェーン |
 
 ## 今後の課題
 
-- 大きな有資格一覧(都道府県全体の解職請求では数百万アドレスになりうる): 投票の有権者ごとの付与と同じコストの問題。[`docs/BACKLOG.md`](../../BACKLOG.md)で管理している(Merkle rootによる代替)。
+- *(解決: 大きな有資格一覧 — 都道府県全体の解職請求では数百万アドレスになりえた — はもう作らない。常設の有権者クレデンシャルがその代わりになる。整合性レビューR5.9。)*
 - 選管の管理アドレスの鍵管理: 監査済みマルチシグ規格の選定に関する既存のBACKLOG項目で扱う。
