@@ -26,7 +26,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0011](0011-vaccination-credential.md) | Vaccination credential: stateful coupon, three-party authorization | Accepted |
 | [0012](0012-onchain-scope-philosophy.md) | On-chain scope philosophy: what to push on-chain, what to deliberately exclude | Accepted |
 | [0013](0013-voting-model.md) | Voting model: threshold-decrypted homomorphic tallying, ResidentLink-based participation, generic election primitive | Accepted |
-| [0014](0014-legislative-process-scope.md) | Legislative process scope: exclude the core, carve out petition signatures and roll-call records, adopt an on-chain value test | Accepted |
+| [0014](0014-legislative-process-scope.md) | Legislative process scope: exclude the core, carve out petition signatures and roll-call records, adopt an on-chain value test | Accepted (partly superseded by 0015) |
 | [0015](0015-political-donations-model.md) | Political donations model: receiving-side fund contracts, traceable donors without names, on-chain official-contract registry | Accepted |
 | [0016](0016-direct-demand-petition-model.md) | Direct-demand petition model: per-demand contract, explicit eligible list, public signatures, count certification only | Accepted |
 | [0017](0017-executive-document-anchoring-v1.md) | Executive v1: mandatory title-and-hash registration of approval documents; iterate after implementation | Accepted |
@@ -57,3 +57,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 - 番号は連番: `0001-`, `0002-`, ...
 - [`template.md`](template.md) を使用する。
 - 全ての決定にADRが必要なわけではない。後から覆すコストが高いもの(チェーン選定、コントラクトのモジュール境界、データモデル、ガバナンスモデル、主要な依存関係の選定)に限定する。日々の実装上の選択は不要。
+
+## インデックス
+
+上記の英語版のインデックスの表を参照(内容は同一)。

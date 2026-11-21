@@ -101,7 +101,7 @@ None specific to this credential. This completes the originally-listed set of si
 (規約は[`docs/operations/README.md`](../../../operations/README.md)参照)
 
 **オンチェーン:**
-- mint(市区町村の管理者ロールに限定)。受領者が、発行市区町村**自身**の`ResidentLink`コントラクトで有効な`ResidentLink`NFTを保有していることを要件とする(申告パラメータなし — [アーキテクチャ](#residentlinkの前提条件市区町村は常に本人自身の居住先)参照)。
+- mint(市区町村の管理者ロールに限定)。受領者が、発行市区町村**自身**の`ResidentLink`コントラクトで有効な`ResidentLink`NFTを保有していることを要件とする(申告パラメータなし — [アーキテクチャ](#residentlinkの前提条件-市区町村は常に本人自身の居住先)参照)。
 - `markVaccinated`(`VACCINATOR_ROLE`を保有するアドレスのみ呼び出し可能)、接種券のステータスを`Issued`から`Vaccinated`に変更する。
 - `VACCINATOR_ROLE`の付与(市区町村の管理者ロールに限定)。候補のアドレスが有効な法人登録NFTを保有していることをオンチェーンで確認する。
 - burn(市区町村の管理者ロールに限定)。接種券が`Issued`の間**のみ**可能。

@@ -1,7 +1,7 @@
 # 0015. Political donations model: receiving-side fund contracts, traceable donors without names, on-chain official-contract registry
 
 **Date:** 2026-10-13
-**Status:** Accepted. Partially supersedes [ADR 0014](0014-legislative-process-scope.md) (legislators' roll-call records).
+**Status:** Accepted. Partially supersedes [ADR 0014](0014-legislative-process-scope.md) (legislators' roll-call records). [ADR 0020](0020-certified-address-stablecoin.md) extends `OfficialContractRegistry` with the certified-address list.
 
 ## Context
 
@@ -38,7 +38,7 @@ Key forces identified in discussion ([log](../state-design/political-donations/d
 # 0015. 政治献金モデル: 受け取り側の資金コントラクト、氏名なしで追跡可能な献金者、オンチェーンの公式コントラクトレジストリ(日本語)
 
 **日付:** 2026-10-13
-**ステータス:** Accepted。[ADR 0014](0014-legislative-process-scope.md)を部分的に上書きする(議員の記名採決記録)。
+**ステータス:** Accepted。[ADR 0014](0014-legislative-process-scope.md)を部分的に上書きする(議員の記名採決記録)。[ADR 0020](0020-certified-address-stablecoin.md)が`OfficialContractRegistry`に認定アドレスの一覧を加える。
 
 ## 背景
 

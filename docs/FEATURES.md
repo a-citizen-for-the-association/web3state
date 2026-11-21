@@ -60,7 +60,7 @@
 | **Deliberately excluded** | Legislative process (proposal, deliberation, promulgation, amendment) | 🚫 Excluded | [`state-design/legislative/`](state-design/legislative/) | Already public and heavily scrutinized (gazette, minutes, e-Gov); its problems are institutional, not record-integrity. Petition signatures and roll-call records carved out. [ADR 0014](decisions/0014-legislative-process-scope.md). |
 | **Deliberately excluded** | Token-juror arbitration with official force (Kleros-style) | 🚫 Excluded | [`state-design/judiciary/`](state-design/judiciary/) | Judgement weighted by token holdings, anonymous unaccountable jurors, dependence on a speculative token. [ADR 0018](decisions/0018-judiciary-model.md). |
 
-Already tracked separately in [`docs/BACKLOG.md`](BACKLOG.md), not duplicated here: private insurance/loan tokenization, whether nationality/residence-status should ever be on-chain, the audited multisig standard for corporations, beneficial-ownership transparency for layered corporate structures.
+Already tracked separately in [`docs/BACKLOG.md`](BACKLOG.md), not duplicated here: private insurance/loan tokenization, whether nationality/residence-status should ever be on-chain, the audited multisig standard for corporations. (Beneficial-ownership transparency is now covered by [ADR 0030](decisions/0030-securities-model.md).)
 
 ---
 
@@ -84,3 +84,5 @@ Already tracked separately in [`docs/BACKLOG.md`](BACKLOG.md), not duplicated he
 ## ステータス表
 
 上記の英語版の表を参照してください(内容は同一です)。
+
+[`docs/BACKLOG.md`](BACKLOG.md)で別途管理しているため、ここには重複して載せない項目: 民間の保険・ローンのトークン化、国籍・在留資格をオンチェーンにするかどうか、法人の監査済みマルチシグの標準。(実質的支配者の透明性は[ADR 0030](decisions/0030-securities-model.md)で扱う。)

@@ -1,7 +1,7 @@
 # 0028. Personal data model: a "don't hold it" law; prove instead of collect; anchor access logs
 
 **Date:** 2026-11-07
-**Status:** Accepted
+**Status:** Accepted. [ADR 0029](0029-real-estate-registry-model.md) and [ADR 0030](0030-securities-model.md) add `AnchorRegistry` kinds.
 
 ## Context
 
@@ -28,7 +28,7 @@ Added by the user in [ADR 0027](0027-remaining-scope-triage.md): incidents invol
 # 0028. 個人情報モデル: 「持たせない」法律。集めずに証明する。アクセスログをアンカリングする(日本語)
 
 **日付:** 2026-11-07
-**ステータス:** Accepted
+**ステータス:** Accepted。[ADR 0029](0029-real-estate-registry-model.md)と[ADR 0030](0030-securities-model.md)が`AnchorRegistry`の種類を加える。
 
 ## 背景
 
