@@ -1,6 +1,6 @@
 # Citizenship / Residency (国民・住民): Resident-Link NFT
 
-**Status: 🟢 Spec drafted.** Conceptual and architecture questions resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the full reasoning and [`docs/decisions/0003-resident-link-identity-model.md`](../../decisions/0003-resident-link-identity-model.md) for the formal ADR. No contract code written yet.
+**Status: 🟢 Spec drafted.** Conceptual and architecture questions resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the full reasoning and [`docs/decisions/0003-resident-link-identity-model.md`](../../decisions/0003-resident-link-identity-model.md) for the formal ADR. Updated for the cross-feature consistency review ([ADR 0032](../../decisions/0032-consistency-review-decisions.md)); the transfer rule for registered addresses is in [ADR 0031](../../decisions/0031-registered-address-transfer-rule.md). No contract code written yet.
 
 ## Legal status (read this first)
 
@@ -8,7 +8,9 @@
 
 ## Summary
 
-A municipality (example: "City A") deploys its own NFT contract. A resident registers in person at city hall and submits a wallet address; city hall mints them a **non-transferable (soulbound), nationality-neutral** token linking that address to "a person registered as a resident of City A," without putting any personal information on-chain. The municipality separately, off-chain, attests that this contract is its official one, anchored to its `.lg.jp` domain. Anyone can then prove residency by disclosing only their address.
+A municipality (example: "City A") deploys its own NFT contract. A resident registers in person at city hall and submits a wallet address; city hall mints them a **non-transferable (soulbound), nationality-neutral** token linking that address to "a person registered as a resident of City A," without putting any personal information on-chain. The municipality separately, off-chain, attests that this contract is its official one, anchored to its `.lg.jp` domain. Anyone can then prove residency by disclosing only their address. The address becomes the resident's one registered address for the JPY stablecoin ([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)).
+
+**Privacy principle:** there is no public link between an address and the person; others learn it only through the person's own act (such as disclosing the address) or legal process (consistency review R5.8, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
 **This token proves residency only — it makes no claim about nationality.** Nationality-dependent needs (e.g. a passport) are separate, future credentials issued by whichever authority is responsible for that specific claim (see [Relationship to other credentials](#relationship-to-other-credentials)).
 
@@ -18,9 +20,11 @@ A municipality (example: "City A") deploys its own NFT contract. A resident regi
 
 **On-chain:**
 - Token issuance (mint) and revocation (burn), restricted to the issuing municipality's admin role.
+- On every mint and burn, the municipality's `Resident` flag for the address is written to `OfficialContractRegistry`, so the address counts as registered (see the [registry definition](../certified-stablecoin/README.md)) (consistency review R1.5, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- A **suspended** mark on an address whose key theft has been reported (consistency review R3.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 - Token ownership (`tokenId ↔ address`), standard ERC-721/soulbound semantics.
-- A persistent `everIssued(address)` flag per address (never cleared by burn), used to prove past-residency/departure.
-- No personal data, no status field beyond token existence, no on-chain reason codes.
+- A persistent `everIssued(address)` flag per address (never cleared by burn), used to prove past residency. It is no longer the check for a domestic move (see [Deduplication](#deduplication-across-municipalities)).
+- No personal data, no on-chain reason codes; apart from token existence, the only status is the suspended mark.
 
 **Online:**
 - The municipality's official declaration of its contract's address, published at a well-known URI under its `.lg.jp` domain.
@@ -63,7 +67,7 @@ Resolving "who vouches for City A's contract being the real one" cannot be done 
 
 - Each municipality publishes its contract address(es) and chain ID(s) at a well-known URI under its own `.lg.jp` domain — a restricted TLD that already requires institutional vetting as a legitimate Japanese local government to register. Example convention: `https://<city>.lg.jp/.well-known/web3state-registry.json`.
 - Optionally, this announcement can be signed using the municipality's LGPKI (地方公共団体組織認証基盤) certificate for a cryptographically verifiable attestation, rather than relying on HTTPS/TLS trust alone.
-- **No on-chain registry contract in v1** (YAGNI — it would add convenience, not trust, since the root of trust is off-chain either way). The project's frontend may keep a clearly-labeled, non-authoritative convenience list of known municipality contracts, cross-checked against each municipality's own `.lg.jp` announcement; any verifier should be able to check the primary source directly rather than trust this list blindly.
+- **On-chain: `OfficialContractRegistry`**, operated by 総務省 ([ADR 0015](../../decisions/0015-political-donations-model.md)). The original "no on-chain registry in v1" no longer holds: 総務省 allowlists genuine `ResidentLink` contracts there, mirroring each municipality's `.lg.jp` announcement, so other contracts can check automatically; and each municipality writes its residents' `Resident` flag there on mint and burn (consistency review R1.5, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). The registry is defined once in the [certified-stablecoin spec](../certified-stablecoin/README.md). The root of trust stays off-chain (the `.lg.jp` announcement). The project's frontend may still keep a clearly-labeled, non-authoritative convenience list of known municipality contracts; any verifier should be able to check the primary source directly rather than trust this list blindly.
 
 ### Lifecycle
 
@@ -71,15 +75,21 @@ Resolving "who vouches for City A's contract being the real one" cannot be done 
 [not registered] --mint (municipality only, in-person verification)--> [Active: token exists]
 [Active]          --burn (municipality only; reason kept off-chain)----> [not registered, but everIssued stays true]
 [not registered, everIssued=true] --mint again (re-verification)------> [Active]
+[Active]          --suspend (municipality; key theft reported in person)--> [Active, suspended]
+[Active, suspended] --lapses unless a court approves within a set period--> [Active]
 ```
 
 - Only the municipality's admin role can mint or burn. **No self-burn.**
 - "Revoked" = burned. There is no separate status field — validity is simply token existence (`balanceOf(address) > 0`). This also means a once-revoked address can be re-issued a fresh token cleanly, with no leftover state to reconcile.
-- Re-issuance (lost key, correction, or a new municipality after a move) uses the same in-person verification process as initial issuance — no new mechanism needed.
+- Re-issuance (lost key, correction) uses the same in-person verification process as initial issuance — no new mechanism needed.
+- **Domestic move:** the new municipality mints first (usually to the same address), after confirming the move-out declaration; the old municipality burns afterwards. The address is never left unregistered during a move (consistency review R3.8, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- **Emigration:** the municipality burns. A national keeps the address, which 外務省 registers as `NationalAbroad` (consistency review R2.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). Any address with no registration left becomes an unregistered address ([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)).
+- **Key theft:** a theft reported by the owner in person does **not** burn the token. The municipality marks the address **suspended**: nothing can leave it except by the heavy successor path, and a suspended address cannot veto that path. The suspension lapses unless a court approves within a set period (e.g. two weeks) (consistency review R3.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). The heavy path itself is in the [certified-stablecoin spec](../certified-stablecoin/README.md).
+- **Death:** since a move leaves no gap, an address with no registration left now means death or similar (consistency review R3.8, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
 ### Deduplication across municipalities
 
-- **On-chain:** for someone declaring a move from a specific previous municipality, the new municipality (or its off-chain tooling) can check `everIssued(resident) == true && balanceOf(resident) == 0` on the *previously declared* municipality's contract — a trustless, forgery-proof, on-chain equivalent of a paper 転出証明書 (move-out certificate).
+- **Move-out declaration:** for someone declaring a move from a specific previous municipality, the new municipality confirms the move-out declaration (転出届) filed with the *previously declared* municipality, mints, and the old municipality then burns (consistency review R3.8, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). This replaces the earlier on-chain check `everIssued(resident) == true && balanceOf(resident) == 0`, which cannot hold once the new token is minted before the old one is burned.
 - **Off-chain:** anything beyond the single declared prior municipality (i.e., proving no *undisclosed* active token exists elsewhere) is assumed to be handled the way it is in the real world today — an inter-municipal network among municipalities (住基ネット/マイナンバー-equivalent), or historically, paper-based serial hand-off. This project does not build an on-chain substitute for that network.
 - This mirrors the historical pre-digital Japanese system's own limitation (which also only checked the one declared prior municipality via a paper certificate) — not a regression introduced by this design.
 
@@ -97,7 +107,7 @@ This token is intentionally minimal: it proves residency-linkage only. Other sta
 
 # 国民・住民: 住民登録リンクNFT(日本語)
 
-**ステータス: 🟢 設計確定。** ユーザーとの議論を通じて概念・アーキテクチャ上の論点は解決済み。詳細な議論の経緯は [`discussion-log.md`](discussion-log.md)、正式なADRは [`docs/decisions/0003-resident-link-identity-model.md`](../../decisions/0003-resident-link-identity-model.md) を参照。コントラクトコードはまだ実装していません。
+**ステータス: 🟢 設計確定。** ユーザーとの議論を通じて概念・アーキテクチャ上の論点は解決済み。詳細な議論の経緯は [`discussion-log.md`](discussion-log.md)、正式なADRは [`docs/decisions/0003-resident-link-identity-model.md`](../../decisions/0003-resident-link-identity-model.md) を参照。機能間の整合性レビュー([ADR 0032](../../decisions/0032-consistency-review-decisions.md))に合わせて更新しました。登録済みアドレスの送金ルールは[ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)にあります。コントラクトコードはまだ実装していません。
 
 ## 法的位置づけ(最初に読んでください)
 
@@ -105,7 +115,9 @@ This token is intentionally minimal: it proves residency-linkage only. Other sta
 
 ## 概要
 
-市区町村(例: 「A市」)が自身のNFTコントラクトをデプロイします。住民は市役所で対面にて登録を行い、ウォレットアドレスを申請します。市役所は、個人情報を一切オンチェーンに載せることなく、そのアドレスを「A市の住民として登録された人物」に紐づける**譲渡不可(Soulbound)・国籍不問**のトークンを発行します。市区町村は別途、オフチェーンで、このコントラクトが自身の公式なものであることを、自らの `.lg.jp` ドメインを根拠に証明します。これにより、誰でも自分のアドレスを開示するだけで住民であることを証明できます。
+市区町村(例: 「A市」)が自身のNFTコントラクトをデプロイします。住民は市役所で対面にて登録を行い、ウォレットアドレスを申請します。市役所は、個人情報を一切オンチェーンに載せることなく、そのアドレスを「A市の住民として登録された人物」に紐づける**譲渡不可(Soulbound)・国籍不問**のトークンを発行します。市区町村は別途、オフチェーンで、このコントラクトが自身の公式なものであることを、自らの `.lg.jp` ドメインを根拠に証明します。これにより、誰でも自分のアドレスを開示するだけで住民であることを証明できます。このアドレスは、円建てステーブルコインにおける住民の1つの登録済みアドレスになります([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md))。
+
+**プライバシーの原則:** アドレスと本人の対応は公開しません。他者がそれを知るのは、本人の行為(アドレスを開示するなど)か法的な手続きによってだけです(整合性レビューR5.8、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
 **このトークンは住民であることのみを証明し、国籍については一切主張しません。** 国籍が必要な用途(パスポートなど)は、その属性を所管する主体が個別に発行する、別の将来のクレデンシャルとして扱います([他のクレデンシャルとの関係](#他のクレデンシャルとの関係)を参照)。
 
@@ -115,9 +127,11 @@ This token is intentionally minimal: it proves residency-linkage only. Other sta
 
 **オンチェーン:**
 - トークンの発行(mint)と失効(burn)。発行自治体の管理者ロールのみが実行可能。
+- mintとburnのたびに、そのアドレスについての市区町村の`Resident`フラグを`OfficialContractRegistry`に書き込み、アドレスが登録済みとして扱われるようにする([レジストリの定義](../certified-stablecoin/README.md)を参照)(整合性レビューR1.5、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- 鍵の盗難が届け出られたアドレスに付ける**停止**の印(整合性レビューR3.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - トークンの所有権(`tokenId ↔ アドレス`)。標準的なERC-721/Soulboundのセマンティクス。
-- アドレスごとの永続的な `everIssued(address)` フラグ(burnしても消えない)。過去に住民だったこと/転出したことの証明に使用。
-- 個人情報なし。トークンの存在以外の状態フィールドなし。オンチェーンの失効理由コードなし。
+- アドレスごとの永続的な `everIssued(address)` フラグ(burnしても消えない)。過去に住民だったことの証明に使用。国内の転居の確認にはもう使わない([市区町村をまたいだ重複防止](#市区町村をまたいだ重複防止)を参照)。
+- 個人情報なし。オンチェーンの失効理由コードなし。トークンの存在以外の状態は停止の印だけ。
 
 **オンライン:**
 - 市区町村による、自身のコントラクトアドレスの公式な宣言。`.lg.jp` ドメイン配下のwell-known URIで公表。
@@ -160,7 +174,7 @@ This token is intentionally minimal: it proves residency-linkage only. Other sta
 
 - 各市区町村は、自身の `.lg.jp` ドメイン配下のwell-known URIで、自身のコントラクトアドレスとチェーンIDを公表します。`.lg.jp` は正当な日本の地方公共団体であることの審査を経なければ取得できない制限付きTLDです。規約の例: `https://<city>.lg.jp/.well-known/web3state-registry.json`
 - オプションとして、HTTPS/TLSの信頼のみに頼るのではなく、市区町村のLGPKI(地方公共団体組織認証基盤)証明書でこの発表に署名し、暗号学的に検証可能な証明とすることもできます。
-- **v1ではオンチェーンのレジストリコントラクトは作りません**(YAGNI — 信頼の根拠はどのみちオフチェーンにあるため、オンチェーンレジストリは信頼を増やさず利便性を増すだけです)。プロジェクトのフロントエンドは、各市区町村の `.lg.jp` の発表と突合した、明確に「非権威的」と明記した便利リストを持つことができます。検証者は常にこのリストではなく一次情報源を直接確認できるようにします。
+- **オンチェーン: 総務省が運用する`OfficialContractRegistry`**([ADR 0015](../../decisions/0015-political-donations-model.md))。当初の「v1ではオンチェーンのレジストリは作らない」はもう当てはまりません: 総務省が各市区町村の`.lg.jp`の発表を写して本物の`ResidentLink`コントラクトをそこに登録し、他のコントラクトが自動で確認できるようにします。また各市区町村は、mintとburnのときに住民の`Resident`フラグをそこに書き込みます(整合性レビューR1.5、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。レジストリの定義は[認定ステーブルコインの仕様](../certified-stablecoin/README.md)の1か所にあります。信頼の根拠はオフチェーン(`.lg.jp`の発表)のままです。プロジェクトのフロントエンドは引き続き、明確に「非権威的」と明記した便利リストを持つことができます。検証者は常にこのリストではなく一次情報源を直接確認できるようにします。
 
 ### ライフサイクル
 
@@ -168,15 +182,21 @@ This token is intentionally minimal: it proves residency-linkage only. Other sta
 [未登録] --mint(市区町村のみ、対面確認)--> [有効: トークンが存在する]
 [有効]    --burn(市区町村のみ、理由はオフチェーン)--> [未登録、ただしeverIssuedはtrueのまま]
 [未登録、everIssued=true] --再度mint(再確認)--> [有効]
+[有効]    --停止(市区町村。本人が来所して鍵の盗難を届出)--> [有効、停止中]
+[有効、停止中] --一定期間内に裁判所が承認しなければ解除--> [有効]
 ```
 
 - mint/burnができるのは市区町村の管理者ロールのみ。**本人による自主バーンは不可。**
 - 「失効」＝バーンです。別途の状態フィールドは持ちません — 有効性は単にトークンが存在するかどうか(`balanceOf(address) > 0`)で判定します。これにより、一度失効したアドレスにも、残存する状態を気にせずきれいに新しいトークンを再発行できます。
-- 再発行(秘密鍵紛失、訂正、転居による新しい市区町村での発行)は、初回発行と同じ対面確認プロセスで行います。新たな仕組みは不要です。
+- 再発行(秘密鍵紛失、訂正)は、初回発行と同じ対面確認プロセスで行います。新たな仕組みは不要です。
+- **国内の転居:** 転入先の市区町村が転出届を確認したうえで先にmintし(通常は同じアドレスに)、転出元の市区町村が後でburnします。転居の間にアドレスが未登録になることはありません(整合性レビューR3.8、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- **海外への転出:** 市区町村がburnします。国民はアドレスを保ち、外務省がそれを`NationalAbroad`として登録します(整合性レビューR2.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。登録がすべてなくなったアドレスは未登録のアドレスになります([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md))。
+- **鍵の盗難:** 本人が来所して届け出た盗難では、トークンをburn**しません**。市区町村がアドレスに**停止**の印を付けます: 重い承継の手続き以外では何も出せず、停止中のアドレスはその手続きを拒否できません。一定期間内(例: 2週間)に裁判所が承認しなければ、停止は解除されます(整合性レビューR3.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。重い手続きそのものは[認定ステーブルコインの仕様](../certified-stablecoin/README.md)にあります。
+- **死亡:** 転居で空白が生じなくなったので、登録がすべてなくなったアドレスは死亡などを意味します(整合性レビューR3.8、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
 ### 市区町村をまたいだ重複防止
 
-- **オンチェーン:** 特定の前住所の市区町村からの転居を申告する人について、新しい市区町村(またはそのオフチェーンツール)は、*申告された前の* 市区町村のコントラクトで `everIssued(resident) == true && balanceOf(resident) == 0` を確認できます。これは紙の転出証明書に相当する、偽造不可能でトラストレスなオンチェーンの証明です。
+- **転出届:** 特定の前住所の市区町村からの転居を申告する人について、新しい市区町村は*申告された前の*市区町村に出された転出届を確認してmintし、その後で前の市区町村がburnします(整合性レビューR3.8、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。これは以前のオンチェーンの確認 `everIssued(resident) == true && balanceOf(resident) == 0` に代わるものです。新しいトークンを古いトークンのburnより先にmintする以上、以前の確認は成り立たないためです。
 - **オフチェーン:** 申告された1つの前の市区町村を超える範囲(＝申告されていない別の場所で有効なトークンが存在しないことの証明)は、現実世界で今日行われているのと同じ方法(自治体間ネットワーク、住基ネット/マイナンバー相当、または歴史的には紙ベースの連続した引き継ぎ)で対応されると仮定します。このプロジェクトは、そのネットワークのオンチェーン代替は構築しません。
 - これは、紙の時代の日本の制度が元々持っていた限界(申告された1つの前住所のみを紙の証明書で確認していた)をそのまま反映したものであり、この設計によって生じた後退ではありません。
 

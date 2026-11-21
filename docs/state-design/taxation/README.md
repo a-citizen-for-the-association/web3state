@@ -1,12 +1,12 @@
 # Taxation: Payment (納税)
 
-**Status: 🟢 Spec drafted.** Conceptual and architecture questions resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the full reasoning and [`docs/decisions/0004-taxation-payment-rail.md`](../../decisions/0004-taxation-payment-rail.md) for the formal ADR. No contract code written yet (none is expected to be needed — see [Architecture](#architecture)).
+**Status: 🟢 Spec drafted.** Conceptual and architecture questions resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the full reasoning and [`docs/decisions/0004-taxation-payment-rail.md`](../../decisions/0004-taxation-payment-rail.md) for the formal ADR. Updated for the registered-address stablecoin ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md), transfer rule [ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)) and the cross-feature consistency review ([ADR 0032](../../decisions/0032-consistency-review-decisions.md)). No tax-specific contract code is expected to be needed — see [Architecture](#architecture).
 
 ## Summary
 
-This feature covers only the **payment rail** for taxes an individual (natural person) owes: moving an already-determined amount from the taxpayer to the correct tax authority, using an existing JPY-pegged stablecoin. It deliberately does **not** cover: computing how much is owed, proving that amount is correct, refunds/overpayment, or corporate taxes (to be designed separately).
+This feature covers only the **payment rail** for taxes an individual (natural person) owes: moving an already-determined amount from the taxpayer to the correct tax authority, using a licensed JPY stablecoin ([certified-stablecoin spec](../certified-stablecoin/README.md)). It deliberately does **not** cover: computing how much is owed, proving that amount is correct, refunds/overpayment, or corporate taxes (to be designed separately).
 
-The mechanism: a resident pays directly from their [`ResidentLink`](../citizenship/) NFT-holding address to a verified, officially-published receiving address for the specific tax and authority involved. The amount itself is determined the same way it is today — through the existing real-world filing/assessment process (確定申告, 年末調整, etc.) — entirely outside this system.
+The mechanism: a resident pays directly from their [`ResidentLink`](../citizenship/) NFT-holding address to a verified, officially-published receiving address for the specific tax and authority involved — a `PublicTreasury` contract of that authority ([ADR 0019](../../decisions/0019-treasury-model.md)). The amount itself is determined the same way it is today — through the existing real-world filing/assessment process (確定申告, 年末調整, etc.) — entirely outside this system.
 
 ## Scope
 
@@ -23,11 +23,12 @@ The mechanism: a resident pays directly from their [`ResidentLink`](../citizensh
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain:**
-- The payment itself: a standard token transfer (e.g. ERC-20 `transfer`) of an existing JPY-pegged stablecoin, from the taxpayer's `ResidentLink` address to the tax authority's published receiving address.
+- The payment itself: a standard token transfer (e.g. ERC-20 `transfer`) of a licensed JPY stablecoin, from the taxpayer's `ResidentLink` address to the tax authority's published receiving address.
+- Each receiving address is a `PublicTreasury` contract — **one per body per account**, so each tax type has its own — registered in `OfficialContractRegistry` (consistency review R1.6, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 - Nothing else. No tax-specific contract, no on-chain amount/status tracking.
 
 **Online:**
-- Each (tax type, authority) pair's officially-attested receiving address, published at a well-known URI under the authority's own vetted government domain (extending the mechanism from the citizenship design).
+- Each (tax type, authority) pair's officially-attested receiving address (its `PublicTreasury` account contract), published at a well-known URI under the authority's own vetted government domain (extending the mechanism from the citizenship design).
 
 **Offline:**
 - The taxpayer determines the amount owed via the existing real-world process (確定申告, 年末調整, assessment notices, etc.), unchanged by this project.
@@ -37,9 +38,9 @@ The mechanism: a resident pays directly from their [`ResidentLink`](../citizensh
 
 ### No dedicated smart contract
 
-Given the scope above, this feature needs no bespoke contract. The entire mechanism is:
+Given the scope above, this feature needs no bespoke contract. The receiving addresses are the authority's existing `PublicTreasury` contracts ([ADR 0019](../../decisions/0019-treasury-model.md)), one per body per account (consistency review R1.6, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). The entire mechanism is:
 
-1. The relevant authority (municipality, prefecture, or national body) publishes a verified receiving address for each tax type it collects.
+1. The relevant authority (municipality, prefecture, or national body) publishes a verified receiving address — its `PublicTreasury` contract for that account — for each tax type it collects.
 2. The taxpayer calls the stablecoin's standard `transfer()` from their `ResidentLink` address to that published address.
 
 ### Receiving-address attestation (extends the citizenship design)
@@ -49,7 +50,7 @@ Reuses the exact mechanism from [citizenship's official-contract attestation](..
 - **Municipalities and prefectures** (both 地方公共団体) publish under their own `.lg.jp` domain — no new mechanism needed; covers 住民税, 固定資産税, 自動車税, etc.
 - **National bodies** (e.g. 国税庁, nta.go.jp) publish under `.go.jp` — the same principle (a well-known URI under an institutionally-vetted government domain), applied to a different root domain. Covers 所得税 (self-assessed), 相続税, 贈与税.
 - **Schema:** rather than a separate announcement format per feature, extend the same well-known JSON each authority already publishes (e.g. `https://<authority-domain>/.well-known/web3state-registry.json`) with a tax-type → receiving-address mapping, so one authority handling multiple tax types (e.g. 国税庁) publishes one address per tax type — letting the destination address itself signal which tax a payment is for, just as the sender address signals which resident paid.
-- **No accepted-token allowlist.** An address can technically receive any token; whether a received token is a legitimate, valuable stablecoin is checked by the authority during its existing off-chain reconciliation process, the same way amount-correctness already is — no on-chain restriction needed.
+- **Accepted stablecoins and registered addresses.** The earlier "no accepted-token allowlist; any address can receive any token" no longer describes the rail (consistency review R1.5, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)): the accepted JPY stablecoins are listed in `OfficialContractRegistry` ([ADR 0015](../../decisions/0015-political-donations-model.md)), and each treasury is a registered public contract there. The JPY stablecoin follows the registered-address rule ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md), transfer rule [ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)); see the [certified-stablecoin spec](../certified-stablecoin/README.md). A contract still cannot stop other tokens being sent to it; matching payments to obligations remains the authority's off-chain reconciliation, the same way amount-correctness already is.
 
 ### Relationship to the citizenship design
 
@@ -68,13 +69,13 @@ Tracked in [`docs/BACKLOG.md`](../../BACKLOG.md), not just here:
 
 # 納税(日本語)
 
-**ステータス: 🟢 設計確定。** ユーザーとの議論を通じて概念・アーキテクチャ上の論点は解決済み。詳細な議論の経緯は [`discussion-log.md`](discussion-log.md)、正式なADRは [`docs/decisions/0004-taxation-payment-rail.md`](../../decisions/0004-taxation-payment-rail.md) を参照。コントラクトコードはまだ実装していません(そもそも必要ない見込みです — [アーキテクチャ](#アーキテクチャ)を参照)。
+**ステータス: 🟢 設計確定。** ユーザーとの議論を通じて概念・アーキテクチャ上の論点は解決済み。詳細な議論の経緯は [`discussion-log.md`](discussion-log.md)、正式なADRは [`docs/decisions/0004-taxation-payment-rail.md`](../../decisions/0004-taxation-payment-rail.md) を参照。登録済みアドレスのステーブルコイン([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)、送金ルールは[ADR 0031](../../decisions/0031-registered-address-transfer-rule.md))と機能間の整合性レビュー([ADR 0032](../../decisions/0032-consistency-review-decisions.md))に合わせて更新しました。税専用のコントラクトコードは必要ない見込みです — [アーキテクチャ](#アーキテクチャ)を参照。
 
 ## 概要
 
-この機能がカバーするのは、個人(自然人)が支払う税の**決済レールのみ**です: 既に決まった金額を、既存のJPYペッグのステーブルコインを使って、納税者から正しい徴収主体へ移動させること。意図的に対象外としているのは: 金額の計算、その正確性の証明、還付・過不足、そして法人税(別途設計予定)です。
+この機能がカバーするのは、個人(自然人)が支払う税の**決済レールのみ**です: 既に決まった金額を、認可された円建てステーブルコイン([認定ステーブルコインの仕様](../certified-stablecoin/README.md))を使って、納税者から正しい徴収主体へ移動させること。意図的に対象外としているのは: 金額の計算、その正確性の証明、還付・過不足、そして法人税(別途設計予定)です。
 
-仕組み: 住民は[`ResidentLink`](../citizenship/)NFTを保有するアドレスから、その税・その主体について公式に証明・公表された受取アドレスへ直接支払います。金額そのものは、今日と全く同じ方法(確定申告、年末調整など、既存の現実のプロセス)で、このシステムの外側で決まります。
+仕組み: 住民は[`ResidentLink`](../citizenship/)NFTを保有するアドレスから、その税・その主体について公式に証明・公表された受取アドレス — その主体の`PublicTreasury`コントラクト([ADR 0019](../../decisions/0019-treasury-model.md)) — へ直接支払います。金額そのものは、今日と全く同じ方法(確定申告、年末調整など、既存の現実のプロセス)で、このシステムの外側で決まります。
 
 ## スコープ
 
@@ -91,11 +92,12 @@ Tracked in [`docs/BACKLOG.md`](../../BACKLOG.md), not just here:
 (規約は[`docs/operations/README.md`](../../operations/README.md)参照)
 
 **オンチェーン:**
-- 支払いそのもの: 既存のJPYペッグのステーブルコインの標準的なトークン送金(例: ERC-20の`transfer`)。納税者の`ResidentLink`アドレスから、徴収主体の公表された受取アドレスへ。
+- 支払いそのもの: 認可された円建てステーブルコインの標準的なトークン送金(例: ERC-20の`transfer`)。納税者の`ResidentLink`アドレスから、徴収主体の公表された受取アドレスへ。
+- 受取アドレスはそれぞれ`PublicTreasury`コントラクトです — **機関ごと・勘定ごとに1つ**なので、税目ごとに別になります — `OfficialContractRegistry`に登録されています(整合性レビューR1.6、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - それ以外は何もありません。税専用のコントラクトも、オンチェーンでの金額・状態の追跡もありません。
 
 **オンライン:**
-- (税目, 主体)のペアごとに公式に証明された受取アドレス。主体自身の審査済みの政府ドメイン配下のwell-known URIで公表(citizenship設計の仕組みを拡張)。
+- (税目, 主体)のペアごとに公式に証明された受取アドレス(その勘定の`PublicTreasury`コントラクト)。主体自身の審査済みの政府ドメイン配下のwell-known URIで公表(citizenship設計の仕組みを拡張)。
 
 **オフライン:**
 - 納税者は既存の現実のプロセス(確定申告、年末調整、賦課決定通知など、本プロジェクトによって変更されない)で納付額を決定します。
@@ -105,9 +107,9 @@ Tracked in [`docs/BACKLOG.md`](../../BACKLOG.md), not just here:
 
 ### 専用スマートコントラクトなし
 
-上記のスコープを前提にすると、この機能に独自のコントラクトは不要です。仕組み全体は以下の2ステップです。
+上記のスコープを前提にすると、この機能に独自のコントラクトは不要です。受取アドレスは、その主体の既存の`PublicTreasury`コントラクト([ADR 0019](../../decisions/0019-treasury-model.md))で、機関ごと・勘定ごとに1つです(整合性レビューR1.6、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。仕組み全体は以下の2ステップです。
 
-1. 関連する主体(市区町村、都道府県、または国の機関)が、徴収する税目ごとに検証済みの受取アドレスを公表する。
+1. 関連する主体(市区町村、都道府県、または国の機関)が、徴収する税目ごとに検証済みの受取アドレス — その勘定の`PublicTreasury`コントラクト — を公表する。
 2. 納税者が、自分の`ResidentLink`アドレスから、公表されたアドレスへ、ステーブルコインの標準的な`transfer()`を呼ぶ。
 
 ### 受取アドレスの証明(citizenship設計の拡張)
@@ -117,7 +119,7 @@ Tracked in [`docs/BACKLOG.md`](../../BACKLOG.md), not just here:
 - **市区町村・都道府県**(いずれも地方公共団体)は、自身の`.lg.jp`ドメイン配下で公表します — 新しい仕組みは不要。住民税、固定資産税、自動車税などをカバーします。
 - **国の機関**(例: 国税庁、nta.go.jp)は`.go.jp`配下で公表します — 原理は同じ(審査済みの政府ドメイン配下のwell-known URI)で、ルートドメインが異なるだけです。所得税(申告分)、相続税、贈与税をカバーします。
 - **スキーマ:** 機能ごとに別の発表フォーマットを作るのではなく、各主体が既に公表しているのと同じwell-known JSON(例: `https://<主体のドメイン>/.well-known/web3state-registry.json`)に、税目→受取アドレスのマッピングを追加します。これにより、複数の税目を扱う単一の主体(例: 国税庁)は税目ごとに1つのアドレスを公表でき、受取アドレス自体が「どの税の支払いか」を示すことになります(送金元アドレスが「どの住民が払ったか」を示すのと対になります)。
-- **受け付けトークンの許可リストはなし。** アドレスは技術的にはどんなトークンでも受け取れます。受け取ったトークンが正規の価値あるステーブルコインかどうかは、金額の正確性と同様、主体の既存のオフチェーン照合プロセスで確認されます。オンチェーンでの制限は不要です。
+- **受け付けるステーブルコインと登録済みアドレス。** 以前の「受け付けトークンの許可リストはなし。どのアドレスもどんなトークンでも受け取れる」は、もうこのレールを表していません(整合性レビューR1.5、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)): 受け付ける円建てステーブルコインは`OfficialContractRegistry`に載っており([ADR 0015](../../decisions/0015-political-donations-model.md))、各国庫はそこに登録された公的なコントラクトです。円建てステーブルコインは登録済みアドレスのルールに従います([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)、送金ルールは[ADR 0031](../../decisions/0031-registered-address-transfer-rule.md))。[認定ステーブルコインの仕様](../certified-stablecoin/README.md)を参照してください。コントラクトは他のトークンが送られてくることを止められないので、支払いと納税義務の照合は、金額の正確性と同様、主体のオフチェーンの照合プロセスのままです。
 
 ### citizenship設計との関係
 
