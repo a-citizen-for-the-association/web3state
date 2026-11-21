@@ -50,9 +50,9 @@ While discussing R2.3, the user judged that the review had gone in the wrong dir
 
 | ID | Sev. | Issue | Proposal | Status |
 |---|---|---|---|---|
-| R4.1 | Medium | Four hash-anchoring registries: `DocumentRegistry` (stores), `EvidenceRegistry` (stores), `CaseRecordRegistry` (stores, and must reject disposal), `AnchorRegistry` (event-only, because nobody reads anchors from a contract). The same reasoning applies to the first two. | **Make `DocumentRegistry` and `EvidenceRegistry` kinds of `AnchorRegistry`**; keep `CaseRecordRegistry` (it needs stored state). Record in an ADR. | Open |
-| R4.2 | Medium | No rule for which registry a document goes to; `DocumentRegistry` was limited to approval documents (ADR 0017) but later designs put subsidy reports and employers' statements in it. | Follows from R4.1: everything anchors in `AnchorRegistry` with a kind; keep a **kind list** there. | Open |
-| R4.3 | Low | Naming and standards drift: `RealEstateToken` vs. `ShareRegistry` (same pattern); no token standard named for them; unnamed election factory; visitor expiry stored twice; the corporate-registration contract is never named. | One naming and standards pass. | Open |
+| R4.1 | Medium | Four hash-anchoring registries: `DocumentRegistry` (stores), `EvidenceRegistry` (stores), `CaseRecordRegistry` (stores, and must reject disposal), `AnchorRegistry` (event-only, because nobody reads anchors from a contract). The same reasoning applies to the first two. | **Make `DocumentRegistry` and `EvidenceRegistry` kinds of `AnchorRegistry`**; keep `CaseRecordRegistry` (it needs stored state). Record in an ADR. | **Accepted** (2026-11-21): `DocumentRegistry` and `EvidenceRegistry` become kinds of `AnchorRegistry` (`previousId` and evidence status carried in events); `CaseRecordRegistry` stays; recorded in a new ADR |
+| R4.2 | Medium | No rule for which registry a document goes to; `DocumentRegistry` was limited to approval documents (ADR 0017) but later designs put subsidy reports and employers' statements in it. | Follows from R4.1: everything anchors in `AnchorRegistry` with a kind; keep a **kind list** there. | **Accepted** (2026-11-21): the author of a document anchors it from its own registered address; one kind list kept with the registry's canonical section; the contract does not restrict kinds (obligations are law, checked afterwards) |
+| R4.3 | Low | Naming and standards drift: `RealEstateToken` vs. `ShareRegistry` (same pattern); no token standard named for them; unnamed election factory; visitor expiry stored twice; the corporate-registration contract is never named. | One naming and standards pass. | **Accepted** (2026-11-21): asset tokens are "…Token" (`ShareRegistry` → `ShareToken`), lists and records "…Registry"; `RealEstateToken` ERC-721-style, `ShareToken` and age credentials ERC-1155-style (age thresholds as token types in one contract), with transfer restrictions; `CorporateRegistration` (one per supervising authority) and `ElectionFactory` named; libraries chosen at implementation |
 
 ## R5. Privacy
 
@@ -137,9 +137,9 @@ R2.3の議論の中で、ユーザーはレビューの方向が間違ってい�
 
 | ID | 重大度 | 論点 | 提案 | ステータス |
 |---|---|---|---|---|
-| R4.1 | Medium | ハッシュをアンカリングするレジストリが4つある: `DocumentRegistry`(保存する)、`EvidenceRegistry`(保存する)、`CaseRecordRegistry`(保存し、廃棄を拒否しなければならない)、`AnchorRegistry`(イベントだけ。コントラクトからアンカーを読む者がいないため)。同じ理由が最初の2つにも当てはまる。 | **`DocumentRegistry`と`EvidenceRegistry`を`AnchorRegistry`の種類にする。** `CaseRecordRegistry`は残す(保存された状態が必要)。ADRに記録する。 | 未決 |
-| R4.2 | Medium | どの文書をどのレジストリに入れるかのルールがない。`DocumentRegistry`は決裁文書に限っていたが(ADR 0017)、後の設計が補助金の報告や雇用主の証明を入れている。 | R4.1から導かれる: すべて種類を付けて`AnchorRegistry`にアンカリングする。そこに**種類の一覧**を置く。 | 未決 |
-| R4.3 | Low | 命名と規格のずれ: `RealEstateToken`と`ShareRegistry`(同じ型)、どちらもトークンの規格を定めていない、名前のない選挙のファクトリー、ビジターの有効期限が2か所に保存される、法人登録のコントラクトに名前がない。 | 命名と規格を一度にそろえる。 | 未決 |
+| R4.1 | Medium | ハッシュをアンカリングするレジストリが4つある: `DocumentRegistry`(保存する)、`EvidenceRegistry`(保存する)、`CaseRecordRegistry`(保存し、廃棄を拒否しなければならない)、`AnchorRegistry`(イベントだけ。コントラクトからアンカーを読む者がいないため)。同じ理由が最初の2つにも当てはまる。 | **`DocumentRegistry`と`EvidenceRegistry`を`AnchorRegistry`の種類にする。** `CaseRecordRegistry`は残す(保存された状態が必要)。ADRに記録する。 | **了承**(2026-11-21): `DocumentRegistry`と`EvidenceRegistry`を`AnchorRegistry`の種類にする(`previousId`と証拠の状態はイベントに含める)。`CaseRecordRegistry`は残す。新しいADRに記録 |
+| R4.2 | Medium | どの文書をどのレジストリに入れるかのルールがない。`DocumentRegistry`は決裁文書に限っていたが(ADR 0017)、後の設計が補助金の報告や雇用主の証明を入れている。 | R4.1から導かれる: すべて種類を付けて`AnchorRegistry`にアンカリングする。そこに**種類の一覧**を置く。 | **了承**(2026-11-21): 文書を作った者が自分の登録済みアドレスからアンカーする。種類の一覧はレジストリの正本の節に置く。コントラクトは種類を制限しない(義務は法律で定め、後から確認) |
+| R4.3 | Low | 命名と規格のずれ: `RealEstateToken`と`ShareRegistry`(同じ型)、どちらもトークンの規格を定めていない、名前のない選挙のファクトリー、ビジターの有効期限が2か所に保存される、法人登録のコントラクトに名前がない。 | 命名と規格を一度にそろえる。 | **了承**(2026-11-21): 資産のトークンは「…Token」(`ShareRegistry` → `ShareToken`)、一覧と記録は「…Registry」。`RealEstateToken`はERC-721型、`ShareToken`と年齢のクレデンシャルはERC-1155型(年齢の基準は1つのコントラクトの中の種類)で、移転の制限を加える。`CorporateRegistration`(監督官庁ごとに1つ)と`ElectionFactory`と命名。ライブラリは実装時に選ぶ |
 
 ## R5. プライバシー
 
