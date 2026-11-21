@@ -110,6 +110,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/architecture/consistency-review.md`: R1.1–R1.6 accepted.
 - `docs/decisions/0031-registered-address-transfer-rule.md`: transfer rule relaxed (one registered address per resident and corporation; cumulative cap on sending to unregistered addresses; zero for VIPs; the rest checked afterwards); supersedes ADR 0020's rule. Consistency review: R2.1, R2.2 accepted; decision D1 recorded; R2.3 to be re-examined.
 - Consistency review under D1: R2.3 revised, R2.2 and R1.3 confirmed; visitor pass abolished and the exchanger exemption narrowed (ADR 0031 updated).
+- Consistency review: R3.1–R3.10 accepted (suspension on key theft; heavy path for every asset token; credential re-issue on succession and burn on death; registrar-led heavy path; dissolution/merger order; signer rotation; ballot-time checks; mint-before-burn on moves; heirs' agents; age checks abroad).
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
