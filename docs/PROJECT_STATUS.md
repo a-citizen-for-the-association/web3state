@@ -6,9 +6,11 @@
 
 ## ⏸ Resume point
 
-Updated 2026-11-21. **The cross-feature consistency review is complete**: R1–R6 and the follow-ups F1–F5 are decided and applied ([`architecture/consistency-review.md`](architecture/consistency-review.md); [ADR 0031](decisions/0031-registered-address-transfer-rule.md) relaxed the transfer rule; [ADR 0032](decisions/0032-consistency-review-decisions.md) records the decisions; specs, FEATURES and the glossary are updated). Nothing is open.
+Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/0032-consistency-review-decisions.md)). **Provisional implementation is under way**, in five phases approved by the user: (1) foundation, (2) corporations and public finance, (3) credentials, (4) governance and politics, (5) assets. Minimal tests; voting cryptography stubbed; OpenZeppelin Contracts v5.7.0, forge-std v1.17.0, solc 0.8.38. Frontend later, once the PoC method is decided.
 
-**When the user says "再開して" (resume):** tell the user the review is complete and that the next roadmap step is **provisional implementation with minimal tests** (`contracts/` Foundry init, starting with `ResidentLink` and `OfficialContractRegistry`); propose an implementation plan and order before writing code, and ask for approval. Keep tests minimal (the user's roadmap), and note PoC candidates as they come up.
+- **Phase 1 done** (`contracts/src/core/`): `OfficialContractRegistry`, `ResidentLink`, `RegisteredJPY` (ADR 0031 rule), `SuccessorMigration`; 18 tests pass. Implementation notes: suspension and light-path confirmation are by any registrar of a kind the address holds; the heavy path may be proposed by any non-factory registrar (simplification).
+
+**When the user says "再開して" (resume):** report the state and continue with the next phase (check `git log` and `contracts/`).
 
 ## Current phase
 
@@ -90,9 +92,11 @@ Updated 2026-11-21. **The cross-feature consistency review is complete**: R1–R
 
 ## ⏸ 再開ポイント
 
-2026-11-21更新。**機能間の整合性レビューは完了した**: R1〜R6と追加の論点F1〜F5を決定し、反映済み([`architecture/consistency-review.md`](architecture/consistency-review.md)。[ADR 0031](decisions/0031-registered-address-transfer-rule.md)で送金ルールを緩め、[ADR 0032](decisions/0032-consistency-review-decisions.md)に決定を記録。仕様、FEATURES、用語集を更新)。未決の点はない。
+2026-11-21更新。整合性レビューは完了した([ADR 0032](decisions/0032-consistency-review-decisions.md))。**仮実装を進めている。** ユーザーが承認した5段階: (1) 土台、(2) 法人と公的財政、(3) クレデンシャル、(4) 統治と政治、(5) 資産。テストは最低限。投票の暗号は簡易版に置き換える。OpenZeppelin Contracts v5.7.0、forge-std v1.17.0、solc 0.8.38。フロントエンドはPoCの方法が決まってから。
 
-**ユーザーが「再開して」と言ったら:** レビューが完了したこと、ロードマップの次は**仮実装と最低限のテスト**(`contracts/`のFoundry init。`ResidentLink`と`OfficialContractRegistry`から)であることを伝える。コードを書く前に実装の計画と順序を提案し、承認を得る。テストは最低限とし(ユーザーのロードマップ)、PoCの候補は出てきたら書き留める。
+- **段階1完了**(`contracts/src/core/`): `OfficialContractRegistry`、`ResidentLink`、`RegisteredJPY`(ADR 0031のルール)、`SuccessorMigration`。テスト18件が通る。実装上の注記: 停止と軽い手続きの確認は、そのアドレスが持つ種類の登録者なら誰でも行える。重い手続きはファクトリー以外のどの登録者も提案できる(簡略化)。
+
+**ユーザーが「再開して」と言ったら:** 状況を報告し、次の段階を続ける(`git log`と`contracts/`を確認)。
 
 ## 現在のフェーズ
 

@@ -2,7 +2,7 @@
 
 Smart contracts for web3state, built with [Foundry](https://getfoundry.sh/).
 
-> Status: placeholder. Foundry has not been initialized yet (no `forge init` has been run) — this directory currently only holds the planned structure and network configuration. See [`docs/PROJECT_STATUS.md`](../docs/PROJECT_STATUS.md).
+> Status: provisional implementation in progress (phase 1 of 5 done: `src/core/`). Minimal tests only. Dependencies: OpenZeppelin Contracts v5.7.0, forge-std v1.17.0 (git submodules under `lib/`); solc 0.8.38. Clone with `git submodule update --init --recursive`. See [`docs/PROJECT_STATUS.md`](../docs/PROJECT_STATUS.md).
 
 ## Planned structure
 
@@ -48,7 +48,7 @@ forge test
 
 [Foundry](https://getfoundry.sh/) で構築する web3state のスマートコントラクト。
 
-> ステータス: プレースホルダー。まだ `forge init` は実行していません — 現時点では想定構成とネットワーク設定のみを格納しています。[`docs/PROJECT_STATUS.md`](../docs/PROJECT_STATUS.md) 参照。
+> ステータス: 仮実装を進めている(5段階のうち段階1が完了: `src/core/`)。テストは最低限。依存: OpenZeppelin Contracts v5.7.0、forge-std v1.17.0(`lib/`のgitサブモジュール)。solc 0.8.38。クローン後は`git submodule update --init --recursive`を実行する。[`docs/PROJECT_STATUS.md`](../docs/PROJECT_STATUS.md)を参照。
 
 ## 想定構成
 
