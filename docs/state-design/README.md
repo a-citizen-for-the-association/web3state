@@ -1,49 +1,45 @@
 # State Design
 
-This directory will hold the mapping from real-world nation-state functions — law, public administration, political decision-making — to their on-chain/off-chain implementation design.
+This directory holds the mapping from real-world nation-state functions — law, public administration, political decision-making — to their on-chain/off-chain implementation design.
 
-**Status: in progress.** See [`docs/FEATURES.md`](../FEATURES.md) for the up-to-date status of every function. First function under discussion: [`citizenship/`](citizenship/) (国民・住民).
+**Status: initial design complete (2026-11-14).** Every non-⏸ item in [`docs/FEATURES.md`](../FEATURES.md) has a spec; the cross-feature consistency review is in [`docs/architecture/consistency-review.md`](../architecture/consistency-review.md). See `docs/FEATURES.md` for the status of every function.
 
-## Suggested convention (to confirm once the first function is scoped)
+## Convention
 
-One file (or subdirectory, if it grows large) per state function, e.g.:
+One subdirectory per state function (e.g. [`citizenship/`](citizenship/), [`real-estate/`](real-estate/)), containing:
+- `discussion-log.md` — the back-and-forth with the user, round by round (the format follows [`citizenship/discussion-log.md`](citizenship/discussion-log.md));
+- `README.md` — the spec, written once the issues are resolved.
 
-- `citizenship.md` — identity, registration, eligibility
-- `legislative.md` — proposal, deliberation, enactment of rules
-- `executive.md` — administration, enforcement
-- `judiciary.md` — dispute resolution, appeals
-- `treasury.md` — public funds, taxation, spending
+A function with several sub-features may nest them (e.g. [`credentials/`](credentials/) with one subdirectory per credential type).
 
-Each should, at minimum:
+Each spec should, at minimum:
 1. Describe the real-world function being modeled (and its legal/institutional reference, if any).
-2. State what is implemented on-chain vs. what must stay off-chain, and why (see [`docs/operations/README.md`](../operations/README.md)).
+2. State what is implemented on-chain vs. what stays online or offline, and why (see [`docs/operations/README.md`](../operations/README.md)).
 3. Link to the relevant contract module(s) once they exist.
 4. Link to any ADR that fixed a hard-to-reverse design choice for this function.
 
-Do not create these files speculatively — add one only when a function is actually being designed.
+Every document has a Japanese translation below the English.
 
 ---
 
 # 国家機能の設計(日本語)
 
-このディレクトリには、現実の国家機能(法律・行政・政治的意思決定)を、オンチェーン/オフチェーンの実装設計へマッピングした内容を格納します。
+このディレクトリには、現実の国家機能(法律・行政・政治的意思決定)を、オンチェーン/オフチェーンの実装設計へマッピングした内容を格納する。
 
-**ステータス: 進行中。** 各機能の最新ステータスは [`docs/FEATURES.md`](../FEATURES.md) を参照してください。現在議論中の最初の機能: [`citizenship/`](citizenship/)(国民・住民)。
+**ステータス: 初期設計は完了(2026-11-14)。** [`docs/FEATURES.md`](../FEATURES.md)の⏸以外のすべての項目に仕様がある。機能間の整合性レビューは[`docs/architecture/consistency-review.md`](../architecture/consistency-review.md)にある。各機能のステータスは`docs/FEATURES.md`を参照。
 
-## 想定する規約(最初の機能がスコープされた時点で確定)
+## 規約
 
-国家機能ごとに1ファイル(肥大化する場合はサブディレクトリ)、例:
+国家機能ごとに1つのサブディレクトリ(例: [`citizenship/`](citizenship/)、[`real-estate/`](real-estate/))を置き、次を入れる:
+- `discussion-log.md` — ユーザーとのやり取りをRoundごとに記録する(形式は[`citizenship/discussion-log.md`](citizenship/discussion-log.md)に従う)。
+- `README.md` — 論点が解決した後に書く仕様。
 
-- `citizenship.md` — 本人確認、登録、資格
-- `legislative.md` — 提案、審議、制定
-- `executive.md` — 行政、執行
-- `judiciary.md` — 紛争解決、不服申立て
-- `treasury.md` — 公的資金、課税、支出
+複数の下位機能を持つ機能は、入れ子にしてよい(例: [`credentials/`](credentials/)の下に証明の種類ごとのサブディレクトリ)。
 
-各ファイルには最低限以下を記載します:
+各仕様には最低限以下を記載する:
 1. モデル化する現実の機能の説明(該当する法制度・制度上の参照があれば)。
-2. 何をオンチェーンで実装し、何をオフチェーンに残すか、その理由([`docs/operations/README.md`](../operations/README.md) 参照)。
+2. 何をオンチェーンで実装し、何をオンラインまたはオフラインに残すか、その理由([`docs/operations/README.md`](../operations/README.md)参照)。
 3. 実装後、関連するコントラクトモジュールへのリンク。
 4. その機能について後戻りしにくい設計判断を行った場合、該当ADRへのリンク。
 
-先回りしてファイルを作らず、実際にその機能を設計するタイミングで追加してください。
+すべての文書は、英語の下に日本語訳を置く。

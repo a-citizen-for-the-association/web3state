@@ -24,7 +24,7 @@ Updated 2026-11-21. The consistency review's design issues **R1–R5 are all dec
 
 - Monorepo-style single repository with two main components: `contracts/` (Foundry/Solidity) and `frontend/` (Next.js, deployed on Vercel). No workspace tooling (pnpm workspaces, Turborepo) linking them — kept as independent, self-contained directories.
 - Target chains: Ethereum and Polkadot Hub, both EVM-compatible — same Solidity codebase, deploy target switches via config. **Sepolia testnet is the priority network during development.** Mainnet chain choice is explicitly deferred.
-- Documentation language: English primary, Japanese alongside for key documents.
+- Documentation language: English primary; every document has a Japanese translation below the English.
 - License: MIT.
 - Decision history tracked via ADRs in [`docs/decisions/`](decisions/); code-level history via [`CHANGELOG.md`](../CHANGELOG.md).
 - Citizenship/residency: a municipality-issued, soulbound, nationality-neutral "resident-link" NFT (proves residency-linkage only, no nationality claim); see [ADR 0003](decisions/0003-resident-link-identity-model.md) for full rationale.
@@ -61,9 +61,8 @@ Updated 2026-11-21. The consistency review's design issues **R1–R5 are all dec
 ## Open questions
 
 - Which mainnet chain to launch on (Ethereum mainnet vs. Polkadot Hub mainnet) — deferred until testing phase provides more signal. Constraint: daily net settlement of all listed shares ([ADR 0030](decisions/0030-securities-model.md)).
-- Within the newly-expanded roadmap (see `docs/FEATURES.md`), which system to design next — many 🔴 candidates now exist (political donations, treasury, pension, donations/crowdfunding, real estate registry, etc.), not yet prioritized relative to each other. Political donations was designed next (2026-10-13); remaining candidates should be screened with the on-chain value test ([ADR 0014](decisions/0014-legislative-process-scope.md)).
-- The concrete design for "wealth-focused financial services: provider-handled tax compliance" (ADR 0012 records the policy direction only, not a contract design) — deferred until that category is taken up.
-- Whether any *additional* credential types beyond the original six (passport, diploma, license, health insurance, employee ID, vaccination) are wanted — not currently planned, but the pattern is now well-validated if more come up.
+- The concrete design for "wealth-focused financial services: provider-handled tax compliance" (ADR 0012 records the policy direction only) — ⏸ on hold under [ADR 0027](decisions/0027-remaining-scope-triage.md).
+- Whether any further credential types are wanted beyond the original six and the age-threshold and standing voter credentials added later ([ADR 0028](decisions/0028-personal-data-model.md); consistency review R5.9) — not currently planned; the pattern is well validated.
 - Governance model for the project itself (who can propose/approve changes to the "constitution" of the contracts).
 - Whether any part of the system requires off-chain components beyond the frontend (e.g., indexing, notifications) — not yet needed, revisit when a concrete feature requires it (YAGNI).
 - CI/CD setup (tests, linting, deployment pipeline) — not yet set up; add when there is code to verify.
@@ -111,7 +110,7 @@ Updated 2026-11-21. The consistency review's design issues **R1–R5 are all dec
 
 - `contracts/`(Foundry/Solidity)と `frontend/`(Next.js、Vercelへデプロイ)の2コンポーネントによる単一リポジトリ構成。pnpm workspace等での統合は行わず、独立したディレクトリとする。
 - 対象チェーンはEthereumとPolkadot Hub(いずれもEVM互換)。同一のSolidityコードベースをデプロイ先の切り替えで両対応。**開発中はSepoliaテストネットを優先使用。** メインネットの選定は意図的に保留。
-- ドキュメント言語: 英語を主言語とし、重要なドキュメントには日本語を併記。
+- ドキュメント言語: 英語を主言語とし、すべての文書で英語の下に日本語訳を置く。
 - ライセンス: MIT。
 - 決定の経緯は [`docs/decisions/`](decisions/) のADRで、コードレベルの変更履歴は [`CHANGELOG.md`](../CHANGELOG.md) で管理。
 - 国民・住民: 市区町村が発行する、譲渡不可(Soulbound)かつ国籍を問わない「住民登録リンク」NFT(住民であることの証明のみを行い、国籍は主張しない)。詳細は [ADR 0003](decisions/0003-resident-link-identity-model.md) を参照。
@@ -148,9 +147,8 @@ Updated 2026-11-21. The consistency review's design issues **R1–R5 are all dec
 ## 未解決の論点
 
 - メインネットでどのチェーンを採用するか(Ethereum mainnet vs. Polkadot Hub mainnet) — テスト段階でより多くの知見を得てから決定。制約: すべての上場株式の毎日の差し引き決済([ADR 0030](decisions/0030-securities-model.md))。
-- 新たに拡大したロードマップ(`docs/FEATURES.md`参照)の中で、次にどのシステムを設計するか — 多くの🔴候補(政治献金、財務、年金、寄付/クラウドファンディング、不動産登記等)が出そろったが、互いの優先順位はまだ決めていない。政治献金は設計確定済み(2026-10-13)。残りの候補はオンチェーン価値テスト([ADR 0014](decisions/0014-legislative-process-scope.md))でふるいにかける。
-- 「富裕層向け金融サービス: 提供者による納税処理」の具体的な設計(ADR 0012は方針のみを記録し、コントラクト設計は含まない) — そのカテゴリに着手する時点まで保留。
-- 当初の6つ(パスポート、卒業証明、免許証、健康保険証、社員証、接種証明)を超える追加の公的証明が必要かどうか — 現時点では予定なし。ただしパターンは十分検証済みなので、今後出てきても対応可能。
+- 「富裕層向け金融サービス: 提供者による納税処理」の具体的な設計(ADR 0012は方針のみを記録) — [ADR 0027](decisions/0027-remaining-scope-triage.md)により⏸保留。
+- 当初の6つと、後から加えた年齢の基準と常設の有権者のクレデンシャル([ADR 0028](decisions/0028-personal-data-model.md)、整合性レビューR5.9)を超える公的証明が必要かどうか — 現時点では予定なし。パターンは十分検証済み。
 - プロジェクト自体のガバナンスモデル(コントラクトの「憲法」部分の変更を誰が提案・承認できるか)。
 - フロントエンド以外のオフチェーンコンポーネント(インデクシング、通知等)が必要かどうか — 現時点では不要。具体的な機能要件が出てから検討(YAGNI)。
 - CI/CD — コードが存在してから整備する。

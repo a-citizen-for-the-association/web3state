@@ -8,7 +8,7 @@ The legislative process as a whole (proposal → deliberation → vote → promu
 
 | Piece | Where it goes | Why it survives the screen |
 |---|---|---|
-| Direct-demand petition signatures (直接請求の署名) | Own item under Governance Core (🔴 Not started); an extension of `ResidentLink` / a sibling of [voting](../voting/) using public, non-secret signatures | Real, recent forgery (2020 Aichi recall: ~83% of ~435,000 signatures invalid). Signer identity verification is exactly what `ResidentLink` already provides. |
+| Direct-demand petition signatures (直接請求の署名) | Own item under Governance Core (🟢 Spec drafted: [direct-demand](../direct-demand/), [ADR 0016](../../decisions/0016-direct-demand-petition-model.md)); an extension of `ResidentLink` / a sibling of [voting](../voting/) using public, non-secret signatures | Real, recent forgery (2020 Aichi recall: ~83% of ~435,000 signatures invalid). Signer identity verification is exactly what `ResidentLink` already provides. |
 | Legislators' roll-call vote records (議員の記名採決記録) | Inside the political donations (政治献金) design | Closes a real verifiability gap (standing votes leave no per-member record). Its value multiplies when joined with donation data on the same rail. |
 
 ## Decision criteria: the on-chain value test
@@ -54,7 +54,7 @@ Recorded so they are not lost; to be discussed when that item is taken up:
 
 | 部分 | 扱い | 基準を通過した理由 |
 |---|---|---|
-| 直接請求の署名 | 統治の中核カテゴリの独立項目(🔴 未着手)。`ResidentLink`の拡張、または[投票](../voting/)の兄弟機能として、秘密ではない公開署名を用いる | 実際に最近起きた偽造(2020年愛知県知事リコール: 約43万5千筆の約83%が無効)。署名者の本人確認は、まさに`ResidentLink`がすでに提供している機能である。 |
+| 直接請求の署名 | 統治の中核カテゴリの独立項目(🟢 設計確定: [直接請求](../direct-demand/)、[ADR 0016](../../decisions/0016-direct-demand-petition-model.md))。`ResidentLink`の拡張、または[投票](../voting/)の兄弟機能として、秘密ではない公開署名を用いる | 実際に最近起きた偽造(2020年愛知県知事リコール: 約43万5千筆の約83%が無効)。署名者の本人確認は、まさに`ResidentLink`がすでに提供している機能である。 |
 | 議員の記名採決記録 | 政治献金の設計に含める | 実在する検証可能性の欠落を埋める(起立採決では議員ごとの記録が残らない)。同じ基盤上の献金データと結合すると価値が大きくなる。 |
 
 ## 判断基準: オンチェーン価値テスト
