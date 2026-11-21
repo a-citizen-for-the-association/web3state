@@ -49,6 +49,7 @@ Every public body (ministries, prefectures, municipalities, other public bodies)
   3. **`budgetCode`:** a free code, **not validated on-chain** (Issue 3, option (b)). No budget code may correspond to a single named person (R5.7).
   4. Transfers the stablecoin and emits `Paid(to, amount, budgetCode, tag)`.
   5. **A failed payment** (e.g. the payee's registration has ended) fails on its own, stays owed, and is retried (R3.8).
+- **`grant(fund, amount, budgetCode)`:** controller only. Pays a party grant (政党交付金) into a `PoliticalFund` by approving the amount and calling `fund.contribute(amount, PublicGrant, …)`, so the grant is recorded as accounted income rather than an unaccounted transfer. Emits `Paid(fund, amount, budgetCode, Normal)` (follow-up gap, [consistency review](../../architecture/consistency-review.md)).
 
 ### Payments to individuals (Issue 6)
 
@@ -126,6 +127,7 @@ Cash or special financial-institution accounts are allowed only where secrecy is
   3. **`budgetCode`:** 自由なコードで、**オンチェーンでは検証しない**(論点3、選択肢(b))。名前のわかる1人だけに対応する予算コードは作らない(R5.7)。
   4. ステーブルコインを送金し、`Paid(to, amount, budgetCode, tag)`を発行する。
   5. **失敗した支払い**(例: 支払先の登録が外れていた)は1件ずつ失敗し、未払いとして残し、再試行する(R3.8)。
+- **`grant(fund, amount, budgetCode)`:** 管理者のみ。金額を承認して`fund.contribute(amount, PublicGrant, …)`を呼び、`PoliticalFund`に政党交付金を払う。交付金は出どころ不明の送金ではなく、正式な収入として記録される。`Paid(fund, amount, budgetCode, Normal)`を発行する(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))。
 
 ### 個人への支払い(論点6)
 

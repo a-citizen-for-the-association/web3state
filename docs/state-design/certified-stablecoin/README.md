@@ -56,12 +56,14 @@ One registry, operated by 総務省. This is its only definition; other specs po
 Among private contracts, only supervised financial vehicles may register; other private contracts may stay unregistered and are then reached only within senders' caps (R1.3, ADR 0031). The `Visitor` kind is abolished (decision D1, ADR 0031).
 
 **Marks on registered addresses:**
-- **VIP flag:** written by the election boards. A VIP-flagged address has a cap of zero (ADR 0031). The flag stays for a legal period (e.g. one year) after leaving office (R5.9).
-- **Suspended:** set by the municipality on a key-theft report ([below](#successor-migration-successormigration), R3.1).
-- **Licensed exchanger / issuer:** marks the addresses exempt from the cap (ADR 0031).
+- **VIP flag:** written by the body that confirms the office (election boards for elected offices; the Cabinet Office for ministers and vice-ministers); it follows the person if they choose to switch address (follow-up gap, [consistency review](../../architecture/consistency-review.md)). A VIP-flagged address has a cap of zero (ADR 0031). The flag stays for a legal period (e.g. one year) after leaving office (R5.9).
+- **Suspended:** set on a key-theft report by the registrar of the address's kind (the municipality for residents, 外務省 for `NationalAbroad`, the corporation's registrar, the FSA) (follow-up gap, [consistency review](../../architecture/consistency-review.md)); see [below](#successor-migration-successormigration) (R3.1).
+- **Licensed exchanger / issuer:** marks the addresses exempt from the cap (ADR 0031); written by the FSA (follow-up gap, [consistency review](../../architecture/consistency-review.md)).
 
 **`AnchorRegistry` kinds.** The event-only `AnchorRegistry` accepts anchors from any registered address (R1.4). The author of a document anchors it from its own registered address; the contract does not restrict kinds, since obligations are law and checked afterwards (R4.2). The kind list is kept here, and can be extended:
 - `ApprovalDocument`, `Evidence`, `AccessLog`, `RealEstateRight`, `CorporateResolution`, `TradeReport`, `ExpenseReport`, `LeavingStatement`.
+
+Event: `Anchored(caller, hash, kind, previousId, data)`. `previousId` links a correction or a status change (e.g. evidence `Returned`/`Destroyed`) to the anchor it refers to, identified by its transaction and log index; `data` carries kind-specific fields (e.g. an approval document's title, an evidence item's case reference). Nothing is stored (follow-up gap, [consistency review](../../architecture/consistency-review.md)).
 
 ### Transfer rule (in every licensed JPY stablecoin)
 
@@ -84,11 +86,11 @@ An address that loses its registration is **no longer frozen** (ADR 0031): whoev
 |---|---|
 | Move | The new municipality mints first and the old one burns afterwards, so there is no gap; the move-out declaration replaces the `everIssued` check (R3.8). Nothing to migrate |
 | Emigration | Before the `ResidentLink` is burned, 外務省 registers the **same address** as `NationalAbroad`; the address keeps its JPY, land and shares, and pensions are paid abroad (R2.2). On return, the municipality mints again and 外務省 removes its flag |
-| Voluntary address change (e.g. a VIP leaving office, now optional, R5.9) | **Light path:** the old address signs, naming the new registered address; the municipality confirms. No court and no waiting period |
-| Merger | **Light path:** a transfer to the acquirer, signed by both corporations' multisigs and confirmed by the bureau (R3.5) |
+| Voluntary address change (e.g. a VIP leaving office, now optional, R5.9) | **Light path:** the old address signs, naming the new registered address; the registrar of the address's kind confirms (follow-up gap, [consistency review](../../architecture/consistency-review.md)). No court and no waiting period |
+| Merger | **Light path:** a transfer to the acquirer, signed by both corporations' multisigs and confirmed by the corporation's registrar (R3.5; usually the Legal Affairs Bureau) (follow-up gap, [consistency review](../../architecture/consistency-review.md)) |
 | Key loss | **Heavy path** (below) |
 | Key theft | The owner reports in person; the municipality marks the address **suspended** instead of burning the `ResidentLink`. Nothing can leave it except by the heavy path, and it cannot veto. The suspension lapses unless a court approves within a set period (e.g. two weeks) (R3.1) |
-| Death | The registration ends. Whoever holds the key can still move the JPY; inheritance law applies off-chain (ADR 0031). Land and shares take the **heavy path**, with heirs and shares fixed by the inheritance procedure; so does the JPY if nobody holds the key |
+| Death | The registration ends. Whoever holds the key can still move the JPY; inheritance law applies off-chain (ADR 0031). Land and shares take the **heavy path**, with heirs and shares fixed by the inheritance procedure; so does the JPY if nobody holds the key. For a `NationalAbroad` holder, the death is reported through 外務省 (consulates), which removes its flag (follow-up gap, [consistency review](../../architecture/consistency-review.md)) |
 | Corporate dissolution | Before the registration NFT is burned, the liquidator burns the corporation's issued credentials, cancels its share classes and distributes its assets, checked by the registrar from public data; any residue takes the heavy path (R3.5) |
 
 **Heavy path** (user, Round 4: "so tedious that criminals would not want to attempt it"):
@@ -166,12 +168,14 @@ An address that loses its registration is **no longer frozen** (ADR 0031): whoev
 民間のコントラクトで登録できるのは監督下の金融の器だけである。その他の民間のコントラクトは未登録でもよく、その場合は送り手の上限の範囲でしか届かない(R1.3、ADR 0031)。種類`Visitor`は廃止した(決定D1、ADR 0031)。
 
 **登録済みのアドレスに付ける印:**
-- **要人の印:** 選挙管理委員会が書き込む。要人の印の付いたアドレスの上限は0である(ADR 0031)。印は退任後も法定の期間(例: 1年)残す(R5.9)。
-- **停止:** 鍵の盗難の届出で市区町村が付ける([下](#承継の移転successormigration)、R3.1)。
-- **免許を受けた両替業者・発行者:** 上限の対象外のアドレスを示す(ADR 0031)。
+- **要人の印:** 公職を確定する機関が書き込む(選挙で選ばれる職は選挙管理委員会、大臣と副大臣は内閣府)。本人がアドレスを切り替える場合は印も移る(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))。要人の印の付いたアドレスの上限は0である(ADR 0031)。印は退任後も法定の期間(例: 1年)残す(R5.9)。
+- **停止:** 鍵の盗難の届出で、アドレスの種類の登録者が付ける(住民は市区町村、`NationalAbroad`は外務省、法人はその登録者、金融庁)(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))。[下](#承継の移転successormigration)を参照(R3.1)。
+- **免許を受けた両替業者・発行者:** 上限の対象外のアドレスを示す(ADR 0031)。金融庁が書き込む(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))。
 
 **`AnchorRegistry`の種類。** イベントだけの`AnchorRegistry`は、登録済みのアドレスならどこからでもアンカーを受け付ける(R1.4)。文書を作った者が自分の登録済みアドレスからアンカーする。コントラクトは種類を制限しない。義務は法律で定め、後から確認する(R4.2)。種類の一覧はここに置き、追加できる:
 - `ApprovalDocument`、`Evidence`、`AccessLog`、`RealEstateRight`、`CorporateResolution`、`TradeReport`、`ExpenseReport`、`LeavingStatement`。
+
+イベント: `Anchored(caller, hash, kind, previousId, data)`。`previousId`は、訂正や状態の変化(例: 証拠の`Returned`/`Destroyed`)を、対象のアンカー(トランザクションとログの番号で特定)に結びつける。`data`は種類ごとの項目を運ぶ(例: 決裁文書の名称、証拠の事件の参照)。何も保存しない(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))。
 
 ### 送金のルール(認可されたすべての円建てステーブルコイン)
 
@@ -194,11 +198,11 @@ An address that loses its registration is **no longer frozen** (ADR 0031): whoev
 |---|---|
 | 転居 | 転入先の市区町村が先にmintし、転出元が後でburnするので、空白はない。`everIssued`の確認は転出届の確認に替える(R3.8)。移転するものはない |
 | 海外への転出 | `ResidentLink`がburnされる前に、外務省が**同じアドレス**を`NationalAbroad`として登録する。アドレスは円、土地、株式を保ち、年金は海外にも払う(R2.2)。帰国すれば市区町村が再びmintし、外務省は自分のフラグを外す |
-| 任意のアドレス変更(要人の退任など。今は任意、R5.9) | **軽い手続き:** 古いアドレスが署名して新しい登録済みアドレスを指定し、市区町村が確認する。裁判所も待機期間も要らない |
-| 合併 | **軽い手続き:** 取得する法人への移転。両社のマルチシグが署名し、法務局が確認する(R3.5) |
+| 任意のアドレス変更(要人の退任など。今は任意、R5.9) | **軽い手続き:** 古いアドレスが署名して新しい登録済みアドレスを指定し、アドレスの種類の登録者が確認する(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))。裁判所も待機期間も要らない |
+| 合併 | **軽い手続き:** 取得する法人への移転。両社のマルチシグが署名し、その法人の登録者(通常は法務局)が確認する(R3.5)(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md)) |
 | 鍵の紛失 | **重い手続き**(下記) |
 | 鍵の盗難 | 本人が来所して届け出る。市区町村は`ResidentLink`をburnせず、アドレスに**停止**の印を付ける。重い手続き以外では何も出せず、拒否もできない。一定期間内(例: 2週間)に裁判所が承認しなければ停止は解除される(R3.1) |
-| 死亡 | 登録が外れる。鍵を持つ者なら円は動かせ、相続の法律はオフチェーンで適用される(ADR 0031)。土地と株式は**重い手続き**を通り、相続人と持分は相続の手続きで確定する。鍵を持つ者がいなければ円も同じ |
+| 死亡 | 登録が外れる。鍵を持つ者なら円は動かせ、相続の法律はオフチェーンで適用される(ADR 0031)。土地と株式は**重い手続き**を通り、相続人と持分は相続の手続きで確定する。鍵を持つ者がいなければ円も同じ。`NationalAbroad`の保有者の死亡は外務省(在外公館)を通じて届け出られ、外務省がフラグを外す(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md)) |
 | 法人の解散 | 登録NFTのburnの前に、清算人は法人が発行したクレデンシャルをburnし、株式の種類を消却し、資産を分配する。登録者が公開データで確認する。残りがあれば重い手続きを通る(R3.5) |
 
 **重い手続き**(ユーザー、Round 4:「犯罪者がとてもやりたくないと思うほど面倒に」):

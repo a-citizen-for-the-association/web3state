@@ -76,7 +76,7 @@ Reuses the mechanism established for citizenship/taxation: each authority publis
 - **Updates, not burn-and-reissue, for routine changes.** Unlike citizenship's near-empty token, a corporate record has substantive fields (name, address, business purpose, representative, capital) that legitimately change (商号変更, 本店移転, officer changes, capital changes) without the company ceasing to exist. The issuing authority can update specific fields via an authority-only function. Burn is reserved for actual cessation (解散, license revocation, or the absorbed party in a merger) — not used for routine updates.
 - **No self-service updates or burns** — only the issuing authority, mirroring citizenship's "registration and revocation: authority-only" rule.
 - **Dissolution** (consistency review R3.5, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)): before the registration NFT is burned, the corporation (its liquidator) burns the credentials it issued, cancels its share classes and distributes its assets; the registrar checks this from public data. Anything left over moves by the heavy successor path, proposed by the registrar (consistency review R3.4, [ADR 0032](../../decisions/0032-consistency-review-decisions.md); see the [certified-stablecoin spec](../certified-stablecoin/README.md)).
-- **Merger** (consistency review R3.5, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)): a light-path transfer to the acquirer, signed by both corporations' multisigs and confirmed by 法務局 (employee IDs re-issued, shares exchanged and cancelled); the absorbed party's NFT is then burned.
+- **Merger** (consistency review R3.5, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)): a light-path transfer to the acquirer, signed by both corporations' multisigs and confirmed by the corporation's registrar (usually 法務局) (follow-up gap, [consistency review](../../architecture/consistency-review.md)) (employee IDs re-issued, shares exchanged and cancelled); the absorbed party's NFT is then burned.
 
 ## Effectiveness: what this does and doesn't achieve
 
@@ -166,7 +166,7 @@ Tracked in [`docs/BACKLOG.md`](../../BACKLOG.md):
 - **日常的な変更は、burnして再発行するのではなく更新します。** 国民・住民のほぼ空のトークンとは異なり、法人の記録には実質的なフィールド(商号、所在地、事業目的、代表者、資本金)があり、法人が消滅しなくても正当に変化します(商号変更、本店移転、役員変更、増資等)。発行主体は、発行主体限定の関数で特定のフィールドを更新できます。burnは実際の消滅(解散、免許取消、合併による消滅会社側)のためだけに使い、日常的な更新には使いません。
 - **本人によるセルフサービスの更新・バーンはありません** — 発行主体のみが行えます。国民・住民の「登録・失効は発行主体のみ」というルールと同じです。
 - **解散**(整合性レビューR3.5、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)): 登録NFTをburnする前に、法人(清算人)は発行したクレデンシャルをburnし、株式の種類を消却し、資産を分配します。登録者はこれを公開データで確認します。残ったものは、登録者が提案する重い承継の手続きで移します(整合性レビューR3.4、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)。[認定ステーブルコインの仕様](../certified-stablecoin/README.md)参照)。
-- **合併**(整合性レビューR3.5、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)): 両社のマルチシグが署名し法務局が確認する、取得する側への軽い手続きの移転です(社員証は再発行、株式は交換して消却)。その後、消滅会社側のNFTをburnします。
+- **合併**(整合性レビューR3.5、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)): 両社のマルチシグが署名し、その法人の登録者(通常は法務局)が確認する(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))、取得する側への軽い手続きの移転です(社員証は再発行、株式は交換して消却)。その後、消滅会社側のNFTをburnします。
 
 ## 効果: この設計で達成できること・達成できないこと
 

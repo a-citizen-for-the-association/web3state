@@ -61,7 +61,7 @@ Every political organization (party, political fund-raising body, legislator's f
   3. If the donor is a corporation, this organization's type must be `Party`.
   4. The donor's running total to **this** organization, for this year and category, plus `amount`, must not exceed the cap.
   5. `transferFrom` the accepted stablecoin, increase `accountedBalance`, and emit `Contribution(donor, identityContract, category, amount, year)`.
-  - **`PublicGrant`** (e.g. party grants): callable only when `registry.kindOf(msg.sender) == PublicTreasury`, in place of steps 1–4; no cap applies (consistency review R2.1, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))).
+  - **`PublicGrant`** (e.g. party grants): callable only when `registry.kindOf(msg.sender) == PublicTreasury` (via `PublicTreasury.grant()`), in place of steps 1–4; no cap applies (consistency review R2.1, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))).
 - **Categories:** `Donation`, `PartyTicket`, `MembershipFee`, `Other`, `PublicGrant`. Every inflow uses the same entry point whatever it is called (Issue 5). Caps are set per category, except `PublicGrant`.
 - **Year:** the Japanese calendar year derived from `block.timestamp` (UTC+9). This is the second justified on-chain date exception after the voting period.
 - **`spend(to, amount, purpose)`:** controller only, `amount ≤ accountedBalance`, and an event is emitted.
@@ -155,7 +155,7 @@ Every donor address is either a `ResidentLink` holder, verified in person by a m
   3. 献金者が法人なら、この団体の種別が`Party`であること。
   4. **この**団体への、その年・その区分の献金者の累計に`amount`を足しても上限を超えないこと。
   5. 受け入れ対象のステーブルコインを`transferFrom`し、`accountedBalance`を増やし、`Contribution(donor, identityContract, category, amount, year)`を発行する。
-  - **`PublicGrant`**(例: 政党交付金): `registry.kindOf(msg.sender) == PublicTreasury`の場合だけ呼べ、1〜4の代わりとなる。上限はかからない(整合性レビューR2.1、([ADR 0032](../../decisions/0032-consistency-review-decisions.md)))。
+  - **`PublicGrant`**(例: 政党交付金): `registry.kindOf(msg.sender) == PublicTreasury`の場合だけ(`PublicTreasury.grant()`経由で)呼べ、1〜4の代わりとなる。上限はかからない(整合性レビューR2.1、([ADR 0032](../../decisions/0032-consistency-review-decisions.md)))。
 - **区分:** `Donation`、`PartyTicket`、`MembershipFee`、`Other`、`PublicGrant`。名目を問わず、すべての収入が同じ入口を通る(論点5)。上限は`PublicGrant`を除き区分ごとに設定する。
 - **年:** `block.timestamp`から求めた日本の暦年(UTC+9)。投票期間に続く、2つ目の正当化されたオンチェーン日付の例外である。
 - **`spend(to, amount, purpose)`:** 管理者のみが呼べ、`amount ≤ accountedBalance`であること。イベントを発行する。

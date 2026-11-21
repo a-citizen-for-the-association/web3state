@@ -36,7 +36,7 @@ Every procurement, competitive or negotiated, is a `Tender` contract created by 
 ### `TenderFactory` (one per procuring body)
 
 - `createTender(...)`: callable by the body's multisig only.
-- An approved registrar under ADR 0020, so that each `Tender` (which holds deposits) is a certified address.
+- An approved registrar under ADR 0020, so that each `Tender` (which holds deposits) is a registered address.
 
 ### `Tender` (one per procurement)
 
@@ -110,7 +110,7 @@ Treasury payments for a contract cite the `Tender` address in their budget code 
 ### `TenderFactory`(調達する機関ごとに1つ)
 
 - `createTender(...)`: 機関のマルチシグだけが呼び出せる。
-- ADR 0020の承認された登録者であり、各`Tender`(保証金を持つ)は認定アドレスになる。
+- ADR 0020の承認された登録者であり、各`Tender`(保証金を持つ)は登録済みのアドレスになる。
 
 ### `Tender`(調達ごとに1つ)
 

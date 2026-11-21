@@ -4,7 +4,7 @@
 
 ## Summary
 
-**No new contract.** A subsidy is an approval document (the grant decision) plus treasury payments, both of which already exist. The new rule is about evidence: **subsidised expenses must be paid in the JPY stablecoin to certified addresses**, and the expense report lists those on-chain transactions instead of paper receipts. Fake receipts become impossible. Kickbacks (money flowing back from a vendor) and duplicate claims (the same transaction in two reports) become visible to off-chain analysis of fully public data.
+**No new contract.** A subsidy is an approval document (the grant decision) plus treasury payments, both of which already exist. The new rule is about evidence: **subsidised expenses must be paid in the JPY stablecoin to registered addresses**, and the expense report lists those on-chain transactions instead of paper receipts. Fake receipts become impossible. Kickbacks (money flowing back from a vendor) and duplicate claims (the same transaction in two reports) become visible to off-chain analysis of fully public data.
 
 ## Scope
 
@@ -35,7 +35,7 @@
 
 ## Rules
 
-1. **Evidence is on-chain.** Subsidised expenses must be paid in the JPY stablecoin to certified addresses. The expense report lists those transactions. **Cash-paid expenses are not eligible.**
+1. **Evidence is on-chain.** Subsidised expenses must be paid in the JPY stablecoin to registered addresses. The expense report lists those transactions. **Cash-paid expenses are not eligible.**
 2. **Everything is public:** grants, reports, recipients (including individuals), and amounts. Individual recipients (sole proprietors) are shown by address only, corporations by name (consistency review R5.7, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 3. **Budget-code convention:** each payment names the programme and the individual grant (Round 2 adjustment). No budget code corresponds to a single named person (consistency review R5.7, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 4. **Advance payments:** any unspent amount is returned to the granting treasury as an ordinary, visible transfer (Round 2 adjustment).
@@ -55,7 +55,7 @@
 
 ## 概要
 
-**新しいコントラクトは作らない。** 補助金は、決裁文書(交付決定)と国庫の支払いでできており、どちらもすでに存在する。新しいのは証拠についてのルールで、**補助対象の経費は円建てステーブルコインで認定アドレスに支払わなければならず**、実績報告は紙の領収書の代わりにそのオンチェーンの取引を列挙する。偽造の領収書は不可能になる。キックバック(業者から戻るお金)と重複受給(2つの報告に同じ取引)は、完全に公開されたデータのオフチェーンの分析で見えるようになる。
+**新しいコントラクトは作らない。** 補助金は、決裁文書(交付決定)と国庫の支払いでできており、どちらもすでに存在する。新しいのは証拠についてのルールで、**補助対象の経費は円建てステーブルコインで登録済みのアドレスに支払わなければならず**、実績報告は紙の領収書の代わりにそのオンチェーンの取引を列挙する。偽造の領収書は不可能になる。キックバック(業者から戻るお金)と重複受給(2つの報告に同じ取引)は、完全に公開されたデータのオフチェーンの分析で見えるようになる。
 
 ## スコープ
 
@@ -72,7 +72,7 @@
 **オンチェーン(すべて既存):**
 - 交付決定。交付する機関が、共有の`AnchorRegistry`に種類`ApprovalDocument`でアンカーする([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)。整合性レビューR4.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - 交付する機関の`PublicTreasury`([ADR 0019](../../decisions/0019-treasury-model.md))からの支払い。予算コードで制度と交付を示す。
-- 受給者から業者への経費の支払い。認定アドレス間の送金である([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。
+- 受給者から業者への経費の支払い。登録済みのアドレス間の送金である([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。
 - 各実績報告のハッシュ。報告を作った受給者が、自分の登録済みアドレスから`AnchorRegistry`に種類`ExpenseReport`でアンカーする(Round 2の調整。整合性レビューR4.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)。種類の一覧は[認定ステーブルコインの仕様](../certified-stablecoin/README.md))。
 
 **オンライン:**
@@ -86,7 +86,7 @@
 
 ## ルール
 
-1. **証拠はオンチェーン。** 補助対象の経費は円建てステーブルコインで認定アドレスに支払わなければならない。実績報告はその取引を列挙する。**現金で支払った経費は対象外とする。**
+1. **証拠はオンチェーン。** 補助対象の経費は円建てステーブルコインで登録済みのアドレスに支払わなければならない。実績報告はその取引を列挙する。**現金で支払った経費は対象外とする。**
 2. **すべて公開:** 交付、報告、受給者(個人を含む)、金額。個人の受給者(個人事業主)はアドレスだけ、法人は名称で示す(整合性レビューR5.7、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 3. **予算コードの約束事:** 各支払いは制度と個々の交付を示す(Round 2の調整)。名前のわかる1人だけに対応する予算コードは作らない(整合性レビューR5.7、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 4. **概算払:** 使わなかった額は、通常の見える送金として交付した国庫に返還する(Round 2の調整)。

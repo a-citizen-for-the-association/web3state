@@ -28,8 +28,8 @@ National and local legislators, heads of government (governors, mayors), ministe
 
 ## Lifecycle
 
-- **Taking office:** the VIP's `ResidentLink` address is published and gets the VIP flag ([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)).
-- **Leaving office (Issue 5):** the VIP flag stays on the address for a legal period (e.g. one year) after leaving office. Switching to a new `ResidentLink` address through the light successor path ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)) is **optional**: it hides nothing, since the transfer from the old address to the new one is itself visible, so a determined observer can keep following (consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). This is **accepted**: being a politician demands that commitment, and it should deter people who only want to profit from office (S8).
+- **Taking office:** the VIP's `ResidentLink` address is published and gets the VIP flag, written by the body that confirms the office (election boards for elected offices; the Cabinet Office for ministers and vice-ministers) (follow-up gap, [consistency review](../../architecture/consistency-review.md)) ([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)).
+- **Leaving office (Issue 5):** the VIP flag stays on the address for a legal period (e.g. one year) after leaving office. Switching to a new `ResidentLink` address through the light successor path (the VIP flag follows to the new address while it lasts (follow-up gap, [consistency review](../../architecture/consistency-review.md))) ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)) is **optional**: it hides nothing, since the transfer from the old address to the new one is itself visible, so a determined observer can keep following (consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). This is **accepted**: being a politician demands that commitment, and it should deter people who only want to profit from office (S8).
 
 ## Known limits
 
@@ -43,7 +43,7 @@ National and local legislators, heads of government (governors, mayors), ministe
 
 # 要人の資産公開(日本語)
 
-**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0021](../../decisions/0021-vip-asset-disclosure.md)を参照。コントラクトコードはまだない。この議論から生まれた認定アドレス制のステーブルコイン([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))を土台とする。その送金ルールは今は[ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)にある。機能間の整合性レビュー([ADR 0032](../../decisions/0032-consistency-review-decisions.md))に合わせて更新した。
+**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0021](../../decisions/0021-vip-asset-disclosure.md)を参照。コントラクトコードはまだない。この議論から生まれた登録済みのアドレス制のステーブルコイン([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))を土台とする。その送金ルールは今は[ADR 0031](../../decisions/0031-registered-address-transfer-rule.md)にある。機能間の整合性レビュー([ADR 0032](../../decisions/0032-consistency-review-decisions.md))に合わせて更新した。
 
 ## 概要
 
@@ -71,8 +71,8 @@ National and local legislators, heads of government (governors, mayors), ministe
 
 ## ライフサイクル
 
-- **就任:** 要人の`ResidentLink`アドレスを公表し、要人の印を付ける([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md))。
-- **退任(論点5):** 要人の印は退任後も法定の期間(例: 1年)アドレスに残る。軽い承継の手続き([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))で新しい`ResidentLink`アドレスに切り替えるのは**任意**である: 古いアドレスから新しいアドレスへの移転そのものは見えるので、切り替えても何も隠せず、追い続けようとする人は追える(整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。これは**受け入れる**: 政治家になるにはそれくらいの覚悟が必要であり、利権を得たいだけの人を遠ざける効果も期待できる(S8)。
+- **就任:** 要人の`ResidentLink`アドレスを公表し、要人の印を付ける。印は公職を確定する機関が書き込む(選挙で選ばれる職は選挙管理委員会、大臣と副大臣は内閣府)(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))([ADR 0031](../../decisions/0031-registered-address-transfer-rule.md))。
+- **退任(論点5):** 要人の印は退任後も法定の期間(例: 1年)アドレスに残る。軽い承継の手続き([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))で新しい`ResidentLink`アドレスに切り替えるのは**任意**である(印の期間中は、印も新しいアドレスに移る(追加の抜け、[整合性レビュー](../../architecture/consistency-review.md))): 古いアドレスから新しいアドレスへの移転そのものは見えるので、切り替えても何も隠せず、追い続けようとする人は追える(整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。これは**受け入れる**: 政治家になるにはそれくらいの覚悟が必要であり、利権を得たいだけの人を遠ざける効果も期待できる(S8)。
 
 ## 既知の限界
 
