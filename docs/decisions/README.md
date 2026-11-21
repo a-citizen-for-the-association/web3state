@@ -44,6 +44,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0029](0029-real-estate-registry-model.md) | Real estate registry model: the token is the right; owner plus agent to transfer; no parcel on-chain; no foreign ownership | Accepted |
 | [0030](0030-securities-model.md) | Securities model: shares as tokens at holders' addresses; exchanges off-chain, brokers record the result on-chain; named beneficial owners | Accepted |
 | [0031](0031-registered-address-transfer-rule.md) | Transfer rule for registered addresses: one address per resident and corporation; cumulative cap on sending to unregistered addresses; zero for VIPs | Accepted (provisional) |
+| [0032](0032-consistency-review-decisions.md) | Cross-feature consistency review: decisions | Accepted |
 
 ---
 
