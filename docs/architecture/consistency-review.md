@@ -92,8 +92,8 @@ Mechanical fixes Claude can make directly:
 | F1 | Without per-election grants, nothing says which voters may vote in a local election; districts smaller than a municipality cannot be expressed. | The voter credential's token type is the **electoral district**; `Election` and `Petition` list the district types they accept. | Open |
 | F2 | The residence requirement (e.g. three months in the municipality) is no longer checked on-chain. | The municipality issues the district-typed credential only after the residence period (off-chain check), and burns it on moving out. | Open |
 | F3 | With per-petition lists gone, signatures of voters who later move out can no longer be dropped (the old rule F2 of direct demand). | The count is "signatures from addresses still holding a matching credential at the close", checked from public data. | Open |
-| F4 | After a succession, an old address that already voted plus a re-issued credential could vote twice in one election. | Re-issue of the voter credential to a successor address takes effect only after elections open at that moment have closed. | Open |
-| F5 | Re-issuing a vaccination coupon in `Vaccinated` status is a new power for the municipality; burning `Vaccinated` coupons on death follows the credentials-wide rule. | Confirm both. | Open |
+| F4 | After a succession, an old address that already voted plus a re-issued credential could vote twice in one election. | Re-issue of the voter credential to a successor address takes effect only after elections open at that moment have closed. | **Accepted, revised** (2026-11-21): on succession the old voting NFT is burned and a new one issued, but not for an election in which the old address has already voted (checked on-chain) |
+| F5 | Re-issuing a vaccination coupon in `Vaccinated` status is a new power for the municipality; burning `Vaccinated` coupons on death follows the credentials-wide rule. | Confirm both. | **Accepted** (2026-11-21): for succession re-issue only, the municipality may issue a coupon directly in `Vaccinated` status; coupons are burned on death |
 
 **Gaps Claude proposes to fill directly (consistent with the decisions):** the suspended mark lives in `OfficialContractRegistry` and is set by the registrar of the address's kind; the VIP flag is written by the body that confirms the office and follows an optional address switch; the exchanger mark is written by the FSA; a `PublicTreasury.grant()` call makes `PublicGrant` contributions; on emigration 外務省 sets `NationalAbroad` before the burn; merger and light-path confirmations are by the registrar of the kind; a `NationalAbroad` holder's death is reported through 外務省, which removes the flag; the `AnchorRegistry` event carries `previousId` and extra fields; remaining "certified address" wording in specs becomes "registered address".
 
@@ -197,8 +197,8 @@ Claudeが直接直せる機械的な修正:
 | F1 | 選挙ごとの付与がなくなり、地方選挙で誰が投票できるかを定めるものがない。市区町村より小さい選挙区も表せない。 | 有権者クレデンシャルのトークンの種類を**選挙区**にする。`Election`と`Petition`は受け付ける選挙区の種類を列挙する。 | 未決 |
 | F2 | 居住要件(例: 市区町村に3か月)がオンチェーンで確認されなくなった。 | 市区町村は居住期間を満たしてから選挙区の種類のクレデンシャルを発行し(オフチェーンの確認)、転出でburnする。 | 未決 |
 | F3 | 請求ごとの名簿がなくなり、後で転出した有権者の署名を除けなくなった(直接請求の旧ルールF2)。 | 数えるのは「締切の時点で対応するクレデンシャルをまだ持つアドレスの署名」とし、公開データで確認する。 | 未決 |
-| F4 | 承継の後、すでに投票した古いアドレスと再発行されたクレデンシャルで、1つの選挙に2回投票できうる。 | 承継先への有権者クレデンシャルの再発行は、その時点で進行中の選挙が終わってから有効にする。 | 未決 |
-| F5 | 接種券を`Vaccinated`の状態で再発行するのは市区町村の新しい権限になる。死亡で`Vaccinated`の接種券をburnするのはクレデンシャル共通のルールに従う。 | 両方を確認する。 | 未決 |
+| F4 | 承継の後、すでに投票した古いアドレスと再発行されたクレデンシャルで、1つの選挙に2回投票できうる。 | 承継先への有権者クレデンシャルの再発行は、その時点で進行中の選挙が終わってから有効にする。 | **修正して了承**(2026-11-21): 承継では古い投票のNFTをburnして新しいものを発行する。ただし古いアドレスがすでに投票した選挙については発行しない(オンチェーンで確認) |
+| F5 | 接種券を`Vaccinated`の状態で再発行するのは市区町村の新しい権限になる。死亡で`Vaccinated`の接種券をburnするのはクレデンシャル共通のルールに従う。 | 両方を確認する。 | **了承**(2026-11-21): 承継の再発行に限り、市区町村が`Vaccinated`の状態で接種券を発行できる。死亡でburnする |
 
 **Claudeが直接埋めることを提案する抜け(決定と整合):** 停止の印は`OfficialContractRegistry`に置き、アドレスの種類の登録者が付ける。要人の印は公職を確定する機関が書き込み、任意のアドレスの切り替えに伴って移る。両替業者の印は金融庁が書き込む。`PublicGrant`の寄付は`PublicTreasury.grant()`の呼び出しで行う。海外転出では外務省がburnの前に`NationalAbroad`を付ける。合併と軽い手続きの確認は種類の登録者が行う。`NationalAbroad`の保有者の死亡は外務省を通じて届け出られ、外務省が印を外す。`AnchorRegistry`のイベントは`previousId`と追加の項目を運ぶ。仕様に残る「認定アドレス」の表現は「登録済みのアドレス」にする。
 
