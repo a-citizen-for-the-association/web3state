@@ -4,7 +4,7 @@
 
 ## Summary
 
-Every political organization (party, political fund-raising body, legislator's fund-management body, other political organization) is registered on-chain by the election board. Its **only** lawful receiving address is a dedicated fund contract deployed from a common factory. Money can enter that contract only from an address that holds a genuine `ResidentLink` or is a genuinely registered corporation, so **every donor is traceable**. Some rules are enforced inside the contract (identifiable donor, corporations → parties only, per-recipient annual cap). The rest are checked after the fact by auditing the fully public on-chain record (cross-recipient totals, foreign donors). All spending leaves from the same contract, so income and expenditure are both public by construction.
+Every political organization (party, political fund-raising body, legislator's fund-management body, other political organization) is registered on-chain by the election board. Its **only** lawful receiving address is a dedicated fund contract deployed from a common factory. Money can enter that contract only from an address that holds a genuine `ResidentLink` or is a genuinely registered corporation, or, as a public grant, from a public treasury, so **every donor is traceable**. Some rules are enforced inside the contract (identifiable donor, corporations → parties only, per-recipient annual cap). The rest are checked after the fact by auditing the fully public on-chain record (cross-recipient totals, foreign donors). All spending leaves from the same contract, so income and expenditure are both public by construction.
 
 **Goal, precisely stated:** make covert political money (e.g. the 2023–24 party-ticket slush-fund scandal) structurally hard to hide by making every inflow and outflow traceable. Publishing donors' names is *not* the goal.
 
@@ -23,7 +23,7 @@ Every political organization (party, political fund-raising body, legislator's f
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain:**
-- `OfficialContractRegistry`: the allowlist of genuine `ResidentLink` and corporate-registration contracts, plus the accepted stablecoin(s) and the legal cap parameters.
+- `OfficialContractRegistry`, defined in its [canonical section](../certified-stablecoin/README.md#officialcontractregistry-canonical-definition): this design uses its list of genuine official contracts (`ResidentLink`, corporate-registration and `PublicTreasury` contracts), the accepted stablecoin(s) and the legal cap parameters.
 - `PoliticalOrgRegistration` NFTs: organization name, type, representative/treasurer names, affiliated legislator name (for fund-management bodies). Public, per ADR 0012's open-information principle for VIPs.
 - `PoliticalFund` contracts: every contribution (donor address, which identity contract, category, amount, year) and every expenditure.
 
@@ -40,7 +40,7 @@ Every political organization (party, political fund-raising body, legislator's f
 
 ### `OfficialContractRegistry` (one, operated by 総務省)
 
-- `kindOf(address) → None | ResidentLink | CorporateRegistration`. Entries are added and removed only by 総務省's controlling address, and every change emits an event.
+- Defined once in the [canonical registry section](../certified-stablecoin/README.md#officialcontractregistry-canonical-definition) of the stablecoin spec (consistency review R1.2, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))). This design uses lookup A, `kindOf(contract)`, to recognise the identity contracts (`ResidentLink`, `CorporateRegistration`) and `PublicTreasury` contracts. Entries are added and removed only by 総務省's controlling address, and every change emits an event.
 - Also holds the list of accepted stablecoin(s) and the cap parameters (per donor type × recipient type × category), since these are legal parameters that change by law, not per organization.
 - It is the trust anchor for **automated** contract-to-contract checks. The root of trust is still off-chain (ADR 0003): 総務省 only mirrors attestations that already exist.
 - Reusable by later features that need the same automated check.
@@ -61,7 +61,8 @@ Every political organization (party, political fund-raising body, legislator's f
   3. If the donor is a corporation, this organization's type must be `Party`.
   4. The donor's running total to **this** organization, for this year and category, plus `amount`, must not exceed the cap.
   5. `transferFrom` the accepted stablecoin, increase `accountedBalance`, and emit `Contribution(donor, identityContract, category, amount, year)`.
-- **Categories:** `Donation`, `PartyTicket`, `MembershipFee`, `Other`. Every inflow uses the same entry point whatever it is called (Issue 5). Caps are set per category.
+  - **`PublicGrant`** (e.g. party grants): callable only when `registry.kindOf(msg.sender) == PublicTreasury`, in place of steps 1–4; no cap applies (consistency review R2.1, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))).
+- **Categories:** `Donation`, `PartyTicket`, `MembershipFee`, `Other`, `PublicGrant`. Every inflow uses the same entry point whatever it is called (Issue 5). Caps are set per category, except `PublicGrant`.
 - **Year:** the Japanese calendar year derived from `block.timestamp` (UTC+9). This is the second justified on-chain date exception after the voting period.
 - **`spend(to, amount, purpose)`:** controller only, `amount ≤ accountedBalance`, and an event is emitted.
 - **Unaccounted funds** (the token balance above `accountedBalance`, which arrives through direct transfers that bypass `contribute`) cannot be spent. `forfeitUnaccounted()` sends them to the treasury only. A genuine mistaken sender claims a refund from the treasury off-chain. A "refund to anyone" path is deliberately absent, because it would launder untraceable money through the fund (Round 5).
@@ -74,8 +75,9 @@ Every political organization (party, political fund-raising body, legislator's f
 | Corporations may donate to parties only | In the contract |
 | Per-recipient annual cap, per category | In the contract |
 | Spending limited to accounted funds; unaccounted funds go to the treasury only | In the contract |
+| `PublicGrant` only from a `PublicTreasury`, with no cap | In the contract (with the registry) |
 | Total annual cap across recipients | After-the-fact audit of on-chain data |
-| Foreign individuals / foreign-controlled corporations banned | After-the-fact audit |
+| Foreign individuals / foreign-controlled corporations banned | After-the-fact audit (kept even with the standing voter credential; consistency review R5.9, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))) |
 | Legitimacy of spending purposes | After-the-fact audit |
 
 ### Why no donor names (Round 4)
@@ -96,7 +98,7 @@ Every donor address is either a `ResidentLink` holder, verified in person by a m
 
 ## 概要
 
-すべての政治団体(政党、政治資金団体、議員の資金管理団体、その他の政治団体)は、選挙管理委員会がオンチェーンで登録する。適法な受け取りアドレスは、共通のファクトリーからデプロイされた専用の資金コントラクト**だけ**である。このコントラクトにお金を入れられるのは、本物の`ResidentLink`を持つアドレスか、本当に登記された法人のアドレスだけなので、**すべての献金者が追跡可能**になる。一部のルールはコントラクト内で強制する(献金者が特定できること、法人は政党にのみ献金可、受取先ごとの年間上限)。残りは、完全に公開されたオンチェーン記録を事後に監査して確認する(受取先をまたぐ合計、外国人献金)。支出もすべて同じコントラクトから行うので、収入と支出の両方が仕組みとして公開される。
+すべての政治団体(政党、政治資金団体、議員の資金管理団体、その他の政治団体)は、選挙管理委員会がオンチェーンで登録する。適法な受け取りアドレスは、共通のファクトリーからデプロイされた専用の資金コントラクト**だけ**である。このコントラクトにお金を入れられるのは、本物の`ResidentLink`を持つアドレスか、本当に登記された法人のアドレス、または公的な交付金としての国庫だけなので、**すべての献金者が追跡可能**になる。一部のルールはコントラクト内で強制する(献金者が特定できること、法人は政党にのみ献金可、受取先ごとの年間上限)。残りは、完全に公開されたオンチェーン記録を事後に監査して確認する(受取先をまたぐ合計、外国人献金)。支出もすべて同じコントラクトから行うので、収入と支出の両方が仕組みとして公開される。
 
 **目的の正確な表現:** すべての資金の出入りを追跡可能にすることで、隠れた政治資金(例: 2023〜24年のパーティー券裏金事件)を構造的に隠しにくくする。献金者の氏名を公開することは目的では*ない*。
 
@@ -115,7 +117,7 @@ Every donor address is either a `ResidentLink` holder, verified in person by a m
 (規約は[`docs/operations/README.md`](../../operations/README.md)を参照。)
 
 **オンチェーン:**
-- `OfficialContractRegistry`: 本物の`ResidentLink`と法人登記コントラクトの許可リスト。受け入れるステーブルコインと法定の上限値も保持する。
+- `OfficialContractRegistry`。定義は[正本の節](../certified-stablecoin/README.md#officialcontractregistry-正本の定義)にある: この設計は、本物の公式のコントラクト(`ResidentLink`、法人登記、`PublicTreasury`のコントラクト)の一覧、受け入れるステーブルコイン、法定の上限値を使う。
 - `PoliticalOrgRegistration` NFT: 団体名、種別、代表者・会計責任者の氏名、関係する議員の氏名(資金管理団体の場合)。ADR 0012の「要人の情報は公開」という原則に従い公開する。
 - `PoliticalFund`コントラクト: すべての収入(献金者アドレス、どの本人確認コントラクトか、区分、金額、年)とすべての支出。
 
@@ -132,7 +134,7 @@ Every donor address is either a `ResidentLink` holder, verified in person by a m
 
 ### `OfficialContractRegistry`(1つ、総務省が運用)
 
-- `kindOf(address) → None | ResidentLink | CorporateRegistration`。エントリーの追加・削除は総務省の管理アドレスだけが行え、変更のたびにイベントを発行する。
+- 定義はステーブルコインの仕様の[レジストリの正本の節](../certified-stablecoin/README.md#officialcontractregistry-正本の定義)に1か所だけ置く(整合性レビューR1.2、([ADR 0032](../../decisions/0032-consistency-review-decisions.md)))。この設計は照会A`kindOf(contract)`で、本人確認コントラクト(`ResidentLink`、`CorporateRegistration`)と`PublicTreasury`のコントラクトを見分ける。エントリーの追加・削除は総務省の管理アドレスだけが行え、変更のたびにイベントを発行する。
 - 受け入れるステーブルコインの一覧と上限値(献金者の種別 × 受取団体の種別 × 区分)も保持する。これらは団体ごとではなく、法律で変わる法定のパラメータだからである。
 - コントラクト間の**自動**検証のための信頼の起点となる。信頼の根は引き続きオフチェーンにある(ADR 0003)。総務省はすでに存在する証明を写すだけである。
 - 同じ自動検証を必要とする今後の機能でも再利用できる。
@@ -153,7 +155,8 @@ Every donor address is either a `ResidentLink` holder, verified in person by a m
   3. 献金者が法人なら、この団体の種別が`Party`であること。
   4. **この**団体への、その年・その区分の献金者の累計に`amount`を足しても上限を超えないこと。
   5. 受け入れ対象のステーブルコインを`transferFrom`し、`accountedBalance`を増やし、`Contribution(donor, identityContract, category, amount, year)`を発行する。
-- **区分:** `Donation`、`PartyTicket`、`MembershipFee`、`Other`。名目を問わず、すべての収入が同じ入口を通る(論点5)。上限は区分ごとに設定する。
+  - **`PublicGrant`**(例: 政党交付金): `registry.kindOf(msg.sender) == PublicTreasury`の場合だけ呼べ、1〜4の代わりとなる。上限はかからない(整合性レビューR2.1、([ADR 0032](../../decisions/0032-consistency-review-decisions.md)))。
+- **区分:** `Donation`、`PartyTicket`、`MembershipFee`、`Other`、`PublicGrant`。名目を問わず、すべての収入が同じ入口を通る(論点5)。上限は`PublicGrant`を除き区分ごとに設定する。
 - **年:** `block.timestamp`から求めた日本の暦年(UTC+9)。投票期間に続く、2つ目の正当化されたオンチェーン日付の例外である。
 - **`spend(to, amount, purpose)`:** 管理者のみが呼べ、`amount ≤ accountedBalance`であること。イベントを発行する。
 - **出所不明の資金**(`accountedBalance`を超えるトークン残高。`contribute`を迂回した直接送金で入ってくる)は使えない。`forfeitUnaccounted()`で国庫に送ることしかできない。誤って送金した本来の送金者は、オフチェーンで国庫に返金を請求する。「誰にでも返金できる」経路は意図的に設けない。追跡できない資金をコントラクト経由で洗浄する手段になるためである(Round 5)。
@@ -166,8 +169,9 @@ Every donor address is either a `ResidentLink` holder, verified in person by a m
 | 法人は政党にのみ献金可 | コントラクト内 |
 | 受取先ごと・区分ごとの年間上限 | コントラクト内 |
 | 支出は記録済み資金の範囲内、出所不明の資金は国庫へのみ | コントラクト内 |
+| `PublicGrant`は`PublicTreasury`からだけ、上限なし | コントラクト内(レジストリと併用) |
 | 受取先をまたぐ年間合計上限 | オンチェーンデータの事後監査 |
-| 外国人・外資支配法人の献金禁止 | 事後監査 |
+| 外国人・外資支配法人の献金禁止 | 事後監査(常設の有権者クレデンシャルがあってもそのまま。整合性レビューR5.9、([ADR 0032](../../decisions/0032-consistency-review-decisions.md))) |
 | 支出目的の正当性 | 事後監査 |
 
 ### 献金者の氏名を載せない理由(Round 4)

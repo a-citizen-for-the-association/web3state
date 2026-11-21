@@ -4,7 +4,7 @@
 
 ## Summary
 
-Every public body (ministries, prefectures, municipalities, other public bodies) holds its money in its own `PublicTreasury` contract. Taxes and transfers come in; every payment goes out from it as a plain stablecoin transfer, tagged with a budget code, and only to an identified payee. Because the payment is on-chain, anyone can follow the money past the first recipient, whether an individual, a corporation or a subcontractor. No special re-delegation mechanism is needed. Money may leave the chain for legitimately secret uses, but only through a tagged, public exit, so the amount of secret spending is always known.
+Every public body (ministries, prefectures, municipalities, other public bodies) holds its money in its own `PublicTreasury` contracts, one per account. Taxes and transfers come in; every payment goes out as a plain stablecoin transfer, tagged with a budget code, and only to a registered address. Because the payment is on-chain, anyone can follow the money past the first recipient, whether an individual, a corporation or a subcontractor. No special re-delegation mechanism is needed. Money may leave the chain for legitimately secret uses, but only through a tagged, public exit, so the amount of secret spending is always known.
 
 **Design principle (user, Round 3):** whatever can be done off-chain is not put on-chain. The contract does only what needs a chain; budget checks, classification and analysis are done off-chain from public chain data.
 
@@ -23,11 +23,11 @@ Every public body (ministries, prefectures, municipalities, other public bodies)
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain:**
-- One `PublicTreasury` per public body: balances, and every payment with its payee, amount, budget code and tag.
-- `OfficialContractRegistry` lists each `PublicTreasury` under a new kind, `PublicTreasury`.
+- One `PublicTreasury` per public body **per account** (e.g. each tax's receiving address, each pension account) (consistency review R1.6, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))): balances, and every payment with its payee, amount, budget code and tag.
+- `OfficialContractRegistry` lists each `PublicTreasury` under the contract kind `PublicTreasury`, and 総務省 registers its address as `PublicContract` ([canonical registry section](../certified-stablecoin/README.md#officialcontractregistry-canonical-definition)).
 
 **Online:**
-- Each body publishes its treasury address under its own `.go.jp`/`.lg.jp` domain. For taxes, this address is the officially attested receiving address of [ADR 0004](../../decisions/0004-taxation-payment-rail.md).
+- Each body publishes its treasury addresses under its own `.go.jp`/`.lg.jp` domain. Tax receiving addresses are `PublicTreasury` contracts, and each is the officially attested receiving address of [ADR 0004](../../decisions/0004-taxation-payment-rail.md) (R1.6).
 - Each body publishes its budget and the meaning of its budget codes.
 
 **Offline:**
@@ -39,23 +39,24 @@ Every public body (ministries, prefectures, municipalities, other public bodies)
 
 ## Architecture
 
-### `PublicTreasury` (one per public body)
+### `PublicTreasury` (one per public body per account)
 
 - **Controller:** the body's accounting officer's multisig (the audited multisig standard is an existing backlog item).
 - **Receiving:** any incoming stablecoin transfer (taxes, transfers from other treasuries, other revenue). No accounting split is needed, because every inflow to public money is welcome.
-- **`pay(to, amount, budgetCode, tag, identityContract)`:** controller only.
-  1. **Payee check (Issue 4):** either `registry.kindOf(to) == PublicTreasury`, or `registry.kindOf(identityContract)` is `ResidentLink` or `CorporateRegistration` **and** `identityContract.balanceOf(to) > 0`.
-  2. **`tag`:** `Normal` or `OffChainExit` (F1). An `OffChainExit` payee must pass the same check as a corporation; whether it is actually a financial institution is checked off-chain.
-  3. **`budgetCode`:** a free code, **not validated on-chain** (Issue 3, option (b)).
+- **`pay(to, amount, budgetCode, tag)`:** controller only.
+  1. **Payee check (Issue 4):** `to` must be a **registered address of any kind** in `OfficialContractRegistry` (residents, corporations, public contracts, `NationalAbroad`, `ForeignInvestor`, financial vehicles, factory-deployed contracts such as `PoliticalFund`) (consistency review R2.1, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))). Payments to someone with no registered address (e.g. a lump-sum withdrawal payment) go through a licensed exchanger or bank (R2.3).
+  2. **`tag`:** `Normal` or `OffChainExit` (F1). An `OffChainExit` payee must pass the same check; whether it is actually a financial institution is checked off-chain.
+  3. **`budgetCode`:** a free code, **not validated on-chain** (Issue 3, option (b)). No budget code may correspond to a single named person (R5.7).
   4. Transfers the stablecoin and emits `Paid(to, amount, budgetCode, tag)`.
+  5. **A failed payment** (e.g. the payee's registration has ended) fails on its own, stays owed, and is retried (R3.8).
 
 ### Payments to individuals (Issue 6)
 
-Salaries, honoraria and refunds are paid to the recipient's `ResidentLink` address and are public, like every other payment.
+Salaries, honoraria and refunds are paid to the recipient's registered address and are public, like every other payment. Grant records show individuals (e.g. sole proprietors) by address only, and no budget code corresponds to a single named person (e.g. an office-holder named by role), so that codes do not join names to addresses (consistency review R5.7, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))).
 
 ### Assembly members' activity expenses (Issue 7, F2)
 
-Paid with `pay()` to the legislator's own `ResidentLink` address, with the activity-expense budget code. The assembly publishes which address belongs to which legislator (legislators are VIPs under [ADR 0012](../../decisions/0012-onchain-scope-philosophy.md)). Where the money then goes, and whether payees look plausible, is analysed off-chain from the address's public outflows. Activity spending and personal spending share one address. This is accepted to keep the design simple.
+Paid with `pay()` to the legislator's own registered (`ResidentLink`) address, with the activity-expense budget code. The assembly publishes which address belongs to which legislator (legislators are VIPs under [ADR 0012](../../decisions/0012-onchain-scope-philosophy.md)). Where the money then goes, and whether payees look plausible, is analysed off-chain from the address's public outflows. Activity spending and personal spending share one address. This is accepted to keep the design simple.
 
 ### Following the money (Issue 5)
 
@@ -80,7 +81,7 @@ Cash or special financial-institution accounts are allowed only where secrecy is
 
 ## 概要
 
-すべての公的機関(省庁、都道府県、市区町村、その他の公的機関)は、自らの`PublicTreasury`コントラクトにお金を置く。税金や移転はここに入り、すべての支払いはここから、予算コードを付けた単純なステーブルコインの送金として、身元の分かる支払先にだけ出ていく。支払いがオンチェーンなので、受取人が個人でも法人でも下請けでも、誰でも最初の受取人より先までお金を追える。再委託のための特別な仕組みは要らない。正当に秘密が必要な用途のためにお金がチェーンの外に出ることはあるが、タグ付きの公開の出口を通る場合に限るので、秘密の支出の額は常に分かる。
+すべての公的機関(省庁、都道府県、市区町村、その他の公的機関)は、勘定ごとに1つずつ持つ自らの`PublicTreasury`コントラクトにお金を置く。税金や移転はここに入り、すべての支払いはここから、予算コードを付けた単純なステーブルコインの送金として、登録済みのアドレスにだけ出ていく。支払いがオンチェーンなので、受取人が個人でも法人でも下請けでも、誰でも最初の受取人より先までお金を追える。再委託のための特別な仕組みは要らない。正当に秘密が必要な用途のためにお金がチェーンの外に出ることはあるが、タグ付きの公開の出口を通る場合に限るので、秘密の支出の額は常に分かる。
 
 **設計方針(ユーザー、Round 3):** オフチェーンでできることは、オンチェーン化しない。コントラクトはチェーンが必要なことだけを行い、予算との照合、分類、分析は、公開されたチェーンのデータからオフチェーンで行う。
 
@@ -99,11 +100,11 @@ Cash or special financial-institution accounts are allowed only where secrecy is
 (区分の考え方は[`docs/operations/README.md`](../../operations/README.md)を参照。)
 
 **オンチェーン:**
-- 公的機関ごとに1つの`PublicTreasury`: 残高と、支払先・金額・予算コード・タグ付きのすべての支払い。
-- `OfficialContractRegistry`は、各`PublicTreasury`を新しい種類`PublicTreasury`として載せる。
+- 公的機関ごと・**勘定ごと**に1つの`PublicTreasury`(例: 税目ごとの受取アドレス、年金の勘定ごと)(整合性レビューR1.6、([ADR 0032](../../decisions/0032-consistency-review-decisions.md))): 残高と、支払先・金額・予算コード・タグ付きのすべての支払い。
+- `OfficialContractRegistry`は、各`PublicTreasury`をコントラクトの種類`PublicTreasury`として載せ、総務省がそのアドレスを`PublicContract`として登録する([レジストリの正本の節](../certified-stablecoin/README.md#officialcontractregistry-正本の定義))。
 
 **オンライン:**
-- 各機関は、国庫のアドレスを自らの`.go.jp`/`.lg.jp`ドメインで公表する。税金については、このアドレスが[ADR 0004](../../decisions/0004-taxation-payment-rail.md)の公式に証明された受け取りアドレスになる。
+- 各機関は、国庫のアドレスを自らの`.go.jp`/`.lg.jp`ドメインで公表する。税の受取アドレスは`PublicTreasury`のコントラクトであり、それぞれが[ADR 0004](../../decisions/0004-taxation-payment-rail.md)の公式に証明された受け取りアドレスになる(R1.6)。
 - 各機関は、予算と予算コードの意味を公表する。
 
 **オフライン:**
@@ -115,23 +116,24 @@ Cash or special financial-institution accounts are allowed only where secrecy is
 
 ## アーキテクチャ
 
-### `PublicTreasury`(公的機関ごとに1つ)
+### `PublicTreasury`(公的機関ごと・勘定ごとに1つ)
 
 - **管理者:** 機関の会計管理者のマルチシグ(監査済みマルチシグ規格は既存のBACKLOG項目)。
 - **受け取り:** 入ってくるすべてのステーブルコインの送金(税金、他の国庫からの移転、その他の収入)。公金への入金はすべて歓迎されるので、計上の区別は要らない。
-- **`pay(to, amount, budgetCode, tag, identityContract)`:** 管理者のみ。
-  1. **支払先の確認(論点4):** `registry.kindOf(to) == PublicTreasury`であるか、または`registry.kindOf(identityContract)`が`ResidentLink`か`CorporateRegistration`で、**かつ**`identityContract.balanceOf(to) > 0`であること。
-  2. **`tag`:** `Normal`または`OffChainExit`(F1)。`OffChainExit`の支払先は法人と同じ確認を通らなければならない。本当に金融機関かどうかはオフチェーンで確認する。
-  3. **`budgetCode`:** 自由なコードで、**オンチェーンでは検証しない**(論点3、選択肢(b))。
+- **`pay(to, amount, budgetCode, tag)`:** 管理者のみ。
+  1. **支払先の確認(論点4):** `to`が`OfficialContractRegistry`で**どの種類であれ登録済みのアドレス**であること(住民、法人、公的なコントラクト、`NationalAbroad`、`ForeignInvestor`、金融の器、`PoliticalFund`などファクトリーがデプロイしたコントラクト)(整合性レビューR2.1、([ADR 0032](../../decisions/0032-consistency-review-decisions.md)))。登録済みのアドレスを持たない相手への支払い(例: 脱退一時金)は、免許を受けた両替業者や銀行を通す(R2.3)。
+  2. **`tag`:** `Normal`または`OffChainExit`(F1)。`OffChainExit`の支払先も同じ確認を通らなければならない。本当に金融機関かどうかはオフチェーンで確認する。
+  3. **`budgetCode`:** 自由なコードで、**オンチェーンでは検証しない**(論点3、選択肢(b))。名前のわかる1人だけに対応する予算コードは作らない(R5.7)。
   4. ステーブルコインを送金し、`Paid(to, amount, budgetCode, tag)`を発行する。
+  5. **失敗した支払い**(例: 支払先の登録が外れていた)は1件ずつ失敗し、未払いとして残し、再試行する(R3.8)。
 
 ### 個人への支払い(論点6)
 
-給与、謝金、還付は受取人の`ResidentLink`アドレスに支払い、他のすべての支払いと同じく公開する。
+給与、謝金、還付は受取人の登録済みのアドレスに支払い、他のすべての支払いと同じく公開する。交付の記録では個人(例: 個人事業主)はアドレスだけで示し、名前のわかる1人(例: 役職で特定される公職者)だけに対応する予算コードは作らない。予算コードが氏名とアドレスを結びつけないようにするためである(整合性レビューR5.7、([ADR 0032](../../decisions/0032-consistency-review-decisions.md)))。
 
 ### 議員の政務活動費(論点7、F2)
 
-`pay()`で、政務活動費の予算コードを付けて、議員自身の`ResidentLink`アドレスに支払う。どのアドレスがどの議員のものかは議会が公表する(議員は[ADR 0012](../../decisions/0012-onchain-scope-philosophy.md)の要人である)。その後お金がどこに行き、支払先が妥当に見えるかは、そのアドレスの公開された送金からオフチェーンで分析する。政務活動の支出と私的な支出は1つのアドレスに混ざる。設計を単純に保つため、これを受け入れる。
+`pay()`で、政務活動費の予算コードを付けて、議員自身の登録済み(`ResidentLink`)のアドレスに支払う。どのアドレスがどの議員のものかは議会が公表する(議員は[ADR 0012](../../decisions/0012-onchain-scope-philosophy.md)の要人である)。その後お金がどこに行き、支払先が妥当に見えるかは、そのアドレスの公開された送金からオフチェーンで分析する。政務活動の支出と私的な支出は1つのアドレスに混ざる。設計を単純に保つため、これを受け入れる。
 
 ### お金を追う(論点5)
 
