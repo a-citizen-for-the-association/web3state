@@ -1,6 +1,6 @@
 # Subsidies / grants disbursement (補助金・交付金)
 
-**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0023](../../decisions/0023-subsidies-model.md) for the formal decision. No contract code written yet.
+**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0023](../../decisions/0023-subsidies-model.md) for the formal decision. No contract code written yet. Amended by [ADR 0032](../../decisions/0032-consistency-review-decisions.md) (consistency review R4.2, R5.7).
 
 ## Summary
 
@@ -19,13 +19,13 @@
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain (all existing):**
-- The grant decision, anchored as an approval document in the granting body's `DocumentRegistry` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)).
+- The grant decision, anchored by the granting body in the shared `AnchorRegistry` as kind `ApprovalDocument` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md); consistency review R4.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 - Payments from the granting body's `PublicTreasury` ([ADR 0019](../../decisions/0019-treasury-model.md)), with a budget code naming the programme and the grant.
 - The recipient's expense payments to vendors, which are certified-address transfers ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)).
-- The hash of each expense report, anchored in the granting body's `DocumentRegistry` (Round 2 adjustment).
+- The hash of each expense report, anchored by its author, the recipient, from its own registered address in `AnchorRegistry` as kind `ExpenseReport` (Round 2 adjustment; consistency review R4.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md); kind list in the [certified-stablecoin spec](../certified-stablecoin/README.md)).
 
 **Online:**
-- Every grant (programme, recipient, amount) and every expense report is published, including grants to sole proprietors.
+- Every grant (programme, recipient, amount) and every expense report is published, including grants to sole proprietors. Individuals (sole proprietors) appear by address only; corporations by name (consistency review R5.7, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
 **Offline:**
 - Application review and eligibility.
@@ -36,8 +36,8 @@
 ## Rules
 
 1. **Evidence is on-chain.** Subsidised expenses must be paid in the JPY stablecoin to certified addresses. The expense report lists those transactions. **Cash-paid expenses are not eligible.**
-2. **Everything is public:** grants, reports, recipients (including individuals), and amounts.
-3. **Budget-code convention:** each payment names the programme and the individual grant (Round 2 adjustment).
+2. **Everything is public:** grants, reports, recipients (including individuals), and amounts. Individual recipients (sole proprietors) are shown by address only, corporations by name (consistency review R5.7, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+3. **Budget-code convention:** each payment names the programme and the individual grant (Round 2 adjustment). No budget code corresponds to a single named person (consistency review R5.7, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 4. **Advance payments:** any unspent amount is returned to the granting treasury as an ordinary, visible transfer (Round 2 adjustment).
 5. **Grants to local governments:** when a local government spends a national grant, its treasury payments cite the grant in their budget code, so each grant's final use is traceable by anyone.
 
@@ -51,7 +51,7 @@
 
 # 補助金・交付金(日本語)
 
-**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0023](../../decisions/0023-subsidies-model.md)を参照。コントラクトコードはまだない。
+**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0023](../../decisions/0023-subsidies-model.md)を参照。コントラクトコードはまだない。[ADR 0032](../../decisions/0032-consistency-review-decisions.md)で修正(整合性レビューR4.2、R5.7)。
 
 ## 概要
 
@@ -70,13 +70,13 @@
 (区分の考え方は[`docs/operations/README.md`](../../operations/README.md)を参照。)
 
 **オンチェーン(すべて既存):**
-- 交付決定。交付する機関の`DocumentRegistry`([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md))に決裁文書としてアンカーする。
+- 交付決定。交付する機関が、共有の`AnchorRegistry`に種類`ApprovalDocument`でアンカーする([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)。整合性レビューR4.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - 交付する機関の`PublicTreasury`([ADR 0019](../../decisions/0019-treasury-model.md))からの支払い。予算コードで制度と交付を示す。
 - 受給者から業者への経費の支払い。認定アドレス間の送金である([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。
-- 各実績報告のハッシュ。交付する機関の`DocumentRegistry`にアンカーする(Round 2の調整)。
+- 各実績報告のハッシュ。報告を作った受給者が、自分の登録済みアドレスから`AnchorRegistry`に種類`ExpenseReport`でアンカーする(Round 2の調整。整合性レビューR4.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)。種類の一覧は[認定ステーブルコインの仕様](../certified-stablecoin/README.md))。
 
 **オンライン:**
-- すべての交付(制度、受給者、金額)とすべての実績報告を公表する。個人事業主への交付も含む。
+- すべての交付(制度、受給者、金額)とすべての実績報告を公表する。個人事業主への交付も含む。個人(個人事業主)はアドレスだけ、法人は名称で示す(整合性レビューR5.7、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
 **オフライン:**
 - 申請の審査と受給資格。
@@ -87,8 +87,8 @@
 ## ルール
 
 1. **証拠はオンチェーン。** 補助対象の経費は円建てステーブルコインで認定アドレスに支払わなければならない。実績報告はその取引を列挙する。**現金で支払った経費は対象外とする。**
-2. **すべて公開:** 交付、報告、受給者(個人を含む)、金額。
-3. **予算コードの約束事:** 各支払いは制度と個々の交付を示す(Round 2の調整)。
+2. **すべて公開:** 交付、報告、受給者(個人を含む)、金額。個人の受給者(個人事業主)はアドレスだけ、法人は名称で示す(整合性レビューR5.7、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+3. **予算コードの約束事:** 各支払いは制度と個々の交付を示す(Round 2の調整)。名前のわかる1人だけに対応する予算コードは作らない(整合性レビューR5.7、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 4. **概算払:** 使わなかった額は、通常の見える送金として交付した国庫に返還する(Round 2の調整)。
 5. **交付金:** 自治体が国の交付金を使うとき、その国庫の支払いは予算コードでその交付金を参照する。各交付金の最終的な使い道を誰でも追える。
 

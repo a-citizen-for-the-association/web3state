@@ -1,6 +1,6 @@
 # Judiciary / dispute resolution (司法・紛争解決)
 
-**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0018](../../decisions/0018-judiciary-model.md) for the formal decision. No contract code written yet.
+**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0018](../../decisions/0018-judiciary-model.md) for the formal decision. No contract code written yet. Amended by [ADR 0032](../../decisions/0032-consistency-review-decisions.md): `EvidenceRegistry` is replaced by the kind `Evidence` of the shared `AnchorRegistry` (consistency review R4.1).
 
 ## Summary
 
@@ -28,12 +28,12 @@ The judiciary's core (procedure, deliberation, judging) stays off-chain. Three p
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain:**
-- One `EvidenceRegistry` per investigating body (each prefectural police headquarters, each public prosecutors office).
-- One `CaseRecordRegistry` per court.
+- Evidence anchors of kind `Evidence` in the shared, event-only `AnchorRegistry` ([personal data](../personal-data/README.md); kind list in the [certified-stablecoin spec](../certified-stablecoin/README.md)), made by each investigating body (each prefectural police headquarters, each public prosecutors office) from its registered controlling multisig (consistency review R1.4, R4.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- One `CaseRecordRegistry` per court (unchanged).
 - Enforcement: nothing new. It traces payment flows that are already public.
 
 **Online:**
-- Each body publishes its registry address under its own `.go.jp`/`.lg.jp` domain, the same attestation pattern as the executive `DocumentRegistry` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)).
+- Each investigating body publishes its controlling multisig address, and each court its `CaseRecordRegistry` address, under its own `.go.jp`/`.lg.jp` domain, the same attestation pattern as the executive approval-document anchors ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)).
 
 **Offline:**
 - The evidence and records themselves, and their storage.
@@ -43,20 +43,22 @@ The judiciary's core (procedure, deliberation, judging) stays off-chain. Three p
 
 ## Architecture
 
-### `EvidenceRegistry` (one per investigating body)
+### Evidence anchors (`AnchorRegistry`, kind `Evidence`)
 
-The executive `DocumentRegistry` pattern, applied to evidence.
+The executive approval-document pattern, applied to evidence. `EvidenceRegistry` is no longer a separate contract: evidence is one kind of the shared, event-only `AnchorRegistry`, and `previousId` and the evidence status are carried in events (consistency review R4.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
-- **Controller:** the body's multisig.
-- **`register(caseRef, itemType, description, itemHash, previousId) → id`:** called at seizure. Append-only; a correction is a new registration that references the previous one.
+- **Caller:** the investigating body itself, from its registered controlling multisig (consistency review R1.4, R4.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- **Anchor event at seizure:** kind `Evidence`, carrying `caseRef`, `itemType`, `description`, `itemHash` and `previousId`. Append-only; a correction is a new anchor whose `previousId` references the previous one.
   - `caseRef`: an **opaque case reference**, a hash of the internal case number with a secret salt. A public reader cannot tell which case or suspect it is (Round 3 adjustment).
   - `itemType`: `Physical` (the hash is of its photographs), `Data` (the hash of the data itself), or `InterrogationRecording` (Round 3 adjustment).
   - `description`: a non-identifying, rule-based abbreviation, as for sensitive executive titles.
-- **`recordStatus(id, status)`:** `Returned` (to the owner) or `Destroyed`. Emits an event; the entry itself is never removed.
+- **Status events:** `Returned` (to the owner) or `Destroyed`, each a further event citing the entry. Nothing is stored or removed; the history is the event log.
 - **What this gives:** at indictment, the prosecution discloses the `caseRef` mapping to the court and the defence. They can then check that every seized item is listed, that nothing was swapped after seizure (hashes match), and that no listed item has gone undisclosed.
 - **Known limit:** fabrication *before* seizure, such as planted evidence, is not detected.
 
 ### `CaseRecordRegistry` (one per court)
+
+Unchanged: it stays a separate contract because it needs stored state (it must reject disposal of protected records) (consistency review R4.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
 - **Controller:** the court's multisig.
 - **`register(caseRef, recordType, recordHash, retentionClass, previousId) → id`:** `recordType` includes `Judgment`, so a later published (anonymised) judgment can be tied to its registered original. `retentionClass`: `Standard`, `SpecialPreservation`, or `Permanent`. No dates are stored.
@@ -79,7 +81,7 @@ The executive `DocumentRegistry` pattern, applied to evidence.
 
 # 司法・紛争解決(日本語)
 
-**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0018](../../decisions/0018-judiciary-model.md)を参照。コントラクトコードはまだない。
+**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0018](../../decisions/0018-judiciary-model.md)を参照。コントラクトコードはまだない。[ADR 0032](../../decisions/0032-consistency-review-decisions.md)で修正: `EvidenceRegistry`は、共有の`AnchorRegistry`の種類`Evidence`に置き換える(整合性レビューR4.1)。
 
 ## 概要
 
@@ -107,12 +109,12 @@ The executive `DocumentRegistry` pattern, applied to evidence.
 (区分の考え方は[`docs/operations/README.md`](../../operations/README.md)を参照。)
 
 **オンチェーン:**
-- 捜査機関(各都道府県警察本部、各検察庁)ごとに1つの`EvidenceRegistry`。
-- 裁判所ごとに1つの`CaseRecordRegistry`。
+- 共有の、イベントだけの`AnchorRegistry`([個人情報](../personal-data/README.md)。種類の一覧は[認定ステーブルコインの仕様](../certified-stablecoin/README.md))に、種類`Evidence`で記録する証拠のアンカー。各捜査機関(各都道府県警察本部、各検察庁)が登録済みの管理用マルチシグからアンカーする(整合性レビューR1.4、R4.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- 裁判所ごとに1つの`CaseRecordRegistry`(変更なし)。
 - 執行: 新しいものはない。すでに公開されている支払いの流れをたどる。
 
 **オンライン:**
-- 各機関は、自らの`.go.jp`/`.lg.jp`ドメインでレジストリのアドレスを公表する。行政の`DocumentRegistry`([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md))と同じ証明の仕組みである。
+- 各捜査機関は管理用マルチシグのアドレスを、各裁判所は`CaseRecordRegistry`のアドレスを、自らの`.go.jp`/`.lg.jp`ドメインで公表する。行政の決裁文書のアンカー([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md))と同じ証明の仕組みである。
 
 **オフライン:**
 - 証拠と記録そのもの、およびその保管。
@@ -122,20 +124,22 @@ The executive `DocumentRegistry` pattern, applied to evidence.
 
 ## アーキテクチャ
 
-### `EvidenceRegistry`(捜査機関ごとに1つ)
+### 証拠のアンカー(`AnchorRegistry`、種類`Evidence`)
 
-行政の`DocumentRegistry`の仕組みを証拠に適用したもの。
+行政の決裁文書の仕組みを証拠に適用したもの。`EvidenceRegistry`はもう独立したコントラクトではない。証拠は共有の、イベントだけの`AnchorRegistry`の1つの種類であり、`previousId`と証拠の状態はイベントに含める(整合性レビューR4.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
-- **管理者:** 機関のマルチシグ。
-- **`register(caseRef, itemType, description, itemHash, previousId) → id`:** 押収の時点で呼び出す。追記専用で、訂正は前の登録を参照する新しい登録になる。
+- **呼び出し元:** 捜査機関自身が、登録済みの管理用マルチシグからアンカーする(整合性レビューR1.4、R4.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- **押収の時点のアンカーのイベント:** 種類`Evidence`で、`caseRef`、`itemType`、`description`、`itemHash`、`previousId`を含む。追記専用で、訂正は`previousId`で前のアンカーを参照する新しいアンカーになる。
   - `caseRef`: **秘匿化した事件参照**。内部の事件番号を秘密のソルトとともにハッシュ化したもの。一般の読み手には、どの事件・どの被疑者かは分からない(Round 3の調整)。
   - `itemType`: `Physical`(ハッシュはその写真のもの)、`Data`(データそのもののハッシュ)、`InterrogationRecording`(Round 3の調整)。
   - `description`: 行政の機微な名称と同じく、ルールに基づく、それとは分からない略称。
-- **`recordStatus(id, status)`:** `Returned`(所有者に返還)または`Destroyed`。イベントを発行する。登録そのものは決して削除しない。
+- **状態のイベント:** `Returned`(所有者に返還)または`Destroyed`。それぞれ、その登録を参照する別のイベントとする。何も保存も削除もせず、履歴はイベントログである。
 - **得られるもの:** 起訴の時点で、検察は`caseRef`の対応関係を裁判所と弁護側に開示する。両者は、押収したすべての証拠が載っていること、押収後に差し替えられていないこと(ハッシュの一致)、載っている証拠で開示されていないものがないことを確認できる。
 - **既知の限界:** 押収*前*の捏造(仕込まれた証拠など)は検出できない。
 
 ### `CaseRecordRegistry`(裁判所ごとに1つ)
+
+変更なし: 保存された状態が必要なので(保護された記録の廃棄を拒否しなければならない)、独立したコントラクトのまま残す(整合性レビューR4.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
 - **管理者:** 裁判所のマルチシグ。
 - **`register(caseRef, recordType, recordHash, retentionClass, previousId) → id`:** `recordType`には`Judgment`を含む。後で公開された(匿名化された)判決を、登録済みの原本と結びつけられる。`retentionClass`: `Standard`、`SpecialPreservation`、`Permanent`。日付は持たない。

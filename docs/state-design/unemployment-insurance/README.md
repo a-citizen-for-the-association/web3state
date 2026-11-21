@@ -1,6 +1,6 @@
 # Unemployment insurance (雇用保険)
 
-**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0026](../../decisions/0026-unemployment-insurance-model.md) for the formal decision. No contract code written yet.
+**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0026](../../decisions/0026-unemployment-insurance-model.md) for the formal decision. No contract code written yet. Amended by [ADR 0032](../../decisions/0032-consistency-review-decisions.md) (consistency review R3.5, R4.2).
 
 ## Summary
 
@@ -22,10 +22,10 @@
 **On-chain (all existing):**
 - One unemployment-insurance `PublicTreasury` ([ADR 0019](../../decisions/0019-treasury-model.md)), today's 労働保険特別会計 雇用勘定.
 - Personal premiums: transfers from each insured employee's `ResidentLink` address. The 二事業 part: transfers from the employer's corporate address.
-- `EmployeeID` mint and burn ([ADR 0010](../../decisions/0010-employee-id-credential.md)); salaries ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)).
+- `EmployeeID` mint and burn ([ADR 0010](../../decisions/0010-employee-id-credential.md)), including the burn of every issued `EmployeeID` before an employer's dissolution (consistency review R3.5, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)); salaries ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)).
 - Benefits: `pay()` to the recipient's `ResidentLink` address with the shared social-security budget code.
 - Training fees: transfers from the trainee to the registered provider.
-- Hashes of the employer's statement of the reason for leaving and of Hello Work's decisions, in the labour bureau's `DocumentRegistry` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)).
+- Hashes in the shared `AnchorRegistry`: the employer's statement of the reason for leaving, anchored by the employer itself from its registered address as kind `LeavingStatement`; Hello Work's decisions, anchored as kind `ApprovalDocument` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md); consistency review R4.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md); kind list in the [certified-stablecoin spec](../certified-stablecoin/README.md)).
 
 **Online:**
 - Monthly totals per kind of benefit (as in ADR 0025).
@@ -39,8 +39,8 @@
 ## Rules
 
 1. **Premiums.** The employee pays the whole insurance part from their own `ResidentLink` address; the employer's former half of that part is added to pay. The employer alone pays the 二事業 part from its corporate address. Both go to the same treasury; the sender's kind tells them apart (Round 2 adjustment).
-2. **Insured months** are computed from the premium transfers (oldest unpaid month first, as for pension) and the `EmployeeID` mint and burn. This replaces the employment-period part of the separation notice.
-3. **The reason for leaving** is a judgement: the employer's statement and Hello Work's decision are anchored by hash; disputes are settled off-chain.
+2. **Insured months** are computed from the premium transfers (oldest unpaid month first, as for pension) and the `EmployeeID` mint and burn. This replaces the employment-period part of the separation notice. Before an employer's registration NFT is burned on dissolution, the employer (its liquidator) burns every `EmployeeID` it issued, so that insured months stay correct (consistency review R3.5, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+3. **The reason for leaving** is a judgement: the employer anchors its own statement (kind `LeavingStatement`) and Hello Work anchors its decision (kind `ApprovalDocument`), each by hash (consistency review R4.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)); disputes are settled off-chain.
 4. **Benefits** use the shared social-security budget code (ADR 0025). The amount depends on wages before leaving, which are on-chain, so the person can recompute it.
 5. **Working while receiving** is checked with consent, during the receipt period only. For the job-seeker's benefit, any salary inflow or new `EmployeeID` is flagged. For the childcare-leave benefit, only employer pay above the legal limit during leave is flagged (Round 2 adjustment). The person still reports; the chain checks the report.
 6. **Training benefit:** fees must be paid in the JPY stablecoin to the registered provider's address; cash-paid fees are not eligible. Money flowing back from the provider to the trainee is flagged off-chain.
@@ -55,7 +55,7 @@
 
 # 雇用保険(日本語)
 
-**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0026](../../decisions/0026-unemployment-insurance-model.md)を参照。コントラクトコードはまだない。
+**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0026](../../decisions/0026-unemployment-insurance-model.md)を参照。コントラクトコードはまだない。[ADR 0032](../../decisions/0032-consistency-review-decisions.md)で修正(整合性レビューR3.5、R4.2)。
 
 ## 概要
 
@@ -77,10 +77,10 @@
 **オンチェーン(すべて既存):**
 - 雇用保険の`PublicTreasury`を1つ([ADR 0019](../../decisions/0019-treasury-model.md))。現在の労働保険特別会計 雇用勘定にあたる。
 - 個人の保険料: 被保険者である各従業員の`ResidentLink`アドレスからの送金。二事業の部分: 雇用主の法人アドレスからの送金。
-- `EmployeeID`のmintとburn([ADR 0010](../../decisions/0010-employee-id-credential.md))、給与([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。
+- `EmployeeID`のmintとburn([ADR 0010](../../decisions/0010-employee-id-credential.md))。雇用主の解散の前に、発行済みのすべての`EmployeeID`をburnすることを含む(整合性レビューR3.5、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。給与([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。
 - 給付: 受給者の`ResidentLink`アドレスへの`pay()`。社会保障の共通予算コードを使う。
 - 受講料: 受講者から登録済みの提供者への送金。
-- 雇用主による離職理由の申し立てと、ハローワークの決定のハッシュ。労働局の`DocumentRegistry`([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md))に記録する。
+- 共有の`AnchorRegistry`のハッシュ: 雇用主による離職理由の申し立ては、雇用主自身が登録済みのアドレスから種類`LeavingStatement`でアンカーする。ハローワークの決定は種類`ApprovalDocument`でアンカーする([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)。整合性レビューR4.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)。種類の一覧は[認定ステーブルコインの仕様](../certified-stablecoin/README.md))。
 
 **オンライン:**
 - 給付の種類ごとの毎月の合計(ADR 0025と同じ)。
@@ -94,8 +94,8 @@
 ## ルール
 
 1. **保険料。** 従業員は労使負担の部分の全額を自分の`ResidentLink`アドレスから払う。その部分の以前の雇用主負担分は給与に上乗せする。二事業の部分は雇用主だけが法人アドレスから払う。どちらも同じ国庫に払い、送信元の種類で区別する(Round 2の調整)。
-2. **被保険者期間**は、保険料の送金(年金と同じく未納の最も古い月から充てる)と`EmployeeID`のmint・burnから計算する。これで離職票の雇用期間の部分は不要になる。
-3. **離職理由**は判断の問題である。雇用主の申し立てとハローワークの決定はハッシュでアンカリングし、争いはオフチェーンで解決する。
+2. **被保険者期間**は、保険料の送金(年金と同じく未納の最も古い月から充てる)と`EmployeeID`のmint・burnから計算する。これで離職票の雇用期間の部分は不要になる。解散で雇用主の登録NFTがburnされる前に、雇用主(清算人)は発行したすべての`EmployeeID`をburnし、被保険者期間が狂わないようにする(整合性レビューR3.5、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+3. **離職理由**は判断の問題である。雇用主は自らの申し立てを(種類`LeavingStatement`)、ハローワークはその決定を(種類`ApprovalDocument`)、それぞれハッシュでアンカリングする(整合性レビューR4.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。争いはオフチェーンで解決する。
 4. **給付**は社会保障の共通予算コード(ADR 0025)を使う。金額は離職前の給与で決まり、それはオンチェーンにあるので、本人が再計算できる。
 5. **受給中の就労**は、同意に基づき、受給期間中に限って確認する。基本手当では、給与の入金や新しい`EmployeeID`をすべて検知する。育児休業給付では、休業中に法律の上限を超える雇用主からの給与だけを検知する(Round 2の調整)。本人は引き続き申告し、チェーンがその申告を確かめる。
 6. **教育訓練給付:** 受講料は円建てステーブルコインで登録済みの提供者のアドレスに支払わなければならず、現金で支払った受講料は対象外とする。提供者から受講者に戻るお金はオフチェーンで検知する。

@@ -1,6 +1,6 @@
 # Benefits (児童手当・生活保護等)
 
-**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0025](../../decisions/0025-benefits-model.md) for the formal decision. No contract code written yet.
+**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0025](../../decisions/0025-benefits-model.md) for the formal decision. No contract code written yet. Amended by [ADR 0032](../../decisions/0032-consistency-review-decisions.md) (consistency review R2.1, R4.1, R5.9).
 
 ## Summary
 
@@ -23,7 +23,7 @@
 - Payments: `pay()` from the paying body's `PublicTreasury` ([ADR 0019](../../decisions/0019-treasury-model.md)) to the recipient's `ResidentLink` address, with the shared social-security budget code.
 - Housing assistance paid directly to the landlord (代理納付): an ordinary `pay()` to the landlord's registered address, with the same code.
 - Universal payments: batches of `pay()` by each municipality to its own residents, with their own budget code.
-- Hashes of eligibility, award, change and termination decisions, in the paying body's `DocumentRegistry` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)).
+- Hashes of eligibility, award, change and termination decisions, anchored by the paying body in the shared `AnchorRegistry` as kind `ApprovalDocument` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md); consistency review R4.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
 **Online:**
 - Monthly totals per kind of benefit, per paying body.
@@ -37,10 +37,10 @@
 
 ## Rules
 
-1. **Payee is the person's own address.** Benefits are paid only to the recipient's `ResidentLink` address (or, for housing assistance, to the landlord). A registered death burns the `ResidentLink`, and later payments revert.
-2. **One shared budget code for all social-security payments to individuals:** pension ([ADR 0024](../../decisions/0024-pension-model.md)), every benefit, and later unemployment insurance. The kind is in the private, anchored decision.
+1. **Payee is the person's own address.** Benefits are paid only to the recipient's `ResidentLink` address (or, for housing assistance, to the landlord). The treasury's own payee check accepts any registered address (consistency review R2.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)); paying the recipient's own address is the rule of this programme. A registered death burns the `ResidentLink`, and later payments revert.
+2. **One shared budget code for all social-security payments to individuals:** pension ([ADR 0024](../../decisions/0024-pension-model.md)), every benefit, and later unemployment insurance. The kind is in the private, anchored decision. The code is kept to **avoid stigma and discrimination** against recipients; each programme stays auditable through per-programme totals published off-chain (consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 3. **Universal payments use their own code,** since they reveal nothing about the recipient (Round 2 adjustment).
-4. **Per-kind totals are published monthly per paying body,** so each programme stays auditable (Round 2 adjustment).
+4. **Per-kind totals are published monthly per paying body,** off-chain, so each programme stays auditable (Round 2 adjustment; consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 5. **Income analysis only with consent, only for applicants and recipients,** covering the application and receipt period (plus the legal period for investigating overpayments). The state does not routinely analyse residents' finances to find possible recipients (Issue 4(a), Round 2 adjustment).
 6. **Children need no `ResidentLink`.** Child-related eligibility is decided off-chain from the resident register.
 7. **No on-chain mechanism** for duplicates, poverty businesses or unreported income: all off-chain analysis of public data.
@@ -56,7 +56,7 @@
 
 # 各種手当(児童手当・生活保護等)(日本語)
 
-**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0025](../../decisions/0025-benefits-model.md)を参照。コントラクトコードはまだない。
+**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0025](../../decisions/0025-benefits-model.md)を参照。コントラクトコードはまだない。[ADR 0032](../../decisions/0032-consistency-review-decisions.md)で修正(整合性レビューR2.1、R4.1、R5.9)。
 
 ## 概要
 
@@ -79,7 +79,7 @@
 - 支払い: 支払う機関の`PublicTreasury`([ADR 0019](../../decisions/0019-treasury-model.md))から受給者の`ResidentLink`アドレスへの`pay()`。社会保障の共通予算コードを使う。
 - 家主に直接支払う住宅扶助(代理納付): 家主の登録済みアドレスへの通常の`pay()`。同じコードを使う。
 - 一律給付: 各市区町村が自らの住民へまとめて実行する`pay()`。独自の予算コードを使う。
-- 受給資格、決定、変更、廃止の決定のハッシュ。支払う機関の`DocumentRegistry`([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md))に記録する。
+- 受給資格、決定、変更、廃止の決定のハッシュ。支払う機関が、共有の`AnchorRegistry`に種類`ApprovalDocument`でアンカーする([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)。整合性レビューR4.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
 **オンライン:**
 - 支払う機関ごとの、給付の種類ごとの毎月の合計。
@@ -93,10 +93,10 @@
 
 ## ルール
 
-1. **支払先は本人のアドレス。** 給付は受給者の`ResidentLink`アドレス(住宅扶助の場合は家主)にだけ支払う。届出済みの死亡で`ResidentLink`がburnされ、その後の支払いはrevertする。
-2. **個人への社会保障の支払いはすべて共通の予算コードを1つ使う:** 年金([ADR 0024](../../decisions/0024-pension-model.md))、すべての給付、後の雇用保険。種類は非公開のアンカーされた決定に記載する。
+1. **支払先は本人のアドレス。** 給付は受給者の`ResidentLink`アドレス(住宅扶助の場合は家主)にだけ支払う。国庫そのものの支払先チェックは登録済みのどのアドレスも受け付ける(整合性レビューR2.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。受給者本人のアドレスに払うのは、この制度のルールである。届出済みの死亡で`ResidentLink`がburnされ、その後の支払いはrevertする。
+2. **個人への社会保障の支払いはすべて共通の予算コードを1つ使う:** 年金([ADR 0024](../../decisions/0024-pension-model.md))、すべての給付、後の雇用保険。種類は非公開のアンカーされた決定に記載する。このコードは、受給者への**偏見と差別を避けるため**に残す。各制度は、オフチェーンで公表する制度ごとの合計で監査できる(整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 3. **一律給付は独自のコードを使う。** 受給者について何も明かさないため(Round 2の調整)。
-4. **種類ごとの合計を、支払う機関ごとに毎月公表する。** 各制度を監査できるようにする(Round 2の調整)。
+4. **種類ごとの合計を、支払う機関ごとに毎月オフチェーンで公表する。** 各制度を監査できるようにする(Round 2の調整。整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 5. **収入の分析は同意がある場合に限り、申請者と受給者だけを対象とする。** 期間は申請から受給まで(と、過払いの調査のための法定の期間)。受給資格がありそうな人を見つけるために、国が住民の財務を日常的に分析することはしない(論点4(a)、Round 2の調整)。
 6. **子どもに`ResidentLink`は求めない。** 子どもに関する受給資格は住民基本台帳からオフチェーンで判断する。
 7. **重複、貧困ビジネス、収入の未申告にオンチェーンの仕組みは作らない。** すべて公開データのオフチェーン分析で扱う。

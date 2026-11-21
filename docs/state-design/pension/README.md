@@ -1,6 +1,6 @@
 # Pension (年金)
 
-**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0024](../../decisions/0024-pension-model.md) for the formal decision. No contract code written yet.
+**Status: 🟢 Spec drafted.** Screened with the on-chain value test and resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the reasoning and [ADR 0024](../../decisions/0024-pension-model.md) for the formal decision. No contract code written yet. Amended by [ADR 0032](../../decisions/0032-consistency-review-decisions.md) (consistency review R1.6, R2.2, R4.1).
 
 ## Summary
 
@@ -20,11 +20,11 @@
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain (all existing):**
-- Two `PublicTreasury` contracts for the pension special account: one for the National Pension, one for Employees' Pension ([ADR 0019](../../decisions/0019-treasury-model.md)).
+- Two `PublicTreasury` contracts for the pension special account, following the rule of one treasury per body **per account**: one for the National Pension, one for Employees' Pension ([ADR 0019](../../decisions/0019-treasury-model.md); consistency review R1.6, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 - Contributions: transfers from each insured person's `ResidentLink` address to the relevant treasury.
 - Salaries, which determine Employees' Pension premiums: certified-address transfers ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)).
-- Benefits: `pay()` from the pension treasury to the recipient's `ResidentLink` address, with one generic pension budget code.
-- Hashes of award decisions (裁定), exemption and deferral decisions, and category 3 determinations, in the pension body's `DocumentRegistry` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)).
+- Benefits: `pay()` from the pension treasury to the recipient's `ResidentLink` address, or to the `NationalAbroad` address of a recipient living abroad, with one generic pension budget code (consistency review R2.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- Hashes of award decisions (裁定), exemption and deferral decisions, and category 3 determinations, anchored by the pension body in the shared `AnchorRegistry` as kind `ApprovalDocument` ([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md); consistency review R4.1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
 
 **Online:**
 - The two treasury addresses, published under the pension body's `.go.jp` domain.
@@ -46,8 +46,9 @@
 5. **One budget code for all pension benefits,** so a payment does not reveal disability or widowhood. Since [ADR 0025](../../decisions/0025-benefits-model.md) this is the code shared by all social-security payments to individuals.
 6. **Everything on-chain is public,** per address, like every other payment to or from an individual ([ADR 0019](../../decisions/0019-treasury-model.md)).
 7. **Death:** a registered death burns the `ResidentLink`, and later payments revert. Pension still owed at death (未支給年金) is paid to the survivors' addresses as an ordinary payment.
-8. **Address changes:** a move keeps the same address. Key loss or other replacement goes through successor migration ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)), whose on-chain link carries the contribution history over.
-9. **Unpaid premiums,** including an employee who does not pay, are handled like category 1 delinquency: reminder, then enforcement through [ADR 0018](../../decisions/0018-judiciary-model.md)'s address identification.
+8. **Payment abroad:** pensions and survivors' payments can be paid abroad, to the person's `NationalAbroad` address (consistency review R2.2, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+9. **Address changes:** a move keeps the same address. Key loss or other replacement goes through successor migration ([ADR 0020](../../decisions/0020-certified-address-stablecoin.md)), whose on-chain link carries the contribution history over.
+10. **Unpaid premiums,** including an employee who does not pay, are handled like category 1 delinquency: reminder, then enforcement through [ADR 0018](../../decisions/0018-judiciary-model.md)'s address identification.
 
 ## Known limits
 
@@ -60,7 +61,7 @@
 
 # 年金(日本語)
 
-**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0024](../../decisions/0024-pension-model.md)を参照。コントラクトコードはまだない。
+**ステータス: 🟢 設計確定。** オンチェーン価値テストで選別し、ユーザーとの議論で解決した。理由は[`discussion-log.md`](discussion-log.md)、正式な決定は[ADR 0024](../../decisions/0024-pension-model.md)を参照。コントラクトコードはまだない。[ADR 0032](../../decisions/0032-consistency-review-decisions.md)で修正(整合性レビューR1.6、R2.2、R4.1)。
 
 ## 概要
 
@@ -80,11 +81,11 @@
 (区分の考え方は[`docs/operations/README.md`](../../operations/README.md)を参照。)
 
 **オンチェーン(すべて既存):**
-- 年金特別会計の2つの`PublicTreasury`: 国民年金用と厚生年金用([ADR 0019](../../decisions/0019-treasury-model.md))。
+- 年金特別会計の2つの`PublicTreasury`: 国民年金用と厚生年金用。国庫は機関ごと**勘定ごと**に1つというルールに従う([ADR 0019](../../decisions/0019-treasury-model.md)。整合性レビューR1.6、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 - 保険料: 各被保険者の`ResidentLink`アドレスから該当する国庫への送金。
 - 厚生年金の保険料を決める給与: 認定アドレス間の送金([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))。
-- 年金給付: 年金の国庫から受給者の`ResidentLink`アドレスへの`pay()`。年金共通の予算コードを1つだけ使う。
-- 裁定、免除・猶予の決定、第3号の認定のハッシュ。年金を扱う機関の`DocumentRegistry`([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md))に記録する。
+- 年金給付: 年金の国庫から受給者の`ResidentLink`アドレス、または海外に住む受給者の`NationalAbroad`のアドレスへの`pay()`。年金共通の予算コードを1つだけ使う(整合性レビューR2.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- 裁定、免除・猶予の決定、第3号の認定のハッシュ。年金を扱う機関が、共有の`AnchorRegistry`に種類`ApprovalDocument`でアンカーする([ADR 0017](../../decisions/0017-executive-document-anchoring-v1.md)。整合性レビューR4.1、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
 
 **オンライン:**
 - 2つの国庫のアドレス。年金を扱う機関の`.go.jp`ドメインで公表する。
@@ -106,8 +107,9 @@
 5. **年金給付の予算コードは1つ**にし、支払いから障害や死別がわからないようにする。[ADR 0025](../../decisions/0025-benefits-model.md)以降、これは個人への社会保障の支払いすべてに共通のコードである。
 6. **オンチェーンにあるものはすべて公開**で、個人へのまたは個人からのほかの支払いと同じくアドレス単位である([ADR 0019](../../decisions/0019-treasury-model.md))。
 7. **死亡:** 届出済みの死亡で`ResidentLink`がburnされ、その後の支払いはrevertする。死亡時に未払いの年金(未支給年金)は、遺族のアドレスへの通常の支払いとする。
-8. **アドレスの変更:** 転居では同じアドレスのまま。鍵の紛失などによる交代は承継移転([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))を通り、そのオンチェーンのつながりによって納付の履歴が引き継がれる。
-9. **未納の保険料**(払わない従業員を含む)は第1号の滞納と同じに扱う: 督促、その後は[ADR 0018](../../decisions/0018-judiciary-model.md)のアドレス特定による強制徴収。
+8. **海外への支払い:** 年金と遺族への支払いは、海外にも本人の`NationalAbroad`のアドレスへ払える(整合性レビューR2.2、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+9. **アドレスの変更:** 転居では同じアドレスのまま。鍵の紛失などによる交代は承継移転([ADR 0020](../../decisions/0020-certified-address-stablecoin.md))を通り、そのオンチェーンのつながりによって納付の履歴が引き継がれる。
+10. **未納の保険料**(払わない従業員を含む)は第1号の滞納と同じに扱う: 督促、その後は[ADR 0018](../../decisions/0018-judiciary-model.md)のアドレス特定による強制徴収。
 
 ## 既知の限界
 
