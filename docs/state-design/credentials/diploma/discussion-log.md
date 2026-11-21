@@ -29,6 +29,10 @@ Confirm this is acceptable, or state if anything about degree revocation needs m
 
 Mirroring passport's independence: a diploma is minted to whatever address the graduate provides, with no requirement to hold a `ResidentLink` NFT (a graduate may be a foreign student who was never a Japanese resident, or may have since moved away). Confirm.
 
+### Status
+
+Awaiting the user's responses to Issues 1–4 before writing the spec.
+
 ---
 
 ## Round 2 — 2026-10-06 (User + Claude) — Issue 4 revised and resolved

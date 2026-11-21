@@ -46,6 +46,10 @@ Diplomas are essentially permanent; licenses expire and renew; passports expire;
 
 Given how different these are, proposal: fully design **one concrete credential type first** to validate the general pattern (trust-anchor generalization, privacy model, lifecycle), then apply the same validated pattern more quickly to the others. Suggest starting with the **passport/nationality credential** specifically, since it was already flagged as a deferred dependency from the citizenship design (Issue 1) and from the voting-prioritization discussion just had — designing it now clears that backlog item and unblocks future voting design. Confirm this starting point, or state a different preference.
 
+### Status
+
+Awaiting the user's responses to issues 1–4 before writing the spec.
+
 ---
 
 ## Round 2 — 2026-10-03 (User + Claude) — Issues 2 and 4 resolved
@@ -77,42 +81,6 @@ Confirms: proceed one credential type at a time, checking for issues at each. St
 ### Status
 
 Issues 1–4 (general, cross-cutting) resolved enough to proceed. Issue 1's specific trust-anchor choices and Issue 3's lifecycle details are being worked out per credential type as each is designed, starting with passport.
-
----
-
-# 議論ログ: 公的証明の設計(続き)(日本語)
-
-## Round 2 — 2026-10-03(ユーザー + Claude)— Issue 2, 4解決
-
-### ユーザー(Issue 2)
-
-確認: NFTが証明するのは保持している事実のみ — それ以上は一切オンチェーンに載せない。
-
-### Claude
-
-帰結を指摘: NFTがフィールドを持たない以上、同じ証明の種類の中での細かい区別(卒業証明の学部・卒業年度等)は、共有コントラクト内のデータではなく、**どのコントラクトのNFTか**によって表現する必要がある — 分類の全てがコントラクト単位の粒度に押し出される。
-
-### ユーザー
-
-確認。さらに追加: 粒度は固定ルールではなく、証明の種類ごとに実運用上の分かりやすさで判断すべき — 例えば卒業証明は学部・卒業年度ごとに別コントラクトが自然(静的で明確な区別)、一方で社員証は会社ごとに1つのコントラクトで管理する方が良い(雇用状況は流動的で、役職変更のたびに新しいNFTを発行すべきではない)。証明の種類ごとに個別に判断する。
-
-### 解決(Issue 2)
-
-**解決。** NFTは純粋な保持の証明のみ — この機能全体を通じて、追加のオンチェーンフィールドは一切持たない。粒度(細分化したコントラクトか、1つのコントラクトでまとめるか)は、証明の種類ごとに実運用上の判断とし、固定ルールにはしない。各証明の種類を設計する際に個別に決定する。
-
-### ユーザー(Issue 4 — ユーザーは別の番号で言及したが、同じ提案として扱う)
-
-確認: 1つずつ、問題の有無を確認しながら進める。パスポートから開始。
-
-### 解決(Issue 4)
-
-**解決。** 証明の種類を1つずつ進める。最初はパスポート — [`passport/discussion-log.md`](passport/discussion-log.md) を参照。
-
-### ステータス
-
-横断的な論点(Issue 1〜4)は、先に進めるのに十分な程度まで解決。Issue 1の具体的な信頼の起点の選択とIssue 3のライフサイクルの詳細は、各証明の種類を設計する際に個別に詰めていく。まずパスポートから。
-
-Awaiting the user's responses to issues 1–4 before writing the spec.
 
 ---
 
@@ -167,3 +135,35 @@ Awaiting the user's responses to issues 1–4 before writing the spec.
 ### ステータス
 
 Issue 1〜4についてユーザーの回答待ち。設計書の作成はその後。
+
+---
+
+## Round 2 — 2026-10-03(ユーザー + Claude)— Issue 2, 4解決
+
+### ユーザー(Issue 2)
+
+確認: NFTが証明するのは保持している事実のみ — それ以上は一切オンチェーンに載せない。
+
+### Claude
+
+帰結を指摘: NFTがフィールドを持たない以上、同じ証明の種類の中での細かい区別(卒業証明の学部・卒業年度等)は、共有コントラクト内のデータではなく、**どのコントラクトのNFTか**によって表現する必要がある — 分類の全てがコントラクト単位の粒度に押し出される。
+
+### ユーザー
+
+確認。さらに追加: 粒度は固定ルールではなく、証明の種類ごとに実運用上の分かりやすさで判断すべき — 例えば卒業証明は学部・卒業年度ごとに別コントラクトが自然(静的で明確な区別)、一方で社員証は会社ごとに1つのコントラクトで管理する方が良い(雇用状況は流動的で、役職変更のたびに新しいNFTを発行すべきではない)。証明の種類ごとに個別に判断する。
+
+### 解決(Issue 2)
+
+**解決。** NFTは純粋な保持の証明のみ — この機能全体を通じて、追加のオンチェーンフィールドは一切持たない。粒度(細分化したコントラクトか、1つのコントラクトでまとめるか)は、証明の種類ごとに実運用上の判断とし、固定ルールにはしない。各証明の種類を設計する際に個別に決定する。
+
+### ユーザー(Issue 4 — ユーザーは別の番号で言及したが、同じ提案として扱う)
+
+確認: 1つずつ、問題の有無を確認しながら進める。パスポートから開始。
+
+### 解決(Issue 4)
+
+**解決。** 証明の種類を1つずつ進める。最初はパスポート — [`passport/discussion-log.md`](passport/discussion-log.md) を参照。
+
+### ステータス
+
+横断的な論点(Issue 1〜4)は、先に進めるのに十分な程度まで解決。Issue 1の具体的な信頼の起点の選択とIssue 3のライフサイクルの詳細は、各証明の種類を設計する際に個別に詰めていく。まずパスポートから。
