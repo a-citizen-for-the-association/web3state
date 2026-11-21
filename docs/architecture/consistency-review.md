@@ -81,7 +81,7 @@ Mechanical fixes Claude can make directly:
 
 | ID | Status |
 |---|---|
-| R6 | Open |
+| R6 | **Done** (2026-11-21) |
 
 ---
 
@@ -168,4 +168,4 @@ Claudeが直接直せる機械的な修正:
 
 | ID | ステータス |
 |---|---|
-| R6 | 未決 |
+| R6 | **完了**(2026-11-21) |

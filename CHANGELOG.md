@@ -116,6 +116,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/FEATURES.md`, root `README.md`: procurement 🟢. `docs/PROJECT_STATUS.md`: next is subsidies.
 - `docs/FEATURES.md`, root `README.md`: subsidies 🟢 (Political Transparency complete). `docs/PROJECT_STATUS.md` updated.
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — adjustments confirmed. `docs/PROJECT_STATUS.md`: added a "paused / resume point" section.
+- R6 done (Japanese translations of ADRs 0001–0013, template, citizenship log, feature template and CHANGELOG; stale status text; back-references; backlog tidy-up). `docs/decisions/0032-consistency-review-decisions.md` records all review decisions; affected ADRs carry status notes; affected specs, `docs/FEATURES.md` and the glossary rewritten to match.
 
 ---
 
@@ -237,3 +238,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `docs/FEATURES.md`、ルートの`README.md`: 調達🟢。`docs/PROJECT_STATUS.md`: 次は補助金。
 - `docs/FEATURES.md`、ルートの`README.md`: 補助金🟢(政治の透明性が完了)。`docs/PROJECT_STATUS.md`を更新。
 - `docs/state-design/subsidies/discussion-log.md`: Round 3 — 調整を確認。`docs/PROJECT_STATUS.md`: 「中断/再開ポイント」節を追加。
+- R6を完了(ADR 0001〜0013、テンプレート、国民・住民の議論ログ、機能のテンプレート、CHANGELOGの日本語訳。古いステータスの記述。相互参照。バックログの整理)。`docs/decisions/0032-consistency-review-decisions.md`にレビューの決定をすべて記録。影響するADRにステータスの注記を加え、影響する仕様、`docs/FEATURES.md`、用語集をそれに合わせて書き直した。
