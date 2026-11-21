@@ -21,9 +21,15 @@ Severity: **High** = a contradiction, or value or rights that get stuck; **Mediu
 
 | ID | Sev. | Issue | Proposal | Status |
 |---|---|---|---|---|
-| R2.1 | High | The treasury payee check (ADR 0019) accepts only `ResidentLink`, `CorporateRegistration` or `PublicTreasury`. It rejects payments into `RealEstateToken` settlement (a public body buying land), to `NonResidentOwner`, `ForeignInvestor`, and to a `PoliticalFund` (party grants have no route at all). ADR 0020 already makes the stablecoin refuse uncertified recipients. | Payee check = **"certified, any kind except `Visitor`"**; add a `PublicGrant` category to the political fund. | Open |
-| R2.2 | High | **Emigration is missing from the stablecoin design.** `NonResidentOwner` exists only for land owners, so a national abroad without land has no certified address: they cannot hold JPY, receive a pension or survivors' payment, or inherit. | Make `NonResidentOwner` a **general kind for nationals abroad** (rename, e.g. `NationalAbroad`), not tied to land; add an emigration row to ADR 0020; decide whether pensions are paid abroad. | Open |
-| R2.3 | Medium | No certified kind for: `EmployeeID` holders who never lived in Japan (ADR 0010); foreign corporations and foreign non-residents paying rent (leases are allowed to anyone, ADR 0029); foreign companies' branches (ADR 0005 is silent). | Decide per case: a certified-operator route (cross-border payment, backlog) or a new kind; state it in ADRs 0005 and 0010. | Open |
+| R2.1 | High | The treasury payee check (ADR 0019) accepts only `ResidentLink`, `CorporateRegistration` or `PublicTreasury`. It rejects payments into `RealEstateToken` settlement (a public body buying land), to `NonResidentOwner`, `ForeignInvestor`, and to a `PoliticalFund` (party grants have no route at all). ADR 0020 already makes the stablecoin refuse uncertified recipients. | Payee check = **"certified, any kind except `Visitor`"**; add a `PublicGrant` category to the political fund. | **Accepted** (2026-11-21) |
+| R2.2 | High | **Emigration is missing from the stablecoin design.** `NonResidentOwner` exists only for land owners, so a national abroad without land has no certified address: they cannot hold JPY, receive a pension or survivors' payment, or inherit. | Make `NonResidentOwner` a **general kind for nationals abroad** (rename, e.g. `NationalAbroad`), not tied to land; add an emigration row to ADR 0020; decide whether pensions are paid abroad. | **Accepted** (2026-11-21; issuer moved to 外務省, renamed `NationalAbroad`); re-examine under ADR 0031 |
+| R2.3 | Medium | No certified kind for: `EmployeeID` holders who never lived in Japan (ADR 0010); foreign corporations and foreign non-residents paying rent (leases are allowed to anyone, ADR 0029); foreign companies' branches (ADR 0005 is silent). | Decide per case: a certified-operator route (cross-border payment, backlog) or a new kind; state it in ADRs 0005 and 0010. | **Superseded by [ADR 0031](../decisions/0031-registered-address-transfer-rule.md)**; re-examine |
+
+## Decision D1 (2026-11-21): the transfer rule is relaxed — [ADR 0031](../decisions/0031-registered-address-transfer-rule.md)
+
+While discussing R2.3, the user judged that the review had gone in the wrong direction: ADR 0020's "both ends certified" rule blocked too much. New rule (provisional, revisited after the proofs of concept): one registered address per resident and corporation; sending from a registered to an unregistered address is capped by a cumulative amount per sender per period; VIPs' cap is zero; licensed exchangers and the issuer are exempt; public treasuries pay only registered addresses; everything else is checked afterwards from public data.
+
+**Items to re-examine under D1:** R1.3 (registration of private contracts becomes optional), R2.2 (`NationalAbroad` needed only above the cap, e.g. pensions), R2.3 (foreign parties), R3.4 and R3.8 (decertified addresses are no longer frozen), and the visitor pass.
 
 ## R3. Lifecycle events
 
@@ -102,9 +108,15 @@ Mechanical fixes Claude can make directly:
 
 | ID | 重大度 | 論点 | 提案 | ステータス |
 |---|---|---|---|---|
-| R2.1 | High | 国庫の支払先チェック(ADR 0019)は`ResidentLink`、`CorporateRegistration`、`PublicTreasury`しか受け付けない。`RealEstateToken`の決済(公的機関の土地の購入)、`NonResidentOwner`、`ForeignInvestor`、`PoliticalFund`への支払い(政党交付金の経路がそもそもない)を拒否する。ADR 0020ですでにステーブルコイン自体が認定されていない受取人を拒む。 | 支払先チェックは**「認定済みで、`Visitor`以外の種類」**。政治資金に`PublicGrant`の区分を加える。 | 未決 |
-| R2.2 | High | **海外への転出がステーブルコインの設計にない。** `NonResidentOwner`は土地の所有者にしかないので、土地を持たない海外の国民には認定アドレスがない: 円を持てず、年金や遺族への支払いを受けられず、相続もできない。 | `NonResidentOwner`を土地と切り離し、**海外に住む国民の一般的な種類**にする(例: `NationalAbroad`に改名)。ADR 0020に海外転出の行を加える。年金を海外に払うかを決める。 | 未決 |
-| R2.3 | Medium | 認定の種類がない: 日本に住んだことのない`EmployeeID`の保有者(ADR 0010)。賃料を払う外国法人と外国人の非居住者(借地は誰にでも認めた、ADR 0029)。外国会社の支店(ADR 0005は触れていない)。 | 場合ごとに決める: 認定された事業者の経路(国境を越える支払い、バックログ)か、新しい種類か。ADR 0005と0010に記す。 | 未決 |
+| R2.1 | High | 国庫の支払先チェック(ADR 0019)は`ResidentLink`、`CorporateRegistration`、`PublicTreasury`しか受け付けない。`RealEstateToken`の決済(公的機関の土地の購入)、`NonResidentOwner`、`ForeignInvestor`、`PoliticalFund`への支払い(政党交付金の経路がそもそもない)を拒否する。ADR 0020ですでにステーブルコイン自体が認定されていない受取人を拒む。 | 支払先チェックは**「認定済みで、`Visitor`以外の種類」**。政治資金に`PublicGrant`の区分を加える。 | **了承**(2026-11-21) |
+| R2.2 | High | **海外への転出がステーブルコインの設計にない。** `NonResidentOwner`は土地の所有者にしかないので、土地を持たない海外の国民には認定アドレスがない: 円を持てず、年金や遺族への支払いを受けられず、相続もできない。 | `NonResidentOwner`を土地と切り離し、**海外に住む国民の一般的な種類**にする(例: `NationalAbroad`に改名)。ADR 0020に海外転出の行を加える。年金を海外に払うかを決める。 | **了承**(2026-11-21。認定は外務省へ、名前は`NationalAbroad`)。ADR 0031のもとで見直す |
+| R2.3 | Medium | 認定の種類がない: 日本に住んだことのない`EmployeeID`の保有者(ADR 0010)。賃料を払う外国法人と外国人の非居住者(借地は誰にでも認めた、ADR 0029)。外国会社の支店(ADR 0005は触れていない)。 | 場合ごとに決める: 認定された事業者の経路(国境を越える支払い、バックログ)か、新しい種類か。ADR 0005と0010に記す。 | **[ADR 0031](../decisions/0031-registered-address-transfer-rule.md)で前提が変化**。見直す |
+
+## 決定D1(2026-11-21): 送金ルールを緩める — [ADR 0031](../decisions/0031-registered-address-transfer-rule.md)
+
+R2.3の議論の中で、ユーザーはレビューの方向が間違っていたと判断した: ADR 0020の「両端とも認定済み」のルールは止めすぎていた。新しいルール(暫定。実証実験の後に再考する): 住民と法人は登録済みのアドレスを1つ。登録済みから未登録のアドレスへの送金は、送り手ごと・期間ごとの合計額で上限。要人の上限は0。免許を受けた両替業者と発行者は対象外。国庫は登録済みのアドレスにだけ払う。それ以外は公開データで後から確認する。
+
+**D1のもとで見直す項目:** R1.3(民間のコントラクトの登録は任意になる)、R2.2(`NationalAbroad`は上限を超える場合、例えば年金にだけ必要)、R2.3(外国の相手)、R3.4とR3.8(認定の外れたアドレスはもう凍結されない)、ビジターパス。
 
 ## R3. ライフサイクルの出来事
 

@@ -32,7 +32,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0017](0017-executive-document-anchoring-v1.md) | Executive v1: mandatory title-and-hash registration of approval documents; iterate after implementation | Accepted |
 | [0018](0018-judiciary-model.md) | Judiciary: evidence and case-record anchoring, address identification for enforcement, token-juror arbitration excluded | Accepted |
 | [0019](0019-treasury-model.md) | Treasury model: per-body treasury contracts, identified payees, public off-chain exits; "off-chain if it can be" | Accepted |
-| [0020](0020-certified-address-stablecoin.md) | Certified-address JPY stablecoin: transfers only between state-certified addresses; frozen balances leave only to certified successors | Accepted |
+| [0020](0020-certified-address-stablecoin.md) | Certified-address JPY stablecoin: transfers only between state-certified addresses; frozen balances leave only to certified successors | Accepted (transfer rule superseded by 0031) |
 | [0021](0021-vip-asset-disclosure.md) | VIP asset disclosure: no new contract; published address plus off-chain declarations with severe penalties | Accepted |
 | [0022](0022-procurement-model.md) | Procurement model: commit–reveal sealed bidding, committed ceiling price, all bids public, one record per contract | Accepted |
 | [0023](0023-subsidies-model.md) | Subsidies model: no new contract; on-chain transactions replace receipts; everything public | Accepted |
@@ -43,6 +43,7 @@ This directory records significant, hard-to-reverse decisions, in the order they
 | [0028](0028-personal-data-model.md) | Personal data model: a "don't hold it" law; prove instead of collect; anchor access logs | Accepted |
 | [0029](0029-real-estate-registry-model.md) | Real estate registry model: the token is the right; owner plus agent to transfer; no parcel on-chain; no foreign ownership | Accepted |
 | [0030](0030-securities-model.md) | Securities model: shares as tokens at holders' addresses; exchanges off-chain, brokers record the result on-chain; named beneficial owners | Accepted |
+| [0031](0031-registered-address-transfer-rule.md) | Transfer rule for registered addresses: one address per resident and corporation; cumulative cap on sending to unregistered addresses; zero for VIPs | Accepted (provisional) |
 
 ---
 
