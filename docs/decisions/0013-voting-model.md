@@ -1,7 +1,7 @@
 # 0013. Voting model: threshold-decrypted homomorphic tallying, ResidentLink-based participation, generic election primitive
 
 **Date:** 2026-10-10
-**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): a standing voter credential ("Japanese national, 18+") replaces per-election grants (R5.9); `castBallot` re-checks registration (R3.7); the factory is named `ElectionFactory` (R4.3).
+**Status:** Accepted. Amended by [ADR 0032](0032-consistency-review-decisions.md): eligibility stays per election (the standing voter credential of R5.9 was withdrawn, follow-up F1; issuance at scale is an implementation choice); on succession the old right is burned and a new one granted unless the old address already voted (F4); `castBallot` re-checks registration (R3.7); the factory is named `ElectionFactory` (R4.3).
 
 ## Context
 
@@ -31,7 +31,7 @@ Voting is the first state function that can't be solved by this project's establ
 # 0013. 投票モデル: 閾値復号による準同型の集計、ResidentLinkに基づく参加、汎用の選挙の基本要素(日本語)
 
 **日付:** 2026-10-10
-**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 常設の有権者クレデンシャル(「日本国籍・18歳以上」)が選挙ごとの付与に代わる(R5.9)。`castBallot`で登録を再確認する(R3.7)。ファクトリーは`ElectionFactory`と命名(R4.3)。
+**ステータス:** Accepted。[ADR 0032](0032-consistency-review-decisions.md)で修正: 資格は選挙ごとのまま(R5.9の常設の有権者クレデンシャルは追加の論点F1で取り下げ。大規模な発行は実装の選択)。承継では古い投票権をburnし、古いアドレスが投票済みでなければ新しいアドレスに付与する(F4)。`castBallot`で登録を再確認する(R3.7)。ファクトリーは`ElectionFactory`と命名(R4.3)。
 
 ## 背景
 

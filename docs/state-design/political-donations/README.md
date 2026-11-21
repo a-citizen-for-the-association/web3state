@@ -77,7 +77,7 @@ Every political organization (party, political fund-raising body, legislator's f
 | Spending limited to accounted funds; unaccounted funds go to the treasury only | In the contract |
 | `PublicGrant` only from a `PublicTreasury`, with no cap | In the contract (with the registry) |
 | Total annual cap across recipients | After-the-fact audit of on-chain data |
-| Foreign individuals / foreign-controlled corporations banned | After-the-fact audit (kept even with the standing voter credential; consistency review R5.9, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))) |
+| Foreign individuals / foreign-controlled corporations banned | After-the-fact audit (kept; consistency review R5.9, ([ADR 0032](../../decisions/0032-consistency-review-decisions.md))) |
 | Legitimacy of spending purposes | After-the-fact audit |
 
 ### Why no donor names (Round 4)
@@ -171,7 +171,7 @@ Every donor address is either a `ResidentLink` holder, verified in person by a m
 | 支出は記録済み資金の範囲内、出所不明の資金は国庫へのみ | コントラクト内 |
 | `PublicGrant`は`PublicTreasury`からだけ、上限なし | コントラクト内(レジストリと併用) |
 | 受取先をまたぐ年間合計上限 | オンチェーンデータの事後監査 |
-| 外国人・外資支配法人の献金禁止 | 事後監査(常設の有権者クレデンシャルがあってもそのまま。整合性レビューR5.9、([ADR 0032](../../decisions/0032-consistency-review-decisions.md))) |
+| 外国人・外資支配法人の献金禁止 | 事後監査(そのまま。整合性レビューR5.9、([ADR 0032](../../decisions/0032-consistency-review-decisions.md))) |
 | 支出目的の正当性 | 事後監査 |
 
 ### 献金者の氏名を載せない理由(Round 4)

@@ -1,6 +1,6 @@
 # Voting (投票)
 
-**Status: 🟢 Spec drafted.** The first state function requiring genuinely new cryptographic machinery, not an extension of the credentials/registration patterns used so far. Conceptual and architecture questions resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the full reasoning and [`docs/decisions/0013-voting-model.md`](../../decisions/0013-voting-model.md) for the formal ADR. No contract code written yet.
+**Status: 🟢 Spec drafted** (amended by [ADR 0032](../../decisions/0032-consistency-review-decisions.md)). The first state function requiring genuinely new cryptographic machinery, not an extension of the credentials/registration patterns used so far. Conceptual and architecture questions resolved through discussion with the user; see [`discussion-log.md`](discussion-log.md) for the full reasoning and [`docs/decisions/0013-voting-model.md`](../../decisions/0013-voting-model.md) for the formal ADR. No contract code written yet.
 
 ## Summary
 
@@ -17,7 +17,7 @@ A single generic election mechanism — covering referendums, single-seat plural
 **Out of scope (deliberately excluded, see [discussion log](discussion-log.md) Round 3):**
 - Ranked-choice / single transferable vote (STV) — counting requires examining individual ballots' preference orderings across elimination rounds, which is structurally incompatible with never decrypting an individual ballot. Not used in Japan's actual system.
 - Write-in candidates — conflicts with the premise of a fixed, closed option set declared before voting opens. Not used in Japan's actual system.
-- The general-purpose on-chain nationality credential (remains deferred in [`docs/BACKLOG.md`](../../BACKLOG.md)) — eligibility is resolved for voting specifically by the **standing voter credential** ("Japanese national, 18+"), which attests nothing more (consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
+- The general-purpose on-chain nationality credential (remains deferred in [`docs/BACKLOG.md`](../../BACKLOG.md)) — eligibility is resolved for voting specifically via off-chain election-board verification instead.
 - Selecting the concrete audited cryptographic library/implementation (Helios-derived or MACI-derived threshold-decryption tooling) — a backlog item for the implementation phase, not a design-phase decision.
 
 ## On-chain / Online / Offline breakdown
@@ -25,9 +25,9 @@ A single generic election mechanism — covering referendums, single-seat plural
 (See [`docs/operations/README.md`](../../operations/README.md) for the convention.)
 
 **On-chain:**
-- Deployment of a new `Election` contract instance per election by the `ElectionFactory` contract (consistency review R4.3, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)), parameterized with: the closed option list (candidates/parties/referendum choices), seat count `K`, the seat-allocation method, the trustee set's public key material, and `votingStart`/`votingEnd` timestamps.
-- The **standing voter credential** ("Japanese national, 18+"), issued by municipalities to their residents' addresses in a monthly batch, replaces per-election voting-right grants (consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)).
-- Casting a ballot: submitting a one-hot encrypted vote vector plus a zero-knowledge proof that it's well-formed, from an address that holds a valid voter credential and `ResidentLink`, is not suspended, and has not yet voted in this election, within the voting window.
+- Deployment of a new `Election` contract instance per election, parameterized with: the closed option list (candidates/parties/referendum choices), seat count `K`, the seat-allocation method, the trustee set's public key material, and `votingStart`/`votingEnd` timestamps.
+- Granting a voting right to an address (election-board role only), requiring that address to hold a valid `ResidentLink` NFT (cross-contract check, same pattern as diploma/license/health-insurance/vaccination).
+- Casting a ballot: submitting a one-hot encrypted vote vector plus a zero-knowledge proof that it's well-formed, from an address holding a granted, unused voting right, within the voting window.
 - Publishing the tally: trustees jointly submit the threshold-decrypted per-option totals plus a zero-knowledge proof that the totals match the homomorphic sum of all cast ballots, after `votingEnd`.
 - Computing the result: a public, deterministic function over the published plaintext totals and the election's configured seat-allocation method.
 
@@ -36,7 +36,7 @@ A single generic election mechanism — covering referendums, single-seat plural
 - Publication of the trustee set and their public key material ahead of the election.
 
 **Offline:**
-- Verifying voter eligibility (nationality, age, any legal disqualification) before issuing the voter credential — the issuing municipality's responsibility, entirely off-chain, same pattern as 外務省 verifying nationality before a passport ([ADR 0006](../../decisions/0006-passport-credential.md)).
+- Verifying voter eligibility (nationality, age, any legal disqualification) before granting a voting right — the election board's responsibility, entirely off-chain, same pattern as 外務省 verifying nationality before a passport ([ADR 0006](../../decisions/0006-passport-credential.md)).
 - Determining and publishing the closed list of candidates/parties before voting opens (candidate registration/nomination process).
 - The trustees' individual key-share custody and the threshold-decryption ceremony's operational security.
 - Selecting which cryptographic library/implementation to use, and its independent security audit.
@@ -67,18 +67,18 @@ Seat allocation itself is a deterministic, publicly computable function over the
 
 ### Contract: `Election` (one instance per election)
 
-- Deployed fresh per election by `ElectionFactory` (consistency review R4.3), not a single long-lived contract — each election has its own option list, timing, and trustee set.
+- Deployed fresh per election by `ElectionFactory` (consistency review R4.3, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)), not a single long-lived contract — each election has its own option list, timing, and trustee set.
 - Constructor parameters: option list, seat count `K`, seat-allocation method identifier, trustee public key material, `votingStart`, `votingEnd`.
-- *(Replaced: there is no per-election `grantVotingRight`; the standing voter credential takes its place — consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md).)*
-- `castBallot(encryptedVector, zkProof)` — callable only by an address that **at the time of the call** holds a valid voter credential and a valid `ResidentLink` NFT (declared contracts, same cross-contract pattern as diploma/license/health-insurance/vaccination), is **not suspended**, and has not yet voted in this election (consistency review R3.7, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)) — so an old key, a stolen key or a dead person's address cannot vote; only while `votingStart <= block.timestamp < votingEnd`; verifies the well-formedness proof, adds the vector into the running per-option encrypted sum, and marks that address as having voted (**Issue 4: double-voting prevention** — a simple per-address, per-election "has voted" marker, since each voter always votes from the same `ResidentLink` address rather than a fresh one).
+- `grantVotingRight(address voter)` — election-board role only; requires `voter` to hold a valid `ResidentLink` NFT (declared contract, same cross-contract pattern as diploma/license/health-insurance/vaccination); may be called any time before `votingEnd` (typically during a pre-election registration window); marks the address as eligible to cast exactly one ballot. Eligibility is decided per election from the resident information at that time, as today (the standing voter credential considered in R5.9 was withdrawn in follow-up F1, [ADR 0032](../../decisions/0032-consistency-review-decisions.md)); how grants are issued at scale (e.g. batch issuance or a Merkle root) is an implementation choice. **Succession (follow-up F4):** when a voter's address is succeeded, the board burns the old right and grants one to the new address, unless the old address has already voted in that election (checked on-chain).
+- `castBallot(encryptedVector, zkProof)` — callable only by an address with a granted, not-yet-used voting right that **at the time of the call** still holds a valid `ResidentLink` and is not suspended (consistency review R3.7), only while `votingStart <= block.timestamp < votingEnd`; verifies the well-formedness proof, adds the vector into the running per-option encrypted sum, and marks that address's voting right as used (**Issue 4: double-voting prevention** — a simple per-address, per-election "has voted" marker, since each voter always votes from the same `ResidentLink` address rather than a fresh one).
 - `publishTally(totals[], zkProof)` — callable by the trustee set only, only after `votingEnd`; verifies the proof that `totals` is the correct threshold-decryption of the accumulated encrypted sums; stores the plaintext totals permanently.
 - `computeResult()` — a public, pure function over the published `totals` and the configured seat-allocation method; anyone can call it to derive the winner(s)/seat allocation (**Issue 6: tallying and verifiability** — the proof published alongside `totals` lets anyone confirm the totals weren't altered during decryption, independent of trusting the election board).
 
 ### Eligibility (Issue 3)
 
-*(Revised by consistency review R5.9, [ADR 0032](../../decisions/0032-consistency-review-decisions.md).)* A **standing voter credential** ("Japanese national, 18+") replaces per-election grants. Municipalities issue it to their residents' addresses in a **monthly batch**, after verifying nationality, age and any other eligibility conditions entirely off-chain — the same pattern 外務省 uses to verify nationality before minting a passport ([ADR 0006](../../decisions/0006-passport-credential.md)). `castBallot` checks it on-chain together with a valid `ResidentLink` and no suspension (R3.7). This resolves voter eligibility for voting specifically without requiring the general-purpose on-chain nationality credential that remains deferred in [`docs/BACKLOG.md`](../../BACKLOG.md), and removes the per-voter, per-election grant transactions.
+The election board verifies nationality, age, and any other eligibility conditions entirely off-chain — the same pattern 外務省 uses to verify nationality before minting a passport ([ADR 0006](../../decisions/0006-passport-credential.md)) — then calls `grantVotingRight` for each eligible resident, which additionally requires the resident to hold a valid `ResidentLink` NFT, checked on-chain. This resolves voter eligibility for voting specifically without requiring the general-purpose on-chain nationality credential that remains deferred in [`docs/BACKLOG.md`](../../BACKLOG.md).
 
-The credentials-wide rules apply: **after a recorded address succession, the issuing municipality re-issues the voter credential to the new address** (consistency review R3.3), and it is burned on death (R3.10).
+A national election necessarily involves residents registered across many different municipalities' `ResidentLink` contracts; which specific `ResidentLink` contract to check for a given voter is resolved by the election board during the off-chain verification step, not by the voter declaring it. See [`docs/BACKLOG.md`](../../BACKLOG.md) for the related open item on reducing the operational cost of this at national scale.
 
 ### Voting address and participation privacy (Issue 1, restated)
 
@@ -91,14 +91,14 @@ Voters cast ballots from their own existing `ResidentLink` address, not a fresh 
 ## Open items for later
 
 - Selecting the concrete audited cryptographic library/implementation (Helios-derived or MACI-derived threshold-decryption tooling) and commissioning an independent cryptography/security audit — deferred to the implementation phase. Tracked in [`docs/BACKLOG.md`](../../BACKLOG.md).
-- *(Resolved: the operational cost of per-voter `grantVotingRight` transactions at national-election scale disappears with the standing voter credential — consistency review R5.9.)*
+- Reducing the operational cost of per-voter `grantVotingRight` transactions at national-election scale (e.g. a Merkle-root/allow-list-based alternative) — an implementation choice (batch issuance or a Merkle root), decided at implementation time.
 - Candidate/party registration (nomination) process itself is assumed to happen entirely off-chain, the same way school/employer/hospital legitimacy is assumed verified off-chain elsewhere in this project — not designed here.
 
 ---
 
 # 投票(日本語)
 
-**ステータス: 🟢 設計確定。** これまでの(証明書・登記の)パターンの延長では済まない、本当に新しい暗号学的な仕組みを必要とする初めての国家機能です。ユーザーとの議論を通じて概念・アーキテクチャ上の論点は解決済み。詳細な議論の経緯は [`discussion-log.md`](discussion-log.md)、正式なADRは [`docs/decisions/0013-voting-model.md`](../../decisions/0013-voting-model.md) を参照。コントラクトコードはまだ実装していません。
+**ステータス: 🟢 設計確定**([ADR 0032](../../decisions/0032-consistency-review-decisions.md)で修正)。 これまでの(証明書・登記の)パターンの延長では済まない、本当に新しい暗号学的な仕組みを必要とする初めての国家機能です。ユーザーとの議論を通じて概念・アーキテクチャ上の論点は解決済み。詳細な議論の経緯は [`discussion-log.md`](discussion-log.md)、正式なADRは [`docs/decisions/0013-voting-model.md`](../../decisions/0013-voting-model.md) を参照。コントラクトコードはまだ実装していません。
 
 ## 概要
 
@@ -115,7 +115,7 @@ Voters cast ballots from their own existing `ResidentLink` address, not a fresh 
 **対象外(意図的に除外 — [議論ログ](discussion-log.md) Round 3参照):**
 - 移譲式投票(優先順位投票・STV) — 集計に、反復的な排除ラウンドにわたる個々の投票の優先順位の参照が必要で、「個々の投票を決して復号しない」という前提と構造的に両立しない。日本の実際の制度では採用されていない。
 - 自書式(書き込み)候補者 — 投票開始前に確定した固定の選択肢集合という前提と矛盾する。日本の実際の制度では採用されていない。
-- 汎用的なオンチェーン国籍クレデンシャル(引き続き[`docs/BACKLOG.md`](../../BACKLOG.md)で先送り) — 投票に限っては、**常設の有権者クレデンシャル**(「日本国籍・18歳以上」。それ以上は何も示さない)で資格の問題を解決する(整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
+- 汎用的なオンチェーン国籍クレデンシャル(引き続き[`docs/BACKLOG.md`](../../BACKLOG.md)で先送り) — 投票に限っては、選挙管理委員会によるオフチェーンの確認で資格の問題を解決する。
 - 具体的な監査済み暗号ライブラリ・実装(Helios系またはMACI系の閾値復号ツール)の選定 — 実装フェーズのバックログ項目であり、設計フェーズの決定事項ではない。
 
 ## オンチェーン/オンライン/オフラインの内訳
@@ -123,9 +123,9 @@ Voters cast ballots from their own existing `ResidentLink` address, not a fresh 
 (規約は[`docs/operations/README.md`](../../operations/README.md)参照)
 
 **オンチェーン:**
-- 選挙ごとに`ElectionFactory`コントラクトが新しい`Election`コントラクトのインスタンスをデプロイ(整合性レビューR4.3、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。固定の選択肢リスト(候補者・政党・住民投票の選択肢)、議席数`K`、議席配分の方法、信頼主体集合の公開鍵情報、`votingStart`/`votingEnd`の時刻をパラメータとする。
-- **常設の有権者クレデンシャル**(「日本国籍・18歳以上」)。市区町村が住民のアドレスに毎月まとめて発行し、選挙ごとの投票権の付与に代わる(整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。
-- 投票: ワンホット暗号化された投票ベクトルと、それが正しい形式であることのゼロ知識証明を、有効な有権者クレデンシャルと`ResidentLink`を持ち、停止されておらず、この選挙でまだ投票していないアドレスから、投票期間内に提出する。
+- 選挙ごとに新しい`Election`コントラクトのインスタンスをデプロイ。固定の選択肢リスト(候補者・政党・住民投票の選択肢)、議席数`K`、議席配分の方法、信頼主体集合の公開鍵情報、`votingStart`/`votingEnd`の時刻をパラメータとする。
+- アドレスへの投票権の付与(選挙管理委員会のロールに限定)。そのアドレスが有効な`ResidentLink`NFTを保有していることを要件とする(クロスコントラクトでの確認、卒業証明・免許証・健康保険証・接種証明と同じパターン)。
+- 投票: ワンホット暗号化された投票ベクトルと、それが正しい形式であることのゼロ知識証明を、付与済みで未使用の投票権を持つアドレスから、投票期間内に提出する。
 - 集計の公表: `votingEnd`後、信頼主体が共同で、閾値復号した各選択肢の合計と、その合計が全投票の準同型合計の正しい復号であることのゼロ知識証明を提出する。
 - 結果の計算: 公表された平文の合計と、その選挙に設定された議席配分の方法に対する、公開の決定論的な関数。
 
@@ -134,7 +134,7 @@ Voters cast ballots from their own existing `ResidentLink` address, not a fresh 
 - 信頼主体の集合とその公開鍵情報の、選挙前の公表。
 
 **オフライン:**
-- 有権者クレデンシャルを発行する前の、有権者資格(国籍・年齢・法的な欠格事由の有無)の確認 — 発行する市区町村の責任として完全にオフチェーンで行う。外務省がパスポート発行前に国籍をオフチェーンで確認するのと同じパターン([ADR 0006](../../decisions/0006-passport-credential.md))。
+- 投票権を付与する前の、有権者資格(国籍・年齢・法的な欠格事由の有無)の確認 — 選挙管理委員会の責任として完全にオフチェーンで行う。外務省がパスポート発行前に国籍をオフチェーンで確認するのと同じパターン([ADR 0006](../../decisions/0006-passport-credential.md))。
 - 投票開始前の、候補者・政党の固定リストの確定と公表(立候補・推薦のプロセス)。
 - 信頼主体それぞれの鍵シェアの管理と、閾値復号の儀式の運用上のセキュリティ。
 - どの暗号ライブラリ・実装を使うかの選定と、その独立したセキュリティ監査。
@@ -165,18 +165,18 @@ Voters cast ballots from their own existing `ResidentLink` address, not a fresh 
 
 ### コントラクト: `Election`(選挙ごとに1インスタンス)
 
-- 選挙ごとに`ElectionFactory`が新しくデプロイします(整合性レビューR4.3)。単一の長期稼働コントラクトではありません — 各選挙は独自の選択肢リスト、タイミング、信頼主体の集合を持ちます。
+- 選挙ごとに`ElectionFactory`で新しくデプロイします(整合性レビューR4.3、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。単一の長期稼働コントラクトではありません — 各選挙は独自の選択肢リスト、タイミング、信頼主体の集合を持ちます。
 - コンストラクタのパラメータ: 選択肢リスト、議席数`K`、議席配分方法の識別子、信頼主体の公開鍵情報、`votingStart`、`votingEnd`。
-- *(置き換え: 選挙ごとの`grantVotingRight`はない。常設の有権者クレデンシャルがその代わりになる — 整合性レビューR5.9、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)。)*
-- `castBallot(encryptedVector, zkProof)` — **呼び出しの時点で**有効な有権者クレデンシャルと有効な`ResidentLink`NFTを持ち(申告されたコントラクト、卒業証明・免許証・健康保険証・接種証明と同じクロスコントラクトのパターン)、**停止されておらず**、この選挙でまだ投票していないアドレスのみが呼び出せる(整合性レビューR3.7、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。これにより、古い鍵、盗まれた鍵、亡くなった人のアドレスでは投票できない。`votingStart <= block.timestamp < votingEnd`の間のみ。正しい形式であることの証明を検証し、ベクトルを選択肢ごとの暗号化された累計に加算し、そのアドレスを投票済みとマークする(**論点4: 二重投票の防止** — 各投票者は常に使い捨てではなく同じ`ResidentLink`アドレスから投票するため、アドレスごと・選挙ごとの単純な「投票済み」マーカーで足りる)。
+- `grantVotingRight(address voter)` — 選挙管理委員会のロールに限定。`voter`が有効な`ResidentLink`NFTを保有していることを要件とする(申告されたコントラクト、卒業証明・免許証・健康保険証・接種証明と同じクロスコントラクトのパターン)。`votingEnd`より前であればいつでも呼び出せる(通常は選挙前の登録期間中)。そのアドレスに、ちょうど1票を投じる資格があるとマークする。資格は今と同じく選挙ごとに、その時点の住民情報で決める(R5.9で検討した常設の有権者クレデンシャルは追加の論点F1で取り下げた、[ADR 0032](../../decisions/0032-consistency-review-decisions.md))。大規模な付与の方法(まとめて発行、マークルルートなど)は実装の選択である。**承継(追加の論点F4):** 有権者のアドレスが承継されたら、委員会は古い投票権をburnし新しいアドレスに付与する。ただし古いアドレスがその選挙ですでに投票していれば付与しない(オンチェーンで確認)。
+- `castBallot(encryptedVector, zkProof)` — 付与済みで未使用の投票権を持ち、**呼び出しの時点で**なお有効な`ResidentLink`を持ち停止されていないアドレスのみが(整合性レビューR3.7)、`votingStart <= block.timestamp < votingEnd`の間のみ呼び出せる。正しい形式であることの証明を検証し、ベクトルを選択肢ごとの暗号化された累計に加算し、そのアドレスの投票権を使用済みとマークする(**論点4: 二重投票の防止** — 各投票者は常に使い捨てではなく同じ`ResidentLink`アドレスから投票するため、アドレスごと・選挙ごとの単純な「投票済み」マーカーで足りる)。
 - `publishTally(totals[], zkProof)` — 信頼主体の集合のみが、`votingEnd`後にのみ呼び出せる。`totals`が、累計された暗号化された合計の正しい閾値復号であることの証明を検証し、平文の合計を恒久的に保存する。
 - `computeResult()` — 公表された`totals`と設定された議席配分の方法に対する、公開の純粋関数。誰でも呼び出して当選者・議席配分を導出できる(**論点6: 集計と検証可能性** — `totals`とともに公表される証明により、選挙管理委員会を信頼することなく、復号の過程で合計が改ざんされていないことを誰でも確認できる)。
 
 ### 有権者資格(論点3)
 
-*(整合性レビューR5.9で改訂、[ADR 0032](../../decisions/0032-consistency-review-decisions.md)。)* **常設の有権者クレデンシャル**(「日本国籍・18歳以上」)が選挙ごとの付与に代わります。市区町村は、国籍・年齢・その他の資格要件を完全にオフチェーンで確認したうえで — 外務省がパスポート発行前に国籍を確認するのと同じパターンです([ADR 0006](../../decisions/0006-passport-credential.md)) — 住民のアドレスに**毎月まとめて**発行します。`castBallot`は、有効な`ResidentLink`と停止のないことと合わせて、これをオンチェーンで確認します(R3.7)。これにより、`docs/BACKLOG.md`で引き続き先送りされている汎用的なオンチェーン国籍クレデンシャルを必要とせずに、投票に限って有権者資格の問題を解決し、投票者ごと・選挙ごとの付与のトランザクションもなくなります。
+選挙管理委員会は、国籍・年齢・その他の資格要件を完全にオフチェーンで確認します — 外務省がパスポート発行前に国籍を確認するのと同じパターンです([ADR 0006](../../decisions/0006-passport-credential.md))。その上で、資格のある各住民について`grantVotingRight`を呼び出します。これにはさらに、その住民が有効な`ResidentLink`NFTを保有していることがオンチェーンで要件として確認されます。これにより、`docs/BACKLOG.md`で引き続き先送りされている汎用的なオンチェーン国籍クレデンシャルを必要とせずに、投票に限って有権者資格の問題を解決します。
 
-クレデンシャル共通のルールが適用されます: **アドレスの承継が記録されたら、発行した市区町村が有権者クレデンシャルを新しいアドレスに再発行します**(整合性レビューR3.3)。死亡でburnします(R3.10)。
+国政選挙では、必然的に、多くの異なる市区町村の`ResidentLink`コントラクトに登録された住民が関わります。ある投票者についてどの`ResidentLink`コントラクトを確認するかは、投票者自身の申告ではなく、選挙管理委員会がオフチェーンでの確認作業の中で解決します。全国規模でのこの運用コストを下げる関連の未解決項目については[`docs/BACKLOG.md`](../../BACKLOG.md)を参照してください。
 
 ### 投票アドレスと参加のプライバシー(論点1、再掲)
 
@@ -189,5 +189,5 @@ Voters cast ballots from their own existing `ResidentLink` address, not a fresh 
 ## 今後の課題
 
 - 具体的な監査済み暗号ライブラリ・実装(Helios系またはMACI系の閾値復号ツール)の選定と、独立した暗号・セキュリティ監査の発注 — 実装フェーズに先送り。[`docs/BACKLOG.md`](../../BACKLOG.md)で追跡。
-- *(解決: 国政選挙規模での、投票者ごとの`grantVotingRight`トランザクションの運用コストは、常設の有権者クレデンシャルでなくなる — 整合性レビューR5.9。)*
+- 国政選挙規模での、投票者ごとの`grantVotingRight`トランザクションの運用コストを下げる方法(マークルルート・許可リストベースの代替案等) — 実装の選択(まとめて発行またはマークルルート)であり、実装時に決める。
 - 候補者・政党の登録(立候補)プロセス自体は、このプロジェクトの他の場所(学校・雇用主・病院の正当性)と同様、完全にオフチェーンで行われることを前提とし、ここでは設計しない。

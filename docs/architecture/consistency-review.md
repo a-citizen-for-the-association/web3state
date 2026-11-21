@@ -68,7 +68,7 @@ The principle being applied: address-only information may be public (real estate
 | R5.6 | Medium | VIPs: regular transfers to family and family members as real estate agents mark family addresses. | State as an accepted cost of office, and recommend professional agents. | **Accepted** (2026-11-21): stated as an accepted cost of office; VIPs are recommended (not required) to use professional agents for real estate |
 | R5.7 | Low | Grants to sole proprietors and pay to office-holders named by role can join names to addresses through published grant records or unique budget codes. | Individuals appear only by address in grant records; no budget code unique to one named person. | **Accepted** (2026-11-21): grant records show individuals (sole proprietors) by address only, corporations by name; no budget code corresponds to a single named person |
 | R5.8 | Low | "Only the municipality knows which address is which person" is no longer true (carriers, creditors, counterparties); ADR 0005 contradicts itself on officer addresses. | Restate as "no public link; others learn it only through the person's own act or legal process"; fix ADR 0005's wording. | **Accepted** (2026-11-21): principle restated — no public link between address and person; others learn it only through the person's own act or legal process; ADR 0005 gets a status note (officer addresses appear as signers), its spec is rewritten |
-| R5.9 | — | **Simplification candidates** under the new principle: a standing nationality/voter roll instead of per-election and per-petition lists (would also let the donation contract enforce the foreign-donation ban); the shared social-security budget code (keep, but give stigma as the reason); the VIP's switch to a new address on leaving office (hides nothing). | User decision, item by item. | **Decided item by item** (2026-11-21): (1) a standing voter credential ("Japanese national, 18+", municipal, monthly batch) replaces per-election grants and per-petition lists; the foreign-donation ban stays an after-the-fact audit; (2) the shared social-security budget code is kept, its reason restated as avoiding stigma and discrimination; per-programme totals published off-chain; (3) the VIP's switch to a new address on leaving office becomes optional; the VIP flag stays for a legal period (e.g. one year) after leaving office |
+| R5.9 | — | **Simplification candidates** under the new principle: a standing nationality/voter roll instead of per-election and per-petition lists (would also let the donation contract enforce the foreign-donation ban); the shared social-security budget code (keep, but give stigma as the reason); the VIP's switch to a new address on leaving office (hides nothing). | User decision, item by item. | **Decided item by item** (2026-11-21): (1) a standing voter credential was adopted, then **withdrawn in follow-up F1** (eligibility stays per election and per petition); the foreign-donation ban stays an after-the-fact audit; (2) the shared social-security budget code is kept, its reason restated as avoiding stigma and discrimination; per-programme totals published off-chain; (3) the VIP's switch to a new address on leaving office becomes optional; the VIP flag stays for a legal period (e.g. one year) after leaving office |
 
 ## R6. Documentation (no design decision needed)
 
@@ -89,9 +89,9 @@ Mechanical fixes Claude can make directly:
 
 | ID | Issue | Proposal | Status |
 |---|---|---|---|
-| F1 | Without per-election grants, nothing says which voters may vote in a local election; districts smaller than a municipality cannot be expressed. | The voter credential's token type is the **electoral district**; `Election` and `Petition` list the district types they accept. | Open |
-| F2 | The residence requirement (e.g. three months in the municipality) is no longer checked on-chain. | The municipality issues the district-typed credential only after the residence period (off-chain check), and burns it on moving out. | Open |
-| F3 | With per-petition lists gone, signatures of voters who later move out can no longer be dropped (the old rule F2 of direct demand). | The count is "signatures from addresses still holding a matching credential at the close", checked from public data. | Open |
+| F1 | Without per-election grants, nothing says which voters may vote in a local election; districts smaller than a municipality cannot be expressed. | The voter credential's token type is the **electoral district**; `Election` and `Petition` list the district types they accept. | **Decided** (2026-11-21): keep today's flow — eligibility per election and per petition from resident information at that time, issued as NFTs; the standing voter credential of R5.9(1) is withdrawn; issuance at scale (batch or Merkle root) is an implementation choice |
+| F2 | The residence requirement (e.g. three months in the municipality) is no longer checked on-chain. | The municipality issues the district-typed credential only after the residence period (off-chain check), and burns it on moving out. | **Dissolved** by F1 |
+| F3 | With per-petition lists gone, signatures of voters who later move out can no longer be dropped (the old rule F2 of direct demand). | The count is "signatures from addresses still holding a matching credential at the close", checked from public data. | **Dissolved** by F1 |
 | F4 | After a succession, an old address that already voted plus a re-issued credential could vote twice in one election. | Re-issue of the voter credential to a successor address takes effect only after elections open at that moment have closed. | **Accepted, revised** (2026-11-21): on succession the old voting NFT is burned and a new one issued, but not for an election in which the old address has already voted (checked on-chain) |
 | F5 | Re-issuing a vaccination coupon in `Vaccinated` status is a new power for the municipality; burning `Vaccinated` coupons on death follows the credentials-wide rule. | Confirm both. | **Accepted** (2026-11-21): for succession re-issue only, the municipality may issue a coupon directly in `Vaccinated` status; coupons are burned on death |
 
@@ -99,7 +99,7 @@ Mechanical fixes Claude can make directly:
 
 | ID | Status |
 |---|---|
-| F-gaps | Open |
+| F-gaps | **Delegated to Claude** (2026-11-21); filled as proposed |
 
 ---
 
@@ -173,7 +173,7 @@ R2.3の議論の中で、ユーザーはレビューの方向が間違ってい�
 | R5.6 | Medium | 要人: 家族への定期的な送金や、不動産の代理人としての家族が、家族のアドレスを特定させる。 | 公職の代償として受け入れると明記し、専門家の代理人を勧める。 | **了承**(2026-11-21): 公職の代償として受け入れると明記する。要人には不動産の代理人に専門家を使うよう勧める(義務ではない) |
 | R5.7 | Low | 個人事業主への補助金や、役職で特定される公職者への報酬は、公開の交付の記録や一意の予算コードを通じて氏名とアドレスを結びつけうる。 | 交付の記録では個人はアドレスだけで示す。名前のわかる1人だけに対応する予算コードを作らない。 | **了承**(2026-11-21): 交付の記録では個人(個人事業主)はアドレスだけ、法人は名称で示す。名前のわかる1人だけに対応する予算コードは作らない |
 | R5.8 | Low | 「どのアドレスが誰かを知るのは市区町村だけ」はもう正しくない(配送業者、債権者、取引の相手方)。ADR 0005は役員のアドレスについて自己矛盾している。 | 「公開の結びつきはない。他者が知るのは本人の行為か法的な手続きによってだけ」と言い直す。ADR 0005の表現を直す。 | **了承**(2026-11-21): 原則を言い直す — アドレスと本人の対応は公開しない。他者が知るのは本人の行為か法的な手続きによってだけ。ADR 0005はステータス欄に注記(役員のアドレスは署名者として載る)、仕様は書き直す |
-| R5.9 | — | 新しい原則のもとでの**簡素化の候補**: 選挙や直接請求ごとのリストの代わりに常設の国籍・選挙人の名簿(政治献金のコントラクトが外国人からの献金の禁止を自ら執行できるようにもなる)。社会保障の共通の予算コード(残すが、理由は偏見を避けるためとする)。要人の退任時の新しいアドレスへの切り替え(何も隠していない)。 | ユーザーの判断、項目ごと。 | **項目ごとに決定**(2026-11-21): (1) 常設の有権者クレデンシャル(「日本国籍・18歳以上」、市区町村、毎月まとめて発行)が選挙ごとの付与と請求ごとの名簿に代わる。外国人からの献金の禁止は事後の監査のまま。(2) 社会保障の共通の予算コードは残し、理由を偏見と差別を避けるためと言い直す。制度ごとの合計はオフチェーンで公表。(3) 要人の退任時の新しいアドレスへの切り替えは任意。要人の印は退任後も法定の期間(例: 1年)残す |
+| R5.9 | — | 新しい原則のもとでの**簡素化の候補**: 選挙や直接請求ごとのリストの代わりに常設の国籍・選挙人の名簿(政治献金のコントラクトが外国人からの献金の禁止を自ら執行できるようにもなる)。社会保障の共通の予算コード(残すが、理由は偏見を避けるためとする)。要人の退任時の新しいアドレスへの切り替え(何も隠していない)。 | ユーザーの判断、項目ごと。 | **項目ごとに決定**(2026-11-21): (1) 常設の有権者クレデンシャルをいったん採用したが、**追加の論点F1で取り下げ**(資格は選挙ごと・請求ごとのまま)。外国人からの献金の禁止は事後の監査のまま。(2) 社会保障の共通の予算コードは残し、理由を偏見と差別を避けるためと言い直す。制度ごとの合計はオフチェーンで公表。(3) 要人の退任時の新しいアドレスへの切り替えは任意。要人の印は退任後も法定の期間(例: 1年)残す |
 
 ## R6. ドキュメント(設計の判断は不要)
 
@@ -194,9 +194,9 @@ Claudeが直接直せる機械的な修正:
 
 | ID | 論点 | 提案 | ステータス |
 |---|---|---|---|
-| F1 | 選挙ごとの付与がなくなり、地方選挙で誰が投票できるかを定めるものがない。市区町村より小さい選挙区も表せない。 | 有権者クレデンシャルのトークンの種類を**選挙区**にする。`Election`と`Petition`は受け付ける選挙区の種類を列挙する。 | 未決 |
-| F2 | 居住要件(例: 市区町村に3か月)がオンチェーンで確認されなくなった。 | 市区町村は居住期間を満たしてから選挙区の種類のクレデンシャルを発行し(オフチェーンの確認)、転出でburnする。 | 未決 |
-| F3 | 請求ごとの名簿がなくなり、後で転出した有権者の署名を除けなくなった(直接請求の旧ルールF2)。 | 数えるのは「締切の時点で対応するクレデンシャルをまだ持つアドレスの署名」とし、公開データで確認する。 | 未決 |
+| F1 | 選挙ごとの付与がなくなり、地方選挙で誰が投票できるかを定めるものがない。市区町村より小さい選挙区も表せない。 | 有権者クレデンシャルのトークンの種類を**選挙区**にする。`Election`と`Petition`は受け付ける選挙区の種類を列挙する。 | **決定**(2026-11-21): 今の流れを踏襲する — 資格はその時点の住民情報で選挙ごと・請求ごとに決め、NFTで発行する。R5.9(1)の常設の有権者クレデンシャルは取り下げ。大規模な発行(まとめて発行かマークルルート)は実装の選択 |
+| F2 | 居住要件(例: 市区町村に3か月)がオンチェーンで確認されなくなった。 | 市区町村は居住期間を満たしてから選挙区の種類のクレデンシャルを発行し(オフチェーンの確認)、転出でburnする。 | **F1により解消** |
+| F3 | 請求ごとの名簿がなくなり、後で転出した有権者の署名を除けなくなった(直接請求の旧ルールF2)。 | 数えるのは「締切の時点で対応するクレデンシャルをまだ持つアドレスの署名」とし、公開データで確認する。 | **F1により解消** |
 | F4 | 承継の後、すでに投票した古いアドレスと再発行されたクレデンシャルで、1つの選挙に2回投票できうる。 | 承継先への有権者クレデンシャルの再発行は、その時点で進行中の選挙が終わってから有効にする。 | **修正して了承**(2026-11-21): 承継では古い投票のNFTをburnして新しいものを発行する。ただし古いアドレスがすでに投票した選挙については発行しない(オンチェーンで確認) |
 | F5 | 接種券を`Vaccinated`の状態で再発行するのは市区町村の新しい権限になる。死亡で`Vaccinated`の接種券をburnするのはクレデンシャル共通のルールに従う。 | 両方を確認する。 | **了承**(2026-11-21): 承継の再発行に限り、市区町村が`Vaccinated`の状態で接種券を発行できる。死亡でburnする |
 
@@ -204,4 +204,4 @@ Claudeが直接直せる機械的な修正:
 
 | ID | ステータス |
 |---|---|
-| F-gaps | 未決 |
+| F-gaps | **Claudeに一任**(2026-11-21)。提案どおり埋めた |
