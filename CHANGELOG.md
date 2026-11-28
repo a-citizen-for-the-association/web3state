@@ -120,6 +120,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - Consistency review follow-ups: F1 (standing voter credential withdrawn; eligibility per election and per petition), F2–F3 dissolved, F4–F5 accepted, gaps filled. Review complete. `docs/PROJECT_STATUS.md`: resume point updated (next: provisional implementation).
 - `contracts/`: Foundry initialised (OpenZeppelin Contracts v5.7.0, forge-std v1.17.0, solc 0.8.38). Phase 1 provisional contracts: `OfficialContractRegistry`, `ResidentLink`, `RegisteredJPY`, `SuccessorMigration`, with 18 minimal tests.
 - `contracts/`: phase 2 provisional contracts: `CorporateRegistration`, `CorporateMultisig`, `PublicTreasury`, `AnchorRegistry`, `CaseRecordRegistry`, with 13 minimal tests (31 in total).
+- `contracts/`: phase 3 provisional contracts: `SoulboundCredential`, `VaccinationCoupon`, `AgeCredential`, with 7 minimal tests (38 in total).
 
 ---
 
@@ -245,3 +246,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - 整合性レビューの追加の論点: F1(常設の有権者クレデンシャルを取り下げ、資格は選挙ごと・請求ごと)、F2〜F3は解消、F4〜F5を了承、抜けを埋めた。レビュー完了。`docs/PROJECT_STATUS.md`: 再開ポイントを更新(次は仮実装)。
 - `contracts/`: Foundryを初期化(OpenZeppelin Contracts v5.7.0、forge-std v1.17.0、solc 0.8.38)。段階1の仮実装: `OfficialContractRegistry`、`ResidentLink`、`RegisteredJPY`、`SuccessorMigration`。最低限のテスト18件。
 - `contracts/`: 段階2の仮実装: `CorporateRegistration`、`CorporateMultisig`、`PublicTreasury`、`AnchorRegistry`、`CaseRecordRegistry`。最低限のテスト13件(計31件)。
+- `contracts/`: 段階3の仮実装: `SoulboundCredential`、`VaccinationCoupon`、`AgeCredential`。最低限のテスト7件(計38件)。

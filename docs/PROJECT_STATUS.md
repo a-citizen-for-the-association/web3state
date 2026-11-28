@@ -10,6 +10,7 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 
 - **Phase 1 done** (`contracts/src/core/`): `OfficialContractRegistry`, `ResidentLink`, `RegisteredJPY` (ADR 0031 rule), `SuccessorMigration`; 18 tests pass. Implementation notes: suspension and light-path confirmation are by any registrar of a kind the address holds; the heavy path may be proposed by any non-factory registrar (simplification).
 - **Phase 2 done** (`contracts/src/corporate/`, `contracts/src/public/`): `CorporateRegistration`, `CorporateMultisig` (minimal; registered, unsuspended signers count; registrar replacement after a waiting period, objections to a court), `PublicTreasury` (`pay`, `payMany` with owed/retry, `grant`), `AnchorRegistry` (event-only), `CaseRecordRegistry`; 13 more tests (31 in total).
+- **Phase 3 done** (`contracts/src/credentials/`): `SoulboundCredential` (generic, one per issuer: passport, diploma, license, health insurance, employee ID; optional declared-ResidentLink check; re-issue and burn on death), `VaccinationCoupon` (registered-vaccinator check, re-issue in status), `AgeCredential` (ERC-1155, monthly batch, `isOfAge` with Resident or NationalAbroad); 7 more tests (38 in total).
 
 **When the user says "再開して" (resume):** report the state and continue with the next phase (check `git log` and `contracts/`).
 
@@ -97,6 +98,7 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 
 - **段階1完了**(`contracts/src/core/`): `OfficialContractRegistry`、`ResidentLink`、`RegisteredJPY`(ADR 0031のルール)、`SuccessorMigration`。テスト18件が通る。実装上の注記: 停止と軽い手続きの確認は、そのアドレスが持つ種類の登録者なら誰でも行える。重い手続きはファクトリー以外のどの登録者も提案できる(簡略化)。
 - **段階2完了**(`contracts/src/corporate/`、`contracts/src/public/`): `CorporateRegistration`、`CorporateMultisig`(最小限。登録済みで停止されていない署名者だけ数える。待機期間の後に登録者が入れ替え、異議は裁判所へ)、`PublicTreasury`(`pay`、未払いと再試行のある`payMany`、`grant`)、`AnchorRegistry`(イベントだけ)、`CaseRecordRegistry`。テストを13件追加(計31件)。
+- **段階3完了**(`contracts/src/credentials/`): `SoulboundCredential`(汎用。発行者ごとに1つ: パスポート、卒業証明、免許証、健康保険証、社員証。申告されたResidentLinkの確認は任意。再発行と死亡でのburn)、`VaccinationCoupon`(登録済みの病院の確認、状態を保った再発行)、`AgeCredential`(ERC-1155、毎月まとめて発行、ResidentかNationalAbroadで`isOfAge`)。テストを7件追加(計38件)。
 
 **ユーザーが「再開して」と言ったら:** 状況を報告し、次の段階を続ける(`git log`と`contracts/`を確認)。
 
