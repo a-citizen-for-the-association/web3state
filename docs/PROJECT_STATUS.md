@@ -12,8 +12,11 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 - **Phase 2 done** (`contracts/src/corporate/`, `contracts/src/public/`): `CorporateRegistration`, `CorporateMultisig` (minimal; registered, unsuspended signers count; registrar replacement after a waiting period, objections to a court), `PublicTreasury` (`pay`, `payMany` with owed/retry, `grant`), `AnchorRegistry` (event-only), `CaseRecordRegistry`; 13 more tests (31 in total).
 - **Phase 3 done** (`contracts/src/credentials/`): `SoulboundCredential` (generic, one per issuer: passport, diploma, license, health insurance, employee ID; optional declared-ResidentLink check; re-issue and burn on death), `VaccinationCoupon` (registered-vaccinator check, re-issue in status), `AgeCredential` (ERC-1155, monthly batch, `isOfAge` with Resident or NationalAbroad); 7 more tests (38 in total).
 - **Phase 4 done** (`contracts/src/governance/`): `Election` + `ElectionFactory` (cryptography stubbed; batched grants; ballot-time re-check; F4 move rule; top-K result), `Petition` + `PetitionFactory`, `PoliticalFund` + `PoliticalFundFactory` (identity, caps per JST year, corporations only to parties, `PublicGrant` from treasuries, forfeiture; the registration NFT is simplified to an active flag), `Tender` + `TenderFactory`; 10 more tests (48 in total).
+- **Phase 5 done** (`contracts/src/assets/`): `RealEstateToken` (agents per token, on-chain approvals in place of signatures, atomic settlement, liens, forced transfers, heavy-path migration with share split), `ShareToken` (classes per corporation, eligible holders, restricted transfers, lapsing operator approvals, migration), `ClearingContract` (daily net settlement, isolated delivery failures, retry); 11 more tests (59 in total). **Provisional implementation complete (2026-11-28).**
 
-**When the user says "再開して" (resume):** report the state and continue with the next phase (check `git log` and `contracts/`).
+**Next (roadmap):** choose the proof-of-concept themes (10 or more, each asking whether the design solves a current social problem), keeping the working hypothesis in mind (retail vs. large-value), then decide the PoC method.
+
+**When the user says "再開して" (resume):** report that the provisional implementation is complete and propose how to choose the PoC themes (candidates drawn from the designs and the social problems they target).
 
 ## Current phase
 
@@ -77,7 +80,7 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 3. Only after that review: `contracts/` (Foundry init) and implementation, starting with `ResidentLink`.
 
 **Roadmap after the review (set by the user, 2026-11-14):**
-4. Provisional implementation with minimal tests.
+4. Provisional implementation with minimal tests. **Done (2026-11-28).**
 5. Choose proof-of-concept themes: **10 or more PoCs**, each asking whether the design can solve a current social problem.
 6. Decide how the PoCs are run.
 7. Run the PoCs and compile the results.
@@ -101,8 +104,11 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 - **段階2完了**(`contracts/src/corporate/`、`contracts/src/public/`): `CorporateRegistration`、`CorporateMultisig`(最小限。登録済みで停止されていない署名者だけ数える。待機期間の後に登録者が入れ替え、異議は裁判所へ)、`PublicTreasury`(`pay`、未払いと再試行のある`payMany`、`grant`)、`AnchorRegistry`(イベントだけ)、`CaseRecordRegistry`。テストを13件追加(計31件)。
 - **段階3完了**(`contracts/src/credentials/`): `SoulboundCredential`(汎用。発行者ごとに1つ: パスポート、卒業証明、免許証、健康保険証、社員証。申告されたResidentLinkの確認は任意。再発行と死亡でのburn)、`VaccinationCoupon`(登録済みの病院の確認、状態を保った再発行)、`AgeCredential`(ERC-1155、毎月まとめて発行、ResidentかNationalAbroadで`isOfAge`)。テストを7件追加(計38件)。
 - **段階4完了**(`contracts/src/governance/`): `Election`と`ElectionFactory`(暗号は簡易版。付与はまとめて。投票時の再確認。F4の移し替えのルール。上位K件の結果)、`Petition`と`PetitionFactory`、`PoliticalFund`と`PoliticalFundFactory`(本人確認、日本時間の暦年ごとの上限、法人は政党にだけ、国庫からの`PublicGrant`、没収。登録NFTは有効フラグに簡略化)、`Tender`と`TenderFactory`。テストを10件追加(計48件)。
+- **段階5完了**(`contracts/src/assets/`): `RealEstateToken`(トークンごとの代理人、署名の代わりにオンチェーンの承認、アトミック決済、抵当権、強制的な移転、持分に分ける重い手続きの移転)、`ShareToken`(法人ごとの種類、保有資格、譲渡制限、失効するオペレーターの承認、移転)、`ClearingContract`(毎日の差し引き決済、受け渡しの失敗を切り離す、再試行)。テストを11件追加(計59件)。**仮実装は完了した(2026-11-28)。**
 
-**ユーザーが「再開して」と言ったら:** 状況を報告し、次の段階を続ける(`git log`と`contracts/`を確認)。
+**次(ロードマップ):** 実証実験のテーマを選ぶ(10件以上。それぞれ、設計が今の社会問題を解決できるかを問う)。作業仮説(リテールと高額)を意識する。その後にPoCの方法を決める。
+
+**ユーザーが「再開して」と言ったら:** 仮実装が完了したことを報告し、PoCのテストの選び方を提案する(設計と、それが対象とする社会問題から候補を出す)。
 
 ## 現在のフェーズ
 
@@ -166,7 +172,7 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 3. そのレビューの後に初めて `contracts/`(Foundry init)と実装(`ResidentLink`から)に着手する。
 
 **レビュー後のロードマップ(ユーザーが設定、2026-11-14):**
-4. 仮実装と最低限のテスト。
+4. 仮実装と最低限のテスト。**完了(2026-11-28)。**
 5. 実証実験のテーマの選定: 現在の社会問題を解決できるかを問う**PoCを10件以上**。
 6. 実証実験の方法の決定。
 7. 実証実験の実施と結果の取りまとめ。

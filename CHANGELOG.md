@@ -122,6 +122,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `contracts/`: phase 2 provisional contracts: `CorporateRegistration`, `CorporateMultisig`, `PublicTreasury`, `AnchorRegistry`, `CaseRecordRegistry`, with 13 minimal tests (31 in total).
 - `contracts/`: phase 3 provisional contracts: `SoulboundCredential`, `VaccinationCoupon`, `AgeCredential`, with 7 minimal tests (38 in total).
 - `contracts/`: phase 4 provisional contracts: `Election`/`ElectionFactory` (cryptography stubbed), `Petition`/`PetitionFactory`, `PoliticalFund`/`PoliticalFundFactory`, `Tender`/`TenderFactory`, with 10 minimal tests (48 in total).
+- `contracts/`: phase 5 provisional contracts: `RealEstateToken`, `ShareToken`, `ClearingContract`, with 11 minimal tests (59 in total). Provisional implementation complete.
 
 ---
 
@@ -249,3 +250,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `contracts/`: 段階2の仮実装: `CorporateRegistration`、`CorporateMultisig`、`PublicTreasury`、`AnchorRegistry`、`CaseRecordRegistry`。最低限のテスト13件(計31件)。
 - `contracts/`: 段階3の仮実装: `SoulboundCredential`、`VaccinationCoupon`、`AgeCredential`。最低限のテスト7件(計38件)。
 - `contracts/`: 段階4の仮実装: `Election`/`ElectionFactory`(暗号は簡易版)、`Petition`/`PetitionFactory`、`PoliticalFund`/`PoliticalFundFactory`、`Tender`/`TenderFactory`。最低限のテスト10件(計48件)。
+- `contracts/`: 段階5の仮実装: `RealEstateToken`、`ShareToken`、`ClearingContract`。最低限のテスト11件(計59件)。仮実装が完了。
