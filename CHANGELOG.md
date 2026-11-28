@@ -123,6 +123,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `contracts/`: phase 3 provisional contracts: `SoulboundCredential`, `VaccinationCoupon`, `AgeCredential`, with 7 minimal tests (38 in total).
 - `contracts/`: phase 4 provisional contracts: `Election`/`ElectionFactory` (cryptography stubbed), `Petition`/`PetitionFactory`, `PoliticalFund`/`PoliticalFundFactory`, `Tender`/`TenderFactory`, with 10 minimal tests (48 in total).
 - `contracts/`: phase 5 provisional contracts: `RealEstateToken`, `ShareToken`, `ClearingContract`, with 11 minimal tests (59 in total). Provisional implementation complete.
+- `docs/poc/themes.md`: 18 PoC theme candidates with classes (retail / public / large-value), readiness and indicators; suggested first selection of 12.
 
 ---
 
@@ -251,3 +252,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `contracts/`: 段階3の仮実装: `SoulboundCredential`、`VaccinationCoupon`、`AgeCredential`。最低限のテスト7件(計38件)。
 - `contracts/`: 段階4の仮実装: `Election`/`ElectionFactory`(暗号は簡易版)、`Petition`/`PetitionFactory`、`PoliticalFund`/`PoliticalFundFactory`、`Tender`/`TenderFactory`。最低限のテスト10件(計48件)。
 - `contracts/`: 段階5の仮実装: `RealEstateToken`、`ShareToken`、`ClearingContract`。最低限のテスト11件(計59件)。仮実装が完了。
+- `docs/poc/themes.md`: PoCのテーマの候補18件(区分: リテール/公的/高額、準備度、指標)。最初の選定の提案は12件。

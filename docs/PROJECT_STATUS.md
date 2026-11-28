@@ -16,6 +16,8 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 
 **Next (roadmap):** choose the proof-of-concept themes (10 or more, each asking whether the design solves a current social problem), keeping the working hypothesis in mind (retail vs. large-value), then decide the PoC method.
 
+PoC theme candidates (18, with a suggested first selection of 12): [`poc/themes.md`](poc/themes.md); awaiting the user's selection.
+
 **When the user says "再開して" (resume):** report that the provisional implementation is complete and propose how to choose the PoC themes (candidates drawn from the designs and the social problems they target).
 
 ## Current phase
@@ -107,6 +109,8 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 - **段階5完了**(`contracts/src/assets/`): `RealEstateToken`(トークンごとの代理人、署名の代わりにオンチェーンの承認、アトミック決済、抵当権、強制的な移転、持分に分ける重い手続きの移転)、`ShareToken`(法人ごとの種類、保有資格、譲渡制限、失効するオペレーターの承認、移転)、`ClearingContract`(毎日の差し引き決済、受け渡しの失敗を切り離す、再試行)。テストを11件追加(計59件)。**仮実装は完了した(2026-11-28)。**
 
 **次(ロードマップ):** 実証実験のテーマを選ぶ(10件以上。それぞれ、設計が今の社会問題を解決できるかを問う)。作業仮説(リテールと高額)を意識する。その後にPoCの方法を決める。
+
+PoCのテーマの候補(18件、最初の選定の提案は12件): [`poc/themes.md`](poc/themes.md)。ユーザーの選定待ち。
 
 **ユーザーが「再開して」と言ったら:** 仮実装が完了したことを報告し、PoCのテーマの選び方を提案する(設計と、それが対象とする社会問題から候補を出す)。
 
