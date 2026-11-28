@@ -16,9 +16,9 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 
 **Next (roadmap):** choose the proof-of-concept themes (10 or more, each asking whether the design solves a current social problem), keeping the working hypothesis in mind (retail vs. large-value), then decide the PoC method.
 
-PoC theme candidates (18, with a suggested first selection of 12): [`poc/themes.md`](poc/themes.md); awaiting the user's selection.
+PoC theme candidates (18, with a suggested first selection of 12): [`poc/themes.md`](poc/themes.md). **The user felt the direction was off and will rethink and propose the themes themselves (2026-11-28).** On resume, wait for the user's proposal; do not push the draft list.
 
-**When the user says "再開して" (resume):** report that the provisional implementation is complete and propose how to choose the PoC themes (candidates drawn from the designs and the social problems they target).
+**When the user says "再開して" (resume):** the provisional implementation is complete; ask for the user's own PoC theme proposal (the Claude draft in `poc/themes.md` did not match their direction).
 
 ## Current phase
 
@@ -110,9 +110,9 @@ PoC theme candidates (18, with a suggested first selection of 12): [`poc/themes.
 
 **次(ロードマップ):** 実証実験のテーマを選ぶ(10件以上。それぞれ、設計が今の社会問題を解決できるかを問う)。作業仮説(リテールと高額)を意識する。その後にPoCの方法を決める。
 
-PoCのテーマの候補(18件、最初の選定の提案は12件): [`poc/themes.md`](poc/themes.md)。ユーザーの選定待ち。
+PoCのテーマの候補(18件、最初の選定の提案は12件): [`poc/themes.md`](poc/themes.md)。**ユーザーは方向性が違うと感じ、考え直して自分でテーマを提案する(2026-11-28)。** 再開したらユーザーの提案を待つ。案の一覧を押し付けない。
 
-**ユーザーが「再開して」と言ったら:** 仮実装が完了したことを報告し、PoCのテーマの選び方を提案する(設計と、それが対象とする社会問題から候補を出す)。
+**ユーザーが「再開して」と言ったら:** 仮実装は完了している。ユーザー自身のPoCのテーマの提案を聞く(`poc/themes.md`のClaudeの案は方向性が合わなかった)。
 
 ## 現在のフェーズ
 

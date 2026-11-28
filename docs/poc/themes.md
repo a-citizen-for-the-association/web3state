@@ -1,6 +1,6 @@
 # Proof-of-concept themes (candidates)
 
-**Status: draft for the user's selection (2026-11-28).** Roadmap step 5: choose 10 or more PoCs, each asking whether the design can solve a current social problem ([`PROJECT_STATUS.md`](../PROJECT_STATUS.md)). The PoC method (step 6) is decided after the selection.
+**Status: Claude's draft; the user judged the direction to be off and will propose the themes (2026-11-28).** Roadmap step 5: choose 10 or more PoCs, each asking whether the design can solve a current social problem ([`PROJECT_STATUS.md`](../PROJECT_STATUS.md)). The PoC method (step 6) is decided after the selection.
 
 ## How the candidates were chosen
 
@@ -132,7 +132,7 @@ Twelve themes cover all three classes and can run on the current contracts or wi
 
 # 実証実験のテーマ(候補)(日本語)
 
-**ステータス: ユーザーが選ぶための案(2026-11-28)。** ロードマップの段階5: 現在の社会問題を設計で解決できるかを問うPoCを10件以上選ぶ([`PROJECT_STATUS.md`](../PROJECT_STATUS.md))。PoCの方法(段階6)は選んだ後に決める。
+**ステータス: Claudeの案。ユーザーは方向性が違うと判断し、自分でテーマを提案する(2026-11-28)。** ロードマップの段階5: 現在の社会問題を設計で解決できるかを問うPoCを10件以上選ぶ([`PROJECT_STATUS.md`](../PROJECT_STATUS.md))。PoCの方法(段階6)は選んだ後に決める。
 
 ## 候補の選び方
 
