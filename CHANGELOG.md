@@ -121,6 +121,7 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `contracts/`: Foundry initialised (OpenZeppelin Contracts v5.7.0, forge-std v1.17.0, solc 0.8.38). Phase 1 provisional contracts: `OfficialContractRegistry`, `ResidentLink`, `RegisteredJPY`, `SuccessorMigration`, with 18 minimal tests.
 - `contracts/`: phase 2 provisional contracts: `CorporateRegistration`, `CorporateMultisig`, `PublicTreasury`, `AnchorRegistry`, `CaseRecordRegistry`, with 13 minimal tests (31 in total).
 - `contracts/`: phase 3 provisional contracts: `SoulboundCredential`, `VaccinationCoupon`, `AgeCredential`, with 7 minimal tests (38 in total).
+- `contracts/`: phase 4 provisional contracts: `Election`/`ElectionFactory` (cryptography stubbed), `Petition`/`PetitionFactory`, `PoliticalFund`/`PoliticalFundFactory`, `Tender`/`TenderFactory`, with 10 minimal tests (48 in total).
 
 ---
 
@@ -247,3 +248,4 @@ For *why* a change was made (not just *what* changed), see [`docs/decisions/`](d
 - `contracts/`: Foundryを初期化(OpenZeppelin Contracts v5.7.0、forge-std v1.17.0、solc 0.8.38)。段階1の仮実装: `OfficialContractRegistry`、`ResidentLink`、`RegisteredJPY`、`SuccessorMigration`。最低限のテスト18件。
 - `contracts/`: 段階2の仮実装: `CorporateRegistration`、`CorporateMultisig`、`PublicTreasury`、`AnchorRegistry`、`CaseRecordRegistry`。最低限のテスト13件(計31件)。
 - `contracts/`: 段階3の仮実装: `SoulboundCredential`、`VaccinationCoupon`、`AgeCredential`。最低限のテスト7件(計38件)。
+- `contracts/`: 段階4の仮実装: `Election`/`ElectionFactory`(暗号は簡易版)、`Petition`/`PetitionFactory`、`PoliticalFund`/`PoliticalFundFactory`、`Tender`/`TenderFactory`。最低限のテスト10件(計48件)。
