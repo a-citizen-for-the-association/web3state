@@ -16,9 +16,9 @@ Updated 2026-11-21. The consistency review is complete ([ADR 0032](decisions/003
 
 **Next (roadmap):** choose the proof-of-concept themes (10 or more, each asking whether the design solves a current social problem), keeping the working hypothesis in mind (retail vs. large-value), then decide the PoC method.
 
-PoC theme candidates (18, with a suggested first selection of 12): [`poc/themes.md`](poc/themes.md). **The user felt the direction was off and will rethink and propose the themes themselves (2026-11-28).** On resume, wait for the user's proposal; do not push the draft list.
+PoC theme candidates (18, with a suggested first selection of 12): [`poc/themes.md`](poc/themes.md). **The user felt the direction was off (2026-11-28)** and set a new direction: [`poc/story-direction.md`](poc/story-direction.md).
 
-**When the user says "再開して" (resume):** the provisional implementation is complete; ask for the user's own PoC theme proposal (the Claude draft in `poc/themes.md` did not match their direction).
+**When the user says "再開して" (resume):** the provisional implementation is complete. The user set the PoC direction in [`poc/story-direction.md`](poc/story-direction.md): a step-by-step story (salary in stablecoin → tax computed by the tax office → tax paid; shopping with partial data sharing; public servants, politicians, the poor, the wealthy; other countries; how the state differs). **Resume by building a persuasive story in dialogue with the user** — one step at a time, asking and proposing, not by presenting a finished list.
 
 ## Current phase
 
@@ -110,9 +110,9 @@ PoC theme candidates (18, with a suggested first selection of 12): [`poc/themes.
 
 **次(ロードマップ):** 実証実験のテーマを選ぶ(10件以上。それぞれ、設計が今の社会問題を解決できるかを問う)。作業仮説(リテールと高額)を意識する。その後にPoCの方法を決める。
 
-PoCのテーマの候補(18件、最初の選定の提案は12件): [`poc/themes.md`](poc/themes.md)。**ユーザーは方向性が違うと感じ、考え直して自分でテーマを提案する(2026-11-28)。** 再開したらユーザーの提案を待つ。案の一覧を押し付けない。
+PoCのテーマの候補(18件、最初の選定の提案は12件): [`poc/themes.md`](poc/themes.md)。**ユーザーは方向性が違うと感じ(2026-11-28)**、新しい方向性を定めた: [`poc/story-direction.md`](poc/story-direction.md)。
 
-**ユーザーが「再開して」と言ったら:** 仮実装は完了している。ユーザー自身のPoCのテーマの提案を聞く(`poc/themes.md`のClaudeの案は方向性が合わなかった)。
+**ユーザーが「再開して」と言ったら:** 仮実装は完了している。ユーザーはPoCの方向性を[`poc/story-direction.md`](poc/story-direction.md)に定めた: 段階を追ったストーリー(給与をステーブルコインで受け取る → 税務署が納税額を計算 → 納税。部分的な情報共有での買い物。公務員、政治家、貧困層、富裕層。ほかの国。国家がどう違ってくるか)。**ユーザーと対話しながら、説得力のあるストーリーを作るところから再開する** — 完成した一覧を示すのではなく、1段階ずつ問いかけ、提案する。
 
 ## 現在のフェーズ
 
